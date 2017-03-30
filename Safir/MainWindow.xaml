@@ -1,0 +1,41 @@
+﻿<Window x:Class="Safir.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Safir"
+        mc:Ignorable="d"
+        Title="Safir"
+        Height="{x:Static SystemParameters.PrimaryScreenHeight}"
+        Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+        MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
+        MaxWidth="{x:Static SystemParameters.MaximizedPrimaryScreenWidth}"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        Icon="Resources/brand.ico"
+        >
+    <Window.Resources>
+        
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Menu Height="20" DockPanel.Dock="Top" VerticalAlignment="Top">
+            Menu
+            <MenuItem Header="_File">
+                <MenuItem Header="_Close"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Properties"/>
+            </MenuItem>
+            <Separator/>
+        </Menu>
+        <StackPanel>
+            <DockPanel>
+                <Grid DockPanel.Dock="Left">
+                    
+                </Grid>
+            </DockPanel>
+        </StackPanel>
+        <StatusBar Height="20" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+            Status Bar
+        </StatusBar>
+    </DockPanel>
+</Window>

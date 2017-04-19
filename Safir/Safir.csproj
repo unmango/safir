@@ -70,14 +70,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\GlassButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\GlassIcon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -118,6 +110,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\brand.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ApplicationGroup_16x.png" />
+    <Resource Include="Resources\Application_16x.png" />
+    <Resource Include="Resources\Close_16x.png" />
+    <Resource Include="Resources\Minimize_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Minimize_16x_White.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ApplicationGroup_16x_White.png" />
+    <Resource Include="Resources\Application_16x_White.png" />
+    <Resource Include="Resources\Close_16x_White.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

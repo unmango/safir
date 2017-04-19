@@ -11,6 +11,7 @@
         MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
         MaxWidth="{x:Static SystemParameters.MaximizedPrimaryScreenWidth}"
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        Style="{StaticResource SafirStyle}"
         Icon="Resources/brand.ico"
         >
     <Window.Resources>
@@ -37,5 +38,8 @@
         <StatusBar Height="20" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
             Status Bar
         </StatusBar>
+        <StackPanel>
+            <BasicWindow/>
+        </StackPanel>
     </DockPanel>
 </Window>

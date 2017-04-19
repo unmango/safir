@@ -6,10 +6,10 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <SolidColorBrush x:Key="WindowColor" Color="Red"/>
-        <SolidColorBrush x:Key="WindowBackColor" Color="#2D2D30"/>
+        <SolidColorBrush x:Key="WindowBackColor" Color="#424242"/>
         <SolidColorBrush x:Key="WindowForeColor" Color="WhiteSmoke"/>
         <SolidColorBrush x:Key="WindowForeHighlightColor" Color="#1E1E1E"/>
-        <SolidColorBrush x:Key="WindowButtonColor" Color="#2D2D30"/>
+        <SolidColorBrush x:Key="WindowButtonColor" Color="#424242"/>
         <SolidColorBrush x:Key="WindowButtonOverColor" Color="#3F3F41"/>
         <SolidColorBrush x:Key="WindowButtonPressedColor" Color="#007ACC"/>
 
@@ -91,17 +91,17 @@
                             <Button DockPanel.Dock="Right" Style="{StaticResource WindowButton}"
                                     Command="{StaticResource MinimizeCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
-                                _
+                                <Image Source="Resources/Minimize_16x_White.png" Stretch="None"/>
                             </Button>
                             <Button DockPanel.Dock="Right" Style="{StaticResource WindowButton}"
                                     Command="{StaticResource MaximizeCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
-                                +
+                                <Image Source="Resources/Application_16x_White.png" Stretch="None"/>
                             </Button>
                             <Button DockPanel.Dock="Right" Style="{StaticResource WindowButton}"
                                     Command="{StaticResource CloseCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
-                                X
+                                <Image Source="Resources/Close_16x_White.png" Stretch="None"/>
                             </Button>
                         </StackPanel>
                     </Grid>

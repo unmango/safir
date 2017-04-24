@@ -1,13 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Authors>UnstoppableMango</Authors>
-    <Company />
-    <Product>Safir</Product>
-    <Description>The music manager core of the safir application</Description>
-    <Copyright>2017</Copyright>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
 </Project>

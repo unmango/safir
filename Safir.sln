@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafirControls", "SafirContr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleableWindow", "StyleableWindow\StyleableWindow.csproj", "{53C6471F-4BAD-45E4-B2F6-9328F3E8FF91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager", "Safir.Manager\Safir.Manager.csproj", "{92F217BA-A5F1-4645-B285-DD1D18E3FCED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager", "Safir.Manager\Safir.Manager.csproj", "{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,14 +43,14 @@ Global
 		{53C6471F-4BAD-45E4-B2F6-9328F3E8FF91}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53C6471F-4BAD-45E4-B2F6-9328F3E8FF91}.Release|x86.ActiveCfg = Release|Any CPU
 		{53C6471F-4BAD-45E4-B2F6-9328F3E8FF91}.Release|x86.Build.0 = Release|Any CPU
-		{92F217BA-A5F1-4645-B285-DD1D18E3FCED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92F217BA-A5F1-4645-B285-DD1D18E3FCED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92F217BA-A5F1-4645-B285-DD1D18E3FCED}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{92F217BA-A5F1-4645-B285-DD1D18E3FCED}.Debug|x86.Build.0 = Debug|Any CPU
-		{92F217BA-A5F1-4645-B285-DD1D18E3FCED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92F217BA-A5F1-4645-B285-DD1D18E3FCED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92F217BA-A5F1-4645-B285-DD1D18E3FCED}.Release|x86.ActiveCfg = Release|Any CPU
-		{92F217BA-A5F1-4645-B285-DD1D18E3FCED}.Release|x86.Build.0 = Release|Any CPU
+		{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}.Debug|x86.Build.0 = Debug|Any CPU
+		{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}.Release|x86.ActiveCfg = Release|Any CPU
+		{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,7 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafirControls", "SafirContr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleableWindow", "StyleableWindow\StyleableWindow.csproj", "{53C6471F-4BAD-45E4-B2F6-9328F3E8FF91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager", "Safir.Manager\Safir.Manager.csproj", "{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Core", "Safir.Manager.Core\Safir.Manager.Core.csproj", "{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager", "Safir.Manager\Safir.Manager.csproj", "{013E0B16-5C21-45CA-B9BB-DA038177531D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Tests", "Safir.Manager.Tests\Safir.Manager.Tests.csproj", "{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,22 @@ Global
 		{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}.Release|x86.ActiveCfg = Release|Any CPU
 		{BEFFF8A6-6A01-4EE0-899E-0742884E23DC}.Release|x86.Build.0 = Release|Any CPU
+		{013E0B16-5C21-45CA-B9BB-DA038177531D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{013E0B16-5C21-45CA-B9BB-DA038177531D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{013E0B16-5C21-45CA-B9BB-DA038177531D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{013E0B16-5C21-45CA-B9BB-DA038177531D}.Debug|x86.Build.0 = Debug|Any CPU
+		{013E0B16-5C21-45CA-B9BB-DA038177531D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{013E0B16-5C21-45CA-B9BB-DA038177531D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{013E0B16-5C21-45CA-B9BB-DA038177531D}.Release|x86.ActiveCfg = Release|Any CPU
+		{013E0B16-5C21-45CA-B9BB-DA038177531D}.Release|x86.Build.0 = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|x86.Build.0 = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|x86.ActiveCfg = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

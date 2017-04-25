@@ -9,8 +9,19 @@ namespace Safir.Manager
 {
     public class Song
     {
-        private TagLib.File song;
-        private TagLib.Id3v2.PopularimeterFrame popularimeter;
+        #region Private Fields
+
+        private TagLib.File _song;
+
+        private List<string> _artists;
+
+        private List<string> _albumArtists;
+
+        private List<string> _genres;
+
+        private List<string> _composers;
+
+        #endregion
 
         #region Constructors
 
@@ -25,36 +36,39 @@ namespace Safir.Manager
             if (!FileExtension.Valid(filePath))
                 throw new ArgumentException("Filetype not supported");
 
-            song = TagLib.File.Create(filePath.AbsolutePath);
-
-            popularimeter = FileExtension.PopularimeterFrame<TagLib.Id3v2.PopularimeterFrame>(song);
+            _song = TagLib.File.Create(filePath.AbsolutePath);
         }
 
         #endregion
+
+        #region Public Properties
 
         public string Title
         {
             get
             {
-                return song.Tag.Title;
+                return _song.Tag.Title;
             }
 
             set
             {
-                song.Tag.Title = value;
+                _song.Tag.Title = value;
             }
         }
 
-        public string[] Artists
+        public List<string> Artists
         {
             get
             {
-                return song.Tag.Performers;
+                if (_artists == null)
+                    _artists = new List<string>(_song.Tag.Performers);
+                return _artists;
             }
 
             set
             {
-                song.Tag.Performers = value;
+                _artists = value;
+                _song.Tag.Performers = _artists.ToArray();
             }
         }
 
@@ -62,51 +76,60 @@ namespace Safir.Manager
         {
             get
             {
-                return song.Tag.Album;
+                return _song.Tag.Album;
             }
 
             set
             {
-                song.Tag.Album = value;
+                _song.Tag.Album = value;
             }
         }
 
-        public string[] AlbumArtists
+        public List<string> AlbumArtists
         {
             get
             {
-                return song.Tag.AlbumArtists;
+                if (_albumArtists == null)
+                    _albumArtists = new List<string>(_song.Tag.AlbumArtists);
+                return _albumArtists;
             }
 
             set
             {
-                song.Tag.AlbumArtists = value;
+                _albumArtists = value;
+                _song.Tag.AlbumArtists = _albumArtists.ToArray();
             }
         }
 
-        public string[] Genres
+        public List<string> Genres
         {
             get
             {
-                return song.Tag.Genres;
+                if (_genres == null)
+                    _genres = new List<string>(_song.Tag.Genres);
+                return _genres;
             }
 
             set
             {
-                song.Tag.Genres = value;
+                _genres = value;
+                _song.Tag.Genres = _genres.ToArray();
             }
         }
 
-        public string[] Composers
+        public List<string> Composers
         {
             get
             {
-                return song.Tag.Composers;
+                if (_composers == null)
+                    _composers = new List<string>(_song.Tag.Composers);
+                return _composers;
             }
 
             set
             {
-                song.Tag.Composers = value;
+                _composers = value;
+                _song.Tag.Composers = _composers.ToArray();
             }
         }
 
@@ -114,7 +137,7 @@ namespace Safir.Manager
         {
             get
             {
-                return song.Properties.Duration;
+                return _song.Properties.Duration;
             }
         }
 
@@ -122,12 +145,12 @@ namespace Safir.Manager
         {
             get
             {
-                return song.Tag.Year;
+                return _song.Tag.Year;
             }
 
             set
             {
-                song.Tag.Year = value;
+                _song.Tag.Year = value;
             }
         }
 
@@ -141,7 +164,7 @@ namespace Safir.Manager
 
             set
             {
-                song.Tag.Year = Convert.ToUInt32(value.Year);
+                _song.Tag.Year = Convert.ToUInt32(value.Year);
             }
         }
 
@@ -149,12 +172,12 @@ namespace Safir.Manager
         {
             get
             {
-                return song.Tag.Track;
+                return _song.Tag.Track;
             }
 
             set
             {
-                song.Tag.Track = value;
+                _song.Tag.Track = value;
             }
         }
 
@@ -162,12 +185,12 @@ namespace Safir.Manager
         {
             get
             {
-                return song.Tag.Disc;
+                return _song.Tag.Disc;
             }
 
             set
             {
-                song.Tag.Disc = value;
+                _song.Tag.Disc = value;
             }
         }
 
@@ -175,7 +198,7 @@ namespace Safir.Manager
         {
             get
             {
-                return song.Tag.Performers.Length > 1;
+                return _song.Tag.Performers.Length > 1;
             }
         }
 
@@ -183,51 +206,53 @@ namespace Safir.Manager
         {
             get
             {
-                return song.Tag.Lyrics;
+                return _song.Tag.Lyrics;
             }
 
             set
             {
-                song.Tag.Lyrics = value;
+                _song.Tag.Lyrics = value;
             }
         }
 
-        public int Rating
-        {
-            get
-            {
-                return popularimeter.Rating;
-            }
+        //public int Rating
+        //{
+        //    get
+        //    {
+        //        return popularimeter.Rating;
+        //    }
 
-            set
-            {
-                var bytes = BitConverter.GetBytes(value);
-                if (bytes.Length > 1)
-                    throw new ArgumentException("Value is too large");
-                popularimeter.Rating = bytes[0];
-            }
-        }
+        //    set
+        //    {
+        //        var bytes = BitConverter.GetBytes(value);
+        //        if (bytes.Length > 1)
+        //            throw new ArgumentException("Value is too large");
+        //        popularimeter.Rating = bytes[0];
+        //    }
+        //}
 
-        public ulong PlayCount
-        {
-            get
-            {
-                return popularimeter.PlayCount;
-            }
-        }
+        //public ulong PlayCount
+        //{
+        //    get
+        //    {
+        //        return popularimeter.PlayCount;
+        //    }
+        //}
 
         public string Comments
         {
             get
             {
-                return song.Tag.Comment;
+                return _song.Tag.Comment;
             }
 
             set
             {
-                song.Tag.Comment = value;
+                _song.Tag.Comment = value;
             }
         }
+
+        #endregion
 
     }
 }

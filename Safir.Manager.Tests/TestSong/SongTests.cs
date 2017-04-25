@@ -64,6 +64,13 @@ namespace Safir.Manager.Tests.TestSong
             var testSong = new Song(song.validFilePath);
         }
 
+        [Fact]
+        public void ListProperty_Add()
+        {
+            var testSong = new Song(song.validFilePath);
+            testSong.Artists.Add("testArtist");
+        }
+
         public void Dispose()
         {
             //throw new NotImplementedException();

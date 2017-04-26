@@ -15,11 +15,13 @@ namespace Safir.Manager.Tests.TestSong
     {
         private const string resourceDir = "SongResources";
         private const string fileName = "song.mp3";
+        private const string textName = "text.txt";
         private const int waitm = 200;
 
         private bool cleanup = false;
 
         public Uri validFilePath;
+        public Uri invalidFilePath;
 
         public SongFixture()
         {
@@ -29,26 +31,24 @@ namespace Safir.Manager.Tests.TestSong
                 Directory.CreateDirectory(dir);
 
             validFilePath = new Uri(Path.Combine(dir, fileName));
-
-            if (!File.Exists(validFilePath.AbsolutePath))
-            {
-                File.Create(validFilePath.AbsolutePath);
-                Thread.Sleep(waitm);
-            }
+            invalidFilePath = new Uri(Path.Combine(dir, textName));
         }
 
         public void Dispose()
         {
-            var dir = Path.GetFullPath(resourceDir);
-
             if (cleanup)
+            {
+                var dir = Path.GetFullPath(resourceDir);
+
                 foreach (var file in Directory.EnumerateFiles(dir))
                 {
                     File.Delete(file);
                 }
+            }
         }
     }
 
+    [Trait("Class", "Song")]
     public class SongTests : IClassFixture<SongFixture>, IDisposable
     {
         SongFixture song;
@@ -59,16 +59,48 @@ namespace Safir.Manager.Tests.TestSong
         }
 
         [Fact]
+        [Trait("Song", "Constructor")]
         public void Constructor_ValidInput()
         {
             var testSong = new Song(song.validFilePath);
         }
 
         [Fact]
+        [Trait("Song", "Constructor")]
+        public void Constructor_DirectoryInput()
+        {
+            var dirPath = new Uri(Path.GetFullPath("JustADir"));
+            Exception ex = Assert.Throws<ArgumentException>(() => new Song(dirPath));
+
+            Assert.Equal("Not a file", ex.Message);
+        }
+
+        [Fact]
+        [Trait("Song", "Constructor")]
+        public void Constructor_NullInput()
+        {
+            ArgumentNullException ex = Assert.Throws<ArgumentNullException>(() => new Song(null));
+
+            Assert.Equal("filePath", ex.ParamName);
+        }
+
+        [Fact]
+        [Trait("Song", "Constructor")]
+        public void Constructor_NotSupportedInput()
+        {
+            Exception ex = Assert.Throws<ArgumentException>(() => new Song(song.invalidFilePath));
+
+            Assert.Equal("Filetype not supported", ex.Message);
+        }
+
+        [Fact]
+        [Trait("Song", "Property")]
         public void ListProperty_Add()
         {
             var testSong = new Song(song.validFilePath);
             testSong.Artists.Add("testArtist");
+
+            Assert.Equal(2, testSong.Artists.Count);
         }
 
         public void Dispose()

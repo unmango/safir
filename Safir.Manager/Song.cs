@@ -21,6 +21,8 @@ namespace Safir.Manager
 
         private List<string> _composers;
 
+        private DateTime _releaseDate;
+
         #endregion
 
         #region Constructors
@@ -30,7 +32,7 @@ namespace Safir.Manager
             if (filePath == null)
                 throw new ArgumentNullException("filePath");
 
-            if (!filePath.IsFile)
+            if (!filePath.IsFile || !File.Exists(filePath.AbsolutePath))
                 throw new ArgumentException("Not a file");
 
             if (!FileExtension.Valid(filePath))
@@ -158,6 +160,8 @@ namespace Safir.Manager
         {
             get
             {
+                if (_releaseDate == null)
+                    _releaseDate = new DateTime((int)Year, 0, 0);
                 var dateString = $"{Year}";
                 return DateTime.Parse(dateString);
             }
@@ -254,5 +258,18 @@ namespace Safir.Manager
 
         #endregion
 
+        #region Public Methods
+
+        public void Save()
+        {
+            _song.Tag.Performers = _artists.ToArray();
+            _song.Tag.AlbumArtists = _artists.ToArray();
+            _song.Tag.Genres = _genres.ToArray();
+            _song.Tag.Composers = _composers.ToArray();
+
+            _song.Save();
+        }
+
+        #endregion
     }
 }

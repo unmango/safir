@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Safir.Manager
 {
-    class SongRepository
+    internal class SongRepository : IDisposable
     {
-        private readonly Hierarchy _hierarchy;
+        private readonly SQLiteConnection _songdb;
 
-        public SongRepository(Hierarchy hierarchy)
+        public SongRepository(SQLiteConnection conn)
         {
-            _hierarchy = hierarchy;
+            _songdb = conn;
+            _songdb.Open();
+        }
+
+        public void Dispose()
+        {
+            _songdb.Close();
         }
     }
 }

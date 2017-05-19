@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Web;
 
-namespace Safir.Manager.Core
+namespace Safir.Core
 {
     using Helpers;
     using Popularimeter;

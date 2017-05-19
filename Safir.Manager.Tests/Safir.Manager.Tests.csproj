@@ -70,9 +70,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Safir.Manager.Core\Safir.Manager.Core.csproj">
+    <ProjectReference Include="..\Safir.Manager.Core\Safir.Core.csproj">
       <Project>{9921F211-81A6-472A-9BDA-E4295C606390}</Project>
-      <Name>Safir.Manager.Core</Name>
+      <Name>Safir.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Safir.Manager\Safir.Manager.csproj">
       <Project>{013e0b16-5c21-45ca-b9bb-da038177531d}</Project>

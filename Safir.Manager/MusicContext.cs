@@ -1,15 +1,10 @@
-﻿using Safir.Manager.Core;
+﻿using Safir.Core;
 using SQLite.CodeFirst;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Safir.Manager
 {
-    public class MusicContext : DbContext
+    public class MusicContext : DbContext, IDbContext
     {
         public MusicContext(string connectionString)
             : base(connectionString)
@@ -33,14 +28,14 @@ namespace Safir.Manager
 
             modelBuilder.Entity<Artist>().ToTable("Artist");
             modelBuilder.Entity<Artist>().HasMany(x => x.Albums);
-            modelBuilder.Entity<Artist>().HasMany(x => x.Songs);
+            modelBuilder.Entity<Artist>().HasMany(x => x.Songs); //TODO:
 
             modelBuilder.Entity<Album>().ToTable("Album");
             modelBuilder.Entity<Album>().HasMany(x => x.Songs);
-            modelBuilder.Entity<Album>().HasOptional(x => x.PrimaryArtist);
+            modelBuilder.Entity<Album>().HasOptional(x => x.PrimaryArtist); //TODO:
 
             modelBuilder.Entity<Song>().ToTable("Song");
-            modelBuilder.Entity<Song>().HasOptional(x => x.Album);
+            modelBuilder.Entity<Song>().HasOptional(x => x.Album); //TODO:
         }
     }
 }

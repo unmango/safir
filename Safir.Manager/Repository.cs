@@ -6,15 +6,16 @@ using System.Linq.Expressions;
 
 namespace Safir.Manager
 {
-    public class Repository<TEntity> where TEntity : class
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        internal MusicContext _context;
+        internal IDbContext _context;
         internal DbSet<TEntity> dbSet;
 
-        public Repository(MusicContext context)
+        public Repository(IDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             dbSet = context.Set<TEntity>();
+            unitOfWork.Register(this);
         }
 
         public virtual IEnumerable<TEntity> Get(
@@ -66,6 +67,11 @@ namespace Safir.Manager
         {
             dbSet.Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        public virtual void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

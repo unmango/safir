@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Safir.Manager.Core
+namespace Safir.Core
 {
     public class Album
     {

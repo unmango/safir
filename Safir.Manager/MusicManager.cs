@@ -1,4 +1,5 @@
-﻿using Safir.Manager.Core;
+﻿using Safir.Core;
+using SimpleInjector;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -19,34 +20,36 @@ namespace Safir.Manager
         }
 
         private readonly MusicContext _context;
+        private readonly Container _container;
 
-        public MusicManager(string connectionString)
+        public MusicManager(string connectionString, Container container)
         {
             if (string.IsNullOrEmpty(connectionString))
                 throw new ArgumentNullException(nameof(connectionString));
 
             _context = new MusicContext(connectionString);
+            _container = container ?? throw new ArgumentNullException(nameof(container));
         }
 
         public IEnumerable<Song> GetAllSongs()
         {
-            using (var w = new UnitOfWork(_context))
-                return w.SongRepository.Get();
+            using (var u = _container.GetInstance<IUnitOfWork>())
+                return u.SongRepository.Get();
         }
 
         public IEnumerable<Album> GetAllAlbums()
         {
-            using (var w = new UnitOfWork(_context))
-                return w.AlbumRepository.Get();
+            using (var u = new UnitOfWork(_context))
+                return u.AlbumRepository.Get();
         }
 
         public void AddSongs(IEnumerable<Song> songs)
         {
-            using (var w = new UnitOfWork(_context))
+            using (var u = new UnitOfWork(_context))
             {
                 foreach (var song in songs)
-                    w.SongRepository.Insert(song);
-                w.Save();
+                    u.SongRepository.Insert(song);
+                u.Save();
             }
         }
 

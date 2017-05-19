@@ -1,4 +1,4 @@
-﻿namespace Safir.Manager.Core.Popularimeter
+﻿namespace Safir.Core.Popularimeter
 {
     internal interface IPopularimeter
     {

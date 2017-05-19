@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Safir.Core
+namespace Safir.Manager
 {
-    public enum PlaylistType
+    public interface IUnitOfWork : IDisposable
     {
-        Music,
-        Video
+        void Register(IRepository repo);
+        void Save();
     }
 }

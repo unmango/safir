@@ -1,25 +1,15 @@
-﻿using System;
+﻿using Safir.Core;
+using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Safir.Manager
 {
-    internal class SongRepository : IDisposable
+    public class SongRepository : Repository<Song>
     {
-        private readonly SQLiteConnection _songdb;
-
-        public SongRepository(SQLiteConnection conn)
-        {
-            _songdb = conn;
-            _songdb.Open();
-        }
-
-        public void Dispose()
-        {
-            _songdb.Close();
-        }
+        public SongRepository(IDbContext context, IUnitOfWork unitOfWork)
+            : base(context, unitOfWork) { }
     }
 }

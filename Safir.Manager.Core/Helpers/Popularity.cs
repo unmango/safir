@@ -1,11 +1,11 @@
-﻿using Safir.Manager.Core.Popularimeter;
+﻿using Safir.Core.Popularimeter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Safir.Manager.Core.Helpers
+namespace Safir.Core.Helpers
 {
     internal class Popularity
     {

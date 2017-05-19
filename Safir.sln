@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager", "Safir.Mana
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Tests", "Safir.Manager.Tests\Safir.Manager.Tests.csproj", "{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Core", "Safir.Manager.Core\Safir.Manager.Core.csproj", "{9921F211-81A6-472A-9BDA-E4295C606390}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Core", "Safir.Manager.Core\Safir.Core.csproj", "{9921F211-81A6-472A-9BDA-E4295C606390}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Core.Tests", "Safir.Manager.Core.Tests\Safir.Manager.Core.Tests.csproj", "{6A32735C-7448-4BC3-86FD-98F7748D711B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Core.Tests", "Safir.Manager.Core.Tests\Safir.Core.Tests.csproj", "{6A32735C-7448-4BC3-86FD-98F7748D711B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafirV1", "SafirV1\SafirV1.csproj", "{60865086-86E4-4906-99D0-14FFC96049B6}"
 EndProject

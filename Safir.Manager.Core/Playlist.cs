@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Safir.Manager.Core
+namespace Safir.Core
 {
     public class Playlist
     {

@@ -1,4 +1,4 @@
-﻿using Safir.Manager.Core;
+﻿using Safir.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,36 +7,69 @@ using System.Threading.Tasks;
 
 namespace Safir.Manager
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
-        private readonly MusicContext _context;
-        private Repository<Album> _albumRepository;
-        private Repository<Song> _songRepository;
+        private readonly IDbContext _context;
+        private readonly Dictionary<Type, IRepository> _repositories;
 
-        public UnitOfWork(MusicContext context)
+        public UnitOfWork(IDbContext context)
         {
             _context = context;
         }
 
-        public Repository<Album> AlbumRepository
+        public void Register(IRepository repo)
         {
-            get
-            {
-                if (_albumRepository == null)
-                    _albumRepository = new Repository<Album>(_context);
-                return _albumRepository;
-            }
+            _repositories.Add(repo.GetType(), repo);
         }
 
-        public Repository<Song> SongRepository
-        {
-            get
-            {
-                if (_songRepository == null)
-                    _songRepository = new Repository<Song>(_context);
-                return _songRepository;
-            }
-        }
+        #region NonIOC
+        
+        //private IRepository<Playlist> _playlistRepository;
+        //private IRepository<Artist> _artistRepository;
+        //private IRepository<Album> _albumRepository;
+        //private IRepository<Song> _songRepository;
+
+        //public IRepository<Playlist> PlaylistRepository
+        //{
+        //    get
+        //    {
+        //        if (_playlistRepository == null)
+        //            _playlistRepository = new Repository<Playlist>(_context);
+        //        return _playlistRepository;
+        //    }
+        //}
+
+        //public IRepository<Artist> ArtistRepository
+        //{
+        //    get
+        //    {
+        //        if (_artistRepository == null)
+        //            _artistRepository = new Repository<Artist>(_context);
+        //        return _artistRepository;
+        //    }
+        //}
+
+        //public IRepository<Album> AlbumRepository
+        //{
+        //    get
+        //    {
+        //        if (_albumRepository == null)
+        //            _albumRepository = new Repository<Album>(_context);
+        //        return _albumRepository;
+        //    }
+        //}
+
+        //public IRepository<Song> SongRepository
+        //{
+        //    get
+        //    {
+        //        if (_songRepository == null)
+        //            _songRepository = new Repository<Song>(_context);
+        //        return _songRepository;
+        //    }
+        //}
+
+        #endregion
 
         public void Save()
         {

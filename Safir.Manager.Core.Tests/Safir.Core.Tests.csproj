@@ -61,9 +61,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Safir.Manager.Core\Safir.Manager.Core.csproj">
+    <ProjectReference Include="..\Safir.Manager.Core\Safir.Core.csproj">
       <Project>{9921f211-81a6-472a-9bda-e4295c606390}</Project>
-      <Name>Safir.Manager.Core</Name>
+      <Name>Safir.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

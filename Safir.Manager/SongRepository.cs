@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Safir.Manager
 {
-    public class SongRepository : Repository<Song>
+    public class SongRepository : DbRepository<Song>
     {
         public SongRepository(IDbContext context, IUnitOfWork unitOfWork)
             : base(context, unitOfWork) { }

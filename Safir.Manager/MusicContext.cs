@@ -24,18 +24,48 @@ namespace Safir.Manager
 #endif
             Database.SetInitializer(sqliteConnectionInitializer);
 
-            modelBuilder.Entity<Playlist>().ToTable("Playlist");
+            modelBuilder.Entity<Playlist>()
+                .HasMany(x => x.Songs);
+            modelBuilder.Entity<Playlist>()
+                .HasMany(x => x.Albums);
+            modelBuilder.Entity<Playlist>()
+                .HasMany(x => x.Artists);
+            modelBuilder.Entity<Playlist>()
+                .HasKey(x => x.Name)
+                .ToTable("Playlists");
 
-            modelBuilder.Entity<Artist>().ToTable("Artist");
-            modelBuilder.Entity<Artist>().HasMany(x => x.Albums);
-            modelBuilder.Entity<Artist>().HasMany(x => x.Songs); //TODO:
+            modelBuilder.Entity<Artist>()
+                .HasMany(x => x.Albums)
+                .WithMany(x => x.FeaturedArtists);
+            modelBuilder.Entity<Artist>()
+                .HasMany(x => x.Songs)
+                .WithMany(x => x.Artists);
+            modelBuilder.Entity<Artist>()
+                .HasKey(x => x.ArtistId)
+                .ToTable("Artists");
 
-            modelBuilder.Entity<Album>().ToTable("Album");
-            modelBuilder.Entity<Album>().HasMany(x => x.Songs);
-            modelBuilder.Entity<Album>().HasOptional(x => x.PrimaryArtist); //TODO:
+            modelBuilder.Entity<Album>()
+                .HasMany(x => x.Songs)
+                .WithOptional(x => x.Album);
+            modelBuilder.Entity<Album>()
+                .HasMany(x => x.FeaturedArtists)
+                .WithMany(x => x.Albums);
+            modelBuilder.Entity<Album>()
+                .HasKey(x => x.AlbumId)
+                .ToTable("Albums")
+                .HasOptional(x => x.PrimaryArtist);
 
-            modelBuilder.Entity<Song>().ToTable("Song");
-            modelBuilder.Entity<Song>().HasOptional(x => x.Album); //TODO:
+            modelBuilder.Entity<Song>()
+                .HasOptional(x => x.Album);
+            modelBuilder.Entity<Song>()
+                .HasMany(x => x.Artists)
+                .WithMany(x => x.Songs);
+            modelBuilder.Entity<Song>()
+                .HasMany(x => x.AlbumArtists)
+                .WithMany(x => x.Songs);
+            modelBuilder.Entity<Song>()
+                .HasKey(x => x.SongId)
+                .ToTable("Songs");
         }
     }
 }

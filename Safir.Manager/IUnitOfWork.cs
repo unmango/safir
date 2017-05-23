@@ -9,6 +9,6 @@ namespace Safir.Manager
     public interface IUnitOfWork : IDisposable
     {
         void Register(IRepository repo);
-        void Save();
+        void Commit();
     }
 }

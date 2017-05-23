@@ -1,79 +1,26 @@
-﻿using Safir.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Safir.Manager
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IDbContext _context;
-        private readonly Dictionary<Type, IRepository> _repositories;
-
-        public UnitOfWork(IDbContext context)
-        {
-            _context = context;
-        }
+        private readonly HashSet<IRepository> _repositories;
 
         public void Register(IRepository repo)
         {
-            _repositories.Add(repo.GetType(), repo);
+            _repositories.Add(repo);
         }
 
-        #region NonIOC
-        
-        //private IRepository<Playlist> _playlistRepository;
-        //private IRepository<Artist> _artistRepository;
-        //private IRepository<Album> _albumRepository;
-        //private IRepository<Song> _songRepository;
-
-        //public IRepository<Playlist> PlaylistRepository
-        //{
-        //    get
-        //    {
-        //        if (_playlistRepository == null)
-        //            _playlistRepository = new Repository<Playlist>(_context);
-        //        return _playlistRepository;
-        //    }
-        //}
-
-        //public IRepository<Artist> ArtistRepository
-        //{
-        //    get
-        //    {
-        //        if (_artistRepository == null)
-        //            _artistRepository = new Repository<Artist>(_context);
-        //        return _artistRepository;
-        //    }
-        //}
-
-        //public IRepository<Album> AlbumRepository
-        //{
-        //    get
-        //    {
-        //        if (_albumRepository == null)
-        //            _albumRepository = new Repository<Album>(_context);
-        //        return _albumRepository;
-        //    }
-        //}
-
-        //public IRepository<Song> SongRepository
-        //{
-        //    get
-        //    {
-        //        if (_songRepository == null)
-        //            _songRepository = new Repository<Song>(_context);
-        //        return _songRepository;
-        //    }
-        //}
-
-        #endregion
-
-        public void Save()
+        public void Commit()
         {
-            _context.SaveChanges();
+            //// Since repositores share a data context, we can just call
+            //// save on the context, rather than iterating through repos
+            //// Plus better performance
+            // JK not all repositories will be EF repos
+            //_context.SaveChanges();
+            _repositories.ToList().ForEach(x => x.Save());
         }
 
         private bool disposed = false;
@@ -84,7 +31,7 @@ namespace Safir.Manager
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    
                 }
             }
             disposed = true;

@@ -8,12 +8,18 @@ namespace Safir.Core
 {
     public class Playlist
     {
-        public PlaylistType Type { get; set; }
-        public string Image { get; set; }
-        public string Name { get; set; }
+        public enum PlaylistType
+        {
+            Music,
+            Video
+        }
 
-        public virtual List<Song> Songs { get; set; }
-        public virtual List<Album> Albums { get; set; }
-        public virtual List<Artist> Artists { get; set; }
+        public virtual PlaylistType Type { get; set; }
+        public virtual Uri Image { get; set; }
+        public virtual string Name { get; set; }
+
+        public virtual ICollection<Song> Songs { get; set; }
+        public virtual ICollection<Album> Albums { get; set; }
+        public virtual ICollection<Artist> Artists { get; set; }
     }
 }

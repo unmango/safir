@@ -6,12 +6,12 @@ using System.Linq.Expressions;
 
 namespace Safir.Manager
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class DbRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         internal IDbContext _context;
         internal DbSet<TEntity> dbSet;
 
-        public Repository(IDbContext context, IUnitOfWork unitOfWork)
+        public DbRepository(IDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             dbSet = context.Set<TEntity>();

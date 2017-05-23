@@ -96,13 +96,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileRepository.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="MusicManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MusicContext.cs" />
-    <Compile Include="Repository.cs" />
+    <Compile Include="DbRepository.cs" />
     <Compile Include="SongRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>

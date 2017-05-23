@@ -12,8 +12,6 @@ namespace Safir.ViewModels
 {
     internal class MainViewModel : ViewModelBase
     {
-        private MusicManager _manger;
-
         private ICommand _play = new PlayCommand();
         private ICommand _pause = new PauseCommand();
         private ICommand _rewind = new RewindCommand();
@@ -22,7 +20,7 @@ namespace Safir.ViewModels
 
         public MainViewModel()
         {
-            _manger = new MusicManager("");
+            
         }
         
         public ICommand Play { get { return _play; } }

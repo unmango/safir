@@ -1,4 +1,5 @@
-﻿using Safir.ViewModels;
+﻿using Safir.Manager;
+using Safir.ViewModels;
 using Safir.Views;
 using SimpleInjector;
 using System;
@@ -16,6 +17,9 @@ namespace Safir
         {
             var container = Bootstrap();
 
+            // Any additional other configuration, e.g. of your desired MVVM toolkit.
+
+
             RunApplication(container);
         }
 
@@ -24,6 +28,7 @@ namespace Safir
             var container = new Container();
 
             // Register Types
+            container.Register<IDbContext, MusicContext>();
 
             // Register windows and view models
             container.Register<MainView>();

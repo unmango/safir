@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Safir.Manager
+namespace Safir.Core.Application
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IAppMeta
     {
-        void Register(IRepository repo);
-        void Commit();
+        string AppName { get; }
+        string AppVersion { get; }
     }
 }

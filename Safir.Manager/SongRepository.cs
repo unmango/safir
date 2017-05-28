@@ -1,15 +1,12 @@
-﻿using Safir.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Mehdime.Entity;
 
 namespace Safir.Manager
 {
+    using Core;
+
     public class SongRepository : DbRepository<Song>
     {
-        public SongRepository(IDbContext context, IUnitOfWork unitOfWork)
-            : base(context, unitOfWork) { }
+        public SongRepository(IAmbientDbContextLocator contextLocator)
+            : base(contextLocator) { }
     }
 }

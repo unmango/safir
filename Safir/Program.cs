@@ -1,15 +1,14 @@
-﻿using Safir.Manager;
-using Safir.ViewModels;
-using Safir.Views;
-using SimpleInjector;
+﻿using SimpleInjector;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Safir
 {
+    using Core;
+    using Core.Application;
+    using Manager;
+    using ViewModels;
+    using Views;
+
     static class Program
     {
         [STAThread]
@@ -18,7 +17,7 @@ namespace Safir
             var container = Bootstrap();
 
             // Any additional other configuration, e.g. of your desired MVVM toolkit.
-
+            // I don't know how to do this ↑ yet
 
             RunApplication(container);
         }
@@ -27,8 +26,12 @@ namespace Safir
         {
             var container = new Container();
 
+            // TODO: Register logger
+
             // Register Types
-            container.Register<IDbContext, MusicContext>();
+            container.Register<IAppMeta>(() => new ApplicationMeta("Safir"));
+            CorePackage.RegisterServices(container);
+            ManagerPackage.RegisterServices(container);
 
             // Register windows and view models
             container.Register<MainView>();

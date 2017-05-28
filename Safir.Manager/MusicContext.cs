@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace Safir.Manager
 {
-    public class MusicContext : DbContext, IDbContext
+    public class MusicContext : DbContext
     {
         public MusicContext(string connectionString)
             : base(connectionString)

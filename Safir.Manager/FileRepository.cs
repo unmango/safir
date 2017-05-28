@@ -12,10 +12,9 @@ namespace Safir.Manager
     {
         private IEnumerable<File> _files;
 
-        public FileRepository(IEnumerable<File> files, IUnitOfWork unitOfWork)
+        public FileRepository(IEnumerable<File> files)
         {
             _files = files ?? throw new ArgumentNullException(nameof(files));
-            unitOfWork.Register(this);
         }
 
         public virtual IEnumerable<TEntity> Get(

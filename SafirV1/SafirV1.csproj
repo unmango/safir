@@ -185,7 +185,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Safir.Manager.Core\Safir.Core.csproj">
+    <ProjectReference Include="..\Safir.Core\Safir.Core.csproj">
       <Project>{9921f211-81a6-472a-9bda-e4295c606390}</Project>
       <Name>Safir.Core</Name>
     </ProjectReference>

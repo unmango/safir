@@ -29,7 +29,8 @@ namespace Safir
             // TODO: Register logger
 
             // Register Types
-            container.Register<IAppMeta>(() => new ApplicationMeta("Safir"));
+            container.Register<IAppMeta>(() => new ApplicationMeta("Safir"), Lifestyle.Singleton);
+
             CorePackage.RegisterServices(container);
             ManagerPackage.RegisterServices(container);
 

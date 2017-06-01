@@ -1,16 +1,21 @@
-﻿using SimpleInjector;
+﻿using Caliburn.Micro;
+using SimpleInjector;
 using System;
 
 namespace Safir
 {
     using Core;
     using Core.Application;
+    using Core.Helpers;
     using Manager;
     using ViewModels;
     using Views;
 
+    [Obsolete]
     static class Program
     {
+        private const string APPNAME = "Safir";
+
         [STAThread]
         static void Main()
         {
@@ -26,17 +31,27 @@ namespace Safir
         {
             var container = new Container();
 
-            // TODO: Register logger
+            //container.RegisterSingleton(LogManager.GetLogger(typeof(object)));
+            //container.RegisterConditional(typeof(ILog),
+            //    c => typeof(Log4NetAdapter<>).MakeGenericType(c.Consumer.ImplementationType),
+            //    Lifestyle.Singleton,
+            //    c => true);
 
             // Register Types
-            container.Register<IAppMeta>(() => new ApplicationMeta("Safir"), Lifestyle.Singleton);
+            container.RegisterSingleton<IAppMeta>(() => new ApplicationMeta(APPNAME));
 
             CorePackage.RegisterServices(container);
             ManagerPackage.RegisterServices(container);
 
             // Register windows and view models
+            container.Register<IWindowManager, WindowManager>();
+            container.RegisterSingleton<IEventAggregator, EventAggregator>();
+
             container.Register<MainView>();
             container.Register<MainViewModel>();
+
+            container.Register<MainMenuView>();
+            container.Register<MainMenuViewModel>();
 
             container.Verify();
 
@@ -53,7 +68,7 @@ namespace Safir
             }
             catch (Exception ex)
             {
-                // Log exception and exit
+                //LogHelper.GetLogger().Fatal(ex);
             }
         }
     }

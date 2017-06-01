@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:Safir"
              xmlns:v="clr-namespace:Safir.Views"
              xmlns:vm="clr-namespace:Safir.ViewModels"
-             xmlns:m="clr-namespace:Safir.Manager.Core;assembly=Safir.Manager.Core"
+             xmlns:m="clr-namespace:Safir.Core;assembly=Safir.Core"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="Views/MainWindowView.xaml">
     <Application.Resources>

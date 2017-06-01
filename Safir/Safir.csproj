@@ -51,23 +51,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Safir.Program</StartupObject>
+    <StartupObject>Safir.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    <Reference Include="Caliburn.Micro, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.Core.3.1.0\lib\net45\Caliburn.Micro.dll</HintPath>
     </Reference>
-    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    <Reference Include="Caliburn.Micro.Logging, Version=2.0.3.0, Culture=neutral, PublicKeyToken=b352957eadd947b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.Logging.2.0.3.0\lib\portable-net45+win+wpa81+wp80\Caliburn.Micro.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    <Reference Include="Caliburn.Micro.Logging.log4net, Version=2.0.3.0, Culture=neutral, PublicKeyToken=3d57b43c2c28fc8b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.Logging.log4net.2.0.3.0\lib\net45\Caliburn.Micro.Logging.log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.3.1.0\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform.Core, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.3.1.0\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="PropertyChanged, Version=2.0.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
-      <HintPath>..\packages\PropertyChanged.Fody.2.0.1\lib\netstandard1.3\PropertyChanged.dll</HintPath>
+    <Reference Include="PropertyChanged, Version=2.1.0.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyChanged.Fody.2.1.0\lib\netstandard1.0\PropertyChanged.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SimpleInjector, Version=4.0.7.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
@@ -77,7 +86,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\Caliburn.Micro.3.1.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -102,14 +111,23 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Caliburn\Micro\Logging\DebugLogger.cs" />
+    <Compile Include="Helpers\ILogExtensions.cs" />
+    <Compile Include="Helpers\ValueConverters.cs" />
+    <None Include="Program.cs" />
     <Compile Include="ViewModels\Commands\FastForwardCommand.cs" />
     <Compile Include="ViewModels\Commands\FavoriteCommand.cs" />
     <Compile Include="ViewModels\Commands\NavigateCommand.cs" />
     <Compile Include="ViewModels\Commands\PauseCommand.cs" />
     <Compile Include="ViewModels\Commands\PlayCommand.cs" />
     <Compile Include="ViewModels\Commands\RewindCommand.cs" />
+    <Compile Include="ViewModels\IContentDisplay.cs" />
+    <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\MainMenuView.xaml.cs">
+      <DependentUpon>MainMenuView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -180,6 +198,10 @@
     <Resource Include="Resources\Images\Minimize_16x_White.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\MainMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -209,6 +231,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assemblies\Common.Extensions.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

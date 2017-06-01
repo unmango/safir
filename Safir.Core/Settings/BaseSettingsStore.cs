@@ -8,20 +8,20 @@ namespace Safir.Core.Settings
     {
         protected BaseSettingsStore()
         {
-            this.CurrentSettings = new ConcurrentDictionary<string, string>();
+            CurrentSettings = new ConcurrentDictionary<string, string>();
         }
 
         protected ConcurrentDictionary<string, string> CurrentSettings { get; set; }
 
         protected Dictionary<string, string> GetSettingSnapshot()
         {
-            return new Dictionary<string, string>(this.CurrentSettings);
+            return new Dictionary<string, string>(CurrentSettings);
         }
 
         protected void LoadSettings(IEnumerable<KeyValuePair<string, string>> settings = null)
         {
-            if (settings != null) this.CurrentSettings = new ConcurrentDictionary<string, string>(settings);
-            else this.CurrentSettings.Clear();
+            if (settings != null) CurrentSettings = new ConcurrentDictionary<string, string>(settings);
+            else CurrentSettings.Clear();
         }
 
         public string this[string key]
@@ -30,14 +30,13 @@ namespace Safir.Core.Settings
             {
                 if (key == null) throw new ArgumentNullException(nameof(key));
 
-                string value;
-                return this.CurrentSettings.TryGetValue(key, out value) ? value : null;
+                return CurrentSettings.TryGetValue(key, out string value) ? value : null;
             }
             set
             {
                 if (key == null) throw new ArgumentNullException(nameof(key));
 
-                this.CurrentSettings.AddOrUpdate(key, value, (k, v) => value);
+                CurrentSettings.AddOrUpdate(key, value, (k, v) => value);
             }
         }
 

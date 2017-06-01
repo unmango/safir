@@ -1,41 +1,52 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Text;
-using System.Xml.Serialization;
+using System.Xml;
 
 namespace Safir.Core.Helpers
 {
     public static class XmlHelper
     {
+        private static readonly ILog _log = LogHelper.GetLogger();
+
         public static void SaveXml<T>(
             T obj, string path,
-            Encoding encoding = null) where T : class
-        {
+            Encoding encoding = null) where T : class {
             if (obj == null) throw new ArgumentNullException(nameof(obj));
             if (String.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
 
-            var s = new XmlSerializer(typeof(T));
-            var w = new StreamWriter(
+            var serializer = new DataContractSerializer(typeof(T));
+            var settings = new XmlWriterSettings {
+                Indent = true,
+                CloseOutput = true,
+                Encoding = encoding ?? Encoding.UTF8
+            };
+            var writer = XmlWriter.Create(
                 new FileStream(path, FileMode.Create),
-                encoding ?? Encoding.UTF8);
+                settings);
 
-            s.Serialize(w, obj);
+            serializer.WriteObject(writer, obj);
+            writer.Close();
         }
 
         public static T LoadXml<T>(
             string path,
-            Func<T> defaultValueFunc = null,
-            Encoding encoding = null) where T : class
-        {
+            Func<T> defaultValueFunc = null) where T : class {
             if (String.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             if (!File.Exists(path)) return defaultValueFunc?.Invoke();
 
-            var s = new XmlSerializer(typeof(T));
-            var w = new StreamReader(
+            var serializer = new DataContractSerializer(typeof(T));
+            var settings = new XmlReaderSettings { CloseInput = true };
+            var reader = XmlReader.Create(
                 new FileStream(path, FileMode.Open),
-                encoding ?? Encoding.UTF8);
+                settings);
 
-            return (T)s.Deserialize(w);
+            try { return (T)serializer.ReadObject(reader); } catch (SerializationException e) {
+                _log.Error(e);
+                return default(T);
+            } finally { reader.Close(); }
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Safir.Manager.DatabaseDomain
         {
             get
             {
-                var conString = _settings.Get("ConnectionString");
+                var conString = (string)_settings.Get("ConnectionString");
                 if (String.IsNullOrEmpty(conString))
                 {
                     _settings.Set("ConnectionString", DefaultValue.ConnectionString);

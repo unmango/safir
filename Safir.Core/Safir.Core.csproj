@@ -35,14 +35,17 @@
     <Reference Include="Common.Extensions, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Extensions.1.0.1\lib\net462\Common.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="MimeSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MimeSharp.1.0.0\lib\MimeSharp.dll</HintPath>
     </Reference>
     <Reference Include="policy.2.0.taglib-sharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
       <HintPath>..\packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="PropertyChanged, Version=2.0.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
-      <HintPath>..\packages\PropertyChanged.Fody.2.0.1\lib\netstandard1.3\PropertyChanged.dll</HintPath>
+    <Reference Include="PropertyChanged, Version=2.1.0.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyChanged.Fody.2.1.0\lib\netstandard1.0\PropertyChanged.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SimpleInjector, Version=4.0.7.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
@@ -52,6 +55,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -74,6 +78,7 @@
     <Compile Include="ConfigFile\DefaultValues\DefaultValueElement.cs" />
     <Compile Include="ConfigFile\DefaultValueSection.cs" />
     <Compile Include="Helpers\AppFolderHelper.cs" />
+    <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\Popularity.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Playlist.cs" />

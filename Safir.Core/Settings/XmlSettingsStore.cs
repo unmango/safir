@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Safir.Core.Settings
 {
-    using Core.Application;
+    using Application;
     using Helpers;
 
     public class XmlSettingsStore : BaseSettingsStore

@@ -8,8 +8,7 @@ namespace Safir.Core
     {
         public static void RegisterServices(Container container)
         {
-            container.Register<ISettingStore, XmlSettingsStore>(Lifestyle.Singleton);
-            container.RegisterInitializer<ISettingStore>(x => x.Load());
+            container.RegisterSingleton<ISettingStore, XmlSettingsStore>();
         }
     }
 }

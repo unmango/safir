@@ -48,12 +48,12 @@
     <Reference Include="policy.2.0.taglib-sharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
       <HintPath>..\packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="PropertyChanged, Version=2.1.0.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
-      <HintPath>..\packages\PropertyChanged.Fody.2.1.0\lib\netstandard1.0\PropertyChanged.dll</HintPath>
+    <Reference Include="PropertyChanged, Version=2.1.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyChanged.Fody.2.1.1\lib\netstandard1.0\PropertyChanged.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SimpleInjector, Version=4.0.7.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.4.0.7\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector, Version=4.0.8.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.0.8\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -71,11 +71,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Album.cs" />
     <Compile Include="Application\ApplicationMeta.cs" />
     <Compile Include="Application\IAppMeta.cs" />
-    <Compile Include="BoundAlbum.cs" />
-    <Compile Include="Artist.cs" />
     <Compile Include="CorePackage.cs" />
     <Compile Include="ConfigFile\DefaultValues\DefaultValue.cs" />
     <Compile Include="ConfigFile\DefaultValues\DefaultValueCollection.cs" />
@@ -85,17 +82,16 @@
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\Popularity.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
-    <Compile Include="Playlist.cs" />
     <Compile Include="Popularimeter\IPopularimeter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\IIndexable.cs" />
     <Compile Include="Settings\ReadWriteValueExtensions.cs" />
     <Compile Include="Settings\BaseSettingsStore.cs" />
-    <Compile Include="BoundSong.cs" />
     <Compile Include="Settings\IReadValue.cs" />
     <Compile Include="Settings\ISettingsStore.cs" />
     <Compile Include="Settings\IWriteValue.cs" />
+    <Compile Include="Settings\SettingStoreExtensions.cs" />
     <Compile Include="Settings\XmlSettingsStore.cs" />
-    <Compile Include="Song.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

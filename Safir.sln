@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Blend for Visual Studio 15
 VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleableWindow", "StyleableWindow\StyleableWindow.csproj", "{53C6471F-4BAD-45E4-B2F6-9328F3E8FF91}"
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir", "Safir\Safir.csproj", "{4E179FC9-0AF7-4584-A7AB-3AF426AC68B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Tests", "Safir.Tests\Safir.Tests.csproj", "{92D55503-9C45-479A-9501-65725A23F164}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Data", "Safir.Data\Safir.Data.csproj", "{B244EEEE-E88D-4C96-B321-139168BF9928}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,14 @@ Global
 		{92D55503-9C45-479A-9501-65725A23F164}.Release|Any CPU.Build.0 = Release|Any CPU
 		{92D55503-9C45-479A-9501-65725A23F164}.Release|x86.ActiveCfg = Release|Any CPU
 		{92D55503-9C45-479A-9501-65725A23F164}.Release|x86.Build.0 = Release|Any CPU
+		{B244EEEE-E88D-4C96-B321-139168BF9928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B244EEEE-E88D-4C96-B321-139168BF9928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B244EEEE-E88D-4C96-B321-139168BF9928}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B244EEEE-E88D-4C96-B321-139168BF9928}.Debug|x86.Build.0 = Debug|Any CPU
+		{B244EEEE-E88D-4C96-B321-139168BF9928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B244EEEE-E88D-4C96-B321-139168BF9928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B244EEEE-E88D-4C96-B321-139168BF9928}.Release|x86.ActiveCfg = Release|Any CPU
+		{B244EEEE-E88D-4C96-B321-139168BF9928}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

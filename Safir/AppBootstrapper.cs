@@ -1,6 +1,4 @@
 ﻿using Caliburn.Micro;
-using Caliburn.Micro.Logging.log4net;
-using Safir.ViewModels;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
@@ -13,7 +11,10 @@ namespace Safir
     using Core;
     using Core.Application;
     using Core.Settings;
+    using Logging;
     using Manager;
+    using Safir.Data;
+    using ViewModels;
 
     internal class AppBootstrapper : BootstrapperBase
     {
@@ -21,7 +22,7 @@ namespace Safir
         private static readonly Container _container = new Container();
 
         public AppBootstrapper() {
-            LogManager.GetLog = type => new log4netLogger(type);
+            LogManager.GetLog = type => new Log4NetLogger(type);
             Initialize();
         }
 
@@ -30,6 +31,7 @@ namespace Safir
             _container.RegisterSingleton<IAppMeta>(() => new ApplicationMeta(APPNAME));
 
             CorePackage.RegisterServices(_container);
+            DataPackage.RegisterServices(_container);
             ManagerPackage.RegisterServices(_container);
 
             // Register windows and view models
@@ -37,6 +39,8 @@ namespace Safir
             _container.RegisterSingleton<IEventAggregator, EventAggregator>();
 
             _container.Register<MainMenuViewModel>();
+            _container.Register<LibraryMenuViewModel>();
+            _container.Register<PlaylistMenuViewModel>();
 
             _container.Verify();
         }

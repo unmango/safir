@@ -10,7 +10,7 @@ namespace Safir.ViewModels
     using Core.Settings;
     using Commands;
 
-    public class MainViewModel : PropertyChangedBase
+    public class MainViewModel : Conductor<object>
     {
         //private readonly ILog _log;
 
@@ -26,60 +26,36 @@ namespace Safir.ViewModels
             //ILog logger,
             IAppMeta appMeta,
             ISettingStore settings,
-            MainMenuViewModel mainMenuViewModel) {
+            MainMenuViewModel mainMenu,
+            LibraryMenuViewModel libraryMenu,
+            PlaylistMenuViewModel playlistMenu) {
             //_log = logger;
             AppName = appMeta.AppName;
             Version = appMeta.AppName + " v" + appMeta.AppVersion;
             _settings = settings;
-            _settings.Load();
-            MainMenuViewModel = mainMenuViewModel;
+            MainMenu = mainMenu;
+            LibraryMenu = libraryMenu;
+            PlaylistMenu = playlistMenu;
         }
 
         #region Window Settings
 
-        public double WindowHeight {
-            get {
-                var height = _settings.Get(nameof(WindowHeight));
-                if (string.IsNullOrEmpty(height) || height.Equals("NaN")) {
-                    var newHeight = SystemParameters.MaximizedPrimaryScreenHeight.ToString();
-                    _settings.Set(nameof(WindowHeight), newHeight);
-                    height = newHeight;
-                }
-                return double.Parse(height);
-            }
-            set {
-                _settings.Set(nameof(WindowHeight), value.ToString());
-            }
+        protected override void OnInitialize() {
+            var view = GetView() as Window;
+            view.Height = _settings.Get<double>("WindowHeight");
+            view.Width = _settings.Get<double>("WindowWidth");
+            view.Left = _settings.Get<double>("WindowLeft");
+            view.Top = _settings.Get<double>("WindowTop");
+            view.WindowState = _settings.Get<WindowState>("WindowState");
         }
 
-        public double WindowWidth {
-            get {
-                var width = _settings.Get(nameof(WindowWidth));
-                if (string.IsNullOrEmpty(width) || width.Equals("NaN")) {
-                    var newWidth = SystemParameters.MaximizedPrimaryScreenWidth.ToString();
-                    _settings.Set(nameof(WindowWidth), newWidth);
-                    width = newWidth;
-                }
-                return double.Parse(width);
-            }
-            set {
-                _settings.Set(nameof(WindowWidth), value.ToString());
-            }
-        }
-
-        public string WindowState {
-            get {
-                var location = _settings.Get(nameof(WindowState));
-                if (string.IsNullOrEmpty(location)) {
-                    var newLocation = DefaultValue.Get(nameof(WindowState));
-                    _settings.Set(nameof(WindowState), newLocation);
-                    location = newLocation;
-                }
-                return location;
-            }
-            set {
-                _settings.Set(nameof(WindowState), value);
-            }
+        protected override void OnDeactivate(bool close) {
+            var view = GetView() as Window;
+            _settings.Set("WindowHeight", view.Height);
+            _settings.Set("WindowWidth", view.Width);
+            _settings.Set("WindowLeft", view.Left);
+            _settings.Set("WindowTop", view.Top);
+            _settings.Set("WindowState", view.WindowState);
         }
 
         #endregion
@@ -87,23 +63,16 @@ namespace Safir.ViewModels
         public string AppName { get; private set; }
         public string Version { get; private set; }
 
-        public MainMenuViewModel MainMenuViewModel { get; set; }
+        public MainMenuViewModel MainMenu { get; set; }
+        public LibraryMenuViewModel LibraryMenu { get; set; }
+        public PlaylistMenuViewModel PlaylistMenu { get; set; }
 
         public IContentDisplay Content { get; private set; }
-
-
-
+        
         public ICommand Play { get { return _play; } }
         public ICommand Pause { get { return _pause; } }
         public ICommand Rewind { get { return _rewind; } }
         public ICommand FastForward { get { return _fastForward; } }
         public ICommand Favorite { get { return _favorite; } }
-
-        public ICommand WindowClosing {
-            get {
-                _settings.Save();
-                return null;
-            }
-        }
     }
 }

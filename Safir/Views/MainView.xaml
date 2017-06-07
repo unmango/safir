@@ -12,11 +12,10 @@
         d:DataContext="{d:DesignInstance vm:MainViewModel}"
         d:DesignHeight="1080" d:DesignWidth="1920"
         Title="{Binding AppName}"
-        Height="{Binding WindowHeight, Mode=OneWayToSource}"
-        Width="{Binding WindowWidth, Mode=OneWayToSource}"
         MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
         MaxWidth="{x:Static SystemParameters.MaximizedPrimaryScreenWidth}"
-        WindowStartupLocation="CenterScreen" WindowState="{Binding WindowState}"
+        Style="{StaticResource SafirWindowStyle}"
+        WindowStyle="None"
         Icon="../Resources/Icons/brand.ico">
 
     <Window.Resources>
@@ -43,7 +42,7 @@
     </Window.TaskbarItemInfo>
 
     <DockPanel LastChildFill="True">
-        <ContentControl x:Name="MainMenuViewModel" Height="20" DockPanel.Dock="Top" VerticalAlignment="Top"/>
+        <ContentControl x:Name="MainMenu" Height="20" DockPanel.Dock="Top" VerticalAlignment="Top"/>
         <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -68,15 +67,15 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
                 <StackPanel>
-
+                    <ContentControl x:Name="LibraryMenu"/>
                 </StackPanel>
                 <StackPanel>
-
+                    <ContentControl x:Name="PlaylistMenu"/>
                 </StackPanel>
             </StackPanel>
             <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
             <StackPanel Grid.Column="2">
-
+                <ContentControl x:Name="Content"/>
             </StackPanel>
         </Grid>
     </DockPanel>

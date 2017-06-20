@@ -14,10 +14,21 @@ namespace Safir.ViewModels
     public class MainMenuViewModel : PropertyChangedBase
     {
         private readonly ISettingStore _settings;
+        private readonly IWindowManager _windowManager;
 
-        public MainMenuViewModel(ISettingStore settings)
+        private readonly PreferencesViewModel _preferences;
+
+        public MainMenuViewModel(
+            ISettingStore settings,
+            IWindowManager manager,
+            PreferencesViewModel preferences)
         {
             _settings = settings;
+            _windowManager = manager;
+            _preferences = preferences;
         }
+
+        public void OpenPreferences() =>
+            _windowManager.ShowDialog(_preferences);
     }
 }

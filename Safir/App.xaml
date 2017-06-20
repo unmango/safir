@@ -11,6 +11,8 @@
                 <ResourceDictionary Source="/Safir;component/Resources/ValueConverters.xaml"/>
 
                 <ResourceDictionary Source="/Safir;component/Resources/Styles/Colors.xaml"/>
+                <ResourceDictionary Source="/Safir;component/Resources/Styles/StatusBarStyle.xaml"/>
+                <ResourceDictionary Source="/Safir;component/Resources/Styles/MenuStyle.xaml"/>
                 <ResourceDictionary Source="/Safir;component/Resources/Styles/WindowButtonStyle.xaml"/>
                 <ResourceDictionary Source="/Safir;component/Resources/Styles/WindowStyle.xaml"/>
 

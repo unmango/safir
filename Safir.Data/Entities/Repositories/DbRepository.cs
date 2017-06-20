@@ -11,16 +11,13 @@ namespace Safir.Data.Entities.Repositories
     {
         private IAmbientDbContextLocator _contextLocator;
 
-        public DbRepository(IAmbientDbContextLocator contextLocator)
-        {
+        public DbRepository(IAmbientDbContextLocator contextLocator) {
             _contextLocator = contextLocator
                 ?? throw new ArgumentNullException(nameof(contextLocator));
         }
 
-        internal MusicContext Context
-        {
-            get
-            {
+        internal MusicContext Context {
+            get {
                 return _contextLocator.Get<MusicContext>()
                     ?? throw new InvalidOperationException("No ambient DbContext of type MusicContext found");
             }
@@ -31,16 +28,14 @@ namespace Safir.Data.Entities.Repositories
         public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
-        {
+            string includeProperties = "") {
             IQueryable<TEntity> query = DbSet;
 
             if (filter != null)
                 query = query.Where(filter);
 
             foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)) {
                 query = query.Include(includeProperty);
             }
 
@@ -50,37 +45,31 @@ namespace Safir.Data.Entities.Repositories
                 return query.ToList();
         }
 
-        public virtual TEntity GetByID(object id)
-        {
+        public virtual TEntity GetByID(object id) {
             return DbSet.Find(id);
         }
 
-        public virtual void Insert(TEntity entity)
-        {
+        public virtual void Insert(TEntity entity) {
             DbSet.Add(entity);
         }
 
-        public virtual void Delete(object id)
-        {
+        public virtual void Delete(object id) {
             TEntity entityToDelete = DbSet.Find(id);
             Delete(entityToDelete);
         }
 
-        public virtual void Delete(TEntity entityToDelete)
-        {
+        public virtual void Delete(TEntity entityToDelete) {
             if (Context.Entry(entityToDelete).State == EntityState.Detached)
                 DbSet.Attach(entityToDelete);
             DbSet.Remove(entityToDelete);
         }
 
-        public virtual void Update(TEntity entityToUpdate)
-        {
+        public virtual void Update(TEntity entityToUpdate) {
             DbSet.Attach(entityToUpdate);
             Context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
-        public virtual void Save()
-        {
+        public virtual void Save() {
             Context.SaveChanges();
         }
     }

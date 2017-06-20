@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Safir.Views
 {
     /// <summary>
-    /// Interaction logic for PreferencesView.xaml
+    /// Interaction logic for PlaybackView.xaml
     /// </summary>
-    public partial class PreferencesView : DefaultWindow
+    public partial class PlaybackView : UserControl
     {
-        public PreferencesView() {
+        public PlaybackView() {
             InitializeComponent();
         }
     }

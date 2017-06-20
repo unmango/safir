@@ -37,11 +37,7 @@ namespace Safir
             // Register windows and view models
             _container.Register<IWindowManager, WindowManager>();
             _container.RegisterSingleton<IEventAggregator, EventAggregator>();
-
-            _container.Register<MainMenuViewModel>();
-            _container.Register<LibraryMenuViewModel>();
-            _container.Register<PlaylistMenuViewModel>();
-
+            
             _container.Verify();
         }
 

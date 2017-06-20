@@ -7,6 +7,10 @@ namespace Safir.Tests
 {
     public class Main
     {
+        public void Test() {
+            
+        }
+
         [Fact(Skip = "Utility and not really a test case")]
         public void ReplaceKeyWithKeyName() {
             var file = File.ReadAllLines(@"C:\Users\Erik\Source\Repos\Safir\Safir\Resources\Icons\Icons.xaml");
@@ -38,6 +42,18 @@ namespace Safir.Tests
             Concat(root, outDir, ref count);
         }
 
+        [Fact(Skip = "")]
+        public void ConcatVisualStudioXamlFiles(string newRootDir = "") {
+            var vsRootDir = @"C:\Users\Erik\Pictures\Resources\VS2015 Image Library\2015_VSIcon";
+            var vsNewRootDir = string.IsNullOrEmpty(newRootDir) : @"C:\Users\Erik\Pictures\Resources\VS2015 Image Library\2015_VSIcon", newRootDir;
+            var subFiles = Directory.GetFiles(vsRootDir);
+            var subDirs = Directory.GetDirectories(vsRootDir);
+            if (subDirs.Length > 1)
+                ConcatVisualStudioXamlFiles();
+
+        }
+
+        [Fact(Skip = "")]
         private void Concat(string rootDir, string outDir, ref int count) {
             var rootDirs = Directory.GetDirectories(rootDir);
             var rootFiles = Directory.GetFiles(rootDir);

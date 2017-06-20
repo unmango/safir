@@ -26,6 +26,7 @@ namespace Safir.ViewModels
             //ILog logger,
             IAppMeta appMeta,
             ISettingStore settings,
+            PlaybackViewModel playback,
             MainMenuViewModel mainMenu,
             LibraryMenuViewModel libraryMenu,
             PlaylistMenuViewModel playlistMenu) {
@@ -33,6 +34,7 @@ namespace Safir.ViewModels
             AppName = appMeta.AppName;
             Version = appMeta.AppName + " v" + appMeta.AppVersion;
             _settings = settings;
+            Playback = playback;
             MainMenu = mainMenu;
             LibraryMenu = libraryMenu;
             PlaylistMenu = playlistMenu;
@@ -62,6 +64,8 @@ namespace Safir.ViewModels
 
         public string AppName { get; private set; }
         public string Version { get; private set; }
+
+        public PlaybackViewModel Playback { get; set; }
 
         public MainMenuViewModel MainMenu { get; set; }
         public LibraryMenuViewModel LibraryMenu { get; set; }

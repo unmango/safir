@@ -17,6 +17,11 @@ namespace Safir.ViewModels
             _settings = settings;
         }
 
-
+        public void Ok() {
+            _settings.Save();
+            TryClose();
+        }
+        public void Cancel() => TryClose();
+        public void Apply() => _settings.Save();
     }
 }

@@ -1,8 +1,4 @@
-﻿using Safir.Manager.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
+﻿using Xunit;
 
 namespace Safir.Manager.Tests
 {
@@ -11,8 +7,7 @@ namespace Safir.Manager.Tests
         [Fact]
         public void TestMethod1()
         {
-            var man = new MusicManager("");
-            man.RemoveSongs(new List<Song>().ToArray());
+            
         }
     }
 }

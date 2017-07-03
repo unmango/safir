@@ -11,9 +11,9 @@ namespace Safir
     using Core;
     using Core.Application;
     using Core.Settings;
-    using Logging;
+    using Data;
     using Manager;
-    using Safir.Data;
+    using Logging;
     using ViewModels;
 
     internal class AppBootstrapper : BootstrapperBase
@@ -37,7 +37,7 @@ namespace Safir
             // Register windows and view models
             _container.Register<IWindowManager, WindowManager>();
             _container.RegisterSingleton<IEventAggregator, EventAggregator>();
-            
+
             _container.Verify();
         }
 

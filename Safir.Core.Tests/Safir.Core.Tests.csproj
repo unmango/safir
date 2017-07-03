@@ -41,8 +41,8 @@
     <Reference Include="Castle.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.1.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Moq, Version=4.7.49.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.7.49\lib\net45\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.7.63.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.7.63\lib\net45\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -70,6 +70,10 @@
     <ProjectReference Include="..\Safir.Core\Safir.Core.csproj">
       <Project>{9921f211-81a6-472a-9bda-e4295c606390}</Project>
       <Name>Safir.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Safir.Data\Safir.Data.csproj">
+      <Project>{B244EEEE-E88D-4C96-B321-139168BF9928}</Project>
+      <Name>Safir.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

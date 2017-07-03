@@ -1,0 +1,23 @@
+﻿<Application x:Class="Safir.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Safir">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <local:AppBootstrapper x:Key="bootstrapper"/>
+                </ResourceDictionary>
+                <ResourceDictionary Source="/Safir;component/Resources/ValueConverters.xaml"/>
+
+                <ResourceDictionary Source="/Safir;component/Resources/Styles/Colors.xaml"/>
+                <ResourceDictionary Source="/Safir;component/Resources/Styles/StatusBarStyle.xaml"/>
+                <ResourceDictionary Source="/Safir;component/Resources/Styles/MenuStyle.xaml"/>
+                <ResourceDictionary Source="/Safir;component/Resources/Styles/WindowButtonStyle.xaml"/>
+                <ResourceDictionary Source="/Safir;component/Resources/Styles/WindowStyle.xaml"/>
+
+                <ResourceDictionary Source="/Safir;component/Resources/Icons/ModernUiIcons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

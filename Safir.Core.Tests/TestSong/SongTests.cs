@@ -1,4 +1,5 @@
-﻿using Safir.Manager.Core;
+﻿using Safir.Core;
+using Safir.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Sdk;
 
-namespace Safir.Manager.Core.Tests.TestSong
+namespace Safir.Core.Tests.TestSong
 {
     public class SongFixture : IDisposable
     {
@@ -67,7 +68,7 @@ namespace Safir.Manager.Core.Tests.TestSong
         [Trait("Song", "Constructor")]
         public void Bind_ValidInput()
         {
-            var testSong = new Song();
+            var testSong = new BoundSong();
             testSong.Bind(song.validFilePath);
         }
 
@@ -76,7 +77,7 @@ namespace Safir.Manager.Core.Tests.TestSong
         public void Bind_DirectoryInput()
         {
             var dirPath = new Uri(Path.GetFullPath("JustADir"));
-            var testSong = new Song();
+            var testSong = new BoundSong();
             Exception ex = Assert.Throws<ArgumentException>(() => testSong.Bind(dirPath));
 
             Assert.Equal("Not a file", ex.Message);
@@ -86,7 +87,7 @@ namespace Safir.Manager.Core.Tests.TestSong
         [Trait("Song", "Constructor")]
         public void Bind_NullInput()
         {
-            var testSong = new Song();
+            var testSong = new BoundSong();
             ArgumentNullException ex = Assert.Throws<ArgumentNullException>(() => testSong.Bind(null));
 
             Assert.Equal("filePath", ex.ParamName);
@@ -96,7 +97,7 @@ namespace Safir.Manager.Core.Tests.TestSong
         [Trait("Song", "Constructor")]
         public void Bind_NotSupportedInput()
         {
-            var testSong = new Song();
+            var testSong = new BoundSong();
             Exception ex = Assert.Throws<ArgumentException>(() => testSong.Bind(song.invalidFilePath));
 
             Assert.Equal("Filetype not supported", ex.Message);
@@ -110,7 +111,7 @@ namespace Safir.Manager.Core.Tests.TestSong
             {
                 FilePath = song.validFilePath
             };
-            testSong.Artists.Add("testArtist");
+            //testSong.Artists.Add("testArtist");
 
             Assert.Equal(2, testSong.Artists.Count);
         }
@@ -119,7 +120,7 @@ namespace Safir.Manager.Core.Tests.TestSong
         [Trait("Song", "EntryPoint")]
         public void SongEntryPoint()
         {
-            var testSong = new Song(song.flacFilePath);
+            //var testSong = new BoundSong(song.flacFilePath);
         }
 
         public void Dispose()

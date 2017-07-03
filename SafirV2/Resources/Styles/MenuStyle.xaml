@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style x:Key="MenuStyle" TargetType="{x:Type Menu}">
+
+        <Style.Resources>
+            <Style TargetType="{x:Type MenuItem}">
+                <Setter Property="Background" Value="{StaticResource WindowBackgroundColorBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource ForegroundColorBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource WindowBackgroundColorBrush}"/>
+            </Style>
+
+            <Style x:Key="{x:Static ToolBar.SeparatorStyleKey}" TargetType="{x:Type Separator}">
+                <Setter Property="Background" Value="{StaticResource ForegroundColorBrush}"/>
+            </Style>
+        </Style.Resources>
+        
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundColorBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColorBrush}"/>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,64 @@
+﻿<local:DefaultWindow x:Class="Safir.Views.PreferencesView"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:local="clr-namespace:Safir.Views"
+                     xmlns:cal="http://www.caliburnproject.org"
+                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                     mc:Ignorable="d"
+                     Title="PreferencesView" Height="500" Width="500"
+                     MinimizeButtonVisible="False"
+                     RestoreDownButtonVisible="False"
+                     MaximizeButtonVisible="False"
+                     WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+
+        <TabControl Grid.Column="1" Grid.ColumnSpan="2"
+                    Grid.Row="1">
+            <TabItem Header="General"/>
+            <TabItem Header="Advanced"/>
+        </TabControl>
+        <StackPanel Grid.Column="2" Grid.Row="2"
+                    Orientation="Horizontal">
+            <Button Height="23" Width="75"
+                    Margin="5,5,5,5"
+                    Content="OK">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger>
+                        <cal:ActionMessage MethodName="Ok"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Height="23" Width="75"
+                    Margin="5,5,5,5"
+                    Content="Cancel">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger>
+                        <cal:ActionMessage MethodName="Cancel"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Height="23" Width="75"
+                    Margin="5,5,5,5"
+                    Content="Apply">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger>
+                        <cal:ActionMessage MethodName="Apply"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </StackPanel>
+    </Grid>
+</local:DefaultWindow>

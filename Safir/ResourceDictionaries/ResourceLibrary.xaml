@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="BaseControlStyles/ButtonStyle.xaml"/>
+
+        <ResourceDictionary Source="Brushes/SolidColorBrushes.xaml"/>
+
+        <ResourceDictionary Source="NamedStyles/CloseButton.xaml"/>
+        <ResourceDictionary Source="NamedStyles/MaximizeButton.xaml"/>
+        <ResourceDictionary Source="NamedStyles/MinimizeButton.xaml"/>
+        <ResourceDictionary Source="NamedStyles/RestoreDownButton.xaml"/>
+        
+        <ResourceDictionary Source="CustomControlStyles/SafirWindowStyle.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

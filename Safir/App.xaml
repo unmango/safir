@@ -4,19 +4,16 @@
              xmlns:local="clr-namespace:Safir">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Janky "Default Style" to get lookup to find sub-dictionaries -->
+            <Style TargetType="{x:Type Rectangle}"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="bootstrapper"/>
                 </ResourceDictionary>
+                
                 <ResourceDictionary Source="/Safir;component/Resources/ValueConverters.xaml"/>
 
-                <ResourceDictionary Source="/Safir;component/Resources/Styles/Colors.xaml"/>
-                <ResourceDictionary Source="/Safir;component/Resources/Styles/StatusBarStyle.xaml"/>
-                <ResourceDictionary Source="/Safir;component/Resources/Styles/MenuStyle.xaml"/>
-                <ResourceDictionary Source="/Safir;component/Resources/Styles/WindowButtonStyle.xaml"/>
-                <ResourceDictionary Source="/Safir;component/Resources/Styles/WindowStyle.xaml"/>
-
-                <ResourceDictionary Source="/Safir;component/Resources/Icons/ModernUiIcons.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionaries/ResourceLibrary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

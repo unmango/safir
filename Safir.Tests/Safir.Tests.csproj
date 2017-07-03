@@ -41,8 +41,8 @@
     <Reference Include="Castle.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.1.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Moq, Version=4.7.49.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.7.49\lib\net45\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.7.63.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.7.63\lib\net45\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -73,7 +73,7 @@
       <Name>Safir.Manager</Name>
     </ProjectReference>
     <ProjectReference Include="..\Safir\Safir.csproj">
-      <Project>{4e179fc9-0af7-4584-a7ab-3af426ac68b4}</Project>
+      <Project>{a70d8b1a-e921-40dc-881e-24e3c92b9e5c}</Project>
       <Name>Safir</Name>
     </ProjectReference>
   </ItemGroup>

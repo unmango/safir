@@ -1,44 +1,27 @@
 ﻿using Caliburn.Micro;
-using System.ComponentModel;
+using Safir.Core.Application;
+using Safir.Core.Settings;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 
 namespace Safir.ViewModels
 {
-    using Core;
-    using Core.Application;
-    using Core.Settings;
-    using Commands;
-
-    public class MainViewModel : Conductor<object>
+    public class MainViewModel : Screen
     {
-        //private readonly ILog _log;
-
         private readonly ISettingStore _settings;
 
-        private ICommand _play = new PlayCommand();
-        private ICommand _pause = new PauseCommand();
-        private ICommand _rewind = new RewindCommand();
-        private ICommand _fastForward = new FastForwardCommand();
-        private ICommand _favorite = new FavoriteCommand();
-
         public MainViewModel(
-            //ILog logger,
             IAppMeta appMeta,
-            ISettingStore settings,
-            PlaybackViewModel playback,
-            MainMenuViewModel mainMenu,
-            LibraryMenuViewModel libraryMenu,
-            PlaylistMenuViewModel playlistMenu) {
-            //_log = logger;
+            ISettingStore settings) {
             AppName = appMeta.AppName;
-            Version = appMeta.AppName + " v" + appMeta.AppVersion;
             _settings = settings;
-            Playback = playback;
-            MainMenu = mainMenu;
-            LibraryMenu = libraryMenu;
-            PlaylistMenu = playlistMenu;
         }
+
+        public string AppName { get; set; }
 
         #region Window Settings
 
@@ -61,22 +44,5 @@ namespace Safir.ViewModels
         }
 
         #endregion
-
-        public string AppName { get; private set; }
-        public string Version { get; private set; }
-
-        public PlaybackViewModel Playback { get; set; }
-
-        public MainMenuViewModel MainMenu { get; set; }
-        public LibraryMenuViewModel LibraryMenu { get; set; }
-        public PlaylistMenuViewModel PlaylistMenu { get; set; }
-
-        public IContentDisplay Content { get; private set; }
-        
-        public ICommand Play { get { return _play; } }
-        public ICommand Pause { get { return _pause; } }
-        public ICommand Rewind { get { return _rewind; } }
-        public ICommand FastForward { get { return _fastForward; } }
-        public ICommand Favorite { get { return _favorite; } }
     }
 }

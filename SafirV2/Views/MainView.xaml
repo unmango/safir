@@ -1,0 +1,90 @@
+﻿<local:DefaultWindow x:Class="Safir.Views.MainView"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:local="clr-namespace:Safir.Views"
+                     xmlns:vm="clr-namespace:Safir.ViewModels"
+                     xmlns:h="clr-namespace:Safir.Helpers"
+                     xmlns:cal="http://www.caliburnproject.org"
+                     mc:Ignorable="d"
+                     d:DataContext="{d:DesignInstance vm:MainViewModel}"
+                     d:DesignHeight="1080" d:DesignWidth="1920"
+                     Title="{Binding AppName}"
+                     MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
+                     MaxWidth="{x:Static SystemParameters.MaximizedPrimaryScreenWidth}"
+                     Icon="../Resources/Icons/brand.ico">
+
+    <Window.Resources>
+    </Window.Resources>
+
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo>
+            <TaskbarItemInfo.ThumbButtonInfos>
+                <ThumbButtonInfo ImageSource="../Resources/Icons/brand.ico"
+                                 Command="{Binding Rewind}"
+                                 Description="Rewind button"/>
+                <ThumbButtonInfo ImageSource="../Resources/Icons/brand.ico"
+                                 Command="{Binding Play}"
+                                 Description="Play button"/>
+                <ThumbButtonInfo ImageSource="../Resources/Icons/brand.ico"
+                                 Command="{Binding FastForward}"
+                                 Description="Next button"/>
+                <ThumbButtonInfo ImageSource="../Resources/Icons/brand.ico"
+                                 Command="{Binding Favorite}"
+                                 Description="Favorite button"/>
+            </TaskbarItemInfo.ThumbButtonInfos>
+        </TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
+
+    <local:DefaultWindow.TitleBar>
+        <Border BorderThickness="1" BorderBrush="{StaticResource BlueColorBrush}"
+                Height="50" Width="500">
+            <!--<ContentControl x:Name="Playback" Height="auto" Width="auto"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+        </Border>
+    </local:DefaultWindow.TitleBar>
+
+    <DockPanel LastChildFill="True">
+        <ContentControl x:Name="MainMenu" Height="20" DockPanel.Dock="Top" VerticalAlignment="Top"/>
+        <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom"
+                   Height="20">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="125"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="2" HorizontalAlignment="Center" Padding="0"
+                           Content="{Binding Version}">
+            </StatusBarItem>
+        </StatusBar>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" MinWidth="150"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="7*" MinWidth="300"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <StackPanel>
+                    <ContentControl x:Name="LibraryMenu"/>
+                </StackPanel>
+                <StackPanel>
+                    <ContentControl x:Name="PlaylistMenu"/>
+                </StackPanel>
+            </StackPanel>
+            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <StackPanel Grid.Column="2">
+                <ContentControl x:Name="Playback" Height="auto" Width="auto"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <ContentControl x:Name="Content"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</local:DefaultWindow>

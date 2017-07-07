@@ -11,7 +11,7 @@ namespace Safir.Core.Settings
             if (type.IsEnum) {
                 return (T)Enum.Parse(type, value);
             } else {
-                return (T)Convert.ChangeType(value, typeof(T));
+                return (T)Convert.ChangeType(value, type);
             }
         }
 

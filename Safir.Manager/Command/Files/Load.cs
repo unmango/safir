@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿// <copyright file="Load.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Manager.Command.Files
 {
+    using System;
+    using System.Windows.Input;
+
     public static partial class Command
     {
         public static void Execute(
@@ -19,7 +19,6 @@ namespace Safir.Manager.Command.Files
             public class Load : ICommand
             {
                 internal Load() {
-
                 }
 
                 public event EventHandler CanExecuteChanged;
@@ -39,7 +38,6 @@ namespace Safir.Manager.Command.Files
                     : ICommandHandler<LoadFiles>
                 {
                     public void Execute(LoadFiles command) {
-
                     }
                 }
             }

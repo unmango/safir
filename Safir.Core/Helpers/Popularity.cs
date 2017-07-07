@@ -1,24 +1,16 @@
-﻿using Safir.Core.Popularimeter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Safir.Core.Helpers
+﻿namespace Safir.Core.Helpers
 {
+    using System;
+    using Popularimeter;
+
     internal class Popularity
     {
-        public static IPopularimeter Get(TagLib.File song)
-        {
-
-
+        public static IPopularimeter Get(TagLib.File song) {
             throw new NotImplementedException();
         }
 
         [Obsolete("Kept for development reference")]
-        public static FrameType PopularimeterFrame<FrameType>(TagLib.File file)
-        {
+        public static FrameType PopularimeterFrame<FrameType>(TagLib.File file) {
             var frameType = typeof(FrameType);
             var tagType = frameType.Namespace.Replace($"{nameof(TagLib)}.", "");
 

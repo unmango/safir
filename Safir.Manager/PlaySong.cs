@@ -60,6 +60,7 @@ namespace Safir.Manager
                 _soundOut.Dispose();
                 _soundOut = null;
             }
+
             if (_waveSource != null) {
                 _waveSource.Dispose();
                 _waveSource = null;

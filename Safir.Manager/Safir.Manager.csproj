@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CSCore, Version=1.2.1.1, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
@@ -70,11 +72,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AudioEngine.cs" />
+    <Compile Include="Audio\AudioEngine.cs" />
+    <Compile Include="Audio\IDeviceManager.cs" />
+    <Compile Include="Audio\ISoundOutManager.cs" />
+    <Compile Include="Audio\IWaveSourceManager.cs" />
+    <Compile Include="Audio\SoundOutManager.cs" />
+    <Compile Include="Audio\SoundOutMode.cs" />
+    <Compile Include="Audio\WaveSourceManager.cs" />
     <Compile Include="Command\Files\Load.cs" />
     <Compile Include="Command\Files\LoadFiles.cs" />
     <Compile Include="Command\ICommandHandler.cs" />
-    <Compile Include="Devices.cs" />
+    <Compile Include="Audio\DeviceManager.cs" />
+    <Compile Include="Audio\IPlayable.cs" />
+    <Compile Include="EventArgs\TrackChangedEventArgs.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="PlaySong.cs" />
     <Compile Include="Query\Song\GetSongSummary.cs" />
     <Compile Include="ManagerPackage.cs" />
@@ -90,6 +101,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
@@ -106,6 +118,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Command\Song\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets" Condition="Exists('..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets')" />

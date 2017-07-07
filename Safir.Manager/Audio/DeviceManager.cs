@@ -1,38 +1,39 @@
-﻿using CSCore.CoreAudioAPI;
+﻿// <copyright file="DeviceManager.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace Safir.Manager
+namespace Safir.Manager.Audio
 {
-    public class Devices
+    using CSCore.CoreAudioAPI;
+
+    public class DeviceManager : IDeviceManager
     {
         private const int SUCCESS_CODE = 1;
         
         private IMMDeviceCollection _devices;
         private IMMDeviceEnumerator _enumerator;
 
-        public Devices() {
+        public DeviceManager() {
             _enumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
         }
 
-        public Devices(IMMDeviceEnumerator enumerator) {
+        public DeviceManager(IMMDeviceEnumerator enumerator) {
             _enumerator = enumerator;
         }
 
-        public IMMDeviceCollection ActiveDevices {
+        public IMMDeviceCollection ActiveOutputDevices {
             get {
                 if (_devices == null) {
                     _enumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active, out _devices);
                 }
+
                 return _devices;
             }
         }
 
-        public IMMDevice GetDefaultDevice(
-            DataFlow flow = DataFlow.Render,
-            Role role = Role.Multimedia) {
+        public IMMDevice GetDefaultDevice(DataFlow flow = DataFlow.Render, Role role = Role.Multimedia) {
             var result = _enumerator.GetDefaultAudioEndpoint(flow, role, out IMMDevice device);
             return result == SUCCESS_CODE ? device : null;
         }
-        
-
     }
 }

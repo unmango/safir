@@ -1,15 +1,16 @@
-﻿using System;
-using System.Data.SqlClient;
-using System.Data.SQLite;
-using System.IO;
-
-namespace Safir.Data
+﻿namespace Safir.Data
 {
+    using System;
+    using System.Data.SqlClient;
+    using System.Data.SQLite;
+    using System.IO;
     using Core;
     using Core.Settings;
 
     public class DatabaseManager
     {
+        private const string CONNECTION_STRING_PROPERTY = "ConnectionString";
+
         private readonly ISettingStore _settings;
 
         public DatabaseManager(ISettingStore settings) {
@@ -18,17 +19,19 @@ namespace Safir.Data
 
         public string ConnectionString {
             get {
-                var conString = (string)_settings.Get("ConnectionString");
-                if (String.IsNullOrEmpty(conString)) {
-                    _settings.Set("ConnectionString", DefaultValue.ConnectionString);
-                    conString = DefaultValue.ConnectionString;
+                var conString = _settings.Get(CONNECTION_STRING_PROPERTY);
+                if (string.IsNullOrEmpty(conString)) {
+                    conString = DefaultValue.Get(CONNECTION_STRING_PROPERTY);
+                    _settings.Set(CONNECTION_STRING_PROPERTY, conString);
                 }
+
                 if (!Valid(conString))
                     throw new FileNotFoundException("The connection string was invalid");
                 return conString;
             }
+
             set {
-                _settings.Set("ConnectionString", value);
+                _settings.Set(CONNECTION_STRING_PROPERTY, value);
             }
         }
 
@@ -43,7 +46,10 @@ namespace Safir.Data
                 var temp = new Uri(source).AbsolutePath;
                 if (!File.Exists(source))
                     SQLiteConnection.CreateFile(source);
-            } catch { return false; }
+            } catch {
+                return false;
+            }
+
             return true;
         }
     }

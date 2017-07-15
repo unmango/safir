@@ -7,9 +7,9 @@ namespace Safir.Manager.Audio
     using System;
     using CSCore.SoundOut;
     using CSCore.Streams.Effects;
-    using Safir.Manager.EventArgs;
+    using EventArgs;
 
-    public class AudioEngine
+    public class AudioEngine : IDisposable
     {
         private float _volume;
         private long _position;
@@ -18,11 +18,9 @@ namespace Safir.Manager.Audio
 
         private ISoundOut _soundOut;
         private ISoundOutManager _soundOutManager;
-        private IDeviceManager _deviceManager;
 
-        public AudioEngine(ISoundOutManager soundOutManager, IDeviceManager deviceManager) {
+        public AudioEngine(ISoundOutManager soundOutManager) {
             _soundOutManager = soundOutManager;
-            _deviceManager = deviceManager;
         }
 
         public event EventHandler TrackChanged;
@@ -51,6 +49,7 @@ namespace Safir.Manager.Audio
         public IPlayable CurrentTrack {
             get => _currentTrack;
             protected set {
+                _currentTrack = value;
                 if (_currentTrack != null) {
                     OnTrackChanged();
                 }
@@ -61,8 +60,9 @@ namespace Safir.Manager.Audio
 
         #endregion
 
+        #region Methods
+
         public bool Initialize() {
-            _soundOut = _soundOutManager.OpenSong(CurrentTrack);
             return true;
         }
 
@@ -80,9 +80,26 @@ namespace Safir.Manager.Audio
 
         public void Stop() {
             if (_soundOut != null) {
-                _soundOut.Stop()
+                _soundOut.Stop();
             }
         }
+        
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public virtual void Dispose(bool disposing) {
+            if (disposing) {
+                _soundOutManager.Dispose();
+
+                if (_soundOut != null) {
+                    _soundOut.Dispose();
+                }
+            }
+        }
+
+        #endregion
 
         #region Events
 

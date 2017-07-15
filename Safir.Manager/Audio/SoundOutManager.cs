@@ -4,6 +4,7 @@
 
 namespace Safir.Manager.Audio
 {
+    using System;
     using CSCore.CoreAudioAPI;
     using CSCore.SoundOut;
 
@@ -18,12 +19,13 @@ namespace Safir.Manager.Audio
         }
 
         public int Latency { get; set; } = 100;
-        
+
         public ISoundOut OpenSong(IPlayable song) {
             ISoundOut soundOut;
 
             IMMDevice mmDevice = _deviceManager.GetDefaultDevice();
 
+            // TODO: DirectSoundOut support?
             if (WasapiOut.IsSupportedOnCurrentPlatform) {
                 soundOut = new WasapiOut() { Latency = Latency, Device = (MMDevice)mmDevice };
             } else {
@@ -34,6 +36,16 @@ namespace Safir.Manager.Audio
             soundOut.Initialize(waveSource);
 
             return soundOut;
+        }
+        
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public virtual void Dispose(bool disposing) {
+            _deviceManager?.Dispose();
+            _waveSourceManager?.Dispose();
         }
     }
 }

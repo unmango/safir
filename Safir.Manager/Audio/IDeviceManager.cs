@@ -4,9 +4,10 @@
 
 namespace Safir.Manager.Audio
 {
+    using System;
     using CSCore.CoreAudioAPI;
 
-    public interface IDeviceManager
+    public interface IDeviceManager : IDisposable
     {
         IMMDeviceCollection ActiveOutputDevices { get; }
 

@@ -4,10 +4,10 @@
 
 namespace Safir.Manager.Audio
 {
-    using CSCore.CoreAudioAPI;
+    using System;
     using CSCore.SoundOut;
 
-    public interface ISoundOutManager
+    public interface ISoundOutManager : IDisposable
     {
         ISoundOut OpenSong(IPlayable file);
     }

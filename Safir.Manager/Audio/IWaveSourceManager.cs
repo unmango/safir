@@ -4,9 +4,10 @@
 
 namespace Safir.Manager.Audio
 {
+    using System;
     using CSCore;
 
-    public interface IWaveSourceManager
+    public interface IWaveSourceManager : IDisposable
     {
         IWaveSource GetWaveSource(IPlayable file);
     }

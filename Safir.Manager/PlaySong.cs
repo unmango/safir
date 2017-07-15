@@ -1,26 +1,26 @@
-﻿using CSCore;
-using CSCore.Codecs;
-using CSCore.CoreAudioAPI;
-using CSCore.SoundOut;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="PlaySong.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Manager
 {
+    using System;
+    using CSCore;
+    using CSCore.Codecs;
+    using CSCore.CoreAudioAPI;
+    using CSCore.SoundOut;
+
     public class PlaySong
     {
         private string _file;
         private ISoundOut _soundOut;
         private IWaveSource _waveSource;
 
-        public event EventHandler<PlaybackStoppedEventArgs> PlaybackStopped;
-
         public PlaySong(string file) {
             _file = file;
         }
+
+        public event EventHandler<PlaybackStoppedEventArgs> PlaybackStopped;
 
         public void Open(MMDevice device) {
             CleanupPlayback();

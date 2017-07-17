@@ -1,19 +1,22 @@
-﻿using Caliburn.Micro;
-using SimpleInjector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
+﻿// <copyright file="AppBootstrapper.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Windows;
+    using Caliburn.Micro;
     using Core;
     using Core.Application;
     using Core.Settings;
     using Data;
-    using Manager;
     using Logging;
+    using Manager;
+    using SimpleInjector;
     using ViewModels;
 
     internal class AppBootstrapper : BootstrapperBase
@@ -43,17 +46,19 @@ namespace Safir
 
         protected override void OnStartup(object sender, StartupEventArgs e) {
             var settings = _container.GetInstance<ISettingStore>();
-            if (settings != null) settings.Load();
+            if (settings != null)
+                settings.Load();
             DisplayRootViewFor<MainViewModel>();
         }
 
         protected override void OnExit(object sender, EventArgs e) {
             var settings = _container.GetInstance<ISettingStore>();
-            if (settings != null) settings.Save();
+            if (settings != null)
+                settings.Save();
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service) {
-            //_container.GetAllInstances(service);
+            // _container.GetAllInstances(service);
             IServiceProvider provider = _container;
             Type collectionType = typeof(IEnumerable<>).MakeGenericType(service);
             var services = (IEnumerable<object>)provider.GetService(collectionType);

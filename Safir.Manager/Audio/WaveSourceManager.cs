@@ -4,6 +4,7 @@
 
 namespace Safir.Manager.Audio
 {
+    using System;
     using CSCore;
     using CSCore.Codecs;
 
@@ -13,6 +14,10 @@ namespace Safir.Manager.Audio
         }
 
         public bool Mono { get; set; } = false;
+
+        public void Dispose() {
+            throw new NotImplementedException();
+        }
 
         public IWaveSource GetWaveSource(IPlayable song) {
             IWaveSource waveSource = CodecFactory.Instance.GetCodec(song.FilePath);

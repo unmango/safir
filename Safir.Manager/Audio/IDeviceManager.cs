@@ -9,8 +9,8 @@ namespace Safir.Manager.Audio
 
     public interface IDeviceManager : IDisposable
     {
-        IMMDeviceCollection ActiveOutputDevices { get; }
+        MMDeviceCollection ActiveOutputDevices { get; }
 
-        IMMDevice GetDefaultDevice(DataFlow dataFlow = DataFlow.Render, Role role = Role.Multimedia);
+        MMDevice GetDefaultDevice(DataFlow dataFlow = DataFlow.Render, Role role = Role.Multimedia);
     }
 }

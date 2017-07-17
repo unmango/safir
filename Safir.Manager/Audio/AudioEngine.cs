@@ -21,6 +21,7 @@ namespace Safir.Manager.Audio
 
         public AudioEngine(ISoundOutManager soundOutManager) {
             _soundOutManager = soundOutManager;
+            _soundOut = _soundOutManager.OpenSong(null);
         }
 
         public event EventHandler TrackChanged;
@@ -64,6 +65,10 @@ namespace Safir.Manager.Audio
 
         public bool Initialize() {
             return true;
+        }
+
+        public void OpenSong(IPlayable song) {
+            _soundOut = _soundOutManager.OpenSong(song);
         }
 
         public void Play() {

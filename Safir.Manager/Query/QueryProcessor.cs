@@ -1,8 +1,12 @@
-﻿using SimpleInjector;
-using System.Diagnostics;
+﻿// <copyright file="QueryProcessor.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Manager.Query
 {
+    using System.Diagnostics;
+    using SimpleInjector;
+
     public sealed class QueryProcessor : IQueryProcessor
     {
         private readonly Container _container;

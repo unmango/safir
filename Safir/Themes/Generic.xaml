@@ -4,7 +4,7 @@
     xmlns:c="clr-namespace:Safir.Controls">
 
     <ResourceDictionary.MergedDictionaries>
-        <!--<ResourceDictionary Source="/Safir;component/ResourceDictionaries/CustomControlStyles/SafirWindowStyle.xaml"/>-->
+        <ResourceDictionary Source="../Resources/CustomControlStyles/SafirWindowStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

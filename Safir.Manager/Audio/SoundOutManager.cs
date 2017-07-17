@@ -23,15 +23,16 @@ namespace Safir.Manager.Audio
         public ISoundOut OpenSong(IPlayable song) {
             ISoundOut soundOut;
 
-            IMMDevice mmDevice = _deviceManager.GetDefaultDevice();
+            MMDevice mmDevice = _deviceManager.GetDefaultDevice();
 
             // TODO: DirectSoundOut support?
-            if (WasapiOut.IsSupportedOnCurrentPlatform) {
-                soundOut = new WasapiOut() { Latency = Latency, Device = (MMDevice)mmDevice };
-            } else {
-                soundOut = new WaveOut() { Latency = Latency, Device = (WaveOutDevice)mmDevice };
-            }
+            // TODO: Figure out how the different MMDevices work
+            // if (WasapiOut.IsSupportedOnCurrentPlatform) {
+                soundOut = new WasapiOut() { Latency = Latency, Device = mmDevice };
 
+            // } else {
+            //    soundOut = new WaveOut() { Latency = Latency, Device = mmDevice };
+            // }
             var waveSource = _waveSourceManager.GetWaveSource(song);
             soundOut.Initialize(waveSource);
 

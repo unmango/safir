@@ -1,8 +1,12 @@
-﻿using Common.Extensions;
-using System.Configuration;
+﻿// <copyright file="DefaultValueElement.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Core.ConfigFile.DefaultValues
 {
+    using System.Configuration;
+    using Common.Extensions;
+
     public class DefaultValueElement : ConfigurationElement
     {
         [ConfigurationProperty("key", IsRequired = true, IsKey = true)]

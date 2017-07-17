@@ -1,7 +1,10 @@
-﻿using System.Configuration;
+﻿// <copyright file="DefaultValueSection.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Core.ConfigFile
 {
+    using System.Configuration;
     using DefaultValues;
 
     public class DefaultValueSection : ConfigurationSection
@@ -12,7 +15,7 @@ namespace Safir.Core.ConfigFile
         {
             get
             {
-               return base["values"] as DefaultValueCollection;
+               return this["values"] as DefaultValueCollection;
             }
         }
     }

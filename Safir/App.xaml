@@ -10,10 +10,8 @@
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="bootstrapper"/>
                 </ResourceDictionary>
-                
-                <ResourceDictionary Source="/Safir;component/Resources/ValueConverters.xaml"/>
 
-                <ResourceDictionary Source="/ResourceDictionaries/ResourceLibrary.xaml"/>
+                <ResourceDictionary Source="/Resources/ResourceLibrary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

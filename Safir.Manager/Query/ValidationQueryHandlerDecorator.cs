@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// <copyright file="ValidationQueryHandlerDecorator.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Manager.Query
 {
-    public class ValidationQueryHandlerDecorator<TQuery, TResult>
-        : IQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
+    using System.ComponentModel.DataAnnotations;
+
+    public class ValidationQueryHandlerDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult>
+        where TQuery : IQuery<TResult>
     {
         private readonly IQueryHandler<TQuery, TResult> _decorated;
 

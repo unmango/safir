@@ -1,7 +1,11 @@
-﻿using System.Configuration;
+﻿// <copyright file="DefaultValueCollection.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Core.ConfigFile.DefaultValues
 {
+    using System.Configuration;
+
     public class DefaultValueCollection : ConfigurationElementCollection
     {
         public new string this[string i]

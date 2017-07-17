@@ -14,5 +14,6 @@
                 <MenuItem Header="Item2"/>
             </Menu>
         </StackPanel>
+        <Button Height="400" Width="400">A button</Button>
     </Grid>
 </c:SafirWindow>

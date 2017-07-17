@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿// <copyright file="LoadFiles.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Manager.Command.Files
 {
+    using System;
+    using System.Windows.Input;
+
     public class LoadFiles : ICommand
     {
         public event EventHandler CanExecuteChanged;

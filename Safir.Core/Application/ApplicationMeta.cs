@@ -1,7 +1,11 @@
-﻿using System.Reflection;
+﻿// <copyright file="ApplicationMeta.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Core.Application
 {
+    using System.Reflection;
+
     public class ApplicationMeta : IAppMeta
     {
         public ApplicationMeta(string appName, string appVersion = null)
@@ -12,6 +16,7 @@ namespace Safir.Core.Application
         }
 
         public string AppName { get; private set; }
+
         public string AppVersion { get; private set; }
     }
 }

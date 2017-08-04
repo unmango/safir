@@ -1,11 +1,14 @@
-﻿using Mehdime.Entity;
-using SimpleInjector;
-using System.Data.Entity.Infrastructure;
+﻿// <copyright file="DataPackage.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Data
 {
+    using System.Data.Entity.Infrastructure;
     using Entities;
     using Entities.Repositories;
+    using Mehdime.Entity;
+    using SimpleInjector;
 
     public static class DataPackage
     {

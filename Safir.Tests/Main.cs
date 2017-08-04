@@ -1,14 +1,17 @@
-﻿using System;
-using System.IO;
-using System.Text.RegularExpressions;
-using Xunit;
+﻿// <copyright file="Main.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Tests
 {
+    using System;
+    using System.IO;
+    using System.Text.RegularExpressions;
+    using Xunit;
+
     public class Main
     {
-        public void Test() {
-            
+        public void Test() {            
         }
 
         [Fact(Skip = "Utility and not really a test case")]

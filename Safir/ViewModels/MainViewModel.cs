@@ -1,27 +1,30 @@
-﻿using Caliburn.Micro;
-using Safir.Core.Application;
-using Safir.Core.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿// <copyright file="MainViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.ViewModels
 {
+    using System.Windows;
+    using Caliburn.Micro;
+    using Safir.Core.Application;
+    using Safir.Core.Settings;
+
     public class MainViewModel : Screen
     {
         private readonly ISettingStore _settings;
 
         public MainViewModel(
             IAppMeta appMeta,
-            ISettingStore settings) {
+            ISettingStore settings,
+            MainMenuViewModel mainMenuViewModel) {
             AppName = appMeta.AppName;
             _settings = settings;
+            MainMenu = mainMenuViewModel;
         }
 
         public string AppName { get; set; }
+
+        public MainMenuViewModel MainMenu { get; set; }
 
         #region Window Settings
 

@@ -1,19 +1,16 @@
-﻿using log4net;
-using log4net.Core;
-using System.Runtime.CompilerServices;
+﻿// <copyright file="LogHelper.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Core.Helpers
 {
+    using System.Runtime.CompilerServices;
+    using log4net;
+
     public class LogHelper
     {
-        public static ILog GetLogger([CallerFilePath]string filename = "")
-        {
+        public static ILog GetLogger([CallerFilePath]string filename = "") {
             return LogManager.GetLogger(filename);
         }
-    }
-
-    public sealed class Log4NetAdapter<T> : LogImpl
-    {
-        public Log4NetAdapter() : base(LogManager.GetLogger(typeof(T)).Logger) { }
     }
 }

@@ -1,7 +1,11 @@
-﻿using System;
+﻿// <copyright file="SettingStoreExtensions.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Core.Settings
 {
+    using System;
+
     public static class SettingStoreExtensions
     {
         public static T Get<T>(this ISettingStore settings, string key)

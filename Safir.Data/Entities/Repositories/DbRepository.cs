@@ -1,13 +1,18 @@
-﻿using Mehdime.Entity;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
+﻿// <copyright file="DbRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Data.Entities.Repositories
 {
-    public abstract class DbRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using Mehdime.Entity;
+
+    public abstract class DbRepository<TEntity> : IRepository<TEntity>
+        where TEntity : class
     {
         private IAmbientDbContextLocator _contextLocator;
 
@@ -34,8 +39,8 @@ namespace Safir.Data.Entities.Repositories
             if (filter != null)
                 query = query.Where(filter);
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)) {
+            foreach (var includeProperty in includeProperties.Split(
+                new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)) {
                 query = query.Include(includeProperty);
             }
 

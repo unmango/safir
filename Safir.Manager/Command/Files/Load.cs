@@ -21,7 +21,10 @@ namespace Safir.Manager.Command.Files
                 internal Load() {
                 }
 
-                public event EventHandler CanExecuteChanged;
+                public event EventHandler CanExecuteChanged {
+                    add { }
+                    remove { }
+                }
 
                 public bool CanExecute(object parameter) {
                     throw new NotImplementedException();

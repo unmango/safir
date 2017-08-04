@@ -1,8 +1,12 @@
-﻿using System;
-using System.IO;
+﻿// <copyright file="AppFolderHelper.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Core.Helpers
 {
+    using System;
+    using System.IO;
+
     public static class AppFolderHelper
     {
         public static string GetAppFolderPath(string appName)

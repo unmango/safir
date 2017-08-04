@@ -5,13 +5,15 @@
     <Application.Resources>
         <ResourceDictionary>
             <!-- Janky "Default Style" to get lookup to find sub-dictionaries -->
-            <Style TargetType="{x:Type Rectangle}"/>
+            <Style TargetType="{x:Type Ellipse}"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="bootstrapper"/>
                 </ResourceDictionary>
-
-                <ResourceDictionary Source="/Resources/ResourceLibrary.xaml"/>
+                
+                <ResourceDictionary Source="pack://application:,,,/Safir.ControlLibrary;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Safir.ControlLibrary;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Safir.ControlLibrary;component/Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using TagLib;
+﻿// <copyright file="FileRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Data.Entities.Repositories
 {
-    public abstract class FileRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using TagLib;
+
+    public abstract class FileRepository<TEntity> : IRepository<TEntity>
+        where TEntity : class
     {
         private IEnumerable<File> _files;
 

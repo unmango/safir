@@ -9,7 +9,9 @@ namespace Safir.Manager.Command.Files
 
     public class LoadFiles : ICommand
     {
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged {
+            add { } remove { }
+        }
 
         public bool CanExecute(object parameter) {
             throw new NotImplementedException();

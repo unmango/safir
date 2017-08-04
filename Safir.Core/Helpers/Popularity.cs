@@ -1,4 +1,8 @@
-﻿namespace Safir.Core.Helpers
+﻿// <copyright file="Popularity.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Safir.Core.Helpers
 {
     using System;
     using Popularimeter;
@@ -12,7 +16,7 @@
         [Obsolete("Kept for development reference")]
         public static FrameType PopularimeterFrame<FrameType>(TagLib.File file) {
             var frameType = typeof(FrameType);
-            var tagType = frameType.Namespace.Replace($"{nameof(TagLib)}.", "");
+            var tagType = frameType.Namespace.Replace($"{nameof(TagLib)}.", string.Empty);
 
             if (!Enum.TryParse(tagType, out TagLib.TagTypes outParam))
                 throw new ArgumentException("Invalid FrameType");

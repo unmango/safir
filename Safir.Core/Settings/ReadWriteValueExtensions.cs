@@ -1,16 +1,26 @@
-﻿using Common.Extensions;
-using System;
+﻿// <copyright file="ReadWriteValueExtensions.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Safir.Core.Settings
 {
+    using System;
+    using Common.Extensions;
+
     public static class ReadWriteValueExtensions
     {
         public static void Set(
             this IWriteValue<string> writeValue,
-            string key, object value)
+            string key,
+            object value)
         {
-            if (writeValue == null) throw new ArgumentNullException(nameof(writeValue));
-            if (key == null) throw new ArgumentNullException(nameof(key));
+            if (writeValue == null) {
+                throw new ArgumentNullException(nameof(writeValue));
+            }
+
+            if (key == null) {
+                throw new ArgumentNullException(nameof(key));
+            }
 
             writeValue.Set(key, value.ToType<string>());
         }
@@ -20,9 +30,17 @@ namespace Safir.Core.Settings
             string key,
             Func<T> getDefaultValue)
         {
-            if (readValue == null) throw new ArgumentNullException(nameof(readValue));
-            if (key == null) throw new ArgumentNullException(nameof(key));
-            if (getDefaultValue == null) throw new ArgumentNullException(nameof(getDefaultValue));
+            if (readValue == null) {
+                throw new ArgumentNullException(nameof(readValue));
+            }
+
+            if (key == null) {
+                throw new ArgumentNullException(nameof(key));
+            }
+
+            if (getDefaultValue == null) {
+                throw new ArgumentNullException(nameof(getDefaultValue));
+            }
 
             string value = readValue.Get(key);
             return value.IsDefault() ? getDefaultValue() : value.ToType<T>();
@@ -33,8 +51,13 @@ namespace Safir.Core.Settings
             string key,
             T defaultValue = default(T))
         {
-            if (readValue == null) throw new ArgumentNullException(nameof(readValue));
-            if (key == null) throw new ArgumentNullException(nameof(key));
+            if (readValue == null) {
+                throw new ArgumentNullException(nameof(readValue));
+            }
+
+            if (key == null) {
+                throw new ArgumentNullException(nameof(key));
+            }
 
             string value = readValue.Get(key);
             return value.IsDefault() ? defaultValue : value.ToType<T>();

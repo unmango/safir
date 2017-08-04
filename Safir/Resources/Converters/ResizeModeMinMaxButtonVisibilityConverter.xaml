@@ -1,6 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Safir.Resources.Converters">
-    <!--No Idea why this can't work like the other converters but I'm gonna use it like MahApps.Metro does-->
-    <!--<local:ResizeModeMinMaxButtonVisibilityConverter x:Key="ResizeModeMinMaxButtonVisibilityConverter"/>-->
-</ResourceDictionary>

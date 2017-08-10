@@ -8,8 +8,7 @@
     <Color x:Key="BlueColor">#FF007ACC</Color>
     <Color x:Key="RedColor">#FFE81123</Color>
     <Color x:Key="ForegroundColor">#FFF4F4F5</Color>
-    <!--TODO: Make this not red-->
-    <Color x:Key="MenuShadowColor">#FFE81123</Color>
+    <Color x:Key="MenuShadowColor">#FF000000</Color>
 
     <SolidColorBrush x:Key="WindowBackgroundColorBrush" Color="{StaticResource WindowBackgroundColor}"/>
     <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource WindowTitleColor}" />
@@ -20,12 +19,13 @@
     <!--<SolidColorBrush x:Key="SubMenuBackgroundColorBrush" Color="{StaticResource WindowBackgroundColor}" />
     <SolidColorBrush x:Key="SubMenuBorderBrush" Color="{StaticResource BlueColor}" />-->
 
-    <SolidColorBrush x:Key="SubMenuBackgroundColorBrush" Color="{StaticResource BlueColor}" />
-    <SolidColorBrush x:Key="SubMenuBorderBrush" Color="{StaticResource RedColor}" />
+    <SolidColorBrush x:Key="SubMenuBackgroundColorBrush" Color="{StaticResource BackgroundColor}" />
+    <SolidColorBrush x:Key="SubMenuBorderBrush" Color="{StaticResource HighlightColor}" />
 
-    <SolidColorBrush x:Key="TopMenuItemSelectionStroke" Color="{StaticResource RedColor}" />
-    <SolidColorBrush x:Key="TopMenuItemPressedFill" Color="{StaticResource RedColor}" />
-    <SolidColorBrush x:Key="TopMenuItemPressedStroke" Color="{StaticResource RedColor}" />
+    <SolidColorBrush x:Key="TopMenuItemSelectionFill" Color="{StaticResource HighlightColor}" />
+    <SolidColorBrush x:Key="TopMenuItemSelectionStroke" Color="{StaticResource HighlightColor}" />
+    <SolidColorBrush x:Key="TopMenuItemPressedFill" Color="{StaticResource BackgroundColor}" />
+    <SolidColorBrush x:Key="TopMenuItemPressedStroke" Color="{StaticResource HighlightColor}" />
     
     <SolidColorBrush x:Key="DisabledMenuItemForeground" Color="{StaticResource RedColor}" />
     <SolidColorBrush x:Key="DisabledMenuItemGlyphPanel" Color="{StaticResource RedColor}" />
@@ -38,6 +38,6 @@
     <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}" />
     <SolidColorBrush x:Key="ForegroundColorBrush" Color="{StaticResource ForegroundColor}"/>
 
-    <SolidColorBrush x:Key="CheckmarkFill" Color="{StaticResource ForegroundColor}" />
+    <SolidColorBrush x:Key="CheckmarkFill" Color="{StaticResource RedColor}" />
 
 </ResourceDictionary>

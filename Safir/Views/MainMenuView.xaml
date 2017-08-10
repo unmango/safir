@@ -10,11 +10,7 @@
              d:DataContext="{d:DesignInstance vm:MainMenuViewModel}"
              d:DesignHeight="20" d:DesignWidth="500">
 
-    <UserControl.Resources>
-
-    </UserControl.Resources>
-    
-    <Menu Height="20" DockPanel.Dock="Top" VerticalAlignment="Top">
+    <Menu VerticalAlignment="Top">
         <MenuItem Header="_File">
             <MenuItem Header="New">
                 <MenuItem Header="Playlist"/>
@@ -56,9 +52,10 @@
             <MenuItem Header="Page Setup..."/>
             <MenuItem Header="Print..."/>
             <Separator/>
-            <MenuItem Header="Exit"/>
+            <MenuItem Header="Exit"
+                      cal:Message.Attach="Close()"/>
         </MenuItem>
-        
+
         <MenuItem Header="_Edit">
             <MenuItem Header="Undo"/>
             <MenuItem Header="Redo"/>
@@ -72,9 +69,10 @@
             <MenuItem Header="Select All"/>
             <MenuItem Header="Select None"/>
             <Separator/>
-            <MenuItem Header="Preferences..." cal:Message.Attach="OpenPreferences()"/>
+            <MenuItem Header="Preferences..."
+                      cal:Message.Attach="OpenPreferences()"/>
         </MenuItem>
-        
+
         <MenuItem Header="_Song">
             <MenuItem Header="Add to Library"/>
             <MenuItem Header="Add to Playlist">
@@ -109,7 +107,7 @@
             <MenuItem Header="Remove from Playlsit"/>
             <MenuItem Header="Delete from Library"/>
         </MenuItem>
-        
+
         <MenuItem Header="_View">
             <MenuItem Header="Media Kind">
                 <MenuItem Header="Music" IsCheckable="True"/>
@@ -154,7 +152,7 @@
             <Separator/>
             <MenuItem Header="Switch to MiniPlayer"/>
         </MenuItem>
-        
+
         <MenuItem Header="_Controls">
             <MenuItem Header="Pause"/>
             <MenuItem Header="Stop"/>
@@ -194,7 +192,7 @@
             <Separator/>
             <MenuItem Header="Eject Disc"/>
         </MenuItem>
-        
+
         <MenuItem Header="Accounts">
             <MenuItem>
                 <MenuItem.Header>
@@ -211,6 +209,7 @@
             <Separator/>
             <MenuItem Header="Connected Accounts..."/>
         </MenuItem>
+        
         <MenuItem Header="_Help">
             <MenuItem Header="Quick Tour"/>
             <Separator/>
@@ -221,6 +220,6 @@
             <Separator/>
             <MenuItem Header="About Safir"/>
         </MenuItem>
-        <Separator/>
     </Menu>
+    
 </UserControl>

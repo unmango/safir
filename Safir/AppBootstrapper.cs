@@ -22,7 +22,7 @@ namespace Safir
     internal class AppBootstrapper : BootstrapperBase
     {
         private const string APPNAME = "Safir";
-        private static readonly Container _container = new Container();
+        private static readonly Container Container = new Container();
 
         public AppBootstrapper() {
             LogManager.GetLog = type => new Log4NetLogger(type);
@@ -31,42 +31,41 @@ namespace Safir
 
         protected override void Configure() {
             // Register Types
-            _container.RegisterSingleton<IAppMeta>(() => new ApplicationMeta(APPNAME));
+            Container.RegisterSingleton<IAppMeta>(() => new ApplicationMeta(APPNAME));
 
-            CorePackage.RegisterServices(_container);
-            DataPackage.RegisterServices(_container);
-            ManagerPackage.RegisterServices(_container);
+            CorePackage.RegisterServices(Container);
+            DataPackage.RegisterServices(Container);
+            ManagerPackage.RegisterServices(Container);
 
             // Register windows and view models
-            _container.Register<IWindowManager, WindowManager>();
-            _container.RegisterSingleton<IEventAggregator, EventAggregator>();
+            // Ok maybe not viewmodels? Haven't registered any yet and things seem to work just fine
+            Container.Register<IWindowManager, WindowManager>();
+            Container.RegisterSingleton<IEventAggregator, EventAggregator>();
 
-            _container.Verify();
+            Container.Verify();
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e) {
-            var settings = _container.GetInstance<ISettingStore>();
-            if (settings != null)
-                settings.Load();
+            var settings = Container.GetInstance<ISettingStore>();
+            settings?.Load();
             DisplayRootViewFor<MainViewModel>();
         }
 
         protected override void OnExit(object sender, EventArgs e) {
-            var settings = _container.GetInstance<ISettingStore>();
-            if (settings != null)
-                settings.Save();
+            var settings = Container.GetInstance<ISettingStore>();
+            settings?.Save();
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service) {
             // _container.GetAllInstances(service);
-            IServiceProvider provider = _container;
-            Type collectionType = typeof(IEnumerable<>).MakeGenericType(service);
+            IServiceProvider provider = Container;
+            var collectionType = typeof(IEnumerable<>).MakeGenericType(service);
             var services = (IEnumerable<object>)provider.GetService(collectionType);
             return services ?? Enumerable.Empty<object>();
         }
 
         protected override object GetInstance(Type service, string key) {
-            return _container.GetInstance(service);
+            return Container.GetInstance(service);
         }
 
         protected override IEnumerable<Assembly> SelectAssemblies() {
@@ -76,7 +75,7 @@ namespace Safir
         }
 
         protected override void BuildUp(object instance) {
-            var registration = _container.GetRegistration(instance.GetType(), true);
+            var registration = Container.GetRegistration(instance.GetType(), true);
             registration.Registration.InitializeInstance(instance);
         }
     }

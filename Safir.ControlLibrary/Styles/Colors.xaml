@@ -2,22 +2,26 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Color x:Key="WindowBackgroundColor">#FF2D2D30</Color>
-    <Color x:Key="WindowTitleColor">#FF2D2D30</Color>
-    <Color x:Key="BackgroundColor">#FF1E1E1E</Color>
+    <Color x:Key="ContentBackgroundColor">#FF1E1E1E</Color>
+    <Color x:Key="BackgroundColor">#FF1B1B1C</Color>
     <Color x:Key="HighlightColor">#FF3F3F41</Color>
-    <Color x:Key="BlueColor">#FF007ACC</Color>
-    <Color x:Key="RedColor">#FFE81123</Color>
     <Color x:Key="ForegroundColor">#FFF4F4F5</Color>
-    <Color x:Key="MenuShadowColor">#FF000000</Color>
+    <Color x:Key="ShadowColor">#FF000000</Color>
 
-    <SolidColorBrush x:Key="WindowBackgroundColorBrush" Color="{StaticResource WindowBackgroundColor}"/>
-    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource WindowTitleColor}" />
-    
+    <Color x:Key="BlueColor">#FF26A0DA</Color>
+    <Color x:Key="LightBlueColor">#3D26A0DA</Color>
+
+    <Color x:Key="RedColor">#FFE81123</Color>
+
+    <SolidColorBrush x:Key="WindowBackgroundColorBrush" Color="{StaticResource WindowBackgroundColor}" />
+    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource WindowBackgroundColor}" />
+    <SolidColorBrush x:Key="WindowBorderBrush" Color="{StaticResource ShadowColor}" />
+
+    <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="ButtonBorderBrush" Color="Transparent" />
+
     <SolidColorBrush x:Key="MenuBackgroundColorBrush" Color="{StaticResource WindowBackgroundColor}" />
     <SolidColorBrush x:Key="MenuItemBackgroundColorBrush" Color="{StaticResource BackgroundColor}" />
-    
-    <!--<SolidColorBrush x:Key="SubMenuBackgroundColorBrush" Color="{StaticResource WindowBackgroundColor}" />
-    <SolidColorBrush x:Key="SubMenuBorderBrush" Color="{StaticResource BlueColor}" />-->
 
     <SolidColorBrush x:Key="SubMenuBackgroundColorBrush" Color="{StaticResource BackgroundColor}" />
     <SolidColorBrush x:Key="SubMenuBorderBrush" Color="{StaticResource HighlightColor}" />
@@ -26,18 +30,22 @@
     <SolidColorBrush x:Key="TopMenuItemSelectionStroke" Color="{StaticResource HighlightColor}" />
     <SolidColorBrush x:Key="TopMenuItemPressedFill" Color="{StaticResource BackgroundColor}" />
     <SolidColorBrush x:Key="TopMenuItemPressedStroke" Color="{StaticResource HighlightColor}" />
-    
+
     <SolidColorBrush x:Key="DisabledMenuItemForeground" Color="{StaticResource RedColor}" />
     <SolidColorBrush x:Key="DisabledMenuItemGlyphPanel" Color="{StaticResource RedColor}" />
 
-    <SolidColorBrush x:Key="HighlightColorBrush" Color="{StaticResource HighlightColor}"/>
-    
-    <SolidColorBrush x:Key="BlueColorBrush" Color="{StaticResource BlueColor}"/>
-    <SolidColorBrush x:Key="RedColorBrush" Color="{StaticResource RedColor}" />
+    <SolidColorBrush x:Key="HighlightColorBrush" Color="{StaticResource HighlightColor}" />
 
     <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}" />
-    <SolidColorBrush x:Key="ForegroundColorBrush" Color="{StaticResource ForegroundColor}"/>
+    <SolidColorBrush x:Key="ForegroundColorBrush" Color="{StaticResource ForegroundColor}" />
 
-    <SolidColorBrush x:Key="CheckmarkFill" Color="{StaticResource RedColor}" />
+    <SolidColorBrush x:Key="CheckmarkFillBrush" Color="{StaticResource ForegroundColor}" />
+    <SolidColorBrush x:Key="CheckmarkBorderBrush" Color="{StaticResource BlueColor}" />
+    <SolidColorBrush x:Key="CheckmarkBorderFillBrush" Color="{StaticResource LightBlueColor}" />
+    <SolidColorBrush x:Key="RightArrowFill" Color="{StaticResource ForegroundColor}" />
 
+    <SolidColorBrush x:Key="BlueColorBrush" Color="{StaticResource BlueColor}" />
+    <SolidColorBrush x:Key="LightBlueColorBrush" Color="{StaticResource LightBlueColor}" />
+
+    <SolidColorBrush x:Key="RedColorBrush" Color="{StaticResource RedColor}" />
 </ResourceDictionary>

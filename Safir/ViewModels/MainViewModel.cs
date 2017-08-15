@@ -4,32 +4,41 @@
 
 namespace Safir.ViewModels
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using Caliburn.Micro;
-    using Safir.Core.Application;
-    using Safir.Core.Settings;
+    using Core.Application;
+    using Core.Settings;
+    using Events;
 
-    public class MainViewModel : Screen
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+    public class MainViewModel :
+        Screen,
+        IHandle<CloseMainWindowEvent>
     {
         private readonly ISettingStore _settings;
 
         public MainViewModel(
             IAppMeta appMeta,
             ISettingStore settings,
-            MainMenuViewModel mainMenuViewModel) {
+            IEventAggregator eventAggregator,
+            MainMenuViewModel mainMenu) {
             AppName = appMeta.AppName;
             _settings = settings;
-            MainMenu = mainMenuViewModel;
+            eventAggregator.Subscribe(this);
+            MainMenu = mainMenu;
         }
 
         public string AppName { get; set; }
 
-        public MainMenuViewModel MainMenu { get; set; }
+        public MainMenuViewModel MainMenu { get; }
 
         #region Window Settings
 
         protected override void OnInitialize() {
-            var view = GetView() as Window;
+            if (!(GetView() is Window view)) return;
             view.Height = _settings.Get<double>("WindowHeight");
             view.Width = _settings.Get<double>("WindowWidth");
             view.Left = _settings.Get<double>("WindowLeft");
@@ -38,7 +47,7 @@ namespace Safir.ViewModels
         }
 
         protected override void OnDeactivate(bool close) {
-            var view = GetView() as Window;
+            if (!(GetView() is Window view)) return;
             _settings.Set("WindowHeight", view.Height);
             _settings.Set("WindowWidth", view.Width);
             _settings.Set("WindowLeft", view.Left);
@@ -47,5 +56,9 @@ namespace Safir.ViewModels
         }
 
         #endregion
+
+        public void Handle(CloseMainWindowEvent message) {
+            TryClose();
+        }
     }
 }

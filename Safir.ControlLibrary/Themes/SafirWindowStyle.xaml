@@ -9,7 +9,7 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/Thumb.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
     <ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type c:SafirWindow}">
         <Grid LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
@@ -60,7 +60,7 @@
                                   Grid.Row="0"
                                   Grid.Column="0"
                                   Grid.ColumnSpan="5"
-                                  Style="{StaticResource WindowTitleThumbStyle}"/>
+                                  Style="{StaticResource WindowTitleThumbStyle}" />
 
                     <m:MetroThumbContentControl x:Name="PART_TitleBar"
                                                 Grid.Row="0"
@@ -107,18 +107,41 @@
                     </ContentControl>
                 </Grid>
             </AdornerDecorator>
+            <Border x:Name="PART_Border"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="{x:Null}"
+                    BorderBrush="{DynamicResource WindowBorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Opacity="0.5"
+                    UseLayoutRounding="True" />
         </Grid>
 
         <ControlTemplate.Triggers>
             <Trigger Property="UseNoneWindowStyle" Value="True">
-                <Setter TargetName="PART_WindowTitleThumb" Property="Grid.RowSpan" Value="2"/>
+                <Setter TargetName="PART_WindowTitleThumb" Property="Grid.RowSpan" Value="2" />
             </Trigger>
             <Trigger Property="ShowTitleBar" Value="False">
-                <Setter TargetName="PART_WindowTitleThumb" Property="Grid.RowSpan" Value="2"/>
+                <Setter TargetName="PART_WindowTitleThumb" Property="Grid.RowSpan" Value="2" />
             </Trigger>
             <Trigger Property="IsActive" Value="False">
                 <Setter TargetName="PART_WindowTitleBackground" Property="Fill" Value="{Binding Path=NonActiveWindowTitleBrush, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding Path=NonActiveWindowTitleBrush, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
             </Trigger>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter TargetName="PART_Border" Property="BorderThickness" Value="0" />
+            </Trigger>
+            <Trigger Property="WindowState" Value="Normal">
+                <Setter TargetName="PART_Border" Property="Effect">
+                    <Setter.Value>
+                        <!--TODO: Make this actually work-->
+                        <DropShadowEffect BlurRadius="4"
+                                          Direction="315"
+                                          Opacity="0.3"
+                                          ShadowDepth="2"
+                                          Color="{DynamicResource ShadowColor}" />
+                    </Setter.Value>
+                </Setter></Trigger>
             <!--  no icon and no icon content template -> collapse the icon content control  -->
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -129,27 +152,27 @@
                 <Setter TargetName="PART_Icon" Property="Visibility" Value="Collapsed" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
-        
+
     </ControlTemplate>
 
     <ControlTemplate x:Key="OldTemplate" TargetType="{x:Type c:SafirWindow}">
         <Border x:Name="WindowBorder" Margin="{Binding Source={x:Static SystemParameters.WindowNonClientFrameThickness}}"
-                            Background="{DynamicResource WindowBackgroundColorBrush}">
+                Background="{DynamicResource WindowBackgroundColorBrush}">
             <Grid>
                 <Border BorderThickness="1">
                     <AdornerDecorator>
                         <Grid x:Name="LayoutRoot">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" MinHeight="25"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="15"/>
+                                <RowDefinition Height="auto" MinHeight="25" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="15" />
                             </Grid.RowDefinitions>
-                            <ContentPresenter Grid.Row="1" Grid.RowSpan="2" Margin="7"/>
+                            <ContentPresenter Grid.Row="1" Grid.RowSpan="2" Margin="7" />
                             <Rectangle x:Name="HeaderBackground"
-                                                   Grid.Row="0"
-                                                   Height="{Binding TitleBar.Height}"
-                                                   VerticalAlignment="Top"
-                                                   Fill="{DynamicResource WindowBackgroundColorBrush}"/>
+                                       Grid.Row="0"
+                                       Height="{Binding TitleBar.Height}"
+                                       VerticalAlignment="Top"
+                                       Fill="{DynamicResource WindowBackgroundColorBrush}" />
 
                             <!--<ContentControl Grid.Row="0" HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
@@ -161,7 +184,7 @@
                                               Panel.ZIndex="1"
                                               Content="{Binding WindowControlButtons, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
                                               Focusable="False"
-                                              UseLayoutRounding="True"/>
+                                              UseLayoutRounding="True" />
 
                             <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" WindowChrome.IsHitTestVisibleInChrome="True" Grid.Row="0">
                                             <Button x:Name="Minimize" ToolTip="Minimize" Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}">
@@ -191,13 +214,13 @@
                                                 </Grid>
                                             </Button>
                                         </StackPanel>-->
-                            <TextBlock x:Name="WindowTitleTextBlock" Grid.Row="0" Text="{TemplateBinding Title}" TextTrimming="CharacterEllipsis" Margin="8 -1 0 0"  FontSize="16"  Foreground="{TemplateBinding Foreground}"
-                                                   HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <TextBlock x:Name="WindowTitleTextBlock" Grid.Row="0" Text="{TemplateBinding Title}" TextTrimming="CharacterEllipsis" Margin="8 -1 0 0" FontSize="16" Foreground="{TemplateBinding Foreground}"
+                                       HorizontalAlignment="Left" VerticalAlignment="Top" />
                         </Grid>
                     </AdornerDecorator>
                 </Border>
                 <Border BorderBrush="{DynamicResource BlueColorBrush}" BorderThickness="1"
-                                    Visibility="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        Visibility="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </Grid>
         </Border>
         <!--<ControlTemplate.Triggers>
@@ -219,7 +242,7 @@
         <Setter Property="b:StylizedBehaviors.Behaviors">
             <Setter.Value>
                 <b:StylizedBehaviorCollection>
-                    <b:BorderlessWindowBehavior/>
+                    <b:BorderlessWindowBehavior />
                 </b:StylizedBehaviorCollection>
             </Setter.Value>
         </Setter>
@@ -243,7 +266,7 @@
         <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
-        <Setter Property="Template" Value="{StaticResource WindowTemplate}"/>
+        <Setter Property="Template" Value="{StaticResource WindowTemplate}" />
         <Style.Triggers>
             <!-- Not sure why this needs to be a trigger and not a default value... Consider changing in the future. TODO: Re-visit -->
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Icon, Mode=OneWay, Converter={x:Static v:IsNullConverter.Instance}}" Value="False">
@@ -255,7 +278,7 @@
                                                MultiFrameImageMode="{Binding IconScalingMode, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type c:SafirWindow}}}"
                                                RenderOptions.BitmapScalingMode="{Binding IconBitmapScalingMode, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type c:SafirWindow}}}"
                                                RenderOptions.EdgeMode="{Binding IconEdgeMode, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type c:SafirWindow}}}"
-                                               Source="{TemplateBinding Content}"/>
+                                               Source="{TemplateBinding Content}" />
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>

@@ -3,16 +3,16 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-               xmlns:local="clr-namespace:Safir.Views"
                xmlns:c="clr-namespace:Safir.ControlLibrary.Controls;assembly=Safir.ControlLibrary"
-               xmlns:m="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+               xmlns:vm="clr-namespace:Safir.ViewModels"
                mc:Ignorable="d"
-               Title="{Binding AppName}" 
+               d:DataContext="{d:DesignInstance vm:MainViewModel}"
+               Title="{Binding AppName}"
                Icon="/Safir;component/Resources/Icons/brand.ico">
     <Grid>
         <DockPanel>
-            <ContentControl x:Name="MainMenu" Height="20" DockPanel.Dock="Top" VerticalAlignment="Top"/>
-            <Button Height="400" Width="400">A button</Button>            
+            <ContentControl x:Name="MainMenu" Height="20" DockPanel.Dock="Top" VerticalAlignment="Top" />
+            <Button Height="400" Width="400">A button</Button>
         </DockPanel>
     </Grid>
 </c:SafirWindow>

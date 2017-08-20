@@ -11,5 +11,7 @@ namespace Safir.Manager.Audio
         Uri File { get; set; }
 
         string FilePath { get; set; }
+
+        string TrackName { get; set; }
     }
 }

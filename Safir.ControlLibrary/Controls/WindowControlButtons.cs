@@ -5,37 +5,35 @@
 namespace Safir.ControlLibrary.Controls
 {
     using System.ComponentModel;
+    using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
+    using Annotations;
 
     [TemplatePart(Name = "PART_Min", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Max", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Close", Type = typeof(Button))]
-    public class WindowControlButtons : ContentControl, INotifyPropertyChanged
+    public class WindowControlButtons :
+        ContentControl,
+        INotifyPropertyChanged
     {
-        private SafirWindow _parentWindow;
-
         private Button _minButton;
         private Button _maxButton;
         private Button _closeButton;
 
         static WindowControlButtons() {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(WindowControlButtons), new FrameworkPropertyMetadata(typeof(WindowControlButtons)));
+            DefaultStyleKeyProperty.OverrideMetadata(
+                typeof(WindowControlButtons),
+                new FrameworkPropertyMetadata(typeof(WindowControlButtons)));
         }
 
         public delegate void ClosingWindowEventHandler(object sender, CancelEventArgs args);
 
         public event ClosingWindowEventHandler ClosingWindow;
 
-        // Fody takes care of this whatnot
-#pragma warning disable CS0067
         public event PropertyChangedEventHandler PropertyChanged;
-#pragma warning restore CS0067
 
-        public SafirWindow ParentWindow {
-            get { return _parentWindow; }
-            set { _parentWindow = value; }
-        }
+        public SafirWindow ParentWindow { get; set; }
 
         public override void OnApplyTemplate() {
             base.OnApplyTemplate();
@@ -56,7 +54,7 @@ namespace Safir.ControlLibrary.Controls
             }
         }
 
-        protected void OnCloseWindow(CancelEventArgs args) {
+        private void OnCloseWindow(CancelEventArgs args) {
             ClosingWindow?.Invoke(this, args);
         }
 
@@ -89,6 +87,11 @@ namespace Safir.ControlLibrary.Controls
             }
 
             SystemCommands.MinimizeWindow(ParentWindow);
+        }
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

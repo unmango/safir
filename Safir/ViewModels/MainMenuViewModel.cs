@@ -28,19 +28,11 @@ namespace Safir.ViewModels
             _preferences = preferences;
         }
 
-        public List<MenuItem> FileMenuItems { get; set; }
+        public List<MenuItem> MenuItems { get; set; }
 
-        public List<MenuItem> EditMenuItems { get; set; }
-
-        public List<MenuItem> SongMenuItems { get; set; }
-
-        public List<MenuItem> ViewMenuItems { get; set; }
-
-        public List<MenuItem> ControlsMenuItems { get; set; }
-
-        public List<MenuItem> AccountMenuItems { get; set; }
-
-        public List<MenuItem> HelpMenuItems { get; set; }
+        public void AddItem() {
+            MenuItems.Add(new MenuItem { Header = "NewItem" });
+        }
 
         public void OpenPreferences() {
             ActivateItem(_preferences);

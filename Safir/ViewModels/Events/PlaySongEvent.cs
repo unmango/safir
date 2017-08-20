@@ -1,4 +1,9 @@
 ﻿namespace Safir.ViewModels.Events
 {
-    public class PlaySongEvent { }
+    using Manager.Audio;
+
+    public class PlaySongEvent
+    {
+        public IPlayable Song { get; set; }
+    }
 }

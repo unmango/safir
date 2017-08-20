@@ -11,13 +11,10 @@ namespace Safir.Manager.Audio
 
     public class AudioEngine : IDisposable
     {
-        private float _volume;
-        private long _position;
-
         private IPlayable _currentTrack;
 
         private ISoundOut _soundOut;
-        private ISoundOutManager _soundOutManager;
+        private readonly ISoundOutManager _soundOutManager;
 
         public AudioEngine(ISoundOutManager soundOutManager) {
             _soundOutManager = soundOutManager;
@@ -30,15 +27,11 @@ namespace Safir.Manager.Audio
 
         #region Public Properties
 
-        public float Volume {
-            get { return _volume; }
-            set { _volume = value; }
-        }
+        public float Volume { get; set; }
 
-        public long Position {
-            get { return _position; }
-            set { _position = value; }
-        }
+        public long Position { get; set; }
+
+        public Equalizer Equalizer { get; set; }
 
         public bool IsPlaying =>
             (_soundOut != null) &&
@@ -57,8 +50,6 @@ namespace Safir.Manager.Audio
             }
         }
 
-        public Equalizer Equalizer { get; set; }
-
         #endregion
 
         #region Methods
@@ -72,36 +63,26 @@ namespace Safir.Manager.Audio
         }
 
         public void Play() {
-            if (_soundOut != null) {
-                _soundOut.Play();
-            }
+            _soundOut?.Play();
         }
 
         public void Pause() {
-            if (_soundOut != null) {
-                _soundOut.Pause();
-            }
+            _soundOut?.Pause();
         }
 
         public void Stop() {
-            if (_soundOut != null) {
-                _soundOut.Stop();
-            }
+            _soundOut?.Stop();
         }
-        
+
         public void Dispose() {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
         public virtual void Dispose(bool disposing) {
-            if (disposing) {
-                _soundOutManager.Dispose();
-
-                if (_soundOut != null) {
-                    _soundOut.Dispose();
-                }
-            }
+            if (!disposing) return;
+            _soundOutManager.Dispose();
+            _soundOut?.Dispose();
         }
 
         #endregion

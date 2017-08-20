@@ -116,6 +116,7 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Logging\ILog4NetLogger.cs" />
     <Compile Include="Logging\Log4NetLogger.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\Events\CloseMainWindowEvent.cs" />
     <Compile Include="ViewModels\Events\NextSongEvent.cs" />
     <Compile Include="ViewModels\Events\PauseSongEvent.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="ViewModels\Events\RestartSongEvent.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PlaybackViewModel.cs" />
     <Compile Include="ViewModels\PreferencesViewModel.cs" />
     <Compile Include="Views\MainMenuView.xaml.cs">
       <DependentUpon>MainMenuView.xaml</DependentUpon>

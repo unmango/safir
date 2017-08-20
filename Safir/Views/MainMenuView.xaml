@@ -9,9 +9,17 @@
              d:DataContext="{d:DesignInstance vm:MainMenuViewModel}"
              d:DesignHeight="20" d:DesignWidth="500">
 
-    <Menu VerticalAlignment="Top">
-        <MenuItem Header="_File"
-                  ItemsSource="{Binding FileMenuItems, Mode=TwoWay}">
+    <Menu VerticalAlignment="Top"
+          ItemsSource="{Binding MenuItems, Mode=TwoWay}">
+        <Menu.ItemContainerStyle>
+            <Style TargetType="MenuItem">
+                <Setter Property="Header" Value="{Binding Path=Name}" />
+                <Setter Property="ItemsSource" Value="{Binding Path=Children}"></Setter>
+                <Setter Property="Command" Value="{Binding Path=Command}"></Setter>
+            </Style>
+        </Menu.ItemContainerStyle>
+        <MenuItem Header="_File">
+            <MenuItem Header="New Item" cal:Message.Attach="AddItem" />
             <MenuItem Header="New">
                 <MenuItem Header="Playlist" />
                 <MenuItem Header="Playlist from Selection" />
@@ -56,8 +64,7 @@
                       cal:Message.Attach="Close" />
         </MenuItem>
 
-        <MenuItem Header="_Edit"
-                  ItemsSource="{Binding EditMenuItems, Mode=TwoWay}">
+        <MenuItem Header="_Edit">
             <MenuItem Header="Undo" />
             <MenuItem Header="Redo" />
             <Separator />
@@ -74,8 +81,7 @@
                       cal:Message.Attach="OpenPreferences" />
         </MenuItem>
 
-        <MenuItem Header="_Song"
-                  ItemsSource="{Binding SongMenuItems, Mode=TwoWay}">
+        <MenuItem Header="_Song">
             <MenuItem Header="Add to Library" />
             <MenuItem Header="Add to Playlist" />
             <MenuItem Header="Add to Device" />
@@ -102,8 +108,7 @@
             <MenuItem Header="Delete from Library" />
         </MenuItem>
 
-        <MenuItem Header="_View"
-                  ItemsSource="{Binding ViewMenuItems, Mode=TwoWay}">
+        <MenuItem Header="_View">
             <MenuItem Header="Media Kind">
                 <MenuItem Header="Music" IsCheckable="True" />
             </MenuItem>
@@ -146,8 +151,7 @@
             <MenuItem Header="Switch to MiniPlayer" />
         </MenuItem>
 
-        <MenuItem Header="_Controls"
-                  ItemsSource="{Binding ControlsMenuItems, Mode=TwoWay}">
+        <MenuItem Header="_Controls">
             <MenuItem Header="Pause" />
             <MenuItem Header="Stop" />
             <MenuItem Header="Next" />
@@ -183,8 +187,7 @@
             <MenuItem Header="Eject Disc" />
         </MenuItem>
 
-        <MenuItem Header="Account"
-                  ItemsSource="{Binding AccountMenuItems, Mode=TwoWay}">
+        <MenuItem Header="Account">
             <MenuItem>
                 <MenuItem.Header>
                     <Label Content="Placholder" />
@@ -201,8 +204,7 @@
             <MenuItem Header="Connected Accounts..." />
         </MenuItem>
 
-        <MenuItem Header="_Help"
-                  ItemsSource="{Binding HelpMenuItems, Mode=TwoWay}">
+        <MenuItem Header="_Help">
             <MenuItem Header="Quick Tour" />
             <Separator />
             <MenuItem Header="Provide Safir Feedback" />

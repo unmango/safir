@@ -4,8 +4,8 @@
 
 namespace Safir.Core.ConfigFile.DefaultValues
 {
+    using System;
     using System.Configuration;
-    using Common.Extensions;
 
     public class DefaultValueElement : ConfigurationElement
     {
@@ -19,8 +19,15 @@ namespace Safir.Core.ConfigFile.DefaultValues
         [ConfigurationProperty("value", IsRequired = true, IsKey = false)]
         public string Value
         {
-            get { return (this["value"] as string).ReplaceEnvironmentVariables(); }
-            set { this["value"] = value; }
+            get {
+                return
+                    //(this["value"] as string).ReplaceEnvironmentVariables();
+                    Environment.ExpandEnvironmentVariables(this["value"] as string);
+            }
+
+            set {
+                this["value"] = value;
+            }
         }
     }
 }

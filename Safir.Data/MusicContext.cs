@@ -10,9 +10,9 @@ namespace Safir.Data
 
     public class MusicContext : DbContext
     {
-        public MusicContext(string connectionString)
-            : base(connectionString) {
-        }
+        //public MusicContext(string connectionString)
+        //    : base(connectionString) {
+        //}
 
         public DbSet<Playlist> Playlists { get; set; }
 
@@ -23,14 +23,6 @@ namespace Safir.Data
         public DbSet<Song> Songs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
-            var sqliteConnectionInitializer =
-#if DEBUG
-                new SqliteDropCreateDatabaseWhenModelChanges<MusicContext>(modelBuilder);
-#else
-                new SqliteCreateDatabaseIfNotExists<MusicContext>(modelBuilder);
-#endif
-            Database.SetInitializer(sqliteConnectionInitializer);
-
             modelBuilder.Entity<Playlist>()
                 .HasKey(x => x.Name)
                 .ToTable("Playlists");
@@ -73,6 +65,14 @@ namespace Safir.Data
             // modelBuilder.Entity<Song>()
             //    .HasMany(x => x.AlbumArtists)
             //    .WithMany(x => x.Songs);
+
+            var sqliteConnectionInitializer =
+#if DEBUG
+                new SqliteDropCreateDatabaseWhenModelChanges<MusicContext>(modelBuilder);
+#else
+                new SqliteCreateDatabaseIfNotExists<MusicContext>(modelBuilder);
+#endif
+            Database.SetInitializer(sqliteConnectionInitializer);
         }
     }
 }

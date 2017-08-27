@@ -10,6 +10,8 @@ namespace Safir.ViewModels
     using Core.Application;
     using Core.Settings;
     using Events;
+    using static System.Double;
+    using static System.Windows.SystemParameters;
 
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
@@ -35,12 +37,16 @@ namespace Safir.ViewModels
 
         public MainMenuViewModel MainMenu { get; }
 
+        public void Handle(CloseMainWindowEvent message) => TryClose();
+
         #region Window Settings
 
         protected override void OnInitialize() {
             if (!(GetView() is Window view)) return;
-            view.Height = _settings.Get<double>("WindowHeight");
-            view.Width = _settings.Get<double>("WindowWidth");
+            var height = _settings.Get<double>("WindowHeight");
+            view.Height = !IsNaN(height) ? height : FullPrimaryScreenHeight;
+            var width = _settings.Get<double>("WindowWidth");
+            view.Width = !IsNaN(width) ? width : FullPrimaryScreenWidth;
             view.Left = _settings.Get<double>("WindowLeft");
             view.Top = _settings.Get<double>("WindowTop");
             view.WindowState = _settings.Get<WindowState>("WindowState");
@@ -56,9 +62,5 @@ namespace Safir.ViewModels
         }
 
         #endregion
-
-        public void Handle(CloseMainWindowEvent message) {
-            TryClose();
-        }
     }
 }

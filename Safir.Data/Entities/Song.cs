@@ -85,6 +85,44 @@ namespace Safir.Data.Entities
 
         #region Public Methods
 
+        public static implicit operator Song(TagLib.File file) {
+            var tags = file.Tag;
+            var props = file.Properties;
+            var song = new Song {
+                Track = tags.Track,
+                Title = tags.Title,
+                //Album = tags.Album,
+                //AlbumArtists = tags.AlbumArtists,
+                //Artists = tags.Artists,
+                BeatsPerMinute = tags.BeatsPerMinute,
+                Comments = tags.Comment,
+                Compilation = tags.AlbumArtists.Length > 1,
+                Composers = tags.Composers,
+                //DateAdded = null,
+                //DateModified = null,
+                DiscCount = tags.DiscCount,
+                Disk = tags.Disc,
+                Duration = props.Duration,
+                Genres = tags.Genres,
+                Grouping = tags.Grouping,
+                Lyrics = tags.Lyrics,
+                MusicBrainzArtistId = tags.MusicBrainzArtistId,
+                MusicBrainzDiscId = tags.MusicBrainzDiscId,
+                MusicBrainzReleaseArtistId = tags.MusicBrainzReleaseArtistId,
+                MusicBrainzReleaseCountry = tags.MusicBrainzReleaseCountry,
+                MusicBrainzReleaseId = tags.MusicBrainzReleaseId,
+                MusicBrainzReleaseStatus = tags.MusicBrainzReleaseStatus,
+                MusicBrainzReleaseType = tags.MusicBrainzReleaseType,
+                MusicBrainzTrackId = tags.MusicBrainzTrackId,
+                PlayCount = 0,
+                Rating = 0,
+                ReleaseDate = new DateTime((int)tags.Year, 1, 1),
+                Year = tags.Year,
+                SongId = default(Guid)
+            };
+            return song;
+        }
+
         #endregion
     }
 }

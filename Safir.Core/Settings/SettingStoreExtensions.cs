@@ -11,16 +11,15 @@ namespace Safir.Core.Settings
         public static T Get<T>(this ISettingStore settings, string key)
             where T : IConvertible {
             var value = settings[key];
+            if (value == null) return default(T);
             var type = typeof(T);
             if (type.IsEnum) {
                 return (T)Enum.Parse(type, value);
-            } else {
-                return (T)Convert.ChangeType(value, type);
             }
+
+            return (T)Convert.ChangeType(value, type);
         }
 
-        public static void Set<T>(this ISettingStore settings, string key, T value) {
-            settings.Set(key, value.ToString());
-        }
+        public static void Set<T>(this ISettingStore settings, string key, T value) => settings.Set(key, value.ToString());
     }
 }

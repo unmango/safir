@@ -1,8 +1,4 @@
-﻿// <copyright file="Main.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
-namespace Safir.Tests
+﻿namespace Safir.Tests
 {
     using System;
     using System.IO;

@@ -10,16 +10,15 @@
              d:DesignHeight="20" d:DesignWidth="500">
 
     <Menu VerticalAlignment="Top"
-          ItemsSource="{Binding MenuItems, Mode=TwoWay}">
-        <Menu.ItemContainerStyle>
+          ItemsSource="{Binding MenuItems}">
+        <!--<Menu.ItemContainerStyle>
             <Style TargetType="MenuItem">
                 <Setter Property="Header" Value="{Binding Path=Name}" />
                 <Setter Property="ItemsSource" Value="{Binding Path=Children}"></Setter>
                 <Setter Property="Command" Value="{Binding Path=Command}"></Setter>
             </Style>
-        </Menu.ItemContainerStyle>
+        </Menu.ItemContainerStyle>-->
         <MenuItem Header="_File">
-            <MenuItem Header="New Item" cal:Message.Attach="AddItem" />
             <MenuItem Header="New">
                 <MenuItem Header="Playlist" />
                 <MenuItem Header="Playlist from Selection" />
@@ -29,8 +28,10 @@
             <MenuItem Header="Edit Playlist" />
             <MenuItem Header="Close Window" />
             <Separator />
-            <MenuItem Header="Add File to Library..." />
-            <MenuItem Header="Add Folder to Library..." />
+            <MenuItem Header="Add File to Library..."
+                      cal:Message.Attach="AddFile"/>
+            <MenuItem Header="Add Folder to Library..."
+                      cal:Message.Attach="AddFolder" />
             <MenuItem Header="Burn Playlist to Disc" />
             <MenuItem Header="Library">
                 <MenuItem Header="Organize Library..." />

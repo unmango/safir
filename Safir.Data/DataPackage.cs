@@ -5,7 +5,6 @@
 namespace Safir.Data
 {
     using System.Data.Entity.Infrastructure;
-    using Entities;
     using Entities.Repositories;
     using Mehdime.Entity;
     using SimpleInjector;
@@ -13,19 +12,20 @@ namespace Safir.Data
     public static class DataPackage
     {
         public static void RegisterServices(Container container) {
-            container.Register<IDbConnectionFactory, SQLiteConnectionFactory>();
-            container.Register<SQLiteConfiguration>();
+            container.RegisterSingleton<IDbConnectionFactory, SQLiteConnectionFactory>();
+            container.RegisterSingleton<SQLiteConfiguration>();
 
-            container.Register<DatabaseManager>();
+            container.RegisterSingleton<DatabaseManager>();
 
-            container.Register<IDbContextFactory, DbContextFactory>();
-            container.Register<IDbContextScopeFactory, DbContextScopeFactory>();
-            container.Register<IAmbientDbContextLocator, AmbientDbContextLocator>();
+            //container.Register(() => new MusicContext(ConnectionStringHelper.Get()), Lifestyle.Scoped);
+            container.RegisterSingleton<IDbContextFactory, DbContextFactory>();
+            container.RegisterSingleton<IDbContextScopeFactory, DbContextScopeFactory>();
+            container.RegisterSingleton<IAmbientDbContextLocator, AmbientDbContextLocator>();
 
-            container.Register<IRepository<Song>, SongRepository>();
-            container.Register<IRepository<Album>, AlbumRepository>();
-            container.Register<IRepository<Artist>, ArtistRepository>();
-            container.Register<IRepository<Playlist>, PlaylistRepository>();
+            container.RegisterSingleton<SongRepository>();
+            container.RegisterSingleton<AlbumRepository>();
+            container.RegisterSingleton<ArtistRepository>();
+            container.RegisterSingleton<PlaylistRepository>();
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Safir.Manager
     public static class ManagerPackage
     {
         public static void RegisterServices(Container container) {
+            container.RegisterSingleton<MusicManager>();
             container.RegisterSingleton<IDeviceManager, DeviceManager>();
             container.RegisterSingleton<ISoundOutManager, SoundOutManager>();
             container.RegisterSingleton<IWaveSourceManager, WaveSourceManager>();

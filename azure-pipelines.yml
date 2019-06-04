@@ -1,0 +1,9 @@
+trigger:
+- master
+- release/*
+
+steps:
+  task: DotNetCoreInstaller@0
+  displayName: 'Install .NET Core'
+  inputs:
+    sdk: '2.2.104'

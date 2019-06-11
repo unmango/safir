@@ -7,7 +7,7 @@ insert_final_newline = true
 [*.yml]
 indent_size = 2
 
-[*.xml]
+[*.{xml,props,targets}]
 indent_size = 2
 
 [*.cs]

@@ -1,9 +1,36 @@
 trigger:
-- master
-- release/*
+  batch: true
+  branches:
+    include:
+    - *
 
-steps:
+pr:
+  branches:
+    include:
+    - master
+    - release/*
+
+variables:
+- name: BuildConfiguration
+  value: 'Release'
+
+jobs:
+- job: 'build_$(AgentOs)'
+  displayName: 'Build for $(AgentOs)'
+  strategy:
+    matrix:
+      Linux:
+        AgentOs: 'Linux'
+        Pool: 'Linux'
+      Windows:
+        AgentOs: 'Windows_NT'
+        Pool: 'Windows'
+  pool: $(Pool)
+  workspace:
+    clean: outputs
+  steps:
   - task: DotNetCoreInstaller@0
     displayName: 'Install .NET Core'
     inputs:
-      version: '2.2.104'
+      version: '3.x'
+      includePreviewVersions: true

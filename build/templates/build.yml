@@ -1,0 +1,125 @@
+# Build template - https://github.com/dotnet/core-sdk/blob/master/eng/build.yml
+
+parameters:
+  # Agent OS identifier and used as job name
+  agentOs: ''
+
+  # Agent pool
+  pool: {}
+
+  # Additional variables
+  variables: {}
+
+  # Build strategy - matrix
+  strategy: {}
+
+  # Job timeout
+  timeoutInMinutes: 180
+
+phases:
+- template: /build/templates/job.yml
+  parameters:
+    name: ${{ parameters.agentOs }}
+    enablePublishBuildAssets: true
+    pool: ${{ parameters.pool }}
+    ${{ if ne(parameters.strategy, '') }}:
+      strategy: ${{ parameters.strategy }}
+
+    variables: 
+    - _AgentOSName: ${{ parameters.agentOs }}
+    - _BuildArgs: ''
+
+    steps:
+    - checkout: self
+      clean: true
+    - ${{ if eq(parameters.agentOs, 'Windows_NT') }}:
+      - script: 'build\setbuildinfo.bat $(_BuildArchitecture) $(_BuildConfig)'
+        displayName: Set test info (Windows)
+      - script: build.cmd
+                  $(TestParameter)
+                  -pack -publish -ci
+                  -Configuration $(_BuildConfig)
+                  -Architecture $(_BuildArchitecture)
+                  $(_BuildArgs)
+                  $(SignBuildParameters)
+                  $(_AdditionalBuildParameters)
+        displayName: Build
+        env:
+          DOTNET_CLI_UI_LANGUAGE: $(_DOTNET_CLI_UI_LANGUAGE)
+          DropSuffix: $(_DropSuffix)
+
+    - ${{ if ne(parameters.agentOs, 'Windows_NT') }}:
+      - script: 'build/setbuildinfo.sh $(_BuildArchitecture) $(_BuildConfig)'
+        displayName: Set test info (Non-Windows)
+    - ${{ if eq(parameters.agentOs, 'Linux') }}:
+      - script: ./build.sh
+                  $(TestParameter)
+                  --pack --publish --ci
+                  --noprettyprint
+                  --configuration $(_BuildConfig)
+                  $(_DockerParameter)
+                  --architecture $(_BuildArchitecture)
+                  $(_LinuxPortable)
+                  $(_RuntimeIdentifier)
+                  $(_BuildArgs)
+                  $(_AdditionalBuildParameters)
+        displayName: Build
+        env:
+          DropSuffix: $(_DropSuffix)
+
+    - ${{ if or(eq(parameters.agentOs, 'Darwin'), eq(parameters.agentOs, 'FreeBSD')) }}:
+      - script: ./build.sh
+                  $(TestParameter)
+                  --pack --publish --ci
+                  --noprettyprint
+                  --configuration $(_BuildConfig)
+                  $(_BuildArgs)
+                  $(_AdditionalBuildParameters)
+        displayName: Build
+
+    - task: PublishTestResults@1	
+      displayName: Publish Test Results	
+      inputs:	
+        testRunner: XUnit	
+        testResultsFiles: 'artifacts/TestResults/$(_BuildConfig)/*.xml'	
+        testRunTitle: '$(_AgentOSName)_$(Agent.JobName)'	
+        platform: '$(BuildPlatform)'	
+        configuration: '$(_BuildConfig)'	
+      condition: not(succeeded())
+
+    - task: CopyFiles@2	
+      displayName: Gather Logs	
+      inputs:	
+        SourceFolder: '$(Build.SourcesDirectory)/artifacts'	
+        Contents: |	
+         log/$(_BuildConfig)/**/*	
+         TestResults/$(_BuildConfig)/**/*	
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'	
+      continueOnError: true	
+      condition: not(succeeded())	
+
+    - task: PublishBuildArtifacts@1	
+      displayName: Publish Logs to Azure DevOps	
+      inputs:	
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'	
+        ArtifactName: '$(_AgentOSName)_$(Agent.JobName)_$(Build.BuildNumber)'	
+        publishLocation: Container	
+      continueOnError: true	
+      condition: not(succeeded())
+
+    - ${{ if and(eq(parameters.enablePublishBuildAssets, true), notin(variables['Build.Reason'], 'PullRequest')) }}:
+      - task: CopyFiles@2
+        displayName: Gather Asset Manifests
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)/artifacts/log/$(_BuildConfig)/AssetManifest'
+          TargetFolder: '$(Build.StagingDirectory)/AssetManifests'
+        continueOnError: ${{ parameters.continueOnError }}
+        condition: and(succeeded(), eq(variables['_DotNetPublishToBlobFeed'], 'true'), eq(variables['_PublishBuildAssetManifest'], 'true'))
+      - task: PublishBuildArtifacts@1
+        displayName: Push Asset Manifests
+        inputs:
+          PathtoPublish: '$(Build.StagingDirectory)/AssetManifests'
+          PublishLocation: Container
+          ArtifactName: AssetManifests
+        continueOnError: ${{ parameters.continueOnError }}
+        condition: and(succeeded(), eq(variables['_DotNetPublishToBlobFeed'], 'true'), eq(variables['_PublishBuildAssetManifest'], 'true'))

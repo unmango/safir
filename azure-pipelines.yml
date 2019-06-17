@@ -18,7 +18,8 @@ jobs:
 - template: /build/templates/build.yml
   parameters:
     agentOs: Windows_NT
-    pool: Windows
+    pool:
+      name: Hosted
     timeoutInMinutes: 180
     strategy:
       matrix:
@@ -46,7 +47,8 @@ jobs:
 - template: /build/templates/build.yml
   parameters:
     agentOs: Linux
-    pool: Linux
+    pool:
+      name: Hosted Ubuntu 1604
     timeoutInMinutes: 180
     strategy:
       matrix:

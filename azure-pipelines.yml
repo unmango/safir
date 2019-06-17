@@ -15,7 +15,7 @@ variables:
   value: 'Release'
 
 jobs:
-- job: 'build_$(AgentOs)'
+- job: 'build'
   displayName: 'Build for $(AgentOs)'
   strategy:
     matrix:

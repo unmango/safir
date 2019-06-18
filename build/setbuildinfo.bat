@@ -14,3 +14,24 @@ if "%AdditionalBuildParameters%" == "$(_AdditionalBuildParameters)" (
 ) ELSE (
     ECHO AdditionalBuildParameters is already set to: %AdditionalBuildParameters%
 )
+
+if /I "%SYSTEM_TEAMPROJECT%" == "Public" (
+    ECHO Public CI
+    SET SignType=test
+) ELSE (
+    ECHO Not public CI
+    SET SignType=real
+)
+ECHO ##vso[task.setvariable variable=SignType]%SignType%
+
+IF /I "%Architecture:~0,3%"=="ARM" (
+    ECHO ARM
+    ECHO ##vso[task.setvariable variable=TestParameter]
+    ECHO ##vso[task.setvariable variable=RunTests]false
+) ELSE (
+    ECHO NOT ARM
+    ECHO ##vso[task.setvariable variable=TestParameter]-test
+    ECHO ##vso[task.setvariable variable=RunTests]true
+)
+
+ECHO ##vso[task.setvariable variable=SignBuildParameters]-sign /p:DotNetSignType=%SignType%

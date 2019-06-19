@@ -32,9 +32,14 @@ phases:
     steps:
     - checkout: self
       clean: true
+    -task: UseDotNet@2
+      displayName: 'Install .NET Core sdk'
+      inputs:
+        packageType: sdk
+        version: 3.*
+        includePreviewVersions: true
+
     - ${{ if eq(parameters.agentOs, 'Windows_NT') }}:
-      - script: 'build\setbuildinfo.bat $(_BuildArchitecture) $(_BuildConfig)'
-        displayName: Set test info (Windows)
       - script: build.cmd
                   $(TestParameter)
                   -pack -publish -ci

@@ -1,4 +1,4 @@
-[CmdletBinding(PositionalBindint=$false)]
+[CmdletBinding(PositionalBinding=$false)]
 Param(
   [string][Alias('c')]$configuration = "Debug",
   [string]$platform = $null,

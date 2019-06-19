@@ -19,7 +19,7 @@ jobs:
   parameters:
     agentOs: Windows_NT
     pool:
-      name: Hosted
+      name: Windows
     timeoutInMinutes: 180
     strategy:
       matrix:
@@ -48,7 +48,7 @@ jobs:
   parameters:
     agentOs: Linux
     pool:
-      name: Hosted Ubuntu 1604
+      name: Linux
     timeoutInMinutes: 180
     strategy:
       matrix:

@@ -41,13 +41,10 @@ phases:
 
     - ${{ if eq(parameters.agentOs, 'Windows_NT') }}:
       - script: build.cmd
-                  $(TestParameter)
-                  -pack -publish -ci
+                  -test -pack -publish -ci
                   -Configuration $(_BuildConfig)
                   -Architecture $(_BuildArchitecture)
                   $(_BuildArgs)
-                  $(SignBuildParameters)
-                  $(_AdditionalBuildParameters)
         displayName: Build
         env:
           DOTNET_CLI_UI_LANGUAGE: $(_DOTNET_CLI_UI_LANGUAGE)
@@ -55,8 +52,7 @@ phases:
 
     - ${{ if eq(parameters.agentOs, 'Linux') }}:
       - script: ./build.sh
-                  $(TestParameter)
-                  --pack --publish --ci
+                  --test --pack --publish --ci
                   --noprettyprint
                   --configuration $(_BuildConfig)
                   $(_DockerParameter)
@@ -64,19 +60,16 @@ phases:
                   $(_LinuxPortable)
                   $(_RuntimeIdentifier)
                   $(_BuildArgs)
-                  $(_AdditionalBuildParameters)
         displayName: Build
         env:
           DropSuffix: $(_DropSuffix)
 
     - ${{ if or(eq(parameters.agentOs, 'Darwin'), eq(parameters.agentOs, 'FreeBSD')) }}:
       - script: ./build.sh
-                  $(TestParameter)
-                  --pack --publish --ci
+                  --test --pack --publish --ci
                   --noprettyprint
                   --configuration $(_BuildConfig)
                   $(_BuildArgs)
-                  $(_AdditionalBuildParameters)
         displayName: Build
 
     - task: PublishTestResults@1	

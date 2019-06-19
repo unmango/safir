@@ -7,8 +7,8 @@ setlocal
 set Architecture=%1
 set Config=%2
 
-ECHO AdditionalBuildParameters is %AdditionalBuildParameters%
-ECHO _AdditionalBuildParameters is $(_AdditionalBuildParameters)
+ECHO AdditionalBuildParameters is "%AdditionalBuildParameters%"
+ECHO _AdditionalBuildParameters is "$(_AdditionalBuildParameters)"
 
 if "%AdditionalBuildParameters%" == "$(_AdditionalBuildParameters)" (
     REM Prevent the literal "$(_AdditionalBuildParameters)" to be passed to the build script

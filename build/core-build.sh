@@ -141,4 +141,4 @@ if $integration_test; then
     --filter "Category=Integration"
 fi
 
-echo -e "${PURPLE}Done${NC}"
+echo "Done"

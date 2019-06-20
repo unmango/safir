@@ -55,7 +55,7 @@ exec dotnet build --configuration $Configuration @properties
 exec dotnet pack --no-restore --no-build --configuration $Configuration -o $packages @properties
 
 $importer = $web + "importer/"
-exec dotnet publish --no-restore --no-build --configuration $Configuration -o $menu `
+exec dotnet publish --no-restore --no-build --configuration $Configuration -o $importer `
     "$PSScriptRoot/src/Safir.Importer.Service/Safir.Importer.Service.csproj" `
     @properties
 

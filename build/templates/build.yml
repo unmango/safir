@@ -82,26 +82,6 @@ phases:
         configuration: '$(_BuildConfig)'	
       condition: not(succeeded())
 
-    - task: CopyFiles@2	
-      displayName: Gather Logs	
-      inputs:	
-        SourceFolder: '$(Build.SourcesDirectory)/artifacts'	
-        Contents: |	
-         log/$(_BuildConfig)/**/*	
-         TestResults/$(_BuildConfig)/**/*	
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'	
-      continueOnError: true	
-      condition: not(succeeded())	
-
-    - task: PublishBuildArtifacts@1	
-      displayName: Publish Logs to Azure DevOps	
-      inputs:	
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'	
-        ArtifactName: '$(_AgentOSName)_$(Agent.JobName)_$(Build.BuildNumber)'	
-        publishLocation: Container	
-      continueOnError: true	
-      condition: not(succeeded())
-
     - ${{ if and(eq(parameters.enablePublishBuildAssets, true), notin(variables['Build.Reason'], 'PullRequest')) }}:
       - task: CopyFiles@2
         displayName: Gather Asset Manifests
@@ -109,7 +89,7 @@ phases:
           SourceFolder: '$(Build.SourcesDirectory)/artifacts/log/$(_BuildConfig)/AssetManifest'
           TargetFolder: '$(Build.StagingDirectory)/AssetManifests'
         continueOnError: ${{ parameters.continueOnError }}
-        condition: and(succeeded(), eq(variables['_DotNetPublishToBlobFeed'], 'true'), eq(variables['_PublishBuildAssetManifest'], 'true'))
+        condition: and(succeeded(), eq(variables['_PublishBuildAssetManifest'], 'true'))
       - task: PublishBuildArtifacts@1
         displayName: Push Asset Manifests
         inputs:
@@ -117,4 +97,4 @@ phases:
           PublishLocation: Container
           ArtifactName: AssetManifests
         continueOnError: ${{ parameters.continueOnError }}
-        condition: and(succeeded(), eq(variables['_DotNetPublishToBlobFeed'], 'true'), eq(variables['_PublishBuildAssetManifest'], 'true'))
+        condition: and(succeeded(), eq(variables['_PublishBuildAssetManifest'], 'true'))

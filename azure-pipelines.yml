@@ -20,9 +20,6 @@ jobs:
     agentOs: Windows_NT
     pool:
       name: Windows
-    enablePublishBuildArtifacts: true
-    enablePublishTestResults: true
-    enablePublishBuildAssets: true
     timeoutInMinutes: 180
     strategy:
       matrix:
@@ -51,9 +48,6 @@ jobs:
     agentOs: Linux
     pool:
       name: Linux
-    enablePublishBuildArtifacts: true
-    enablePublishTestResults: true
-    enablePublishBuildAssets: true
     timeoutInMinutes: 180
     strategy:
       matrix:

@@ -36,7 +36,7 @@ if (!$Configuration) {
 }
 
 if ($ci) {
-    $MSBuildArgs += '-p:CI=true'
+    $properties += '-p:CI=true'
     $env:DOTNET_CLI_TELEMETRY_OPTOUT = 1;
 }
 
@@ -50,14 +50,14 @@ $packages = $artifacts + "packages/"
 $web = $artifacts + "web/"
 
 Remove-Item -Recurse $artifacts -ErrorAction Ignore
-exec dotnet msbuild /t:UpdateCiSettings @MSBuildArgs
-exec dotnet build --configuration $Configuration @MSBuildArgs
-exec dotnet pack --no-restore --no-build --configuration $Configuration -o $packages @MSBuildArgs
+exec dotnet msbuild /t:UpdateCiSettings @properties
+exec dotnet build --configuration $Configuration @properties
+exec dotnet pack --no-restore --no-build --configuration $Configuration -o $packages @properties
 
 $importer = $web + "importer/"
 exec dotnet publish --no-restore --no-build --configuration $Configuration -o $menu `
     "$PSScriptRoot/src/Safir.Importer.Service/Safir.Importer.Service.csproj" `
-    @MSBuildArgs
+    @properties
 
 [string[]] $testArgs=@()
 if ($PSVersionTable.PSEdition -eq 'Core' -and -not $IsWindows) {
@@ -72,7 +72,7 @@ if ($integrationTest) {
         "$PSScriptRoot/test/Safir.Importer.Service.IntegrationTests/Safir.Importer.Service.IntegrationTests.csproj" `
         --filter "Category=Integration" `
         @testArgs `
-        @MSBuildArgs
+        @properties
 }
 
 write-host -f magenta 'Done'

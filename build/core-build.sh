@@ -135,7 +135,7 @@ dotnet msbuild /t:UpdateCiSettings
 dotnet build --configuration $configuration
 dotnet pack --no-restore --no-build --configuration $configuration -o $packages
 
-if $runIntegration; then
+if $integration_test; then
   dotnet test --no-restore --no-build --configuration $configuration '-clp:Summary' \
     "$scriptroot/test/Safir.Importer.Service.IntegrationTests/Safir.Importer.IntegrationTests.csproj" \
     --filter "Category=Integration"

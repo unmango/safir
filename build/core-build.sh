@@ -124,7 +124,7 @@ while [[ $# > 0 ]]; do
 done
 
 # TODO: Actually build
-if $CI; then
+if [ "$CI" = true ]; then
   ci=true
 fi
 

@@ -124,4 +124,21 @@ while [[ $# > 0 ]]; do
 done
 
 # TODO: Actually build
-usage
+if $CI; then
+  ci=true
+fi
+
+artifacts="$scriptroot/artifacts"
+packages="$artifacts/packages"
+
+dotnet msbuild /t:UpdateCiSettings
+dotnet build --configuration $configuration
+dotnet pack --no-restore --no-build --configuration $configuration -o $packages
+
+if $runIntegration; then
+  dotnet test --no-restore --no-build --configuration $configuration '-clp:Summary' \
+    "$scriptroot/test/Safir.Importer.Service.IntegrationTests/Safir.Importer.IntegrationTests.csproj" \
+    --filter "Category=Integration"
+fi
+
+echo -e "${PURPLE}Done${NC}"

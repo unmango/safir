@@ -17,4 +17,4 @@ Param(
   [Parameter(ValueFromRemainingArguments=$true)][String[]]$properties
 )
 
-ExitWithExiteCode 0
+exit 0

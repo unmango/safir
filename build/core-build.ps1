@@ -16,3 +16,5 @@ Param(
   [switch] $help,
   [Parameter(ValueFromRemainingArguments=$true)][String[]]$properties
 )
+
+ExitWithExiteCode 0

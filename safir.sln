@@ -49,13 +49,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{
 		build\templates\job.yml = build\templates\job.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Common", "src\Safir.Common\Safir.Common.csproj", "{14F83C1F-5787-4981-B874-63F5C7BE286B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safir.Common", "src\Safir.Common\Safir.Common.csproj", "{14F83C1F-5787-4981-B874-63F5C7BE286B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.FileManager.Infrastructure", "src\Safir.FileManager.Infrastructure\Safir.FileManager.Infrastructure.csproj", "{FC6AED47-12C6-4F87-9075-20024FD0EE48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safir.FileManager.Infrastructure", "src\Safir.FileManager.Infrastructure\Safir.FileManager.Infrastructure.csproj", "{FC6AED47-12C6-4F87-9075-20024FD0EE48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.FileManager.Service", "src\Safir.FileManager.Service\Safir.FileManager.Service.csproj", "{3FAAC39A-B30A-427B-8DA1-A6F7F559B227}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safir.FileManager.Service", "src\Safir.FileManager.Service\Safir.FileManager.Service.csproj", "{3FAAC39A-B30A-427B-8DA1-A6F7F559B227}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.FileManager.Rest", "src\Safir.FileManager.Rest\Safir.FileManager.Rest.csproj", "{1E618681-E84C-4D52-91E2-3162C7B10C61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safir.FileManager.Rest", "src\Safir.FileManager.Rest\Safir.FileManager.Rest.csproj", "{1E618681-E84C-4D52-91E2-3162C7B10C61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

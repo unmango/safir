@@ -1,9 +1,8 @@
 using System;
-using System.CommandLine;
+using System.CommandLine.Builder;
+using System.CommandLine.Invocation;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Safir.FileManager.Service
 {
@@ -13,15 +12,11 @@ namespace Safir.FileManager.Service
         {
             using var tokenSource = new CancellationTokenSource();
 
-            var command = new RootCommand();
-
             try
             {
-                var host = CreateHostBuilder(args).Build();
+                var parser = CreateCommandLineBuilder().Build();
 
-                await host.RunAsync(tokenSource.Token).ConfigureAwait(false);
-
-                return 0;
+                return await parser.InvokeAsync(args).ConfigureAwait(false);
             }
             catch (Exception)
             {
@@ -31,11 +26,9 @@ namespace Safir.FileManager.Service
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureServices((context, services) =>
-                {
-                    services.AddHostedService<Worker>();
-                });
+        public static CommandLineBuilder CreateCommandLineBuilder()
+            => new CommandLineBuilder()
+                .UseDefaults()
+                .UseRestApi();
     }
 }

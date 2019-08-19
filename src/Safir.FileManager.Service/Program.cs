@@ -26,7 +26,7 @@ namespace Safir.FileManager.Service
             }
         }
 
-        public static CommandLineBuilder CreateCommandLineBuilder()
+        private static CommandLineBuilder CreateCommandLineBuilder()
             => new CommandLineBuilder()
                 .UseDefaults()
                 .UseRestApi();

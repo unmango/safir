@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Safir.FileManager.Service": {
+      "commandName": "Project",
+      "commandLineArgs": "--rest",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

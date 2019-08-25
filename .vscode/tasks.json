@@ -19,8 +19,8 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Safir.Core/Safir.Core.csproj",
                 "/property:GenerateFullPaths=true",
+                "${workspaceFolder}/src/Safir.Core/Safir.Core.csproj",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
@@ -33,6 +33,43 @@
                 "watch",
                 "run",
                 "${workspaceFolder}/src/Safir.Core/Safir.Core.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Safir.FileManager.Service/Safir.FileManager.Service.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/src/Safir.FileManager.Service/Safir.FileManager.Service.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/src/Safir.FileManager.Service/Safir.FileManager.Service.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

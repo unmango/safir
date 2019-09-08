@@ -17,7 +17,7 @@ namespace Safir.FileManager.Infrastructure.Data
 
         public void Configure(DbContextOptions<FileContext> options)
         {
-            throw new NotImplementedException();
+            options.
         }
     }
 }

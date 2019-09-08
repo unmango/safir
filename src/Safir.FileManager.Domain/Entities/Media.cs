@@ -1,9 +1,10 @@
-﻿using Safir.FileManager.Domain.Events;
+﻿using Safir.Common.Domain;
+using Safir.FileManager.Domain.Events;
 using Safir.FileManager.Domain.Models;
 
 namespace Safir.FileManager.Domain.Entities
 {
-    public class Media : Entity
+    public class Media : Entity<int>
     {
         public Media(Location location)
         {

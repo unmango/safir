@@ -18,9 +18,15 @@ namespace Safir.FileManager.Service
         {
             builder
                 .AddOption(_option)
-                .UseMiddleware(RestApiMiddleware);
+                .UseHost(CreateHostBuilder, ConfigureHost);
 
             return builder;
+        }
+
+        private static IHostBuilder CreateHostBuilder(string[] args) => Rest.Program.CreateHostBuilder(args);
+
+        private static void ConfigureHost(IHostBuilder builder)
+        {
         }
 
         private static Task RestApiMiddleware(InvocationContext context, Func<InvocationContext, Task> next)

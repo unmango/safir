@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 namespace Safir.Common.Domain
 {
-    public abstract class Entity : EntityMetadata
+    public abstract class Entity<T> : EntityMetadata
+        where T : struct
     {
         private readonly List<DomainEvent> _events = new List<DomainEvent>();
 
-        public int Id { get; protected internal set; }
+        public T Id { get; protected internal set; }
 
         public IReadOnlyCollection<DomainEvent> Events => _events;
 

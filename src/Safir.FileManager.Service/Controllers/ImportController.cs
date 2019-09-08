@@ -11,5 +11,10 @@ namespace Safir.FileManager.Service.Controllers
     [ApiController]
     public class ImportController : ControllerBase
     {
+        [HttpPost]
+        public async Task<IActionResult> Import()
+        {
+            return StatusCode(501);
+        }
     }
 }

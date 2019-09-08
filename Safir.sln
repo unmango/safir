@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.FileManager.Rest", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.FileManager.Service", "src\Safir.FileManager.Service\Safir.FileManager.Service.csproj", "{4C99FA75-5BF1-4BC8-93B1-C4DB63478978}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Safir.FileManager.Store", "src\Safir.FileManager.Store\Safir.FileManager.Store.fsproj", "{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,18 @@ Global
 		{4C99FA75-5BF1-4BC8-93B1-C4DB63478978}.Release|x64.Build.0 = Release|Any CPU
 		{4C99FA75-5BF1-4BC8-93B1-C4DB63478978}.Release|x86.ActiveCfg = Release|Any CPU
 		{4C99FA75-5BF1-4BC8-93B1-C4DB63478978}.Release|x86.Build.0 = Release|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Debug|x64.Build.0 = Debug|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Debug|x86.Build.0 = Debug|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Release|x64.ActiveCfg = Release|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Release|x64.Build.0 = Release|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Release|x86.ActiveCfg = Release|Any CPU
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,6 +153,7 @@ Global
 		{1FAFFCE8-FCE7-45B2-A36E-7B07B8DCE7CF} = {BF92008D-741C-4BAA-B6DD-880CD7FD997C}
 		{F24B8D45-4DB9-41B3-866D-B2B7862FC019} = {BF92008D-741C-4BAA-B6DD-880CD7FD997C}
 		{4C99FA75-5BF1-4BC8-93B1-C4DB63478978} = {BF92008D-741C-4BAA-B6DD-880CD7FD997C}
+		{F8568AD0-22C0-437D-BA67-66BFEC6C7D49} = {BF92008D-741C-4BAA-B6DD-880CD7FD997C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {62C5DE66-B646-494D-BA03-79A4C05736B1}

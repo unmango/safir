@@ -5,13 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.0.0-preview9.19423.4" />
+    <Compile Include="Actions.fs" />
+    <Compile Include="Reducer.fs" />
+    <Compile Include="State.fs" />
+    <Compile Include="Store.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Collections.Immutable" Version="1.6.0-preview9.19421.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Safir.Common\Safir.Common.csproj" />
     <ProjectReference Include="..\Safir.FileManager.Domain\Safir.FileManager.Domain.csproj" />
-    <ProjectReference Include="..\Safir.FileManager.Store\Safir.FileManager.Store.fsproj" />
   </ItemGroup>
 
 </Project>

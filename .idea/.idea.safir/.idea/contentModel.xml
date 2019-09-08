@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.1/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.1/system/resharper-host/local/Transient/ReSharperHost/v191/SolutionCaches/_safir.-1875747330.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p=".editorconfig" t="Include" />
+      <e p=".gitignore" t="Include" />
+      <e p="Directory.Build.props" t="Include" />
+      <e p="Directory.Build.targets" t="Include" />
+      <e p="NuGet.Config" t="Include" />
+      <e p="README.md" t="Include" />
+      <e p="Solution Items" t="Include" />
+      <e p="azure-pipelines.yml" t="Include" />
+      <e p="build" t="Include">
+        <e p="core-build.ps1" t="Include" />
+        <e p="core-build.sh" t="Include" />
+        <e p="templates" t="Include">
+          <e p="build.yml" t="Include" />
+          <e p="job.yml" t="Include" />
+        </e>
+      </e>
+      <e p="build.cmd" t="Include" />
+      <e p="build.ps1" t="Include" />
+      <e p="build.sh" t="Include" />
+      <e p="docs" t="Include" />
+      <e p="global.json" t="Include" />
+      <e p="safir.sln" t="IncludeFlat" />
+      <e p="src" t="Include">
+        <e p="Common.psm1" t="Include" />
+        <e p="FileManager" t="Include" />
+        <e p="Safir.Core" t="IncludeRecursive">
+          <e p="Safir.Core.csproj" t="IncludeRecursive" />
+        </e>
+        <e p="Safir.FileManager.Domain" t="IncludeRecursive">
+          <e p="Safir.FileManager.Domain.csproj" t="IncludeRecursive" />
+        </e>
+        <e p="Safir.FileManager.Infrastructure" t="IncludeRecursive">
+          <e p="Safir.FileManager.Infrastructure.csproj" t="IncludeRecursive" />
+        </e>
+        <e p="Safir.FileManager.Service" t="IncludeRecursive">
+          <e p="Safir.FileManager.Service.csproj" t="IncludeRecursive" />
+        </e>
+      </e>
+      <e p="test" t="Include" />
+      <e p="version.props" t="Include" />
+      <e p="xunit.runner.json" t="Include" />
+    </e>
+  </component>
+</project>

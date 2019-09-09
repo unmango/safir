@@ -7,10 +7,12 @@ import { MaterialModule } from './shared';
 import { AppRoutingModule } from './app-routing.module';
 import { AppStoreModule } from './app-store.module';
 import { AppComponent, containers } from './containers';
+import { components } from './components';
 
 @NgModule({
   declarations: [
-    ...containers
+    ...containers,
+    ...components
   ],
   imports: [
     BrowserModule,

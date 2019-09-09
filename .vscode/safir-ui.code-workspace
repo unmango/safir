@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "../src/Safir.Electron"
+		},
+		{
+			"path": "../src/Safir.Electron/src/app"
 		}
 	],
 	"settings": {

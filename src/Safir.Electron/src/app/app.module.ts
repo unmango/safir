@@ -6,11 +6,11 @@ import { MaterialModule } from './shared';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppStoreModule } from './app-store.module';
-import { AppComponent } from './app.component';
+import { AppComponent, containers } from './containers';
 
 @NgModule({
   declarations: [
-    AppComponent
+    ...containers
   ],
   imports: [
     BrowserModule,

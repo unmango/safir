@@ -1,9 +1,11 @@
 {
   "name": "safir",
   "version": "0.0.0",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:electron": "ng build --base-href ./ && electron .",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

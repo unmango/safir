@@ -1,4 +1,10 @@
 const { app, BrowserWindow } = require('electron')
+const path = require('path')
+const url = require('url')
+
+require('electron-reload')(__dirname);
+
+let development = true;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -7,15 +13,26 @@ let win
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 1500,
-    height: 1000,
+    width: 2000,
+    height: 1200,
     webPreferences: {
       nodeIntegration: true
     }
   })
 
   // and load the index.html of the app.
-  win.loadFile('dist/index.html')
+  // win.loadFile('dist/index.html')
+  if (development) {
+    win.loadURL('http://localhost:4200');
+  } else {
+    win.loadURL(
+      url.format({
+        pathname: path.join(__dirname, '/dist/index.html'),
+        protocol: 'file:',
+        slashes: true
+      })
+    )
+  }
 
   // Open the DevTools.
   win.webContents.openDevTools()

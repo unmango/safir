@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../src/Safir.Electron"
+		},
+		{
+			"path": "../src/Safir.Electron/src/app"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.idea": true,
+			"**/bin": true,
+			"**/obj": true
+		}
+	}
+}

@@ -4,7 +4,8 @@
   "description": "A modular media manager",
   "main": "main.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start:electron": "ng build --base-href ./ && electron ."
   },
   "repository": {
     "type": "git",

@@ -2,6 +2,9 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+
+import { State } from '@app/reducers';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +12,6 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  @ViewChild('header', { static: true })
-  header: ElementRef;
 
   public title = 'Safir';
 
@@ -21,15 +21,9 @@ export class AppComponent {
       shareReplay()
     );
 
-  public get headerHeight(): number {
-    return this.header
-      && this.header.nativeElement
-      && this.header.nativeElement.offsetHeight
-      || 0;
-  }
-
   constructor(
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private store: Store<State>
   ) { }
 
 }

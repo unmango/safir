@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "safir"
+  "defaultProject": "safir",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

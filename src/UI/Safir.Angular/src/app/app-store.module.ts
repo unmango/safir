@@ -5,7 +5,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '../environments/environment';
 import { reducers, metaReducers } from './reducers';
-import { AppEffects } from './app.effects';
+import { AppEffects } from './effects';
 
 @NgModule({
   imports: [

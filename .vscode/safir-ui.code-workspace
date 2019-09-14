@@ -1,10 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "../src/Safir.Electron"
+			"path": "../src/UI/Safir.Electron"
 		},
 		{
-			"path": "../src/Safir.Electron/src/app"
+			"path": "../src/UI/Safir.Angular"
+		},
+		{
+			"path": "../src/UI/Safir.Angular/src/app"
 		}
 	],
 	"settings": {

@@ -1,0 +1,30 @@
+{
+  "name": "safir",
+  "version": "1.0.0",
+  "description": "A modular media manager",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unmango/safir.git"
+  },
+  "keywords": [
+    "media",
+    "music",
+    "manager",
+    "electron",
+    "angular"
+  ],
+  "author": "UnstoppableMango",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unmango/safir/issues"
+  },
+  "homepage": "https://github.com/unmango/safir#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^6.0.9"
+  }
+}

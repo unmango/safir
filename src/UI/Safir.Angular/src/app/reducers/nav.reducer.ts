@@ -1,20 +1,21 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { collapse } from '../actions';
+import { collapse, expand } from '../actions';
 
 export const navFeatureKey = 'nav';
 
 export interface State {
-  mode: 'text' | 'icon';
+  collapsed: boolean;
 }
 
 export const initialState: State = {
-  mode: 'text'
+  collapsed: false
 };
 
 const navReducer = createReducer(
   initialState,
-  on(collapse, state => ({ ...state, mode: 'icon' }))
+  on(collapse, state => ({ ...state, collapsed: true })),
+  on(expand, state => ({ ...state, collapsed: false }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

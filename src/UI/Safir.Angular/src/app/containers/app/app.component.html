@@ -1,6 +1,5 @@
 <app-nav [isHandset]="isHandset$ | async">
-  <app-header #header
-              [title]="title"
+  <app-header [title]="title"
               [isHandset]="isHandset$ | async">
   </app-header>
   <router-outlet></router-outlet>

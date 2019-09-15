@@ -38,6 +38,9 @@ export const metaReducers: MetaReducer<State>[] = !environment.production
   ? [logger]
   : [];
 
+
+// Router
+
 export const selectRouter = createFeatureSelector<State, fromRouter.RouterReducerState<any>>('router');
 export const {
   selectQueryParams,    // select the current route query params
@@ -47,6 +50,8 @@ export const {
   selectRouteData,      // select the current route data
   selectUrl,            // select the current url
 } = fromRouter.getSelectors(selectRouter);
+
+// Nav
 
 export const selectNav = createFeatureSelector<State, fromNav.State>(fromNav.navFeatureKey);
 export const selectNavCollapsed = createSelector(selectNav, state => state.collapsed);

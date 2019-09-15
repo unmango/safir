@@ -7,7 +7,9 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <app-nav-item *ngFor="let item of items"
-                    [model]="item">
+                    [routerLink]="item.href"
+                    [icon]="item.icon">
+        {{item.name}}
       </app-nav-item>
     </mat-nav-list>
   </mat-sidenav>

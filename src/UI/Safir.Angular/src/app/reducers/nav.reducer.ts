@@ -7,14 +7,16 @@ export const navFeatureKey = 'nav';
 
 export interface State {
   collapsed: boolean;
+  availableItems: NavItem[];
   items: NavItem[];
 }
 
 export const initialState: State = {
   collapsed: false,
+  availableItems: [],
   items: [
-    { href: '/', name: 'Home' },
-    { href: '/library', name: 'Library' }
+    { href: '/', name: 'Home', icon: 'home' },
+    { href: '/library', name: 'Library', icon: 'library_music' }
   ]
 };
 

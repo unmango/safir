@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
 import { NavItem } from '@app/models';
 
@@ -11,12 +11,11 @@ import { NavItem } from '@app/models';
 export class NavComponent {
 
   @Input() isHandset: boolean;
-
   @Input() topGap: number;
-
   @Input() collapsed: boolean;
-
   @Input() items: NavItem[];
+
+  @Output() toggled = new EventEmitter<void>();
 
   public get mode(): 'over' | 'side' {
     return this.isHandset ? 'over' : 'side';
@@ -25,7 +24,5 @@ export class NavComponent {
   public get opened(): boolean {
     return !this.isHandset || !this.collapsed;
   }
-
-  constructor() { }
 
 }

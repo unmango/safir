@@ -1,6 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-
-import { NavItem } from '@app/models';
+import { Component, Input, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -8,13 +6,11 @@ import { NavItem } from '@app/models';
   templateUrl: './nav-item.component.html',
   styleUrls: ['./nav-item.component.scss']
 })
-export class NavItemComponent implements OnInit {
+export class NavItemComponent {
 
-  @Input() model: NavItem;
+  @Input() icon = '';
+  @Input() routerLink: string | any[] = '/';
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  @Output() navigate = new EventEmitter();
 
 }

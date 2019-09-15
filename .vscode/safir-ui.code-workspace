@@ -1,6 +1,9 @@
 {
 	"folders": [
 		{
+			"path": "../src/UI/Safir.Wpf"
+		},
+		{
 			"path": "../src/UI/Safir.Electron"
 		},
 		{

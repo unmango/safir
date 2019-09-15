@@ -22,7 +22,11 @@ export class NavComponent {
   }
 
   public get opened(): boolean {
-    return !this.isHandset || !this.collapsed;
+    return !this.collapsed;
+  }
+
+  public toggle(): void {
+    this.toggled.emit();
   }
 
 }

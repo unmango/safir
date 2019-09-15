@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { State, selectNavCollapsed, selectNavItems } from '@app/reducers';
+import { toggle } from '@app/actions';
 
 @Component({
   selector: 'app-root',
@@ -28,5 +29,9 @@ export class AppComponent {
     private breakpointObserver: BreakpointObserver,
     private store: Store<State>
   ) { }
+
+  public onNavToggle(): void {
+    this.store.dispatch(toggle());
+  }
 
 }

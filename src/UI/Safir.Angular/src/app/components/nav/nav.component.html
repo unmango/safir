@@ -1,15 +1,22 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
+<mat-sidenav-container class="sidenav-container" autosize>
+  <mat-sidenav #drawer
+               class="sidenav"
+               fixedInViewport
                [fixedTopGap]="topGap"
                [attr.role]="isHandset ? 'dialog' : 'navigation'"
                [mode]="mode"
-               [opened]="opened">
-    <mat-toolbar>Menu</mat-toolbar>
+               [opened]="true">
     <mat-nav-list>
+      <mat-list-item (click)="toggle()">
+        <span class="fill"></span>
+        <mat-icon *ngIf="!opened">chevron_right</mat-icon>
+        <mat-icon *ngIf="opened">chevron_left</mat-icon>
+      </mat-list-item>
       <app-nav-item *ngFor="let item of items"
                     [routerLink]="item.href"
                     [icon]="item.icon">
-        {{item.name}}
+        <span *ngIf="opened">{{item.name}}</span>
+        <span *ngIf="opened" style="width: 100px"></span>
       </app-nav-item>
     </mat-nav-list>
   </mat-sidenav>

@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import { NavItem } from '@app/models';
-import { collapse, expand } from '../actions';
+import { collapse, expand, toggle } from '../actions';
 
 export const navFeatureKey = 'nav';
 
@@ -23,7 +23,8 @@ export const initialState: State = {
 const navReducer = createReducer(
   initialState,
   on(collapse, state => ({ ...state, collapsed: true })),
-  on(expand, state => ({ ...state, collapsed: false }))
+  on(expand, state => ({ ...state, collapsed: false })),
+  on(toggle, state => ({ ...state, collapsed: !state.collapsed }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

@@ -11,7 +11,5 @@
    [routerLinkActive]="['link-active']"
    (click)="navigate.emit()">
   <mat-icon mat-list-icon>{{ icon }}</mat-icon>
-  <span mat-line>
-    <ng-content></ng-content>
-  </span>
+  <ng-content matLine></ng-content>
 </a>

@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container" autosize>
+<mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer
                class="sidenav"
                fixedInViewport
@@ -15,8 +15,7 @@
       <app-nav-item *ngFor="let item of items"
                     [routerLink]="item.href"
                     [icon]="item.icon">
-        <span *ngIf="opened">{{item.name}}</span>
-        <span *ngIf="opened" style="width: 100px"></span>
+        <span *ngIf="opened" [@fadeInOut]>{{item.name}}</span>
       </app-nav-item>
     </mat-nav-list>
   </mat-sidenav>

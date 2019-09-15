@@ -1,15 +1,21 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
+import { NavItem } from '@app/models';
 import { collapse, expand } from '../actions';
 
 export const navFeatureKey = 'nav';
 
 export interface State {
   collapsed: boolean;
+  items: NavItem[];
 }
 
 export const initialState: State = {
-  collapsed: false
+  collapsed: false,
+  items: [
+    { href: '/', name: 'Home' },
+    { href: '/library', name: 'Library' }
+  ]
 };
 
 const navReducer = createReducer(

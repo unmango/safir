@@ -1,4 +1,6 @@
-<app-nav [isHandset]="isHandset$ | async">
+<app-nav [isHandset]="isHandset$ | async"
+         [collapsed]="collapsed$ | async"
+         [items]="navItems$ | async">
   <app-header [title]="title"
               [isHandset]="isHandset$ | async">
   </app-header>

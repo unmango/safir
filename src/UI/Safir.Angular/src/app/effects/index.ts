@@ -1,1 +1,1 @@
-export * from './app/app.effects';
+export * from './app.effects';

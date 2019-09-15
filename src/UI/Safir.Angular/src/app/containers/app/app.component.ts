@@ -1,10 +1,10 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
 
-import { State } from '@app/reducers';
+import { State, selectNavCollapsed, selectNavItems } from '@app/reducers';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +20,9 @@ export class AppComponent {
       map(result => result.matches),
       shareReplay()
     );
+
+  public collapsed$ = this.store.select(selectNavCollapsed);
+  public navItems$ = this.store.select(selectNavItems);
 
   constructor(
     private breakpointObserver: BreakpointObserver,

@@ -1,1 +1,2 @@
-export { MaterialModule } from './material.module';
+export * from './material.module';
+export * from './theme-picker.module';

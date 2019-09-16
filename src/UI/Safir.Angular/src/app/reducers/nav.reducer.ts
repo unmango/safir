@@ -26,6 +26,6 @@ const navReducer = createReducer(
   on(expand, state => ({ ...state, collapsed: false }))
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action): State {
   return navReducer(state, action);
 }

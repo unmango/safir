@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialModule } from './shared';
+import { MaterialModule, ThemePickerModule } from './shared';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppStoreModule } from './app-store.module';
@@ -18,6 +18,7 @@ import { components } from './components';
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    ThemePickerModule,
     AppRoutingModule,
     AppStoreModule
   ],

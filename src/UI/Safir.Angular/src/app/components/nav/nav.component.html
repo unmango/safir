@@ -1,0 +1,19 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [fixedTopGap]="topGap"
+               [attr.role]="isHandset ? 'dialog' : 'navigation'"
+               [mode]="mode"
+               [opened]="opened">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <app-nav-item *ngFor="let item of items"
+                    [routerLink]="item.href"
+                    [icon]="item.icon">
+        {{item.name}}
+      </app-nav-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

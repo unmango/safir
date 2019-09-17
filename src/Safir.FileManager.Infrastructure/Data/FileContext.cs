@@ -21,8 +21,10 @@ namespace Safir.FileManager.Infrastructure.Data
         {
             _dispatcher = dispatcher;
         }
+        
+        public DbSet<Library> Libraries { get; protected set; }
 
-        public DbSet<Media> Media { get; set; }
+        public DbSet<Media> Media { get; protected set; }
 
         public IEnumerable<Entity> GetEntities()
         {

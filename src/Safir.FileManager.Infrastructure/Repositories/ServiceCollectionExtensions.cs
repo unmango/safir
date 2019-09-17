@@ -14,6 +14,7 @@ namespace Safir.FileManager.Infrastructure.Repositories
 
         internal static void AddRepositories(this IServiceCollection services)
         {
+            services.AddScoped<ILibraryRepository, LibraryRepository>();
             services.AddScoped<IMediaRepository, MediaRepository>();
         }
     }

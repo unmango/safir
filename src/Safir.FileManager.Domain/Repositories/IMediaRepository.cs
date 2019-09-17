@@ -1,6 +1,8 @@
-﻿namespace Safir.FileManager.Domain.Repositories
+﻿using Safir.Common.Data;
+
+namespace Safir.FileManager.Domain.Repositories
 {
-    public interface IMediaRepository
+    public interface IMediaRepository : IRepository
     {
     }
 }

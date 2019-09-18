@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "C:\\Users\\Erik\\source\\repos\\unmango\\safir\\src\\FileManager\\Safir.FileManager.Domain"
+		},
+		{
+			"path": "C:\\Users\\Erik\\source\\repos\\unmango\\safir\\src\\FileManager\\Safir.FileManager.Infrastructure"
+		},
+		{
+			"path": "C:\\Users\\Erik\\source\\repos\\unmango\\safir\\src\\FileManager\\Safir.FileManager.Rest"
+		},
+		{
+			"path": "C:\\Users\\Erik\\source\\repos\\unmango\\safir\\src\\FileManager\\Safir.FileManager.Service"
+		},
+		{
+			"path": "C:\\Users\\Erik\\source\\repos\\unmango\\safir\\src\\FileManager\\Safir.FileManager.Store"
+		}
+	]
+}

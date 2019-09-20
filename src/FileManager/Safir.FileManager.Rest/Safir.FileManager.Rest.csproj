@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.12" />
+    <ProjectReference Include="..\Safir.FileManager.Domain\Safir.FileManager.Domain.csproj" />
   </ItemGroup>
 
   <Import Project="..\Safir.FileManager.Messages\Safir.FileManager.Messages.projitems" Label="Shared" />

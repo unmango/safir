@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Safir.FileManager.Domain.Repositories;
+﻿using Safir.FileManager.Domain.Repositories;
+using Safir.FileManager.Infrastructure.Repositories;
 
-namespace Safir.FileManager.Infrastructure.Repositories
+namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServiceCollectionExtensions
+    public static class RepositoryServiceCollectionExtensions
     {
         public static IServiceCollection AddFileManagerRepositories(this IServiceCollection services)
         {

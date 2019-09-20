@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Safir.FileManager.Infrastructure;
 using Safir.FileManager.Infrastructure.Data;
-using Safir.FileManager.Infrastructure.Repositories;
 using System;
 
-namespace Safir.FileManager.Infrastructure
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
@@ -27,6 +26,7 @@ namespace Safir.FileManager.Infrastructure
                 options.UseSqlite("");
             });
 
+            services.AddEventInfrastructure();
             services.AddRepositories();
 
             return services;

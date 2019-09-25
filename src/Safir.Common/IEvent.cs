@@ -1,4 +1,4 @@
-﻿namespace Safir.Common.Domain
+﻿namespace Safir.Common
 {
     public interface IEvent
     {

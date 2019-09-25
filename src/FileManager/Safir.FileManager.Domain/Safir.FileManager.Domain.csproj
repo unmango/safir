@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Safir.FileManager.Domain\Safir.FileManager.Domain.csproj" />
+    <ProjectReference Include="..\..\Safir.Common\Safir.Common.csproj" />
   </ItemGroup>
 
 </Project>

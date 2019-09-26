@@ -8,7 +8,6 @@ namespace Safir.Cli.Commands
     internal static class Add
     {
         public static readonly string Name = "add";
-
         public static readonly string Description = "";
 
         public static T UseAddCommand<T>(this T builder)

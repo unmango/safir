@@ -4,7 +4,7 @@ using System.CommandLine.Builder;
 using System.CommandLine.Invocation;
 using System.Threading;
 using System.Threading.Tasks;
-using Safir.Cli.Commands;
+using Safir.Cli.Commands.Add;
 
 namespace Safir.Cli
 {
@@ -17,7 +17,7 @@ namespace Safir.Cli
             try
             {
                 var builder = CreateCommandLineBuilder();
-                Add.Register(builder);
+                AddCommand.Register(builder);
                 
                 var app = new CommandLineApplication(builder);
 

@@ -5,8 +5,12 @@ namespace System.CommandLine
     public class CommandLineApplicationBuilder
     {
         public CommandLineApplicationBuilder()
+            : this(new CommandLineBuilder())
+        { }
+
+        public CommandLineApplicationBuilder(CommandLineBuilder builder)
         {
-            Builder = new CommandLineBuilder();
+            Builder = builder;
         }
 
         public CommandLineBuilder Builder { get; }
@@ -14,6 +18,11 @@ namespace System.CommandLine
         public CommandLineApplication Build()
         {
             return new CommandLineApplication(Builder);
+        }
+
+        public CommandLineApplicationBuilder UseServiceProviderFactory(Func<IServiceProvider> factory)
+        {
+            return this;
         }
     }
 }

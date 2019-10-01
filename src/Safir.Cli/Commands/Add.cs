@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 
 namespace Safir.Cli.Commands
 {
-    internal static class Add
+    internal class Add
     {
         public static readonly string Name = "add";
         public static readonly string Description = "";
 
-        public static T UseAddCommand<T>(this T builder)
-            where T : CommandLineBuilder
-            => builder.AddCommand(Name, Description, Configure);
+        public static T Register<T>(T builder) where T : CommandLineBuilder
+        {
+            return builder.AddCommand(Name, Description, Configure);
+        }
 
         private static void Configure(CommandBuilder builder)
         {

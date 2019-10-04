@@ -1,28 +1,50 @@
-﻿using System.CommandLine.Builder;
+﻿using System.Collections.Generic;
+using System.CommandLine.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace System.CommandLine
 {
-    public class CommandLineApplicationBuilder
+    using Context = CommandLineApplicationBuilderContext;
+
+    public class CommandLineApplicationBuilder : ICommandLineApplicationBuilder
     {
-        public CommandLineApplicationBuilder()
-            : this(new CommandLineBuilder())
+        private readonly List<Action<Context, IConfigurationBuilder>> _configureConfigurationActions = new List<Action<Context, IConfigurationBuilder>>();
+        private readonly List<Action<Context, IServiceCollection>> _configureServicesActions = new List<Action<Context, IServiceCollection>>();
+        private readonly Context _context = new Context();
+
+        public CommandLineApplicationBuilder() : this(new CommandLineBuilder())
         { }
 
         public CommandLineApplicationBuilder(CommandLineBuilder builder)
         {
-            Builder = builder;
+            ParserBuilder = builder;
         }
 
-        public CommandLineBuilder Builder { get; }
+        public CommandLineBuilder ParserBuilder { get; }
 
-        public CommandLineApplication Build()
+        public ICommandLineApplicationBuilder ConfigureConfiguration(Action<Context, IConfigurationBuilder> configure)
         {
-            return new CommandLineApplication(Builder);
-        }
-
-        public CommandLineApplicationBuilder UseServiceProviderFactory(Func<IServiceProvider> factory)
-        {
+            _configureConfigurationActions.Add(configure);
             return this;
+        }
+
+        public ICommandLineApplicationBuilder ConfigureServices(Action<Context, IServiceCollection> configure)
+        {
+            _configureServicesActions.Add(configure);
+            return this;
+        }
+
+        public ICommandLineApplicationBuilder UseServiceProviderFactory<T>(Func<Context, IServiceProviderFactory<T>> factory)
+        {
+            throw new NotImplementedException();
+        }
+
+        ICommandLineApplication ICommandLineApplicationBuilder.Build()
+        {
+            var parser = ParserBuilder.Build();
+
+            return new CommandLineApplication(null, parser);
         }
     }
 }

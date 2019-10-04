@@ -1,7 +1,6 @@
 ﻿using System;
 using System.CommandLine;
 using System.CommandLine.Builder;
-using System.CommandLine.Invocation;
 using System.Threading;
 using System.Threading.Tasks;
 using Safir.Cli.Commands.Add;
@@ -17,9 +16,10 @@ namespace Safir.Cli
             try
             {
                 var builder = CreateCommandLineBuilder();
-                AddCommand.Register(builder);
-                
-                var app = new CommandLineApplication(builder);
+
+                RegisterCommands(builder);
+
+                var app = new CommandLineApplication(null, builder.Build());
 
                 return await app.RunAsync(args, tokenSource.Token).ConfigureAwait(false);
             }
@@ -33,5 +33,10 @@ namespace Safir.Cli
 
         private static CommandLineBuilder CreateCommandLineBuilder()
             => new CommandLineBuilder().UseDefaults();
+
+        private static void RegisterCommands(CommandLineBuilder builder)
+        {
+            AddCommand.Register(builder);
+        }
     }
 }

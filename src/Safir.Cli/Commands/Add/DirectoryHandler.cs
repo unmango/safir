@@ -5,16 +5,7 @@ using System.Threading.Tasks;
 
 namespace Safir.Cli.Commands.Add
 {
-    internal class DirectoryHandler : CommandHandlerBase<FileInfo>
+    internal class DirectoryHandler
     {
-        public static void Register(AddCommand command)
-        {
-            command.AddHandler(new DirectoryHandler());
-        }
-
-        protected override Task Execute(FileInfo arg)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

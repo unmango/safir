@@ -7,9 +7,9 @@ namespace System.CommandLine
     {
         public Task<int> InvokeAsync(InvocationContext context)
         {
-            return CommandHandler.Create<T>(Execute).InvokeAsync(context);
+            return CommandHandler.Create(Execute).InvokeAsync(context);
         }
 
-        protected abstract Task Execute(T arg);
+        protected abstract Task Execute();
     }
 }

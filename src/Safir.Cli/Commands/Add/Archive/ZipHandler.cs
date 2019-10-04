@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Safir.Cli.Commands.Add
+namespace Safir.Cli.Commands.Add.Archive
 {
-    internal class FileHandler
+    internal class ZipHandler
     {
     }
 }

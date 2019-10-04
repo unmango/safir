@@ -1,40 +1,27 @@
-﻿using System.CommandLine.Builder;
-using System.CommandLine.Invocation;
+﻿using System.CommandLine.Invocation;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 
 namespace System.CommandLine
 {
-    public class CommandLineApplication
+    public class CommandLineApplication : ICommandLineApplication
     {
-        private readonly Func<string[], CancellationToken, Task<int>> _invoke;
+        private readonly Parser _parser;
 
-        public CommandLineApplication([NotNull] CommandLineBuilder builder)
-            : this(builder?.Build() ?? throw new ArgumentNullException(nameof(builder))) { }
-
-        public CommandLineApplication([NotNull] Parser parser)
+        public CommandLineApplication(IServiceProvider services, Parser parser)
         {
-            if (parser == null)
-            {
-                throw new ArgumentNullException(nameof(parser));
-            }
-
-            _invoke = (args, _) => parser.InvokeAsync(args);
+            Services = services ?? throw new ArgumentNullException(nameof(services));
+            _parser = parser ?? throw new ArgumentNullException(nameof(parser));
         }
 
         public IServiceProvider Services { get; }
 
         public Task<int> RunAsync(string[] args, CancellationToken cancellationToken = default)
         {
-            return _invoke(args, cancellationToken);
-        }
+            var parseResult = _parser.Parse(args);
+            var console = Services.GetService(typeof(IConsole)) as IConsole;
 
-        public static CommandLineApplicationBuilder CreateDefaultBuilder()
-        {
-            var builder = new CommandLineApplicationBuilder();
-
-            return builder;
+            return _parser.InvokeAsync(parseResult, console);
         }
     }
 }

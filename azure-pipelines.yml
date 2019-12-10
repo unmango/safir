@@ -2,13 +2,19 @@ trigger:
   batch: true
   branches:
     include:
-    - '*'
+    - master
+    - release/*
+  paths:
+    exclude:
+    - README.md
+    - docs/*
 
 pr:
   autoCancel: false
   branches:
     include:
-    - '*'
+    - master
+    - release/*
 
 variables:
 - name: BuildConfiguration

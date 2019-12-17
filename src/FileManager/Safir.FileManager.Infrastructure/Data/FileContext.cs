@@ -21,10 +21,13 @@ namespace Safir.FileManager.Infrastructure.Data
         {
             _dispatcher = dispatcher;
         }
-        
-        public DbSet<Library> Libraries { get; protected set; }
 
-        public DbSet<Media> Media { get; protected set; }
+        // Set DbSet<T>'s to null! because of
+        // https://docs.microsoft.com/en-us/ef/core/miscellaneous/nullable-reference-types
+
+        public DbSet<Library> Libraries { get; protected set; } = null!;
+
+        public DbSet<Media> Media { get; protected set; } = null!;
 
         public IEnumerable<Entity> GetEntities()
         {

@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RuntimeIdentifier>$(TargetRuntimeIdentifier)</RuntimeIdentifier>
     <PublishSingleFile>true</PublishSingleFile>
     <PublishTrimmed>true</PublishTrimmed>
     <AssemblyName>sf</AssemblyName>

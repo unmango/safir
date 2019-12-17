@@ -13,6 +13,6 @@ update_configs:
     directory: "/src/FileManager"
     update_schedule: "live"
 
-  # - package_manager: "dotnet:nuget"
-  #   directory: "/src/Safir.Cli"
-  #   update_schedule: "live"
+  - package_manager: "dotnet:nuget"
+    directory: "/src/Safir.Cli"
+    update_schedule: "live"

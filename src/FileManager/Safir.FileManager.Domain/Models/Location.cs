@@ -2,6 +2,6 @@
 {
     public readonly struct Location
     {
-        private readonly string _filePath;
+        //private readonly string _filePath;
     }
 }

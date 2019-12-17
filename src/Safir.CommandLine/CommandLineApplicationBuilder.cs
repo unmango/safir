@@ -9,8 +9,12 @@ namespace System.CommandLine
 
     public class CommandLineApplicationBuilder : ICommandLineApplicationBuilder
     {
-        private readonly List<Action<Context, IConfigurationBuilder>> _configureConfigurationActions = new List<Action<Context, IConfigurationBuilder>>();
-        private readonly List<Action<Context, IServiceCollection>> _configureServicesActions = new List<Action<Context, IServiceCollection>>();
+        private readonly List<Action<Context, IConfigurationBuilder>> _configureConfigurationActions
+            = new List<Action<Context, IConfigurationBuilder>>();
+        
+        private readonly List<Action<Context, IServiceCollection>> _configureServicesActions
+            = new List<Action<Context, IServiceCollection>>();
+        
         private readonly Context _context = new Context();
 
         public CommandLineApplicationBuilder() : this(new CommandLineBuilder())

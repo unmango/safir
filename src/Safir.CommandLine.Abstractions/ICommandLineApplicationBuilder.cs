@@ -10,7 +10,5 @@ namespace System.CommandLine
         ICommandLineApplicationBuilder ConfigureConfiguration(Action<CommandLineApplicationBuilderContext, IConfigurationBuilder> configure);
 
         ICommandLineApplicationBuilder ConfigureServices(Action<CommandLineApplicationBuilderContext, IServiceCollection> configure);
-
-        ICommandLineApplicationBuilder UseServiceProviderFactory<T>(Func<CommandLineApplicationBuilderContext, IServiceProviderFactory<T>> factory);
     }
 }

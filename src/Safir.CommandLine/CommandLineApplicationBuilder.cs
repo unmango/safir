@@ -39,16 +39,20 @@ namespace System.CommandLine
             return this;
         }
 
-        public ICommandLineApplicationBuilder UseServiceProviderFactory<T>(Func<Context, IServiceProviderFactory<T>> factory)
-        {
-            throw new NotImplementedException();
-        }
-
         ICommandLineApplication ICommandLineApplicationBuilder.Build()
         {
             var parser = ParserBuilder.Build();
 
-            return new CommandLineApplication(null, parser);
+            var serviceCollection = new ServiceCollection();
+
+            foreach (var configure in _configureServicesActions)
+            {
+                configure(_context, serviceCollection);
+            }
+
+            var services = serviceCollection.BuildServiceProvider();
+
+            return new CommandLineApplication(services, parser);
         }
     }
 }

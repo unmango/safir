@@ -3,19 +3,13 @@ using System.CommandLine.Builder;
 
 namespace Safir.Cli.Commands.Add
 {
-    internal static class AddCommand
+    internal class AddCommand
     {
-        public const string NAME = "add";
-        public const string DESCRIPTION = "";
-
-        public static T Register<T>(T builder) where T : CommandLineBuilder
+        public static ICommandLineApplicationBuilder Register(ICommandLineApplicationBuilder builder)
         {
-            var command = new Command(NAME, DESCRIPTION)
+            return builder.ConfigureServices((context, services) =>
             {
-                new Argument<string>()
-            };
-
-            return builder.AddCommand(command);
+            });
         }
     }
 }

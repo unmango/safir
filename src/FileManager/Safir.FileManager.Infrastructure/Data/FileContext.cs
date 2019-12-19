@@ -14,11 +14,16 @@ namespace Safir.FileManager.Infrastructure.Data
 {
     public class FileContext : DbContext, IUnitOfWork, IDispatchEvents
     {
+        private readonly IOptions<FileManagerOptions> _options;
         private readonly IEventDispatcher _dispatcher;
 
-        public FileContext(IOptions<DbContextOptions<FileContext>> options, IEventDispatcher dispatcher)
-            : base(options.Value)
+        public FileContext(
+            DbContextOptions<FileContext> contextOptions,
+            IOptions<FileManagerOptions> options,
+            IEventDispatcher dispatcher)
+            : base(contextOptions)
         {
+            _options = options;
             _dispatcher = dispatcher;
         }
 
@@ -28,6 +33,8 @@ namespace Safir.FileManager.Infrastructure.Data
         public DbSet<Library> Libraries { get; protected set; } = null!;
 
         public DbSet<Media> Media { get; protected set; } = null!;
+
+        public DbSet<TrackedFile> TrackedFiles { get; protected set; } = null!;
 
         public IEnumerable<Entity> GetEntities()
         {
@@ -40,7 +47,7 @@ namespace Safir.FileManager.Infrastructure.Data
         {
             if (builder.IsConfigured) return;
 
-            // TODO
+            builder.UseSqlite(_options.Value.ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

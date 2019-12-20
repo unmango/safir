@@ -17,6 +17,102 @@ pr:
     - release/*
 
 variables:
+- name: RootPath
+  value: src
 - name: BuildConfiguration
   value: 'Release'
 
+stages:
+- stage: build
+  displayName: Build
+  jobs:
+  - job: pre-build
+    displayName: Pre-Build
+    steps:
+    - bash: |
+        if [[ $(git diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH) -ne 0 ]]; then
+        echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]true"
+        echo "##vso[task.setvariable variable=FileManagerPath;isOutput=true]$PROJECTPATH"
+        fi
+      displayName: Set Build File Manager
+      name: set-build-filemanager
+      env:
+        ProjectPath: $(RootPath)/FileManager
+        Source: $(System.PullRequest.SourceBranch)
+        Target: $(System.PullRequest.TargetBranch)
+    - bash: |
+        if [[ $(git diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH) -ne 0 ]]; then
+        echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"
+        echo "##vso[task.setvariable variable=UiPath;isOutput=true]$PROJECTPATH"
+        fi
+      displayName: Set Build UI
+      name: set-build-ui
+      env:
+        ProjectPath: $(RootPath)/Ui
+        Source: $(System.PullRequest.SourceBranch)
+        Target: $(System.PullRequest.TargetBranch)
+  - job: build
+    displayName: Build File Manager
+    dependsOn: pre-build
+    condition: and(succeeded(), eq(dependencies.pre-build.outputs['BuildFileManager'], 'true'))
+    strategy:
+      matrix:
+        Fedora:
+          AGENT_OS: Fedora
+        CentOS:
+          AGENT_OS: Cent
+        Ubuntu:
+          AGENT_OS: Ubuntu
+        Debian:
+          AGENT_OS: Debian
+      maxParallel: 4
+    continueOnError: true
+    pool:
+      name: Linux
+      demands:
+      - agent.os -equals $(AGENT_OS)
+    workspace:
+      clean: outputs
+    variables:
+      ProjectPath: $[ dependencies.pre-build.outputs['FileManagerPath'] ]
+      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/bin'
+      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/pack'
+    steps:
+    - checkout: self
+    - task: UseDotNet@2
+      displayName: 'Install .NET Core sdk'
+      inputs:
+        packageType: sdk
+        useGlobalJson: true
+    - task: DotNetCoreCLI@2
+      displayName: .NET Restore
+      inputs:
+        command: restore
+        projects: $(ProjectPath)/**/*.csproj
+        arguments: '-c $(BuildConfiguration)'
+    - task: DotNetCoreCLI@2
+      displayName: .NET Build
+      inputs:
+        command: build
+        projects: $(ProjectPath)/**/*.csproj
+        arguments: '--no-restore -c $(BuildConfiguration)'
+    - task: DotNetCoreCLI@2
+      displayName: .NET Publish
+      inputs:
+        command: publish
+        projects: $(ProjectPath)/**/*.csproj
+        arguments: '--no-restore --no-build -c $(BuildConfiguration) -o $(BinaryDirectory)'
+    - task: DotNetCoreCLI@2
+      displayName: .NET Pack
+      inputs:
+        command: pack
+        projects: $(ProjectPath)/**/*.csproj
+        arguments: '--no-restore --no-build -c $(BuildConfiguration) -o $(PackageDirectory)'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: $(BinaryDirectory)
+        artifactName: drop
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: $(PackageDirectory)
+        artifactName: Packages

@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using Safir.FileManager.Infrastructure.Configuration;
 using Safir.FileManager.Infrastructure.Data;
 using Safir.FileManager.Infrastructure.Repositories;
-using System;
 
 namespace Safir.FileManager.Infrastructure
 {
@@ -17,6 +18,7 @@ namespace Safir.FileManager.Infrastructure
             if (services == null) throw new ArgumentNullException(nameof(services));
 
             services.Configure(configure);
+            services.AddConfiguration();
 
             services.AddDbContext<FileContext>();
             services.AddRepositories();

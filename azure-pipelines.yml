@@ -26,7 +26,7 @@ stages:
 - stage: build
   displayName: Build
   jobs:
-  - job: pre-build
+  - job: pre_build
     displayName: Pre-Build
     steps:
     - bash: |
@@ -51,10 +51,10 @@ stages:
         ProjectPath: $(RootPath)/Ui
         Source: $(System.PullRequest.SourceBranch)
         Target: $(System.PullRequest.TargetBranch)
-  - job: build
+  - job: build_file_manager
     displayName: Build File Manager
-    dependsOn: pre-build
-    condition: and(succeeded(), eq(dependencies.pre-build.outputs['BuildFileManager'], 'true'))
+    dependsOn: pre_build
+    condition: and(succeeded(), eq(dependencies.pre_build.outputs['BuildFileManager'], 'true'))
     strategy:
       matrix:
         Fedora:
@@ -74,7 +74,7 @@ stages:
     workspace:
       clean: outputs
     variables:
-      ProjectPath: $[ dependencies.pre-build.outputs['FileManagerPath'] ]
+      ProjectPath: $[ dependencies.pre_build.outputs['FileManagerPath'] ]
       BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/bin'
       PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/pack'
     steps:

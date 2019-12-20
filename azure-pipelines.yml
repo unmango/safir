@@ -33,20 +33,11 @@ stages:
   - job: pre_build
     displayName: Pre-Build
     steps:
-    - bash: |
-        echo $SOURCE
-        echo $TARGET
-        echo $PROJECTPATH
-        if [[ $(git diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH) ]]; then
-          echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]true"
-          echo "##vso[task.setvariable variable=FileManagerPath;isOutput=true]$PROJECTPATH"
-        fi
+    - task: ShellScript@2
       displayName: Set Build File Manager
       name: set_build_filemanager
-      env:
-        ProjectPath: $(RootPath)/FileManager
-        Source: $(System.PullRequest.SourceBranch)
-        Target: $(System.PullRequest.TargetBranch)
+      inptus:
+        scriptPath: build/set-varables.sh
     - bash: |
         if [[ $(git diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH) ]]; then
           echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"

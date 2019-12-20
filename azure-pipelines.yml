@@ -30,7 +30,10 @@ stages:
     displayName: Pre-Build
     steps:
     - bash: |
-        if [[ $(git diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH) -ne 0 ]]; then
+        echo $SOURCE
+        echo $TARGET
+        echo $PROJECTPATH
+        if [[ $(git diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH) ]]; then
         echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]true"
         echo "##vso[task.setvariable variable=FileManagerPath;isOutput=true]$PROJECTPATH"
         fi
@@ -41,7 +44,7 @@ stages:
         Source: $(System.PullRequest.SourceBranch)
         Target: $(System.PullRequest.TargetBranch)
     - bash: |
-        if [[ $(git diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH) -ne 0 ]]; then
+        if [[ $(git diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH) ]]; then
         echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"
         echo "##vso[task.setvariable variable=UiPath;isOutput=true]$PROJECTPATH"
         fi

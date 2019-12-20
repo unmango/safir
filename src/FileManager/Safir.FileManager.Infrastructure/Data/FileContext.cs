@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,14 +12,14 @@ using Safir.FileManager.Infrastructure.Data.Configuration;
 
 namespace Safir.FileManager.Infrastructure.Data
 {
-    public class FileContext : DbContext, IUnitOfWork, IDispatchEvents
+    internal class FileContext : DbContext, IUnitOfWork, IDispatchEvents
     {
-        private readonly IOptions<FileManagerOptions> _options;
+        private readonly IOptionsMonitor<FileManagerOptions> _options;
         private readonly IEventDispatcher _dispatcher;
 
         public FileContext(
             DbContextOptions<FileContext> contextOptions,
-            IOptions<FileManagerOptions> options,
+            IOptionsMonitor<FileManagerOptions> options,
             IEventDispatcher dispatcher)
             : base(contextOptions)
         {
@@ -36,6 +36,8 @@ namespace Safir.FileManager.Infrastructure.Data
 
         public DbSet<TrackedFile> TrackedFiles { get; protected set; } = null!;
 
+        public string ConnectionString => _options.CurrentValue.ConnectionString;
+
         public IEnumerable<Entity> GetEntities()
         {
             return ChangeTracker.Entries<Entity>()
@@ -47,7 +49,7 @@ namespace Safir.FileManager.Infrastructure.Data
         {
             if (builder.IsConfigured) return;
 
-            builder.UseSqlite(_options.Value.ConnectionString);
+            builder.UseSqlite(ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

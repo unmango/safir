@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Options;
 
@@ -13,9 +12,7 @@ namespace Safir.FileManager.Infrastructure.Configuration
 
             var builder = new SqliteConnectionStringBuilder();
 
-            var file = Environment.CurrentDirectory + "safir.sqlite";
-
-            if (!File.Exists(file)) File.Create(file).Close();
+            var file = Environment.CurrentDirectory + "/safir.sqlite";
 
             builder.DataSource = file;
 

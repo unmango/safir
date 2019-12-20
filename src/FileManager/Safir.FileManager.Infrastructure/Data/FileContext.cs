@@ -50,6 +50,8 @@ namespace Safir.FileManager.Infrastructure.Data
             if (builder.IsConfigured) return;
 
             builder.UseSqlite(ConnectionString);
+
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

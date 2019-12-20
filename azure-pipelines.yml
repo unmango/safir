@@ -19,6 +19,10 @@ pr:
 variables:
 - name: RootPath
   value: src
+- name: BuildFileManager
+  value: false
+- name: BuildUi
+  value: false
 - name: BuildConfiguration
   value: 'Release'
 

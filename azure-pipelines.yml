@@ -37,7 +37,7 @@ stages:
       displayName: Set Build File Manager
       name: set_build_filemanager
       inputs:
-        scriptPath: build/set-varables.sh
+        scriptPath: build/set-variables.sh
     - bash: |
         if [[ $(git diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH) ]]; then
           echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"

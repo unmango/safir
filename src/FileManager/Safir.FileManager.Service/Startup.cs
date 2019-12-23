@@ -24,7 +24,7 @@ namespace Safir.FileManager.Service
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting(); // Change something to test build
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {

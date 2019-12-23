@@ -35,6 +35,10 @@ stages:
       name: set_build_filemanager
       inputs:
         scriptPath: build/set-variables.sh
+      env:
+        ProjectPath: $(RootPath)/Ui
+        Source: origin/$(System.PullRequest.SourceBranch)
+        Target: origin/$(System.PullRequest.TargetBranch)
     - bash: |
         if [[ $(git diff-tree --dirstat $Source..$Target -- $ProjectPath) ]]; then
           echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"

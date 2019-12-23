@@ -116,7 +116,7 @@ stages:
   - job: build_ui
     displayName: Build UI
     dependsOn: pre_build
-    condition: and(succeeded(), eq(dependencies.pre_build.outputs['BuildFileManager'], 'true'))
+    condition: and(succeeded(), eq(dependencies.pre_build.outputs['BuildUi'], 'true'))
     strategy:
       matrix:
         Fedora:
@@ -136,7 +136,7 @@ stages:
     workspace:
       clean: outputs
     variables:
-      ProjectPath: $[ dependencies.pre_build.outputs['FileManagerPath'] ]
+      ProjectPath: $[ dependencies.pre_build.outputs['BuildUi'] ]
       BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/bin'
       PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/pack'
     steps:

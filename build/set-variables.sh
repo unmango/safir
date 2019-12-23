@@ -14,4 +14,6 @@ echo $($GITPATH diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH)
 if [[ $($GITPATH diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH) ]]; then
   echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]true"
   echo "##vso[task.setvariable variable=FileManagerPath;isOutput=true]$PROJECTPATH"
+else
+  echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]false"
 fi

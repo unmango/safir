@@ -155,12 +155,9 @@ stages:
     steps:
     - checkout: self
     - bash: echo "Building UI projects"
-- stage: test
-  displayName: Test
-  dependsOn: build
-  jobs:
   - job: test_file_manager
     displayName: File Manager
+    dependsOn: build_file_manager
     condition: succeeded()
     strategy:
       matrix:
@@ -182,6 +179,7 @@ stages:
     - bash: echo "Testing File Manager"
   - job: test_ui
     displayName: UI
+    dependsOn: build_ui
     condition: succeeded()
     strategy:
       matrix:

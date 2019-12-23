@@ -121,6 +121,7 @@ stages:
         targetPath: $(BinaryDirectory)
         artifactName: drop_$(AGENT_NAME)
     - task: PublishPipelineArtifact@1
+      enabled: false
       continueOnError: true
       inputs:
         targetPath: $(PackageDirectory)

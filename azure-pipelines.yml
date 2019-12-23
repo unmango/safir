@@ -36,11 +36,9 @@ stages:
     steps:
     - bash: |
         if [[ $(git diff-tree --dirstat $Source..$Target -- $ProjectPath) ]]; then
-          echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"
-          echo "True"
+          echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]true"
         else
-          echo "##vso[task.setvariable variable=BuildUi;isOutput=true]false"
-          echo "False"
+          echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]false"
         fi
       displayName: Set Build File Manager
       name: set_build_filemanager
@@ -51,10 +49,8 @@ stages:
     - bash: |
         if [[ $(git diff-tree --dirstat $Source..$Target -- $ProjectPath) ]]; then
           echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"
-          echo "True"
         else
           echo "##vso[task.setvariable variable=BuildUi;isOutput=true]false"
-          echo "False"
         fi
       displayName: Set Build UI
       name: set_build_ui
@@ -69,25 +65,25 @@ stages:
     strategy:
       matrix:
         Fedora:
-          AGENT_OS: Fedora
+          AGENT_NAME: Fedora
         CentOS:
-          AGENT_OS: Cent
+          AGENT_NAME: Cent
         Ubuntu:
-          AGENT_OS: Ubuntu
+          AGENT_NAME: Ubuntu
         Debian:
-          AGENT_OS: Debian
+          AGENT_NAME: Debian
       maxParallel: 4
     continueOnError: true
     pool:
       name: Linux
       demands:
-      - agent.os -equals $(AGENT_OS)
+      - agent.name -equals $(AGENT_NAME)
     workspace:
       clean: outputs
     variables:
       ProjectPath: $(FileManagerPath)
-      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/bin'
-      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/pack'
+      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/bin'
+      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/pack'
     steps:
     - checkout: self
     - task: UseDotNet@2
@@ -134,25 +130,25 @@ stages:
     strategy:
       matrix:
         Fedora:
-          AGENT_OS: Fedora
+          AGENT_NAME: Fedora
         CentOS:
-          AGENT_OS: Cent
+          AGENT_NAME: Cent
         Ubuntu:
-          AGENT_OS: Ubuntu
+          AGENT_NAME: Ubuntu
         Debian:
-          AGENT_OS: Debian
+          AGENT_NAME: Debian
       maxParallel: 4
     continueOnError: true
     pool:
       name: Linux
       demands:
-      - agent.os -equals $(AGENT_OS)
+      - agent.name -equals $(AGENT_NAME)
     workspace:
       clean: outputs
     variables:
       ProjectPath: $(UiPath)
-      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/bin'
-      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/pack'
+      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/bin'
+      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/pack'
     steps:
     - checkout: self
     - bash: echo "Building UI projects"

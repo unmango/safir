@@ -49,9 +49,9 @@ stages:
       displayName: Set Build UI
       name: set_build_ui
       env:
-        PROJECTPATH: $(RootPath)/Ui
-        SOURCE: $(System.PullRequest.SourceBranch)
-        TARGET: $(System.PullRequest.TargetBranch)
+        ProjectPath: $(RootPath)/Ui
+        Source: origin/$(System.PullRequest.SourceBranch)
+        Target: origin/$(System.PullRequest.TargetBranch)
   - job: build_file_manager
     displayName: Build File Manager
     dependsOn: pre_build

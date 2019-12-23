@@ -7,6 +7,7 @@ echo $GITPATH
 $GITPATH diff-tree --dirstat $Source..$Target -- $ProjectPath
 $($GITPATH diff-tree --dirstat $Source..$Target -- $ProjectPath)
 echo $($GITPATH diff-tree --dirstat $Source..$Target -- $ProjectPath)
+echo "$GITPATH diff-tree --dirstat $Source..$Target -- $ProjectPath"
 TMP=$($GITPATH diff-tree --dirstat $Source..$Target -- $ProjectPath)
 echo $TMP
 if [[ $($GITPATH diff-tree --dirstat $Source..$Target -- $ProjectPath) ]]; then

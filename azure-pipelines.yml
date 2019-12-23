@@ -35,9 +35,6 @@ stages:
       inputs:
         scriptPath: build/set-variables.sh
     - bash: |
-        echo $SOURCE
-        echo $TARGET
-        echo $PROJECTPATH
         if [[ $(git diff-tree --dirstat $SOURCE..$TARGET -- $PROJECTPATH) ]]; then
           echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"
           echo "##vso[task.setvariable variable=UiPath;isOutput=true]$PROJECTPATH"

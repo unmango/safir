@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.idea": true,
+			"**/bin": true,
+			"**/obj": true
+		}
+	}
+}

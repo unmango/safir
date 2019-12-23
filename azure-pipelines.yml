@@ -34,11 +34,16 @@ stages:
     displayName: Pre-Build
     pool: Linux
     steps:
-    - task: ShellScript@2
+    - bash: |
+        if [[ $(git diff-tree --dirstat $Source..$Target -- $ProjectPath) ]]; then
+          echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"
+          echo "True"
+        else
+          echo "##vso[task.setvariable variable=BuildUi;isOutput=true]false"
+          echo "False"
+        fi
       displayName: Set Build File Manager
       name: set_build_filemanager
-      inputs:
-        scriptPath: build/set-variables.sh
       env:
         ProjectPath: $(FileManagerPath)
         Source: origin/$(System.PullRequest.SourceBranch)

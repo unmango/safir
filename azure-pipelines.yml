@@ -67,7 +67,7 @@ stages:
         Fedora:
           AGENT_NAME: Fedora
         CentOS:
-          AGENT_NAME: Cent
+          AGENT_NAME: CentOS
         Ubuntu:
           AGENT_NAME: Ubuntu
         Debian:
@@ -132,7 +132,7 @@ stages:
         Fedora:
           AGENT_NAME: Fedora
         CentOS:
-          AGENT_NAME: Cent
+          AGENT_NAME: CentOS
         Ubuntu:
           AGENT_NAME: Ubuntu
         Debian:

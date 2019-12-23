@@ -1,0 +1,18 @@
+version: 1
+
+update_configs:
+  - package_manager: "javascript"
+    directory: "/src/UI/Safir.Angular"
+    update_schedule: "live"
+
+  - package_manager: "javascript"
+    directory: "/src/UI/Safir.Electron"
+    update_schedule: "live"
+
+  - package_manager: "dotnet:nuget"
+    directory: "/src/FileManager"
+    update_schedule: "live"
+
+  # - package_manager: "dotnet:nuget"
+  #   directory: "/src/Safir.Cli"
+  #   update_schedule: "live"

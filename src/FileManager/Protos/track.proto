@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "Safir.FileManager";
+
+package Track;
+
+service Tracker {
+    rpc Track (TrackRequest) returns (TrackResponse);
+}
+
+message TrackRequest {
+    string file = 1;
+}
+
+message TrackResponse {
+    string message = 1;
+}

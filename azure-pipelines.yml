@@ -113,3 +113,32 @@ stages:
       inputs:
         targetPath: $(PackageDirectory)
         artifactName: Packages
+  - job: build_ui
+    displayName: Build UI
+    dependsOn: pre_build
+    condition: and(succeeded(), eq(dependencies.pre_build.outputs['BuildFileManager'], 'true'))
+    strategy:
+      matrix:
+        Fedora:
+          AGENT_OS: Fedora
+        CentOS:
+          AGENT_OS: Cent
+        Ubuntu:
+          AGENT_OS: Ubuntu
+        Debian:
+          AGENT_OS: Debian
+      maxParallel: 4
+    continueOnError: true
+    pool:
+      name: Linux
+      demands:
+      - agent.os -equals $(AGENT_OS)
+    workspace:
+      clean: outputs
+    variables:
+      ProjectPath: $[ dependencies.pre_build.outputs['FileManagerPath'] ]
+      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/bin'
+      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/pack'
+    steps:
+    - checkout: self
+    - bash: echo "Building UI projects"

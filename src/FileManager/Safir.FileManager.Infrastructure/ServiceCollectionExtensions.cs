@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using Safir.FileManager.Infrastructure.Configuration;
 using Safir.FileManager.Infrastructure.Data;
 using Safir.FileManager.Infrastructure.Repositories;
-using System;
 
 namespace Safir.FileManager.Infrastructure
 {
@@ -15,18 +15,12 @@ namespace Safir.FileManager.Infrastructure
             this IServiceCollection services,
             Action<FileManagerOptions> configure)
         {
-            if (services == null)
-            {
-                throw new ArgumentNullException(nameof(services));
-            }
+            if (services == null) throw new ArgumentNullException(nameof(services));
 
             services.Configure(configure);
+            services.AddConfiguration();
 
-            services.AddDbContext<FileContext>(options =>
-            {
-                options.UseSqlite("");
-            });
-
+            services.AddDbContext<FileContext>();
             services.AddRepositories();
 
             return services;

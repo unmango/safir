@@ -22,7 +22,7 @@ variables:
 - name: FileManagerPath
   value: $(RootPath)/FileManager
 - name: UiPath
-  value: $(RootPath)/UiPath
+  value: $(RootPath)/UI
 - name: BuildConfiguration
   value: 'Release'
 
@@ -80,7 +80,7 @@ stages:
     workspace:
       clean: outputs
     variables:
-      ProjectPath: $[ dependencies.pre_build.outputs['set_build_filemanager.FileManagerPath'] ]
+      ProjectPath: $(FileManagerPath)
       BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/bin'
       PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/pack'
     steps:
@@ -145,7 +145,7 @@ stages:
     workspace:
       clean: outputs
     variables:
-      ProjectPath: $[ dependencies.pre_build.outputs['set_build_ui.BuildUi'] ]
+      ProjectPath: $(UiPath)
       BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/bin'
       PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_OS)/pack'
     steps:

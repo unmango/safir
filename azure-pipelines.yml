@@ -59,7 +59,7 @@ stages:
         Source: origin/$(System.PullRequest.SourceBranch)
         Target: origin/$(System.PullRequest.TargetBranch)
   - job: build_file_manager
-    displayName: Build File Manager
+    displayName: File Manager
     dependsOn: pre_build
     condition: and(succeeded(), eq(dependencies.pre_build.outputs['set_build_filemanager.BuildFileManager'], 'true'))
     strategy:
@@ -126,7 +126,7 @@ stages:
         targetPath: $(PackageDirectory)
         artifactName: Packages_$(AGENT_NAME)
   - job: build_ui
-    displayName: Build UI
+    displayName: UI
     dependsOn: pre_build
     condition: and(succeeded(), eq(dependencies.pre_build.outputs['set_build_ui.BuildUi'], 'true'))
     strategy:
@@ -154,15 +154,18 @@ stages:
     steps:
     - checkout: self
     - bash: echo "Building UI projects"
+- stage: test
+  displayName: Test
+  jobs:
   - job: test_file_manager
-    displayName: Test File Manager
+    displayName: File Manager
     dependsOn: build_file_manager
     condition: succeeded()
     pool: Linux
     steps:
     - bash: echo "Testing File Manager"
   - job: test_ui
-    displayName: Test UI
+    displayName: UI
     dependsOn: build_ui
     condition: succeeded()
     pool: Linux

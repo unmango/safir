@@ -27,7 +27,7 @@
   "dependencies": {},
   "devDependencies": {
     "@angular/cli": "^8.3.22",
-    "electron": "^7.1.8",
+    "electron": "^7.1.9",
     "electron-devtools-installer": "^2.2.4",
     "electron-reload": "^1.5.0"
   }

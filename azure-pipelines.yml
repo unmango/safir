@@ -25,177 +25,241 @@ variables:
   value: $(RootPath)/UI
 - name: BuildConfiguration
   value: 'Release'
+  
+steps:
+- task: UseDotNet@2
+  displayName: Install .NET Core
+  inputs:
+    packageType: sdk
+    useGlobalJson: true
+    
+- task: DotNetCli@2
+  displayName: .NET Restore
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+    
+- task: DotNetCli@2
+  displayName: Update CI Settings
+  inputs:
+    command: custom
+    custom: msbuild
+    arguments: '/t:UpdateCiSettings -p:CI=true'
+    
+- task: DotNetCli@2
+  displayName: .NET Build
+  inputs:
+    command: build
+    projects: '**/*.csproj'
+    configuration: $(BuildConfiguration)
+    arguments: ''
+    
+- task: DotNetCli@2
+  displayName: .NET Test
+  inputs:
+    command: test
+    projects: '**/*[Tt]est*.csproj'
+    configuration: $(BuildConfiguration) # TODO: Double check this param works with the test command
+    arguments: '--no-build --no-restore' # TODO: Coverage and unit test filter
+    
+- task: DotNetCli@2
+  displayName: .NET Pack
+  inputs:
+    command: pack
+    projects: '**/*.csproj'
+    configuration: $(BuildConfiguration)
+    arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/packages"'
+    
+- task: DotNetCLI@2
+  displayName: .NET Publish
+  inputs:
+    command: publish
+    projects: '**/*.csproj'
+    configuration: $(BuildConfiguration)
+    arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/apps"'
 
-stages:
-- stage: build
-  displayName: Build
-  jobs:
-  - job: pre_build
-    displayName: Pre-Build
-    pool: Linux
-    steps:
-    - bash: |
-        if [[ $(git diff-tree --dirstat $Source..$Target -- $ProjectPath) ]]; then
-          echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]true"
-        else
-          echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]false"
-        fi
-      displayName: Set Build File Manager
-      name: set_build_filemanager
-      env:
-        ProjectPath: $(FileManagerPath)
-        Source: origin/$(System.PullRequest.SourceBranch)
-        Target: origin/$(System.PullRequest.TargetBranch)
-    - bash: |
-        if [[ $(git diff-tree --dirstat $Source..$Target -- $ProjectPath) ]]; then
-          echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"
-        else
-          echo "##vso[task.setvariable variable=BuildUi;isOutput=true]false"
-        fi
-      displayName: Set Build UI
-      name: set_build_ui
-      env:
-        ProjectPath: $(UiPath)
-        Source: origin/$(System.PullRequest.SourceBranch)
-        Target: origin/$(System.PullRequest.TargetBranch)
-  - job: build_file_manager
-    displayName: Build File Manager
-    dependsOn: pre_build
-    condition: and(succeeded(), eq(dependencies.pre_build.outputs['set_build_filemanager.BuildFileManager'], 'true'))
-    strategy:
-      matrix:
-        Fedora:
-          AGENT_NAME: Fedora
-        CentOS:
-          AGENT_NAME: CentOS
-        Ubuntu:
-          AGENT_NAME: Ubuntu
-        Debian:
-          AGENT_NAME: Debian
-      maxParallel: 4
-    continueOnError: true
-    pool:
-      name: Linux
-      demands:
-      - agent.name -equals $(AGENT_NAME)
-    workspace:
-      clean: outputs
-    variables:
-      ProjectPath: $(FileManagerPath)
-      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/bin'
-      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/pack'
-    steps:
-    - checkout: self
-    - task: UseDotNet@2
-      displayName: 'Install .NET Core sdk'
-      inputs:
-        packageType: sdk
-        useGlobalJson: true
-    - task: DotNetCoreCLI@2
-      displayName: .NET Restore
-      inputs:
-        command: restore
-        projects: $(ProjectPath)/**/*.csproj
-        arguments: '-c $(BuildConfiguration)'
-    - task: DotNetCoreCLI@2
-      displayName: .NET Build
-      inputs:
-        command: build
-        projects: $(ProjectPath)/**/*.csproj
-        arguments: '--no-restore -c $(BuildConfiguration)'
-    - task: DotNetCoreCLI@2
-      displayName: .NET Publish
-      inputs:
-        command: publish
-        projects: $(ProjectPath)/**/*.csproj
-        arguments: '--no-restore --no-build -c $(BuildConfiguration) -o $(BinaryDirectory)'
-    - task: DotNetCoreCLI@2
-      displayName: .NET Pack
-      inputs:
-        command: pack
-        projects: $(ProjectPath)/**/*.csproj
-        arguments: '--no-restore --no-build -c $(BuildConfiguration) -o $(PackageDirectory)'
-    - task: PublishPipelineArtifact@1
-      continueOnError: true
-      inputs:
-        targetPath: $(BinaryDirectory)
-        artifactName: drop_$(AGENT_NAME)
-    - task: PublishPipelineArtifact@1
-      enabled: false
-      continueOnError: true
-      inputs:
-        targetPath: $(PackageDirectory)
-        artifactName: Packages_$(AGENT_NAME)
-  - job: build_ui
-    displayName: Build UI
-    dependsOn: pre_build
-    condition: and(succeeded(), eq(dependencies.pre_build.outputs['set_build_ui.BuildUi'], 'true'))
-    strategy:
-      matrix:
-        Fedora:
-          AGENT_NAME: Fedora
-        CentOS:
-          AGENT_NAME: CentOS
-        Ubuntu:
-          AGENT_NAME: Ubuntu
-        Debian:
-          AGENT_NAME: Debian
-      maxParallel: 4
-    continueOnError: true
-    pool:
-      name: Linux
-      demands:
-      - agent.name -equals $(AGENT_NAME)
-    workspace:
-      clean: outputs
-    variables:
-      ProjectPath: $(UiPath)
-      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/bin'
-      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/pack'
-    steps:
-    - checkout: self
-    - bash: echo "Building UI projects"
-  - job: test_file_manager
-    displayName: Test File Manager
-    dependsOn: build_file_manager
-    condition: succeeded()
-    strategy:
-      matrix:
-        Fedora:
-          AGENT_NAME: Fedora
-        CentOS:
-          AGENT_NAME: CentOS
-        Ubuntu:
-          AGENT_NAME: Ubuntu
-        Debian:
-          AGENT_NAME: Debian
-      maxParallel: 4
-    pool: Linux
-    steps:
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        artifact: drop_$(AGENT_NAME)
-        path: $(Build.ArtifactStagingDirectory)
-    - bash: echo "Testing File Manager"
-  - job: test_ui
-    displayName: Test UI
-    dependsOn: build_ui
-    condition: succeeded()
-    strategy:
-      matrix:
-        Fedora:
-          AGENT_NAME: Fedora
-        CentOS:
-          AGENT_NAME: CentOS
-        Ubuntu:
-          AGENT_NAME: Ubuntu
-        Debian:
-          AGENT_NAME: Debian
-      maxParallel: 4
-    pool: Linux
-    steps:
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        artifact: drop_$(AGENT_NAME)
-        path: $(Build.ArtifactStagingDirectory)
-    - bash: echo "Testing UI"
+- task: PublishArtifact@1
+  displayName: Publish Apps
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/apps'
+    artifactName: Apps
+
+- task: PublishArtifact@1
+  displayName: Publish Packages
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/packages'
+    artifactName: Packages
+
+#stages:
+#- stage: build
+#  displayName: Build
+#  jobs:
+#  - job: pre_build
+#    displayName: Pre-Build
+#    pool: Linux
+#    steps:
+#    - bash: |
+#        if [[ $(git diff-tree --dirstat $Source..$Target -- $ProjectPath) ]]; then
+#          echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]true"
+#        else
+#          echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]false"
+#        fi
+#      displayName: Set Build File Manager
+#      name: set_build_filemanager
+#      env:
+#        ProjectPath: $(FileManagerPath)
+#        Source: origin/$(System.PullRequest.SourceBranch)
+#        Target: origin/$(System.PullRequest.TargetBranch)
+#    - bash: |
+#        if [[ $(git diff-tree --dirstat $Source..$Target -- $ProjectPath) ]]; then
+#          echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"
+#        else
+#          echo "##vso[task.setvariable variable=BuildUi;isOutput=true]false"
+#        fi
+#      displayName: Set Build UI
+#      name: set_build_ui
+#      env:
+#        ProjectPath: $(UiPath)
+#        Source: origin/$(System.PullRequest.SourceBranch)
+#        Target: origin/$(System.PullRequest.TargetBranch)
+#  - job: build_file_manager
+#    displayName: Build File Manager
+#    dependsOn: pre_build
+#    condition: and(succeeded(), eq(dependencies.pre_build.outputs['set_build_filemanager.BuildFileManager'], 'true'))
+#    strategy:
+#      matrix:
+#        Fedora:
+#          AGENT_NAME: Fedora
+#        CentOS:
+#          AGENT_NAME: CentOS
+#        Ubuntu:
+#          AGENT_NAME: Ubuntu
+#        Debian:
+#          AGENT_NAME: Debian
+#      maxParallel: 4
+#    continueOnError: true
+#    pool:
+#      name: Linux
+#      demands:
+#      - agent.name -equals $(AGENT_NAME)
+#    workspace:
+#      clean: outputs
+#    variables:
+#      ProjectPath: $(FileManagerPath)
+#      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/bin'
+#      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/pack'
+#    steps:
+#    - checkout: self
+#    - task: UseDotNet@2
+#      displayName: 'Install .NET Core sdk'
+#      inputs:
+#        packageType: sdk
+#        useGlobalJson: true
+#    - task: DotNetCoreCLI@2
+#      displayName: .NET Restore
+#      inputs:
+#        command: restore
+#        projects: $(ProjectPath)/**/*.csproj
+#        arguments: '-c $(BuildConfiguration)'
+#    - task: DotNetCoreCLI@2
+#      displayName: .NET Build
+#      inputs:
+#        command: build
+#        projects: $(ProjectPath)/**/*.csproj
+#        arguments: '--no-restore -c $(BuildConfiguration)'
+#    - task: DotNetCoreCLI@2
+#      displayName: .NET Publish
+#      inputs:
+#        command: publish
+#        projects: $(ProjectPath)/**/*.csproj
+#        arguments: '--no-restore --no-build -c $(BuildConfiguration) -o $(BinaryDirectory)'
+#    - task: DotNetCoreCLI@2
+#      displayName: .NET Pack
+#      inputs:
+#        command: pack
+#        projects: $(ProjectPath)/**/*.csproj
+#        arguments: '--no-restore --no-build -c $(BuildConfiguration) -o $(PackageDirectory)'
+#    - task: PublishPipelineArtifact@1
+#      continueOnError: true
+#      inputs:
+#        targetPath: $(BinaryDirectory)
+#        artifactName: drop_$(AGENT_NAME)
+#    - task: PublishPipelineArtifact@1
+#      enabled: false
+#      continueOnError: true
+#      inputs:
+#        targetPath: $(PackageDirectory)
+#        artifactName: Packages_$(AGENT_NAME)
+#  - job: build_ui
+#    displayName: Build UI
+#    dependsOn: pre_build
+#    condition: and(succeeded(), eq(dependencies.pre_build.outputs['set_build_ui.BuildUi'], 'true'))
+#    strategy:
+#      matrix:
+#        Fedora:
+#          AGENT_NAME: Fedora
+#        CentOS:
+#          AGENT_NAME: CentOS
+#        Ubuntu:
+#          AGENT_NAME: Ubuntu
+#        Debian:
+#          AGENT_NAME: Debian
+#      maxParallel: 4
+#    continueOnError: true
+#    pool:
+#      name: Linux
+#      demands:
+#      - agent.name -equals $(AGENT_NAME)
+#    workspace:
+#      clean: outputs
+#    variables:
+#      ProjectPath: $(UiPath)
+#      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/bin'
+#      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/pack'
+#    steps:
+#    - checkout: self
+#    - bash: echo "Building UI projects"
+#  - job: test_file_manager
+#    displayName: Test File Manager
+#    dependsOn: build_file_manager
+#    condition: succeeded()
+#    strategy:
+#      matrix:
+#        Fedora:
+#          AGENT_NAME: Fedora
+#        CentOS:
+#          AGENT_NAME: CentOS
+#        Ubuntu:
+#          AGENT_NAME: Ubuntu
+#        Debian:
+#          AGENT_NAME: Debian
+#      maxParallel: 4
+#    pool: Linux
+#    steps:
+#    - task: DownloadPipelineArtifact@2
+#      inputs:
+#        artifact: drop_$(AGENT_NAME)
+#        path: $(Build.ArtifactStagingDirectory)
+#    - bash: echo "Testing File Manager"
+#  - job: test_ui
+#    displayName: Test UI
+#    dependsOn: build_ui
+#    condition: succeeded()
+#    strategy:
+#      matrix:
+#        Fedora:
+#          AGENT_NAME: Fedora
+#        CentOS:
+#          AGENT_NAME: CentOS
+#        Ubuntu:
+#          AGENT_NAME: Ubuntu
+#        Debian:
+#          AGENT_NAME: Debian
+#      maxParallel: 4
+#    pool: Linux
+#    steps:
+#    - task: DownloadPipelineArtifact@2
+#      inputs:
+#        artifact: drop_$(AGENT_NAME)
+#        path: $(Build.ArtifactStagingDirectory)
+#    - bash: echo "Testing UI"

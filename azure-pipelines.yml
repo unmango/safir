@@ -78,16 +78,16 @@ steps:
     configuration: $(BuildConfiguration)
     arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/apps"'
 
-- task: PublishArtifact@1
+- task: PublishBuildArtifacts@1
   displayName: Publish Apps
   inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/apps'
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/apps'
     artifactName: Apps
 
-- task: PublishArtifact@1
+- task: PublishBuildArtifacts@1
   displayName: Publish Packages
   inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/packages'
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/packages'
     artifactName: Packages
 
 #stages:

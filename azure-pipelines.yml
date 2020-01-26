@@ -120,7 +120,8 @@ jobs:
       
   - bash: 'cd src/UI/Safir.Angular && npm install && npm run build'
 
-  - bash: 'cd src/UI/Safir.Electron && npm install && npm run build'
+#  - bash: 'cd src/UI/Safir.Electron && npm install && npm run build'
+  - bash: 'cd src/UI/Safir.Electron && npm install'
 
 #stages:
 #- stage: build

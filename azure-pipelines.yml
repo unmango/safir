@@ -29,7 +29,8 @@ variables:
 pool: Linux
 
 jobs:
-- job: .NET
+- job:
+  displayName: .NET
   steps:
   - checkout: self
 
@@ -106,7 +107,8 @@ jobs:
       parallel: true
       parallelCount: 8
       
-- job: Node
+- job:
+  displayName: Node.js
   steps:
   - checkout: self
 

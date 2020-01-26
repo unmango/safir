@@ -27,80 +27,98 @@ variables:
   value: 'Release'
   
 pool: Linux
+
+jobs:
+- job: .NET
+  steps:
+  - checkout: self
+
+  - task: UseDotNet@2
+    displayName: Install .NET Core
+    inputs:
+      packageType: sdk
+      useGlobalJson: true
+      
+  - task: DotNetCoreCLI@2
+    displayName: .NET Restore
+    inputs:
+      command: restore
+      projects: '**/*.csproj'
+      
+  - task: DotNetCoreCLI@2
+    displayName: Update CI Settings
+    inputs:
+      command: custom
+      custom: msbuild
+      arguments: '/t:UpdateCiSettings -p:CI=true'
+      
+  - task: DotNetCoreCLI@2
+    displayName: .NET Build
+    inputs:
+      command: build
+      projects: '**/*.csproj'
+      configuration: $(BuildConfiguration)
+      arguments: ''
+      
+  - task: DotNetCoreCLI@2
+    displayName: .NET Test
+    inputs:
+      command: test
+      projects: '**/*[Tt]est*.csproj'
+      configuration: $(BuildConfiguration) # TODO: Double check this param works with the test command
+      publishTestResults: true
+      arguments: '--no-build --no-restore' # TODO: Coverage and unit test filter
+      
+  - task: DotNetCoreCLI@2
+    displayName: .NET Pack
+    inputs:
+      command: pack
+      projects: '**/*.csproj'
+      configuration: $(BuildConfiguration)
+      arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/packages"'
+      nobuild: true
+      outputDir: $(Build.ArtifactStagingDirectory)/packages
+      
+  - task: DotNetCoreCLI@2
+    displayName: .NET Publish
+    inputs:
+      command: publish
+      projects: '**/*.csproj'
+      configuration: $(BuildConfiguration)
+      arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/apps"'
+      zipAfterPublish: false
   
-steps:
-- task: UseDotNet@2
-  displayName: Install .NET Core
-  inputs:
-    packageType: sdk
-    useGlobalJson: true
-    
-- task: DotNetCoreCLI@2
-  displayName: .NET Restore
-  inputs:
-    command: restore
-    projects: '**/*.csproj'
-    
-- task: DotNetCoreCLI@2
-  displayName: Update CI Settings
-  inputs:
-    command: custom
-    custom: msbuild
-    arguments: '/t:UpdateCiSettings -p:CI=true'
-    
-- task: DotNetCoreCLI@2
-  displayName: .NET Build
-  inputs:
-    command: build
-    projects: '**/*.csproj'
-    configuration: $(BuildConfiguration)
-    arguments: ''
-    
-- task: DotNetCoreCLI@2
-  displayName: .NET Test
-  inputs:
-    command: test
-    projects: '**/*[Tt]est*.csproj'
-    configuration: $(BuildConfiguration) # TODO: Double check this param works with the test command
-    publishTestResults: true
-    arguments: '--no-build --no-restore' # TODO: Coverage and unit test filter
-    
-- task: DotNetCoreCLI@2
-  displayName: .NET Pack
-  inputs:
-    command: pack
-    projects: '**/*.csproj'
-    configuration: $(BuildConfiguration)
-    arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/packages"'
-    nobuild: true
-    outputDir: $(Build.ArtifactStagingDirectory)/packages
-    
-- task: DotNetCoreCLI@2
-  displayName: .NET Publish
-  inputs:
-    command: publish
-    projects: '**/*.csproj'
-    configuration: $(BuildConfiguration)
-    arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/apps"'
-    zipAfterPublish: false
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Apps
+    continueOnError: true
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/apps'
+      artifactName: Apps
+      parallel: true
+      parallelCount: 8
+  
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Packages
+    continueOnError: true
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/packages'
+      artifactName: Packages
+      parallel: true
+      parallelCount: 8
+      
+- job: Node
+  steps:
+  - checkout: self
 
-- task: PublishBuildArtifacts@1
-  displayName: Publish Apps
-  continueOnError: true
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/apps'
-    artifactName: Apps
-    parallel: true
-    parallelCount: 8
+  - task: NodeTool@0
+    displayName: Install Node.js
+    inputs:
+      versionSpec: 13.x
+      checkLatest: true
+      
+  - bash: 'cd src/UI/Safir.Angular && npm install && npm run build'
 
-- task: PublishBuildArtifacts@1
-  displayName: Publish Packages
-  continueOnError: true
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/packages'
-    artifactName: Packages
-    parallel: true
-    parallelCount: 8
+  - bash: 'cd src/UI/Safir.Electron && npm install && npm run build'
 
 #stages:
 #- stage: build

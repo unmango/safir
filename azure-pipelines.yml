@@ -33,20 +33,20 @@ steps:
     packageType: sdk
     useGlobalJson: true
     
-- task: DotNetCLI@2
+- task: DotNetCoreCLI@2
   displayName: .NET Restore
   inputs:
     command: restore
     projects: '**/*.csproj'
     
-- task: DotNetCLI@2
+- task: DotNetCoreCLI@2
   displayName: Update CI Settings
   inputs:
     command: custom
     custom: msbuild
     arguments: '/t:UpdateCiSettings -p:CI=true'
     
-- task: DotNetCLI@2
+- task: DotNetCoreCLI@2
   displayName: .NET Build
   inputs:
     command: build
@@ -54,7 +54,7 @@ steps:
     configuration: $(BuildConfiguration)
     arguments: ''
     
-- task: DotNetCLI@2
+- task: DotNetCoreCLI@2
   displayName: .NET Test
   inputs:
     command: test
@@ -62,7 +62,7 @@ steps:
     configuration: $(BuildConfiguration) # TODO: Double check this param works with the test command
     arguments: '--no-build --no-restore' # TODO: Coverage and unit test filter
     
-- task: DotNetCLI@2
+- task: DotNetCoreCLI@2
   displayName: .NET Pack
   inputs:
     command: pack
@@ -70,7 +70,7 @@ steps:
     configuration: $(BuildConfiguration)
     arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/packages"'
     
-- task: DotNetCLI@2
+- task: DotNetCoreCLI@2
   displayName: .NET Publish
   inputs:
     command: publish

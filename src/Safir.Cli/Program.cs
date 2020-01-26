@@ -19,7 +19,7 @@ namespace Safir.Cli
 
                 RegisterCommands(builder);
 
-                var app = new CommandLineApplication(null, builder.Build());
+                var app = new CommandLineApplication(null!, builder.Build());
 
                 return await app.RunAsync(args, tokenSource.Token).ConfigureAwait(false);
             }
@@ -36,7 +36,7 @@ namespace Safir.Cli
 
         private static void RegisterCommands(CommandLineBuilder builder)
         {
-            AddCommand.Register(builder);
+            // AddCommand.Register(builder);
         }
     }
 }

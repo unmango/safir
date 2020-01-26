@@ -26,6 +26,8 @@ variables:
 - name: BuildConfiguration
   value: 'Release'
   
+pool: Linux
+  
 steps:
 - task: UseDotNet@2
   displayName: Install .NET Core

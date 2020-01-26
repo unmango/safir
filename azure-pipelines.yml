@@ -62,6 +62,7 @@ steps:
     command: test
     projects: '**/*[Tt]est*.csproj'
     configuration: $(BuildConfiguration) # TODO: Double check this param works with the test command
+    publishTestResults: true
     arguments: '--no-build --no-restore' # TODO: Coverage and unit test filter
     
 - task: DotNetCoreCLI@2
@@ -71,6 +72,8 @@ steps:
     projects: '**/*.csproj'
     configuration: $(BuildConfiguration)
     arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/packages"'
+    nobuild: true
+    outputDir: $(Build.ArtifactStagingDirectory)/packages
     
 - task: DotNetCoreCLI@2
   displayName: .NET Publish
@@ -79,18 +82,25 @@ steps:
     projects: '**/*.csproj'
     configuration: $(BuildConfiguration)
     arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/apps"'
+    zipAfterPublish: false
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Apps
+  continueOnError: true
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)/apps'
     artifactName: Apps
+    parallel: true
+    parallelCount: 8
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Packages
+  continueOnError: true
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)/packages'
     artifactName: Packages
+    parallel: true
+    parallelCount: 8
 
 #stages:
 #- stage: build

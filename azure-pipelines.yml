@@ -33,20 +33,20 @@ steps:
     packageType: sdk
     useGlobalJson: true
     
-- task: DotNetCli@2
+- task: DotNetCLI@2
   displayName: .NET Restore
   inputs:
     command: restore
     projects: '**/*.csproj'
     
-- task: DotNetCli@2
+- task: DotNetCLI@2
   displayName: Update CI Settings
   inputs:
     command: custom
     custom: msbuild
     arguments: '/t:UpdateCiSettings -p:CI=true'
     
-- task: DotNetCli@2
+- task: DotNetCLI@2
   displayName: .NET Build
   inputs:
     command: build
@@ -54,7 +54,7 @@ steps:
     configuration: $(BuildConfiguration)
     arguments: ''
     
-- task: DotNetCli@2
+- task: DotNetCLI@2
   displayName: .NET Test
   inputs:
     command: test
@@ -62,7 +62,7 @@ steps:
     configuration: $(BuildConfiguration) # TODO: Double check this param works with the test command
     arguments: '--no-build --no-restore' # TODO: Coverage and unit test filter
     
-- task: DotNetCli@2
+- task: DotNetCLI@2
   displayName: .NET Pack
   inputs:
     command: pack

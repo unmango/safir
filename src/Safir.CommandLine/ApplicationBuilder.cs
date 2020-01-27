@@ -14,8 +14,6 @@ namespace System.CommandLine
         
         private readonly List<Action<Context, IServiceCollection>> _configureServicesActions
             = new List<Action<Context, IServiceCollection>>();
-        
-        private readonly Context _context = new Context();
 
         public ApplicationBuilder(RootCommand? command = null)
             : this(new CommandLineBuilder(command)) { }
@@ -45,26 +43,29 @@ namespace System.CommandLine
         {
             var parser = ParserBuilder.Build();
 
+            var context = new Context(Properties);
             var configurationBuilder = new ConfigurationBuilder();
             var serviceCollection = new ServiceCollection();
 
             foreach (var configure in _configureConfigurationActions)
             {
-                configure(_context, configurationBuilder);
+                configure(context, configurationBuilder);
             }
 
             var configuration = configurationBuilder.Build();
 
             serviceCollection.AddSingleton<IConfiguration>(_ => configuration);
+            serviceCollection.AddSingleton(parser);
+            serviceCollection.AddSingleton<ICommandLineApplication, CommandLineApplication>();
 
             foreach (var configure in _configureServicesActions)
             {
-                configure(_context, serviceCollection);
+                configure(context, serviceCollection);
             }
 
             var services = serviceCollection.BuildServiceProvider();
 
-            return new CommandLineApplication(services, parser);
+            return services.GetRequiredService<ICommandLineApplication>();
         }
     }
 }

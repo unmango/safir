@@ -4,4 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine.Hosting" Version="0.3.0-alpha.20070.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Safir.CommandLine.Abstractions\Safir.CommandLine.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>

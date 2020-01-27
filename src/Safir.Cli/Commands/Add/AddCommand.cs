@@ -5,7 +5,7 @@ namespace Safir.Cli.Commands.Add
 {
     internal class AddCommand
     {
-        public static ICommandLineApplicationBuilder Register(ICommandLineApplicationBuilder builder)
+        public static IApplicationBuilder Register(IApplicationBuilder builder)
         {
             return builder.ConfigureServices((context, services) =>
             {

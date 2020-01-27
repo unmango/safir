@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace System.CommandLine
 {
-    using Context = CommandLineApplicationBuilderContext;
+    using Context = ApplicationBuilderContext;
 
-    public class CommandLineApplicationBuilder : ICommandLineApplicationBuilder
+    public class ApplicationBuilder : IApplicationBuilder
     {
         private readonly List<Action<Context, IConfigurationBuilder>> _configureConfigurationActions
             = new List<Action<Context, IConfigurationBuilder>>();
@@ -17,33 +17,45 @@ namespace System.CommandLine
         
         private readonly Context _context = new Context();
 
-        public CommandLineApplicationBuilder() : this(new CommandLineBuilder())
-        { }
+        public ApplicationBuilder(RootCommand? command = null)
+            : this(new CommandLineBuilder(command)) { }
 
-        public CommandLineApplicationBuilder(CommandLineBuilder builder)
+        public ApplicationBuilder(CommandLineBuilder? builder = null)
         {
-            ParserBuilder = builder;
+            ParserBuilder = builder ?? new CommandLineBuilder();
         }
+
+        public IDictionary<object, object> Properties { get; } = new Dictionary<object, object>();
 
         public CommandLineBuilder ParserBuilder { get; }
 
-        public ICommandLineApplicationBuilder ConfigureConfiguration(Action<Context, IConfigurationBuilder> configure)
+        public IApplicationBuilder ConfigureConfiguration(Action<Context, IConfigurationBuilder> configure)
         {
             _configureConfigurationActions.Add(configure);
             return this;
         }
 
-        public ICommandLineApplicationBuilder ConfigureServices(Action<Context, IServiceCollection> configure)
+        public IApplicationBuilder ConfigureServices(Action<Context, IServiceCollection> configure)
         {
             _configureServicesActions.Add(configure);
             return this;
         }
 
-        ICommandLineApplication ICommandLineApplicationBuilder.Build()
+        ICommandLineApplication IApplicationBuilder.Build()
         {
             var parser = ParserBuilder.Build();
 
+            var configurationBuilder = new ConfigurationBuilder();
             var serviceCollection = new ServiceCollection();
+
+            foreach (var configure in _configureConfigurationActions)
+            {
+                configure(_context, configurationBuilder);
+            }
+
+            var configuration = configurationBuilder.Build();
+
+            serviceCollection.AddSingleton<IConfiguration>(_ => configuration);
 
             foreach (var configure in _configureServicesActions)
             {

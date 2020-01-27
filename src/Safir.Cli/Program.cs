@@ -15,11 +15,11 @@ namespace Safir.Cli
 
             try
             {
-                var builder = CreateCommandLineBuilder();
+                var builder = CreateApplicationBuilder();
 
-                RegisterCommands(builder);
+                // TODO
 
-                var app = new CommandLineApplication(null!, builder.Build());
+                var app = builder.Build();
 
                 return await app.RunAsync(args, tokenSource.Token).ConfigureAwait(false);
             }
@@ -31,12 +31,10 @@ namespace Safir.Cli
             }
         }
 
+        private static IApplicationBuilder CreateApplicationBuilder()
+            => CommandLineApplication.CreateDefaultBuilder();
+
         private static CommandLineBuilder CreateCommandLineBuilder()
             => new CommandLineBuilder().UseDefaults();
-
-        private static void RegisterCommands(CommandLineBuilder builder)
-        {
-            // AddCommand.Register(builder);
-        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace System.CommandLine
 {
-    public static class CommandLineApplicationBuilderExtensions
+    public static class ApplicationBuilderExtensions
     {
     }
 }

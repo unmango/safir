@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace System.CommandLine
 {
-    public interface ICommandLineApplication
+    public interface ICommandLineApplication : IDisposable
     {
         IServiceProvider Services { get; }
 

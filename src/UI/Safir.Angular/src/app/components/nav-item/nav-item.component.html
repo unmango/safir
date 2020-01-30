@@ -1,0 +1,17 @@
+<!-- https://material.angular.io/components/list/overview#navigation -->
+<!--
+  When the list-items navigate somewhere, <mat-nav-list> should be used
+  with <a mat-list-item> elements as the list items. The nav-list will
+  be rendered using role="navigation" and can be given an aria-label to
+  give context on the set of navigation options presented. Additional
+  interactive content, such as buttons, should not be added inside the anchors.
+-->
+<a mat-list-item
+   [routerLink]="routerLink"
+   [routerLinkActive]="['link-active']"
+   (click)="navigate.emit()">
+  <mat-icon mat-list-icon>{{ icon }}</mat-icon>
+  <span mat-line>
+    <ng-content></ng-content>
+  </span>
+</a>

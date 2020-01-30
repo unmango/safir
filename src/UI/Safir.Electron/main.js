@@ -1,6 +1,11 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
+const { default: installExtension, REDUX_DEVTOOLS } = require('electron-devtools-installer');
+
+installExtension(REDUX_DEVTOOLS)
+    .then((name) => console.log(`Added Extension:  ${name}`))
+    .catch((err) => console.log('An error occurred: ', err));
 
 require('electron-reload')(__dirname);
 

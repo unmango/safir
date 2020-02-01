@@ -26,9 +26,21 @@ update_configs:
     update_schedule: "live"
 
   - package_manager: "dotnet:nuget"
-    directory: "/src/Safir.Common"
+    directory: "/src/Safir.Cli"
     update_schedule: "live"
 
   - package_manager: "dotnet:nuget"
-    directory: "/src/Safir.Cli"
+    directory: "/src/Safir.CommandLine"
+    update_schedule: "live"
+
+  - package_manager: "dotnet:nuget"
+    directory: "/src/Safir.CommandLine.Abstractions"
+    update_schedule: "live"
+
+  - package_manager: "dotnet:nuget"
+    directory: "/src/Safir.CommandLine.Hosting"
+    update_schedule: "live"
+
+  - package_manager: "dotnet:nuget"
+    directory: "/src/Safir.Common"
     update_schedule: "live"

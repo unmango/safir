@@ -10,7 +10,23 @@ update_configs:
     update_schedule: "live"
 
   - package_manager: "dotnet:nuget"
-    directory: "/src/FileManager"
+    directory: "/src/FileManager/Safir.FileManager.Client"
+    update_schedule: "live"
+
+  - package_manager: "dotnet:nuget"
+    directory: "/src/FileManager/Safir.FileManager.Domain"
+    update_schedule: "live"
+
+  - package_manager: "dotnet:nuget"
+    directory: "/src/FileManager/Safir.FileManager.Infrastructure"
+    update_schedule: "live"
+
+  - package_manager: "dotnet:nuget"
+    directory: "/src/FileManager/Safir.FileManager.Service"
+    update_schedule: "live"
+
+  - package_manager: "dotnet:nuget"
+    directory: "/src/Safir.Common"
     update_schedule: "live"
 
   - package_manager: "dotnet:nuget"

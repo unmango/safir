@@ -61,13 +61,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safir.FileManager.Client", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cli", "Cli", "{C0EFBA41-12CE-49A4-A06E-E3EAE0AE9B43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Cli", "src\Cli\Safir.Cli\Safir.Cli.csproj", "{2F6DD2C3-B8A9-42F1-8B92-931B1E61E49D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safir.Cli", "src\Cli\Safir.Cli\Safir.Cli.csproj", "{2F6DD2C3-B8A9-42F1-8B92-931B1E61E49D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.CommandLine", "src\Cli\Safir.CommandLine\Safir.CommandLine.csproj", "{C913408D-AE18-413F-9251-8465D9E4C229}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safir.CommandLine", "src\Cli\Safir.CommandLine\Safir.CommandLine.csproj", "{C913408D-AE18-413F-9251-8465D9E4C229}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.CommandLine.Abstractions", "src\Cli\Safir.CommandLine.Abstractions\Safir.CommandLine.Abstractions.csproj", "{68ABFAC3-EB12-4AFE-9A58-76A2472C02BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safir.CommandLine.Abstractions", "src\Cli\Safir.CommandLine.Abstractions\Safir.CommandLine.Abstractions.csproj", "{68ABFAC3-EB12-4AFE-9A58-76A2472C02BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.CommandLine.Hosting", "src\Cli\Safir.CommandLine.Hosting\Safir.CommandLine.Hosting.csproj", "{CA5A7BCF-3EA9-4F29-AA2E-37A6BE94D5D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safir.CommandLine.Hosting", "src\Cli\Safir.CommandLine.Hosting\Safir.CommandLine.Hosting.csproj", "{CA5A7BCF-3EA9-4F29-AA2E-37A6BE94D5D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,6 +193,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BF92008D-741C-4BAA-B6DD-880CD7FD997C} = {59BB074E-5F21-4899-B887-EC2EC380E15B}
+		{DC140DC2-B80F-4583-A774-1C381B17CB2E} = {850BE137-AC83-46D4-88DD-603675B01188}
 		{76299605-6822-4828-8380-0D210C11A5A2} = {59BB074E-5F21-4899-B887-EC2EC380E15B}
 		{C87F206D-E5F7-4D26-9D84-2B155839366F} = {BF92008D-741C-4BAA-B6DD-880CD7FD997C}
 		{EF283E3C-0471-40FC-B251-5D2B5E17F5EE} = {BF92008D-741C-4BAA-B6DD-880CD7FD997C}

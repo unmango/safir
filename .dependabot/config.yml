@@ -1,34 +1,76 @@
 version: 1
 
 update_configs:
-  - package_manager: "javascript"
-    directory: "/src/UI/Safir.Angular"
-    update_schedule: "live"
+- package_manager: "javascript"
+  directory: "/src/UI/Safir.Angular"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+  default_assignees:
+  - "UnstoppableMango"
 
-  - package_manager: "javascript"
-    directory: "/src/UI/Safir.Electron"
-    update_schedule: "live"
+- package_manager: "javascript"
+  directory: "/src/UI/Safir.Electron"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+  default_assignees:
+  - "UnstoppableMango"
 
-  - package_manager: "dotnet:nuget"
-    directory: "/src/FileManager/Safir.FileManager.Client"
-    update_schedule: "live"
+- package_manager: "dotnet:nuget"
+  directory: "/src/FileManager/Safir.FileManager.Client"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+  default_assignees:
+  - "UnstoppableMango"
 
-  - package_manager: "dotnet:nuget"
-    directory: "/src/FileManager/Safir.FileManager.Domain"
-    update_schedule: "live"
+- package_manager: "dotnet:nuget"
+  directory: "/src/FileManager/Safir.FileManager.Domain"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+  default_assignees:
+  - "UnstoppableMango"
 
-  - package_manager: "dotnet:nuget"
-    directory: "/src/FileManager/Safir.FileManager.Infrastructure"
-    update_schedule: "live"
+- package_manager: "dotnet:nuget"
+  directory: "/src/FileManager/Safir.FileManager.Infrastructure"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+  default_assignees:
+  - "UnstoppableMango"
 
-  - package_manager: "dotnet:nuget"
-    directory: "/src/FileManager/Safir.FileManager.Service"
-    update_schedule: "live"
+- package_manager: "dotnet:nuget"
+  directory: "/src/FileManager/Safir.FileManager.Service"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+  default_assignees:
+  - "UnstoppableMango"
 
-  - package_manager: "dotnet:nuget"
-    directory: "/src/Safir.Common"
-    update_schedule: "live"
+- package_manager: "dotnet:nuget"
+  directory: "/src/Safir.Common"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+  default_assignees:
+  - "UnstoppableMango"
 
-  # - package_manager: "dotnet:nuget"
-  #   directory: "/src/Safir.Cli"
-  #   update_schedule: "live"
+# - package_manager: "dotnet:nuget"
+#   directory: "/src/Safir.Cli"
+#   update_schedule: "live"

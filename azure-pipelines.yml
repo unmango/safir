@@ -8,6 +8,8 @@ trigger:
     exclude:
     - README.md
     - docs/*
+    - .dependabox/*
+    - .vscode/*
 
 pr:
   autoCancel: false

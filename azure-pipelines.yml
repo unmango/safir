@@ -45,6 +45,7 @@ jobs:
     inputs:
       command: restore
       projects: '**/*.csproj'
+      verbosityRestore: Normal
       
   - task: DotNetCoreCLI@2
     displayName: Update CI Settings
@@ -79,6 +80,7 @@ jobs:
       arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/packages"'
       nobuild: true
       outputDir: $(Build.ArtifactStagingDirectory)/packages
+      verbosityPack: Normal
       
   - task: DotNetCoreCLI@2
     displayName: .NET Publish

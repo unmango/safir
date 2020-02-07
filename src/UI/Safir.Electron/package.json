@@ -26,7 +26,7 @@
   "homepage": "https://github.com/unmango/safir#readme",
   "dependencies": {},
   "devDependencies": {
-    "@angular/cli": "^8.3.25",
+    "@angular/cli": "^9.0.1",
     "electron": "^8.0.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-reload": "^1.5.0"

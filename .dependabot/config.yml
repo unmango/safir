@@ -62,7 +62,7 @@ update_configs:
   - "UnstoppableMango"
 
 - package_manager: "dotnet:nuget"
-  directory: "/src/Safir.Cli"
+  directory: "/src/Cli/Safir.Cli"
   update_schedule: "live"
   automerged_updates:
   - match:
@@ -72,7 +72,7 @@ update_configs:
   - "UnstoppableMango"
   
 - package_manager: "dotnet:nuget"
-  directory: "/src/Safir.CommandLine"
+  directory: "/src/Cli/Safir.CommandLine"
   update_schedule: "live"
   automerged_updates:
   - match:
@@ -82,7 +82,7 @@ update_configs:
   - "UnstoppableMango"
 
 - package_manager: "dotnet:nuget"
-  directory: "/src/Safir.CommandLine.Abstractions"
+  directory: "/src/Cli/Safir.CommandLine.Abstractions"
   update_schedule: "live"
   automerged_updates:
   - match:
@@ -92,7 +92,7 @@ update_configs:
   - "UnstoppableMango"
 
 - package_manager: "dotnet:nuget"
-  directory: "/src/Safir.CommandLine.Hosting"
+  directory: "/src/Cli/Safir.CommandLine.Hosting"
   update_schedule: "live"
   automerged_updates:
   - match:

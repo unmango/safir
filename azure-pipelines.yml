@@ -21,6 +21,10 @@ variables:
   value: 'Release'
 
 jobs:
+- job: test
+  steps:
+  - bash: 
+
 - template: /build/templates/build.yml
   parameters:
     agentOs: Windows_NT

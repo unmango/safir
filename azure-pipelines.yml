@@ -8,6 +8,8 @@ trigger:
     exclude:
     - README.md
     - docs/*
+    - .dependabox/*
+    - .vscode/*
 
 pr:
   autoCancel: false
@@ -17,181 +19,284 @@ pr:
     - release/*
 
 variables:
+- name: RootPath
+  value: src
+- name: FileManagerPath
+  value: $(RootPath)/FileManager
+- name: UiPath
+  value: $(RootPath)/UI
 - name: BuildConfiguration
   value: 'Release'
+  
+pool: Linux
 
 jobs:
-- job: test
+- job:
+  displayName: .NET
   steps:
-  - bash: 
+  - checkout: self
 
-- template: /build/templates/build.yml
-  parameters:
-    agentOs: Windows_NT
-    pool:
-      name: Windows
-    timeoutInMinutes: 180
-    strategy:
-      matrix:
-#        ${{ if in(variables['Build.Reason'], 'PullRequest') }}:
-#          Build_Debug_x86:
-#            _BuildConfig: Debug
-#            _BuildArchitecture: x86
-#            _DropSuffix: ''
-#          Build_DropSuffix_Release_x64:
-#            _BuildConfig: Release
-#            _BuildArchitecture: x64
-#            _DropSuffix: true
-#        ${{ if notin(variables['Build.Reason'], 'PullRequest') }}:
-#          Build_Release_x86:
-#            _BuildConfig: Release
-#            _BuildArchitecture: x86
-#            _DropSuffix: ''
-        # Always run builds
-        Build_Release_x64:
-          _BuildConfig: Release
-          _BuildArchitecture: x64
-          _DropSuffix: ''
+  - task: UseDotNet@2
+    displayName: Install .NET Core
+    inputs:
+      packageType: sdk
+      useGlobalJson: true
+      
+  - task: DotNetCoreCLI@2
+    displayName: .NET Restore
+    inputs:
+      command: restore
+      projects: '**/*.csproj'
+      verbosityRestore: Normal
+      
+  - task: DotNetCoreCLI@2
+    displayName: Update CI Settings
+    inputs:
+      command: custom
+      custom: msbuild
+      arguments: '/t:UpdateCiSettings -p:CI=true'
+      
+  - task: DotNetCoreCLI@2
+    displayName: .NET Build
+    inputs:
+      command: build
+      projects: '**/*.csproj'
+      configuration: $(BuildConfiguration)
+      arguments: ''
+      
+  - task: DotNetCoreCLI@2
+    displayName: .NET Test
+    inputs:
+      command: test
+      projects: '**/*[Tt]est*.csproj'
+      configuration: $(BuildConfiguration) # TODO: Double check this param works with the test command
+      publishTestResults: true
+      arguments: '--no-build --no-restore' # TODO: Coverage and unit test filter
+      
+  - task: DotNetCoreCLI@2
+    displayName: .NET Pack
+    inputs:
+      command: pack
+      projects: '**/*.csproj'
+      configuration: $(BuildConfiguration)
+      arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/packages"'
+      nobuild: true
+      outputDir: $(Build.ArtifactStagingDirectory)/packages
+      verbosityPack: Normal
+      
+  - task: DotNetCoreCLI@2
+    displayName: .NET Publish
+    inputs:
+      command: publish
+      projects: '**/*.csproj'
+      configuration: $(BuildConfiguration)
+      arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/apps"'
+      zipAfterPublish: false
+  
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Apps
+    continueOnError: true
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/apps'
+      artifactName: Apps
+      parallel: true
+      parallelCount: 8
+  
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Packages
+    continueOnError: true
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/packages'
+      artifactName: Packages
+      parallel: true
+      parallelCount: 8
+      
+- job:
+  displayName: Node.js
+  steps:
+  - checkout: self
 
-- template: /build/templates/build.yml
-  parameters:
-    agentOs: Linux
-    pool:
-      name: Linux
-    timeoutInMinutes: 180
-    strategy:
-      matrix:
- #       ${{ if in(variables['Build.Reason'], 'PullRequest') }}:
- #         Build_Ubuntu_14_04_Release_x64:
- #           _BuildConfig: Release
- #           _DockerParameter: '--docker ubuntu.14.04'
- #           _LinuxPortable: ''
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_Ubuntu_16_04_Debug_x64:
- #           _BuildConfig: Debug
- #           _DockerParameter: '--docker ubuntu.16.04'
- #           _LinuxPortable: ''
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_Ubuntu_18_04_Debug_x64:
- #           _BuildConfig: Debug
- #           _DockerParameter: '--docker ubuntu.18.04'
- #           _LinuxPortable: '--linux-portable'
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_Fedora_27_Debug_x64:
- #           _BuildConfig: Debug
- #           _DockerParameter: '--docker fedora.27'
- #           _LinuxPortable: '--linux-portable'
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_Fedora_28_Debug_x64:
- #           _BuildConfig: Debug
- #           _DockerParameter: '--docker fedora.28'
- #           _LinuxPortable: '--linux-portable'
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_Fedora_29_Debug_x64:
- #           _BuildConfig: Debug
- #           _DockerParameter: '--docker fedora.29'
- #           _LinuxPortable: '--linux-portable'
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_OpenSUSE_42_3_Debug_x64:
- #           _BuildConfig: Debug
- #           _DockerParameter: '--docker opensuse.42.3'
- #           _LinuxPortable: '--linux-portable'
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_CentOS_7_1_Debug_x64:
- #           _BuildConfig: Debug
- #           _DockerParameter: '--docker centos'
- #           _LinuxPortable: ''
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_Debian_Jessie_Debug_x64:
- #           _BuildConfig: Debug
- #           _DockerParameter: '--docker debian'
- #           _LinuxPortable: ''
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_Rhel_7_2_Release_x64:
- #           _BuildConfig: Release
- #           _DockerParameter: '--docker rhel'
- #           _LinuxPortable: ''
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_Rhel_6_Debug_x64:
- #           _BuildConfig: Debug
- #           _DockerParameter: '--docker rhel.6'
- #           _LinuxPortable: ''
- #           _RuntimeIdentifier: '--runtime-id rhel.6-x64'
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_Linux_musl_Debug_x64:
- #           _BuildConfig: Debug
- #           _DockerParameter: '--docker alpine.3.6'
- #           _LinuxPortable: ''
- #           _RuntimeIdentifier: '--runtime-id linux-musl-x64'
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_LinuxPortable_NoSuffix_Release_x64:
- #           _BuildConfig: Release
- #           _DockerParameter: ''
- #           _LinuxPortable: '--linux-portable'
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: true
- #       ${{ if notin(variables['Build.Reason'], 'PullRequest') }}:
- #         Build_Rhel_6_Release_x64:
- #           _BuildConfig: Release
- #           _DockerParameter: '--docker rhel.6'
- #           _LinuxPortable: ''
- #           _RuntimeIdentifier: '--runtime-id rhel.6-x64'
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_Linux_musl_Release_x64:
- #           _BuildConfig: Release
- #           _DockerParameter: '--docker alpine.3.6'
- #           _LinuxPortable: ''
- #           _RuntimeIdentifier: '--runtime-id linux-musl-x64'
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #         Build_Linux_Portable_Deb_Release_x64:
- #           _BuildConfig: Release
- #           _DockerParameter: '--docker ubuntu.16.04'
- #           _LinuxPortable: '--linux-portable'
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #           # Do not publish zips and tarballs. The linux-x64 binaries are
- #           # already published by Build_LinuxPortable_Release_x64
- #           _AdditionalBuildParameters: '/p:PublishBinariesAndBadge=false'
- #         Build_Linux_Portable_Rpm_Release_x64:
- #           _BuildConfig: Release
- #           _DockerParameter: '--docker rhel'
- #           _LinuxPortable: '--linux-portable'
- #           _RuntimeIdentifier: ''
- #           _BuildArchitecture: 'x64'
- #           _DropSuffix: ''
- #           # Do not publish zips and tarballs. The linux-x64 binaries are
- #           # already published by Build_LinuxPortable_Release_x64
- #           _AdditionalBuildParameters: '/p:PublishBinariesAndBadge=false'
-        Build_LinuxPortable_Release_x64:
-          _BuildConfig: Release
-          _DockerParameter: ''
-          _LinuxPortable: '--linux-portable'
-          _RuntimeIdentifier: ''
-          _BuildArchitecture: 'x64'
-          _DropSuffix: ''        
+  - task: NodeTool@0
+    displayName: Install Node.js
+    inputs:
+      versionSpec: 13.x
+      checkLatest: true
+      
+  - bash: 'cd src/UI/Safir.Angular && npm install && npm run build'
+
+#  - bash: 'cd src/UI/Safir.Electron && npm install && npm run build'
+  - bash: 'cd src/UI/Safir.Electron && npm install'
+
+#stages:
+#- stage: build
+#  displayName: Build
+#  jobs:
+#  - job: pre_build
+#    displayName: Pre-Build
+#    pool: Linux
+#    steps:
+#    - bash: |
+#        if [[ $(git diff-tree --dirstat $Source..$Target -- $ProjectPath) ]]; then
+#          echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]true"
+#        else
+#          echo "##vso[task.setvariable variable=BuildFileManager;isOutput=true]false"
+#        fi
+#      displayName: Set Build File Manager
+#      name: set_build_filemanager
+#      env:
+#        ProjectPath: $(FileManagerPath)
+#        Source: origin/$(System.PullRequest.SourceBranch)
+#        Target: origin/$(System.PullRequest.TargetBranch)
+#    - bash: |
+#        if [[ $(git diff-tree --dirstat $Source..$Target -- $ProjectPath) ]]; then
+#          echo "##vso[task.setvariable variable=BuildUi;isOutput=true]true"
+#        else
+#          echo "##vso[task.setvariable variable=BuildUi;isOutput=true]false"
+#        fi
+#      displayName: Set Build UI
+#      name: set_build_ui
+#      env:
+#        ProjectPath: $(UiPath)
+#        Source: origin/$(System.PullRequest.SourceBranch)
+#        Target: origin/$(System.PullRequest.TargetBranch)
+#  - job: build_file_manager
+#    displayName: Build File Manager
+#    dependsOn: pre_build
+#    condition: and(succeeded(), eq(dependencies.pre_build.outputs['set_build_filemanager.BuildFileManager'], 'true'))
+#    strategy:
+#      matrix:
+#        Fedora:
+#          AGENT_NAME: Fedora
+#        CentOS:
+#          AGENT_NAME: CentOS
+#        Ubuntu:
+#          AGENT_NAME: Ubuntu
+#        Debian:
+#          AGENT_NAME: Debian
+#      maxParallel: 4
+#    continueOnError: true
+#    pool:
+#      name: Linux
+#      demands:
+#      - agent.name -equals $(AGENT_NAME)
+#    workspace:
+#      clean: outputs
+#    variables:
+#      ProjectPath: $(FileManagerPath)
+#      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/bin'
+#      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/pack'
+#    steps:
+#    - checkout: self
+#    - task: UseDotNet@2
+#      displayName: 'Install .NET Core sdk'
+#      inputs:
+#        packageType: sdk
+#        useGlobalJson: true
+#    - task: DotNetCoreCLI@2
+#      displayName: .NET Restore
+#      inputs:
+#        command: restore
+#        projects: $(ProjectPath)/**/*.csproj
+#        arguments: '-c $(BuildConfiguration)'
+#    - task: DotNetCoreCLI@2
+#      displayName: .NET Build
+#      inputs:
+#        command: build
+#        projects: $(ProjectPath)/**/*.csproj
+#        arguments: '--no-restore -c $(BuildConfiguration)'
+#    - task: DotNetCoreCLI@2
+#      displayName: .NET Publish
+#      inputs:
+#        command: publish
+#        projects: $(ProjectPath)/**/*.csproj
+#        arguments: '--no-restore --no-build -c $(BuildConfiguration) -o $(BinaryDirectory)'
+#    - task: DotNetCoreCLI@2
+#      displayName: .NET Pack
+#      inputs:
+#        command: pack
+#        projects: $(ProjectPath)/**/*.csproj
+#        arguments: '--no-restore --no-build -c $(BuildConfiguration) -o $(PackageDirectory)'
+#    - task: PublishPipelineArtifact@1
+#      continueOnError: true
+#      inputs:
+#        targetPath: $(BinaryDirectory)
+#        artifactName: drop_$(AGENT_NAME)
+#    - task: PublishPipelineArtifact@1
+#      enabled: false
+#      continueOnError: true
+#      inputs:
+#        targetPath: $(PackageDirectory)
+#        artifactName: Packages_$(AGENT_NAME)
+#  - job: build_ui
+#    displayName: Build UI
+#    dependsOn: pre_build
+#    condition: and(succeeded(), eq(dependencies.pre_build.outputs['set_build_ui.BuildUi'], 'true'))
+#    strategy:
+#      matrix:
+#        Fedora:
+#          AGENT_NAME: Fedora
+#        CentOS:
+#          AGENT_NAME: CentOS
+#        Ubuntu:
+#          AGENT_NAME: Ubuntu
+#        Debian:
+#          AGENT_NAME: Debian
+#      maxParallel: 4
+#    continueOnError: true
+#    pool:
+#      name: Linux
+#      demands:
+#      - agent.name -equals $(AGENT_NAME)
+#    workspace:
+#      clean: outputs
+#    variables:
+#      ProjectPath: $(UiPath)
+#      BinaryDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/bin'
+#      PackageDirectory: '$(Build.ArtifactStagingDirectory)/$(AGENT_NAME)/pack'
+#    steps:
+#    - checkout: self
+#    - bash: echo "Building UI projects"
+#  - job: test_file_manager
+#    displayName: Test File Manager
+#    dependsOn: build_file_manager
+#    condition: succeeded()
+#    strategy:
+#      matrix:
+#        Fedora:
+#          AGENT_NAME: Fedora
+#        CentOS:
+#          AGENT_NAME: CentOS
+#        Ubuntu:
+#          AGENT_NAME: Ubuntu
+#        Debian:
+#          AGENT_NAME: Debian
+#      maxParallel: 4
+#    pool: Linux
+#    steps:
+#    - task: DownloadPipelineArtifact@2
+#      inputs:
+#        artifact: drop_$(AGENT_NAME)
+#        path: $(Build.ArtifactStagingDirectory)
+#    - bash: echo "Testing File Manager"
+#  - job: test_ui
+#    displayName: Test UI
+#    dependsOn: build_ui
+#    condition: succeeded()
+#    strategy:
+#      matrix:
+#        Fedora:
+#          AGENT_NAME: Fedora
+#        CentOS:
+#          AGENT_NAME: CentOS
+#        Ubuntu:
+#          AGENT_NAME: Ubuntu
+#        Debian:
+#          AGENT_NAME: Debian
+#      maxParallel: 4
+#    pool: Linux
+#    steps:
+#    - task: DownloadPipelineArtifact@2
+#      inputs:
+#        artifact: drop_$(AGENT_NAME)
+#        path: $(Build.ArtifactStagingDirectory)
+#    - bash: echo "Testing UI"

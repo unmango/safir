@@ -8,7 +8,7 @@ using Safir.FileManager.Infrastructure.Data;
 
 namespace Safir.FileManager.Infrastructure.Repositories
 {
-    public class LibraryRepository : ILibraryRepository
+    internal class LibraryRepository : ILibraryRepository
     {
         private readonly FileContext _context;
 

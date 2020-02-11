@@ -1,34 +1,26 @@
 using System;
-using System.CommandLine.Builder;
-using System.CommandLine.Invocation;
-using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Safir.FileManager.Service
 {
-    public static class Program
+    public class Program
     {
-        public static async Task<int> Main(string[] args)
+        public static void Main(string[] args)
         {
-            using var tokenSource = new CancellationTokenSource();
-
-            try
-            {
-                var parser = CreateCommandLineBuilder().Build();
-
-                return await parser.InvokeAsync(args).ConfigureAwait(false);
-            }
-            catch (Exception)
-            {
-                tokenSource.Cancel();
-
-                return 1;
-            }
+            CreateHostBuilder(args).Build().Run();
         }
 
-        private static CommandLineBuilder CreateCommandLineBuilder()
-            => new CommandLineBuilder()
-                .UseDefaults()
-                .UseRestApi();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

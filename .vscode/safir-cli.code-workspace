@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "/home/erik/source/repos/unmango/safir/src/Cli"
+		},
+		{
+			"path": "/home/erik/source/repos/unmango/safir/src/Cli/Safir.Cli"
+		},
+		{
+			"path": "/home/erik/source/repos/unmango/safir/src/Cli/Safir.CommandLine"
+		},
+		{
+			"path": "/home/erik/source/repos/unmango/safir/src/Cli/Safir.CommandLine.Abstractions"
+		},
+		{
+			"path": "/home/erik/source/repos/unmango/safir/src/Cli/Safir.CommandLine.Hosting"
+		}
+	]
+}

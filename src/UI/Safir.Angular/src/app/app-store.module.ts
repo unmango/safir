@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreRouterConnectingModule, DefaultRouterStateSerializer } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -22,7 +22,7 @@ import { AppEffects } from './effects';
       logOnly: environment.production
     }),
     EffectsModule.forRoot([AppEffects]),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer })
   ],
   exports: [
     StoreModule,

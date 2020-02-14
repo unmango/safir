@@ -8,6 +8,8 @@ trigger:
     exclude:
     - README.md
     - docs/*
+    - .dependabox/*
+    - .vscode/*
 
 pr:
   autoCancel: false
@@ -17,23 +19,18 @@ pr:
     - release/*
 
 variables:
-- name: RootPath
-  value: src
-- name: FileManagerPath
-  value: $(RootPath)/FileManager
-- name: UiPath
-  value: $(RootPath)/UI
-- name: BuildConfiguration
-  value: 'Release'
+  BuildConfiguration: Release
+  NodeVersion: 13.x
   
 pool: Linux
 
 jobs:
 - job:
   displayName: .NET
+  workspace:
+    clean: outputs
   steps:
   - checkout: self
-
   - task: UseDotNet@2
     displayName: Install .NET Core
     inputs:
@@ -45,6 +42,7 @@ jobs:
     inputs:
       command: restore
       projects: '**/*.csproj'
+      verbosityRestore: Normal
       
   - task: DotNetCoreCLI@2
     displayName: Update CI Settings
@@ -79,6 +77,7 @@ jobs:
       arguments: '--no-build --no-restore -o "$(Build.ArtifactStagingDirectory)/packages"'
       nobuild: true
       outputDir: $(Build.ArtifactStagingDirectory)/packages
+      verbosityPack: Normal
       
   - task: DotNetCoreCLI@2
     displayName: .NET Publish
@@ -108,20 +107,41 @@ jobs:
       parallelCount: 8
       
 - job:
-  displayName: Node.js
+  displayName: Node.js (Angular)
+  workspace:
+    clean: outputs
   steps:
   - checkout: self
-
   - task: NodeTool@0
     displayName: Install Node.js
     inputs:
-      versionSpec: 13.x
+      versionSpec: $(NodeVersion)
       checkLatest: true
       
-  - bash: 'cd src/UI/Safir.Angular && npm install && npm run build'
+  - bash: 'npm install'
+    displayName: npm Install
+    workingDirectory: 'src/UI/Safir.Angular'
+      
+  - bash: 'npm run build'
+    displayName: Build
+    workingDirectory: 'src/UI/Safir.Angular'
+
+- job:
+  displayName: Node.js (Electron)
+  workspace:
+    clean: outputs
+  steps:
+  - checkout: self
+  - task: NodeTool@0
+    displayName: Install Node.js
+    inputs:
+      versionSpec: $(NodeVersion)
+      checkLatest: true
 
 #  - bash: 'cd src/UI/Safir.Electron && npm install && npm run build'
-  - bash: 'cd src/UI/Safir.Electron && npm install'
+  - bash: 'npm install'
+    displayName: npm Install
+    workingDirectory: 'src/UI/Safir.Electron'
 
 #stages:
 #- stage: build

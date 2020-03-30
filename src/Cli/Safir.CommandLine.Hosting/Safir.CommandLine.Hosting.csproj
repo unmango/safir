@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.CommandLine.Hosting" Version="0.3.0-alpha.20070.2" />
+    <PackageReference Include="System.CommandLine.Hosting" Version="0.3.0-alpha.20158.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.CommandLine;
-using System.CommandLine.Builder;
 using System.Threading;
 using System.Threading.Tasks;
-using Safir.Cli.Commands.Add;
 
 namespace Safir.Cli
 {
@@ -33,8 +31,5 @@ namespace Safir.Cli
 
         private static IApplicationBuilder CreateApplicationBuilder()
             => CommandLineApplication.CreateDefaultBuilder();
-
-        private static CommandLineBuilder CreateCommandLineBuilder()
-            => new CommandLineBuilder().UseDefaults();
     }
 }

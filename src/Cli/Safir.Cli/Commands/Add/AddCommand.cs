@@ -1,15 +1,15 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Builder;
+using Safir.CommandLine;
 
 namespace Safir.Cli.Commands.Add
 {
     internal class AddCommand
     {
         public static IApplicationBuilder Register(IApplicationBuilder builder)
-        {
-            return builder.ConfigureServices((context, services) =>
+            => builder.AddCommand("add", commandBuilder =>
             {
+
             });
-        }
     }
 }

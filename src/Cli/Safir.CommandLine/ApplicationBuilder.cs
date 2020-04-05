@@ -9,6 +9,11 @@ namespace System.CommandLine
 
     public class ApplicationBuilder : IApplicationBuilder
     {
+        private readonly RootCommand? _rootCommand;
+
+        private readonly List<Action<Context, CommandLineBuilder>> _configureCommandActions
+            = new List<Action<Context, CommandLineBuilder>>();
+
         private readonly List<Action<Context, IConfigurationBuilder>> _configureConfigurationActions
             = new List<Action<Context, IConfigurationBuilder>>();
         
@@ -16,16 +21,17 @@ namespace System.CommandLine
             = new List<Action<Context, IServiceCollection>>();
 
         public ApplicationBuilder(RootCommand? command = null)
-            : this(new CommandLineBuilder(command)) { }
-
-        public ApplicationBuilder(CommandLineBuilder? builder = null)
         {
-            ParserBuilder = builder ?? new CommandLineBuilder();
+            _rootCommand = command;
         }
 
         public IDictionary<object, object> Properties { get; } = new Dictionary<object, object>();
 
-        public CommandLineBuilder ParserBuilder { get; }
+        public IApplicationBuilder ConfigureCommands(Action<Context, CommandLineBuilder> configure)
+        {
+            _configureCommandActions.Add(configure);
+            return this;
+        }
 
         public IApplicationBuilder ConfigureConfiguration(Action<Context, IConfigurationBuilder> configure)
         {
@@ -41,9 +47,8 @@ namespace System.CommandLine
 
         ICommandLineApplication IApplicationBuilder.Build()
         {
-            var parser = ParserBuilder.Build();
-
             var context = new Context(Properties);
+            var commandLineBuilder = new CommandLineBuilder(_rootCommand);
             var configurationBuilder = new ConfigurationBuilder();
             var serviceCollection = new ServiceCollection();
 
@@ -52,11 +57,20 @@ namespace System.CommandLine
                 configure(context, configurationBuilder);
             }
 
+            foreach (var configure in _configureCommandActions)
+            {
+                configure(context, commandLineBuilder);
+            }
+
+            var parser = commandLineBuilder.Build();
             var configuration = configurationBuilder.Build();
 
+            serviceCollection.AddSingleton(context);
+            // register configuration as factory to make it dispose with the service provider
             serviceCollection.AddSingleton<IConfiguration>(_ => configuration);
             serviceCollection.AddSingleton(parser);
             serviceCollection.AddSingleton<ICommandLineApplication, CommandLineApplication>();
+            serviceCollection.AddLogging();
 
             foreach (var configure in _configureServicesActions)
             {
@@ -64,6 +78,10 @@ namespace System.CommandLine
             }
 
             var services = serviceCollection.BuildServiceProvider();
+
+            // resolve configuration explicitly once to mark it as resolved within the
+            // service provider, ensuring it will be properly disposed with the provider
+            _ = services.GetService<IConfiguration>();
 
             return services.GetRequiredService<ICommandLineApplication>();
         }

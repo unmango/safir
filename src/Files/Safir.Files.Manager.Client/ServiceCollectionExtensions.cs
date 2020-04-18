@@ -1,4 +1,7 @@
 ﻿using System;
+using Safir.Files.Manager;
+using Safir.Files.Manager.Client;
+using Safir.Files.Manager.Client.Internal;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -6,9 +9,22 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddFileManagerClient(this IServiceCollection services)
         {
-            services.AddHttpClient();
+            services.AddOptions<FileManagerOptions>();
+            services.AddHttpClient(FileManagerOptions.ClientName);
+            services.AddGrpcClient<Greeter.GreeterClient>(FileManagerOptions.ClientName);
 
-            throw new NotImplementedException();
+            services.AddTransient<IFileManagerClient, DefaultFileManagerClient>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddFileManagerClient(
+            this IServiceCollection services,
+            Action<FileManagerOptions> configure)
+        {
+            services.Configure(configure);
+
+            return services.AddFileManagerClient();
         }
     }
 }

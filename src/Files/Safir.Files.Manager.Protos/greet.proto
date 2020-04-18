@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Safir.Files.Manager.Service";
+option csharp_namespace = "Safir.Files.Manager";
 
 package greet;
 

@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Files.Manager.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Files.Manager.Protos", "src\Files\Safir.Files.Manager.Protos\Safir.Files.Manager.Protos.csproj", "{FE4C0433-AA7B-4AB2-9AA0-9A1BCEBDF90A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Files.Manager.Client", "src\Files\Safir.Files.Manager.Client\Safir.Files.Manager.Client.csproj", "{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,6 +175,18 @@ Global
 		{FE4C0433-AA7B-4AB2-9AA0-9A1BCEBDF90A}.Release|x64.Build.0 = Release|Any CPU
 		{FE4C0433-AA7B-4AB2-9AA0-9A1BCEBDF90A}.Release|x86.ActiveCfg = Release|Any CPU
 		{FE4C0433-AA7B-4AB2-9AA0-9A1BCEBDF90A}.Release|x86.Build.0 = Release|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Debug|x64.Build.0 = Debug|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Debug|x86.Build.0 = Debug|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Release|x64.ActiveCfg = Release|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Release|x64.Build.0 = Release|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Release|x86.ActiveCfg = Release|Any CPU
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,6 +203,7 @@ Global
 		{3DB4E472-BC40-4DEF-B699-2A11FD401946} = {EBEBD301-2FE9-4CA1-8899-91ADE0321464}
 		{52110771-4E84-4598-A8B9-0F29977277EC} = {EBEBD301-2FE9-4CA1-8899-91ADE0321464}
 		{FE4C0433-AA7B-4AB2-9AA0-9A1BCEBDF90A} = {EBEBD301-2FE9-4CA1-8899-91ADE0321464}
+		{7C1C1734-2142-4C3E-8551-FFD00B1F09BA} = {EBEBD301-2FE9-4CA1-8899-91ADE0321464}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {62C5DE66-B646-494D-BA03-79A4C05736B1}

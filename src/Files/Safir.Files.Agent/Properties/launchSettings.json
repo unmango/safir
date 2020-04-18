@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Safir.Files.Agent": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

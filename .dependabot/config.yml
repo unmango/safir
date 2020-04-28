@@ -18,7 +18,7 @@ update_configs:
       update_type: "semver:patch"
 
 - package_manager: "dotnet:nuget"
-  directory: "/src/FileManager/Safir.FileManager.Client"
+  directory: "/src/Files/Safir.Files.Agent"
   update_schedule: "live"
   automerged_updates:
   - match:
@@ -26,7 +26,7 @@ update_configs:
       update_type: "semver:patch"
 
 - package_manager: "dotnet:nuget"
-  directory: "/src/FileManager/Safir.FileManager.Domain"
+  directory: "/src/Files/Safir.Files.Manager.Client"
   update_schedule: "live"
   automerged_updates:
   - match:
@@ -34,7 +34,7 @@ update_configs:
       update_type: "semver:patch"
 
 - package_manager: "dotnet:nuget"
-  directory: "/src/FileManager/Safir.FileManager.Infrastructure"
+  directory: "/src/Files/Safir.Files.Manager.Protos"
   update_schedule: "live"
   automerged_updates:
   - match:
@@ -42,7 +42,7 @@ update_configs:
       update_type: "semver:patch"
 
 - package_manager: "dotnet:nuget"
-  directory: "/src/FileManager/Safir.FileManager.Service"
+  directory: "/src/Files/Safir.Files.Manager.Service"
   update_schedule: "live"
   automerged_updates:
   - match:

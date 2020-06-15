@@ -4,12 +4,14 @@ using Safir.CommandLine;
 
 namespace Safir.Cli.Commands.Add
 {
-    internal class AddCommand
+    internal class AddCommand : Command
     {
-        public static IApplicationBuilder Register(IApplicationBuilder builder)
-            => builder.AddCommand("add", commandBuilder =>
-            {
+        public AddCommand() : base("add", "") { }
 
+        public static IApplicationBuilder Register(IApplicationBuilder builder)
+            => builder.AddCommand<AddCommand>("add", commandBuilder =>
+            {
+                commandBuilder.UseHandler();
             });
     }
 }

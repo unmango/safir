@@ -74,7 +74,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1>(this T builder, Action<T, T1> action)
+        public static T UseHandler<T, T1>(this T builder, Action<T1,T1> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -87,7 +87,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2>(this T builder, Action<T, T1, T2> action)
+        public static T UseHandler<T, T1, T2>(this T builder, Action<T1,T1, T2> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -100,7 +100,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3>(this T builder, Action<T, T1, T2, T3> action)
+        public static T UseHandler<T, T1, T2, T3>(this T builder, Action<T1,T1, T2, T3> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -113,7 +113,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4>(this T builder, Action<T, T1, T2, T3, T4> action)
+        public static T UseHandler<T, T1, T2, T3, T4>(this T builder, Action<T1,T1, T2, T3, T4> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -126,7 +126,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5>(this T builder, Action<T, T1, T2, T3, T4, T5> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5>(this T builder, Action<T1,T1, T2, T3, T4, T5> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -139,7 +139,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5, T6>(this T builder, Action<T, T1, T2, T3, T4, T5, T6> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5, T6>(this T builder, Action<T1,T1, T2, T3, T4, T5, T6> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -152,7 +152,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5, T6, T7>(this T builder, Action<T, T1, T2, T3, T4, T5, T6, T7> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5, T6, T7>(this T builder, Action<T1,T1, T2, T3, T4, T5, T6, T7> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -178,7 +178,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T>(this T builder, Func<T, int> action)
+        public static T UseHandler<T, T1>(this T builder, Func<T1, int> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -191,7 +191,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2>(this T builder, Func<T, T1, T2, int> action)
+        public static T UseHandler<T, T1, T2>(this T builder, Func<T1, T2, int> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -204,7 +204,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3>(this T builder, Func<T, T1, T2, T3, int> action)
+        public static T UseHandler<T, T1, T2, T3>(this T builder, Func<T1, T2, T3, int> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -217,7 +217,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4>(this T builder, Func<T, T1, T2, T3, T4, int> action)
+        public static T UseHandler<T, T1, T2, T3, T4>(this T builder, Func<T1, T2, T3, T4, int> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -230,7 +230,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5>(this T builder, Func<T, T1, T2, T3, T4, T5, int> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5>(this T builder, Func<T1, T2, T3, T4, T5, int> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -243,7 +243,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5, T6>(this T builder, Func<T, T1, T2, T3, T4, T5, T6, int> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5, T6>(this T builder, Func<T1, T2, T3, T4, T5, T6, int> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -256,7 +256,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5, T6, T7>(this T builder, Func<T, T1, T2, T3, T4, T5, T6, T7, int> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5, T6, T7>(this T builder, Func<T1, T2, T3, T4, T5, T6, T7, int> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -282,7 +282,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T>(this T builder, Func<T, Task> action)
+        public static T UseHandler<T, T1>(this T builder, Func<T1, Task> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -295,7 +295,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2>(this T builder, Func<T, T1, T2, Task> action)
+        public static T UseHandler<T, T1, T2>(this T builder, Func<T1, T2, Task> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -308,7 +308,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3>(this T builder, Func<T, T1, T2, T3, Task> action)
+        public static T UseHandler<T, T1, T2, T3>(this T builder, Func<T1, T2, T3, Task> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -321,7 +321,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4>(this T builder, Func<T, T1, T2, T3, T4, Task> action)
+        public static T UseHandler<T, T1, T2, T3, T4>(this T builder, Func<T1, T2, T3, T4, Task> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -334,7 +334,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5>(this T builder, Func<T, T1, T2, T3, T4, T5, Task> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5>(this T builder, Func<T1, T2, T3, T4, T5, Task> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -347,7 +347,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5, T6>(this T builder, Func<T, T1, T2, T3, T4, T5, T6, Task> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5, T6>(this T builder, Func<T1, T2, T3, T4, T5, T6, Task> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -360,7 +360,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5, T6, T7>(this T builder, Func<T, T1, T2, T3, T4, T5, T6, T7, Task> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5, T6, T7>(this T builder, Func<T1, T2, T3, T4, T5, T6, T7, Task> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -386,7 +386,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T>(this T builder, Func<T, Task<int>> action)
+        public static T UseHandler<T, T1>(this T builder, Func<T1, Task<int>> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -399,7 +399,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2>(this T builder, Func<T, T1, T2, Task<int>> action)
+        public static T UseHandler<T, T1, T2>(this T builder, Func<T1, T2, Task<int>> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -412,7 +412,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3>(this T builder, Func<T, T1, T2, T3, Task<int>> action)
+        public static T UseHandler<T, T1, T2, T3>(this T builder, Func<T1, T2, T3, Task<int>> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -425,7 +425,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4>(this T builder, Func<T, T1, T2, T3, T4, Task<int>> action)
+        public static T UseHandler<T, T1, T2, T3, T4>(this T builder, Func<T1, T2, T3, T4, Task<int>> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -438,7 +438,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5>(this T builder, Func<T, T1, T2, T3, T4, T5, Task<int>> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5>(this T builder, Func<T1, T2, T3, T4, T5, Task<int>> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -451,7 +451,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5, T6>(this T builder, Func<T, T1, T2, T3, T4, T5, T6, Task<int>> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5, T6>(this T builder, Func<T1, T2, T3, T4, T5, T6, Task<int>> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));
@@ -464,7 +464,7 @@ namespace Safir.CommandLine
         /// <param name="builder">The builder to configure.</param>
         /// <param name="action">The action to use.</param>
         /// <returns>The builder so calls can be chained.</returns>
-        public static T UseHandler<T, T1, T2, T3, T4, T5, T6, T7>(this T builder, Func<T, T1, T2, T3, T4, T5, T6, T7, Task<int>> action)
+        public static T UseHandler<T, T1, T2, T3, T4, T5, T6, T7>(this T builder, Func<T1, T2, T3, T4, T5, T6, T7, Task<int>> action)
             where T : CommandBuilder
         {
             return builder.UseHandler(CommandHandler.Create(action));

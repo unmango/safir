@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.6" />
-    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20158.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.7" />
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20363.2" />
   </ItemGroup>
 
   <ItemGroup>

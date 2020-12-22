@@ -10,8 +10,10 @@ namespace Cli
 
     internal record Config
     {
-        public string File { get; init; } = string.Empty;
+        public string Directory { get; init; } = string.Empty;
 
         public bool Exists { get; init; }
+        
+        public string File { get; init; } = string.Empty;
     }
 }

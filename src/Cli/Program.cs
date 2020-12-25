@@ -6,6 +6,7 @@ using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
 using System.IO;
 using System.Threading.Tasks;
+using Cli.Commands;
 using Cli.Middleware;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,14 +23,21 @@ namespace Cli
             "Write debug information to the console");
 
         private static async Task<int> Main(string[] args) => await CreateBuilder()
+            .AddCommand(new ServiceCommand())
             .UseHost(host => host
-                .ConfigureHostConfiguration(configuration => configuration
-                    .AddInMemoryCollection(GetStaticConfiguration()))
-                .ConfigureAppConfiguration((context, configuration) => configuration
-                    .AddEnvironmentVariables("SAFIR_")
-                    .AddJsonFile(context.Configuration["config:file"], optional: true, reloadOnChange: true))
-                .ConfigureServices((context, services) => services
-                    .AddLogging(logBuilder => {
+                .AddServiceCommand()
+                .ConfigureHostConfiguration(configuration => {
+                    configuration.AddInMemoryCollection(GetStaticConfiguration());
+                })
+                .ConfigureAppConfiguration((context, configuration) => {
+                    configuration.AddEnvironmentVariables("SAFIR_");
+                    configuration.AddJsonFile(
+                        context.Configuration["config:file"],
+                        optional: true,
+                        reloadOnChange: true);
+                })
+                .ConfigureServices((context, services) => {
+                    services.AddLogging(logBuilder => {
                         var configDir = context.Configuration["config:directory"];
                         var logDir = Path.Combine(configDir, "logs");
                         var logFile = Path.Combine(logDir, "log.json");
@@ -45,8 +53,9 @@ namespace Cli
                         }
 
                         logBuilder.AddSerilog(configuration.CreateLogger(), dispose: true);
-                    })
-                    .Configure<Options>(context.Configuration)))
+                    });
+                    services.Configure<Options>(context.Configuration);
+                }))
             .Build()
             .InvokeAsync(args);
 

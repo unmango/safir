@@ -6,6 +6,7 @@ using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
 using System.IO;
 using System.Threading.Tasks;
+using Cli.Middleware;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -50,6 +51,7 @@ namespace Cli
             .InvokeAsync(args);
 
         private static CommandLineBuilder CreateBuilder() => new CommandLineBuilder()
+            .UseHelpForEmptyCommands()
             .AddGlobalOption(_debugOption)
             .UseDefaults();
 

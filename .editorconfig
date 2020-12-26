@@ -6,7 +6,7 @@ indent_size = 2
 [*.yml]
 indent_size = 2
 
-[*.{xml,props,targets,Config}]
+[*.{xml,props,targets,Config,*proj}]
 indent_size = 2
 
 [*.cs]

@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+    <PackageReference Include="MinVer" Version="2.4.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
-    <PackageReference Include="MinVer" Version="2.4.0" PrivateAssets="all" />
+    <ProjectReference Include="..\Manager.Protos\Manager.Protos.csproj" />
   </ItemGroup>
 
 </Project>

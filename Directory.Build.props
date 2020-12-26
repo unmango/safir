@@ -1,0 +1,41 @@
+<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <!-- Warnings and errors - From: https://github.com/aspnet/AspNetCore/blob/d7ae0e5d9adf253e57ea351ce5af83bb1ab84a77/Directory.Build.props#L44 -->
+  <PropertyGroup>
+    <TreatWarningsAsErrors Condition=" '$(CI)' == 'true' ">true</TreatWarningsAsErrors>
+    <!-- We know which contstructors we care about. -->
+    <NoWarn>RCS1194</NoWarn>
+    <!-- Don't make missing XML docs a fatal build error, but still surface so we have visibility into undocumented APIs. -->
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);CS1591</WarningsNotAsErrors>
+    <!-- xUnit1004 = warns about skipped tests. Make this a non-fatal build warning. -->
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);xUnit1004</WarningsNotAsErrors>
+    <!-- Treat nullable warnings as errors -->
+    <WarningsAsErrors>$(WarningsAsErrors);CS8600;CS8602;CS8603;CS8625</WarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <PlatformName Condition=" '$(PlatformName)' == '' ">$(Platform)</PlatformName>
+    <TargetOsName Condition=" '$(TargetOsName)' == '' AND $([MSBuild]::IsOSPlatform('Windows'))">win</TargetOsName>
+    <TargetOsName Condition=" '$(TargetOsName)' == '' AND $([MSBuild]::IsOSPlatform('Linux'))">linux</TargetOsName>
+    <TargetArchitecture Condition="'$(TargetArchitecture)' == ''">x64</TargetArchitecture>
+    <TargetRuntimeIdentifier>$(TargetOsName)-$(TargetArchitecture)</TargetRuntimeIdentifier>
+
+    <!-- Make error messages clickable in VS Code's console -->
+    <GenerateFullPaths Condition="'$(VSCODE_CWD)' != '' OR '$(TERM_PROGRAM)' == 'vscode'">true</GenerateFullPaths>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+</Project>

@@ -8,7 +8,7 @@ namespace Cli.Commands.Service
     {
         public StatusCommand() : base("status", "Get the status of the selected service(s)")
         {
-            AddOption(ServiceOption.Value);
+            AddOption(new ServiceOption());
         }
         
         // ReSharper disable once ClassNeverInstantiated.Global

@@ -8,7 +8,7 @@ namespace Cli.Commands.Service
     {
         public StopCommand() : base("stop", "Stop the selected service(s)")
         {
-            AddOption(ServiceOption.Value);
+            AddOption(new ServiceOption());
         }
         
         // ReSharper disable once ClassNeverInstantiated.Global

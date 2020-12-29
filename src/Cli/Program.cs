@@ -10,6 +10,7 @@ using Cli.Commands;
 using Cli.Middleware;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Formatting.Compact;
 using static System.Environment;
@@ -18,6 +19,10 @@ namespace Cli
 {
     internal static class Program
     {
+        private const string ConfigDirectoryKey = "config:directory";
+        private const string ConfigFileKey = "config:file";
+        private const string ConfigExistsKey = "config:exists";
+        
         private static readonly Option _debugOption = new(
             new[] { "--debug", "-d" },
             "Write debug information to the console");
@@ -27,34 +32,38 @@ namespace Cli
             .UseHost(host => host
                 .AddServiceCommand()
                 .ConfigureHostConfiguration(configuration => {
-                    configuration.AddInMemoryCollection(GetStaticConfiguration());
+                    configuration.AddStaticConfiguration();
                 })
                 .ConfigureAppConfiguration((context, configuration) => {
                     configuration.AddEnvironmentVariables("SAFIR_");
                     configuration.AddJsonFile(
-                        context.Configuration["config:file"],
+                        context.Configuration[ConfigFileKey],
                         optional: true,
                         reloadOnChange: true);
                 })
                 .ConfigureServices((context, services) => {
-                    services.AddLogging(logBuilder => {
-                        var configDir = context.Configuration["config:directory"];
-                        var logDir = Path.Combine(configDir, "logs");
-                        var logFile = Path.Combine(logDir, "log.json");
-
-                        var configuration = new LoggerConfiguration()
-                            .Enrich.FromLogContext()
-                            .WriteTo.Async(x => x.File(new CompactJsonFormatter(), logFile));
-
-                        if (context.Properties[typeof(InvocationContext)] is InvocationContext invocation
-                            && invocation.ParseResult.HasOption(_debugOption))
-                        {
-                            configuration.WriteTo.Console();
-                        }
-
-                        logBuilder.AddSerilog(configuration.CreateLogger(), dispose: true);
-                    });
+                    services.AddLogging();
+                    services.AddOptions();
+                    
                     services.Configure<Options>(context.Configuration);
+                    services.Configure<Config>(context.Configuration.GetSection("config"));
+                })
+                .ConfigureLogging((context, builder) => {
+                    var configDir = context.Configuration[ConfigDirectoryKey];
+                    var logDir = Path.Combine(configDir, "logs");
+                    var logFile = Path.Combine(logDir, "log.json");
+
+                    var configuration = new LoggerConfiguration()
+                        .Enrich.FromLogContext()
+                        .WriteTo.Async(x => x.File(new CompactJsonFormatter(), logFile));
+
+                    if (context.Properties[typeof(InvocationContext)] is InvocationContext invocation
+                        && invocation.ParseResult.HasOption(_debugOption))
+                    {
+                        configuration.WriteTo.Console();
+                    }
+
+                    builder.AddSerilog(configuration.CreateLogger(), dispose: true);
                 }))
             .Build()
             .InvokeAsync(args);
@@ -64,7 +73,7 @@ namespace Cli
             .AddGlobalOption(_debugOption)
             .UseDefaults();
 
-        private static Dictionary<string, string> GetStaticConfiguration()
+        private static IConfigurationBuilder AddStaticConfiguration(this IConfigurationBuilder builder)
         {
             var configDir = Path.Join(
                 GetFolderPath(SpecialFolder.UserProfile),
@@ -75,11 +84,11 @@ namespace Cli
 
             var configFile = Path.Join(configDir, "config.json");
 
-            return new Dictionary<string, string> {
-                { "config:directory", configDir },
-                { "config:file", configFile },
-                { "config:exists", File.Exists(configFile).ToString() }
-            };
+            return builder.AddInMemoryCollection(new Dictionary<string, string> {
+                { ConfigDirectoryKey, configDir },
+                { ConfigFileKey, configFile },
+                { ConfigExistsKey, File.Exists(configFile).ToString() }
+            });
         }
     }
 }

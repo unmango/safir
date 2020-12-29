@@ -1,27 +1,33 @@
+using System.Collections.Generic;
 using System.CommandLine;
+using System.Linq;
 
 namespace Cli.Commands.Service
 {
     internal sealed class ServiceOption : Option
     {
         private static readonly string[] _services = {
+            "manager",
             "listener",
-            "all"
         };
-
-        public static readonly ServiceOption Value = new();
         
-        public ServiceOption() : base(
+        public ServiceOption(bool required = true, IEnumerable<string>? services = null) : base(
             new[] { "--service", "-s" },
             "The service the modify")
         {
-            IsRequired = true;
+            IsRequired = required;
             Argument = new Argument<string>("name", "The name of the service") {
-                Arity = new ArgumentArity(1, _services.Length),
+                Arity = ArgumentArity.OneOrMore,
             };
 
-            Argument.FromAmong(_services);
-            Argument.AddSuggestions(_services);
+            var available = GetServices(services);
+            Argument.FromAmong(available);
+            Argument.AddSuggestions(available);
+        }
+
+        private static string[] GetServices(IEnumerable<string>? extra)
+        {
+            return extra == null ? _services : _services.Union(extra).ToArray();
         }
     }
 }

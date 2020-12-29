@@ -9,7 +9,7 @@ namespace Cli.Commands.Service
         public RestartCommand() : base("restart", "Restart the selected service(s)")
         {
             AddAlias("r");
-            AddOption(ServiceOption.Value);
+            AddOption(new ServiceOption());
         }
         
         // ReSharper disable once ClassNeverInstantiated.Global

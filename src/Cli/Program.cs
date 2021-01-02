@@ -47,6 +47,7 @@ namespace Cli
                     
                     services.Configure<Options>(context.Configuration);
                     services.Configure<Config>(context.Configuration.GetSection("config"));
+                    services.Configure<Service>(context.Configuration.GetSection("services"));
                 })
                 .ConfigureLogging((context, builder) => {
                     var configDir = context.Configuration[ConfigDirectoryKey];

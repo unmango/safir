@@ -10,6 +10,8 @@ namespace Cli.Commands
         public ServiceCommand() : base("service", "Control various Safir services")
         {
             AddAlias("s");
+            AddCommand(new EnableCommand());
+            AddCommand(new ListCommand());
             AddCommand(new RestartCommand());
             AddCommand(new StartCommand());
             AddCommand(new StatusCommand());
@@ -20,6 +22,8 @@ namespace Cli.Commands
     internal static class ServiceCommandExtensions
     {
         public static IHostBuilder AddServiceCommand(this IHostBuilder builder) => builder
+            .UseCommandHandler<EnableCommand, EnableCommand.EnableHandler>()
+            .UseCommandHandler<ListCommand, ListCommand.ListHandler>()
             .UseCommandHandler<RestartCommand, RestartCommand.RestartHandler>()
             .UseCommandHandler<StartCommand, StartCommand.StartHandler>()
             .UseCommandHandler<StatusCommand, StatusCommand.StatusHandler>()

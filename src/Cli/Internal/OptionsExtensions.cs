@@ -4,7 +4,7 @@ namespace Cli.Internal
     {
         public static string GetInstallationDirectory(this Options options)
         {
-            return options.Service.GetInstallationDirectory();
+            return options.Services.GetInstallationDirectory();
         }
 
         public static string GetInstallationDirectory(this Service options)

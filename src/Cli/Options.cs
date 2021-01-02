@@ -10,7 +10,7 @@ namespace Cli
     {
         public Config Config { get; init; } = new();
 
-        public Service Service { get; init; } = new();
+        public Service Services { get; init; } = new();
     }
 
     internal record Config

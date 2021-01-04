@@ -9,7 +9,7 @@ namespace Cli.Services.Dotnet
     {
         public DotnetRunService(
             IProcessFactory processFactory,
-            IOptions<Config> config,
+            IOptions<ConfigOptions> config,
             ILogger<DotnetRunService> logger,
             IEnumerable<string> args)
             : base(processFactory, config, logger, DotnetCommand.Run, args)

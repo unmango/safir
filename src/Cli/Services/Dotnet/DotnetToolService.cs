@@ -9,7 +9,7 @@ namespace Cli.Services.Dotnet
     {
         public DotnetToolService(
             IProcessFactory processFactory,
-            IOptions<Config> config,
+            IOptions<ConfigOptions> config,
             ILogger<DotnetToolService> logger,
             IEnumerable<string> args)
             : base(processFactory, config, logger, DotnetCommand.Tool, args)

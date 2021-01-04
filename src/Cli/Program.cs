@@ -7,6 +7,7 @@ using System.CommandLine.Parsing;
 using System.IO;
 using System.Threading.Tasks;
 using Cli.Commands;
+using Cli.Internal;
 using Cli.Middleware;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,22 +45,24 @@ namespace Cli
                 .ConfigureServices((context, services) => {
                     services.AddLogging();
                     services.AddOptions();
-                    
-                    services.Configure<Options>(context.Configuration);
-                    services.Configure<Config>(context.Configuration.GetSection("config"));
-                    services.Configure<Service>(context.Configuration.GetSection("services"));
+
+                    var config = context.Configuration;
+                    services.Configure<CliOptions>(config);
+                    services.AddOptions<ConfigOptions>().Bind(config.GetSection("config"));
+                    services.AddOptions<ServiceOptions>()
+                        .Bind(config.GetSection("services"))
+                        .AddValidators();
                 })
                 .ConfigureLogging((context, builder) => {
                     var configDir = context.Configuration[ConfigDirectoryKey];
-                    var logDir = Path.Combine(configDir, "logs");
-                    var logFile = Path.Combine(logDir, "log.json");
+                    var logFile = Path.Combine(configDir, "logs", "log.json");
 
                     var configuration = new LoggerConfiguration()
                         .Enrich.FromLogContext()
                         .WriteTo.Async(x => x.File(new CompactJsonFormatter(), logFile));
 
                     if (context.Properties[typeof(InvocationContext)] is InvocationContext invocation
-                        && invocation.ParseResult.HasOption(_debugOption))
+                        && invocation.ParseResult.ValueForOption<bool>(_debugOption))
                     {
                         configuration.WriteTo.Console();
                     }
@@ -71,6 +74,7 @@ namespace Cli
 
         private static CommandLineBuilder CreateBuilder() => new CommandLineBuilder()
             .UseHelpForEmptyCommands()
+            .HandleOptionsValidation()
             .AddGlobalOption(_debugOption)
             .UseDefaults();
 

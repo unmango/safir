@@ -10,7 +10,7 @@ namespace Cli.Services.Dotnet
         // Lots TODO
         protected DotnetService(
             IProcessFactory processFactory,
-            IOptions<Config> config,
+            IOptions<ConfigOptions> config,
             ILogger<DotnetService> logger,
             DotnetCommand dotnetCommand,
             IEnumerable<string> args)

@@ -1,13 +1,14 @@
+using System.Collections.Generic;
+
 namespace Cli.Services
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     internal record ServiceEntry
     {
-        public string Name { get; init; } = string.Empty;
-        
-        public ServiceSource Source { get; init; }
-        
-        public string? GitCloneUrl { get; init; }
-        
-        public ServiceType Type { get; init; }
+        public string? Cwd { get; init; }
+
+        // Because of jank with the Microsoft.Extensions.Options API
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
+        public IReadOnlyList<ServiceSource> Sources { get; init; }
     }
 }

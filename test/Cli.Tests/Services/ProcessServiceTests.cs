@@ -15,14 +15,14 @@ namespace Cli.Tests.Services
         private static readonly string[]_args = { "arg1", "arg2" };
         private readonly Mock<IProcessFactory> _processFactory = new();
         private readonly Mock<IProcess> _process = new();
-        private readonly Mock<IOptions<Config>> _options = new();
+        private readonly Mock<IOptions<ConfigOptions>> _options = new();
         private readonly Mock<ILogger<ProcessService>> _logger = new();
 
         private readonly ProcessService _service;
 
         public ProcessServiceTests()
         {
-            _options.SetupGet(x => x.Value).Returns(new Config());
+            _options.SetupGet(x => x.Value).Returns(new ConfigOptions());
 
             _processFactory.Setup(x => x.Create(It.IsAny<ProcessArguments>()))
                 .Returns(_process.Object);

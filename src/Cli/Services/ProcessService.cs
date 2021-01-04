@@ -12,14 +12,14 @@ namespace Cli.Services
     internal class ProcessService : IService
     {
         private readonly IProcessFactory _processFactory;
-        private readonly Config _config;
+        private readonly ConfigOptions _config;
         private readonly ILogger<ProcessService> _logger;
         private readonly string _process;
         private readonly IReadOnlyList<string> _args;
 
         public ProcessService(
             IProcessFactory processFactory,
-            IOptions<Config> config,
+            IOptions<ConfigOptions> config,
             ILogger<ProcessService> logger,
             string process,
             IEnumerable<string> args)

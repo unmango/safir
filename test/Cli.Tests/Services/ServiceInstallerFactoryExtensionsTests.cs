@@ -136,6 +136,6 @@ namespace Cli.Tests.Services
             SourceType type1,
             SourceType type2,
             SourceType type3)
-            => new SourceTypeValuesExcept(type1, type2, type3);
+            => SourceTypeValues.Except(type1, type2, type3);
     }
 }

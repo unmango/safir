@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="9.3.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
     <PackageReference Include="MinVer" Version="2.4.0" PrivateAssets="All" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />

@@ -26,7 +26,7 @@ namespace Cli.Tests.Services.Installers
         }
 
         [Theory]
-        [MemberData(nameof(NullOrWhitespaceStrings))]
+        [ClassData(typeof(NullOrWhitespaceStrings))]
         public void GetDockerBuildInstaller_RequiresBuildContext(string? buildContext)
         {
             var source = new ServiceSource {
@@ -60,7 +60,7 @@ namespace Cli.Tests.Services.Installers
         }
 
         [Theory]
-        [MemberData(nameof(NullOrWhitespaceStrings))]
+        [ClassData(typeof(NullOrWhitespaceStrings))]
         public void GetDockerImageInstaller_RequiresImageName(string? imageName)
         {
             var source = new ServiceSource {
@@ -94,7 +94,7 @@ namespace Cli.Tests.Services.Installers
         }
 
         [Theory]
-        [MemberData(nameof(NullOrWhitespaceStrings))]
+        [ClassData(typeof(NullOrWhitespaceStrings))]
         public void GetGitInstaller_RequiresCloneUrl(string? cloneUrl)
         {
             var source = new ServiceSource {
@@ -128,7 +128,7 @@ namespace Cli.Tests.Services.Installers
         }
 
         [Theory]
-        [MemberData(nameof(NullOrWhitespaceStrings))]
+        [ClassData(typeof(NullOrWhitespaceStrings))]
         public void GetDotnetToolInstaller_RequiresToolName(string? toolName)
         {
             var source = new ServiceSource {
@@ -171,18 +171,6 @@ namespace Cli.Tests.Services.Installers
             Assert.IsType<NoOpInstaller>(result);
         }
 
-        private static IEnumerable<object[]> SourceTypeValuesExcept(SourceType type)
-            => new SourceTypeValuesExcept(type);
-
-        private static IEnumerable<object[]> NullOrWhitespaceStrings()
-        {
-            return new[] {
-                null,
-                "",
-                " ",
-                "\t",
-                "\n",
-            }.Select(x => new object[] { x });
-        }
+        private static IEnumerable<object[]> SourceTypeValuesExcept(SourceType type) => SourceTypeValues.Except(type);
     }
 }

@@ -29,13 +29,17 @@ namespace Cli.Internal
             string? directory = null,
             CancellationToken cancellationToken = default)
         {
+            _logger.InvokedWorkingDirectory(directory);
             var workingDirectory = _serviceDirectory.GetInstallationDirectory(directory);
+            _logger.ResolvedWorkingDirectory(workingDirectory);
 
             var context = new InstallationContext(
                 workingDirectory,
                 service,
                 // TODO: Select sources
                 service.Sources);
+            
+            _logger.InitialContextCreated(context);
 
             await _installationPipeline.InstallAsync(context, cancellationToken);
         }

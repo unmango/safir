@@ -23,12 +23,16 @@ namespace Cli.Services.Installers
 
         public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
         {
+            _logger.InitialInstallers(_installers);
             var applicable = _installers.Where(x => x.AppliesTo(context)).ToList();
+            _logger.ApplicableInstallers(applicable);
 
             if (applicable.Count <= 0) return ValueTask.CompletedTask;
 
-            return applicable.BuildPipeline()
-                .Invoke(context, _ => ValueTask.CompletedTask, cancellationToken);
+            return applicable.BuildPipeline().Invoke(
+                context,
+                _ => ValueTask.CompletedTask,
+                cancellationToken);
         }
     }
 }

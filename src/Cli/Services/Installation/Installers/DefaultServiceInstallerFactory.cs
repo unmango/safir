@@ -1,5 +1,7 @@
 using System;
 using Cli.Internal.Wrappers.Git;
+using Cli.Services.Sources;
+using Cli.Services.Sources.Validation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cli.Services.Installation.Installers
@@ -15,46 +17,35 @@ namespace Cli.Services.Installation.Installers
         
         public IServiceInstaller GetDockerBuildInstaller(ServiceSource source)
         {
-            if (source.Type != SourceType.DockerBuild) throw new InvalidOperationException("Invalid SourceType");
-            if (string.IsNullOrWhiteSpace(source.BuildContext))
-                throw new InvalidOperationException("BuildContext must have a value");
-
-            return new DockerBuildInstaller(source.BuildContext, source.Tag);
+            var (buildContext, tag) = source.GetDockerBuildSource();
+            return new DockerBuildInstaller(buildContext, tag);
         }
 
         public IServiceInstaller GetDockerImageInstaller(ServiceSource source)
         {
-            if (source.Type != SourceType.DockerImage) throw new InvalidOperationException("Invalid SourceType");
-            if (string.IsNullOrWhiteSpace(source.ImageName))
-                throw new InvalidOperationException("ImageName must have a value");
-
-            return new DockerImageInstaller(source.ImageName, source.Tag);
+            var (imageName, tag) = source.GetDockerImageSource();
+            return new DockerImageInstaller(imageName, tag);
         }
 
         public IServiceInstaller GetDotnetToolInstaller(ServiceSource source)
         {
-            if (source.Type != SourceType.DotnetTool) throw new InvalidOperationException("Invalid SourceType");
-            if (string.IsNullOrWhiteSpace(source.ToolName))
-                throw new InvalidOperationException("ToolName must have a value");
-
-            return new DotnetToolInstaller(source.ToolName, source.ExtraArgs);
+            var (toolName, extraArgs) = source.GetDotnetToolSource();
+            return new DotnetToolInstaller(toolName, extraArgs);
         }
 
         public IServiceInstaller GetGitInstaller(ServiceSource source)
         {
-            if (source.Type != SourceType.Git) throw new InvalidOperationException("Invalid SourceType");
-            if (string.IsNullOrWhiteSpace(source.CloneUrl))
-                throw new InvalidOperationException("GitCloneUrl must have a value");
-
+            var gitSource = source.GetGitSource();
             var repository = _services.GetRequiredService<IRepositoryFunctions>();
-
-            return new GitInstaller(source.CloneUrl, repository);
+            return new GitInstaller(gitSource.CloneUrl, repository);
         }
 
         public IServiceInstaller GetLocalDirectoryInstaller(ServiceSource source)
         {
-            if (source.Type != SourceType.LocalDirectory) throw new InvalidOperationException("Invalid SourceType");
-
+            _ = source.ValidateLocalDirectory(options => options
+                .IncludeProperties(x => x.Type)
+                .ThrowOnFailures());
+            
             return NoOpInstaller.Value;
         }
     }

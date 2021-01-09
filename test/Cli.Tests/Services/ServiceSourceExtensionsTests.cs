@@ -212,7 +212,7 @@ namespace Cli.Tests.Services
         [Fact]
         public void TryInferSourceType_ReturnsNullWhenUnableToInfer()
         {
-            var result = new ServiceSource().TryInferSourceType(out var inferred);
+            var result = new ServiceSource().TryInferSourceType(out _);
             
             Assert.False(result);
         }

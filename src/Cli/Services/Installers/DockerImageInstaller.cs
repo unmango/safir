@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+// ReSharper disable NotAccessedField.Local
 
 namespace Cli.Services.Installers
 {

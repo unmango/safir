@@ -1,9 +1,6 @@
-using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
-using Cli.Services;
-using Microsoft.Extensions.Options;
 
 namespace Cli.Commands.Service
 {
@@ -32,7 +29,7 @@ namespace Cli.Commands.Service
             
             public Task<int> InvokeAsync(InvocationContext context)
             {
-                var requested = context.ParseResult.ValueForOption<string[]>(_serviceOption);
+                var unused = context.ParseResult.ValueForOption<string[]>(_serviceOption);
                 
                 throw new System.NotImplementedException();
             }

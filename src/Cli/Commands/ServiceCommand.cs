@@ -11,6 +11,7 @@ namespace Cli.Commands
         {
             AddAlias("s");
             AddCommand(new EnableCommand());
+            AddCommand(new InstallCommand());
             AddCommand(new ListCommand());
             AddCommand(new RestartCommand());
             AddCommand(new StartCommand());
@@ -23,6 +24,7 @@ namespace Cli.Commands
     {
         public static IHostBuilder AddServiceCommand(this IHostBuilder builder) => builder
             .UseCommandHandler<EnableCommand, EnableCommand.EnableHandler>()
+            .UseCommandHandler<InstallCommand, InstallCommand.InstallHandler>()
             .UseCommandHandler<ListCommand, ListCommand.ListHandler>()
             .UseCommandHandler<RestartCommand, RestartCommand.RestartHandler>()
             .UseCommandHandler<StartCommand, StartCommand.StartHandler>()

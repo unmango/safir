@@ -20,10 +20,10 @@ namespace Cli.Commands.Service
         // ReSharper disable once ClassNeverInstantiated.Global
         public sealed class ListHandler : ICommandHandler
         {
-            private readonly IOptions<Cli.ServiceOptions> _options;
+            private readonly IOptions<ServiceOptions> _options;
             private readonly IConsole _console;
 
-            public ListHandler(IOptions<Cli.ServiceOptions> options, IConsole console)
+            public ListHandler(IOptions<ServiceOptions> options, IConsole console)
             {
                 _options = options;
                 _console = console;

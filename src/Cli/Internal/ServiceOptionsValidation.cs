@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cli.Services;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace Cli.Internal
@@ -16,6 +15,7 @@ namespace Cli.Internal
             return builder;
         }
 
+        // ReSharper disable once UnusedType.Local
         private class Sources : IValidateOptions<ServiceOptions>
         {
             public ValidateOptionsResult Validate(string name, ServiceOptions options)
@@ -52,11 +52,13 @@ namespace Cli.Internal
                         "Command is required"
                     ));
 
+            // ReSharper disable once UnusedParameter.Local
             private static ValidateOptionsResult ValidateDotnetTool(ServiceSource source)
             {
                 throw new NotImplementedException();
             }
 
+            // ReSharper disable once UnusedParameter.Local
             private static ValidateOptionsResult ValidateLocalDirectory(ServiceSource source)
             {
                 throw new NotImplementedException();

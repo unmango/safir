@@ -12,6 +12,7 @@ namespace Cli.Services
     internal class ProcessService : IService
     {
         private readonly IProcessFactory _processFactory;
+        // ReSharper disable once NotAccessedField.Local
         private readonly ConfigOptions _config;
         private readonly ILogger<ProcessService> _logger;
         private readonly string _process;
@@ -25,6 +26,7 @@ namespace Cli.Services
             IEnumerable<string> args)
         {
             _processFactory = processFactory ?? throw new ArgumentNullException(nameof(processFactory));
+            // ReSharper disable once ConstantConditionalAccessQualifier
             _config = config?.Value ?? throw new ArgumentNullException(nameof(config));
             _logger = logger;
             _process = process;
@@ -51,7 +53,7 @@ namespace Cli.Services
 
         public Task StopAsync(CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

@@ -78,6 +78,7 @@ namespace Cli
             .AddGlobalOption(_debugOption)
             .UseDefaults();
 
+        // ReSharper disable once UnusedMethodReturnValue.Local
         private static IConfigurationBuilder AddStaticConfiguration(this IConfigurationBuilder builder)
         {
             var configDir = Path.Join(

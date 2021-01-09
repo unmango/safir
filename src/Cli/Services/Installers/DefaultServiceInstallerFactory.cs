@@ -1,9 +1,18 @@
 using System;
+using Cli.Services.Installers.Vcs;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cli.Services.Installers
 {
     internal class DefaultServiceInstallerFactory : IServiceInstallerFactory
     {
+        private readonly IServiceProvider _services;
+
+        public DefaultServiceInstallerFactory(IServiceProvider services)
+        {
+            _services = services;
+        }
+        
         public IServiceInstaller GetDockerBuildInstaller(ServiceSource source)
         {
             if (source.Type != SourceType.DockerBuild) throw new InvalidOperationException("Invalid SourceType");
@@ -37,7 +46,9 @@ namespace Cli.Services.Installers
             if (string.IsNullOrWhiteSpace(source.CloneUrl))
                 throw new InvalidOperationException("GitCloneUrl must have a value");
 
-            return new GitInstaller(source.CloneUrl);
+            var repository = _services.GetRequiredService<IRepositoryFunctions>();
+
+            return new GitInstaller(source.CloneUrl, repository);
         }
 
         public IServiceInstaller GetLocalDirectoryInstaller(ServiceSource source)

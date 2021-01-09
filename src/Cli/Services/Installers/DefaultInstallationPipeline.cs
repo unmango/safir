@@ -9,7 +9,6 @@ namespace Cli.Services.Installers
 {
     internal class DefaultInstallationPipeline : IInstallationPipeline
     {
-        // ReSharper disable once NotAccessedField.Local
         private readonly IEnumerable<IPipelineServiceInstaller> _installers;
         private readonly ILogger<DefaultInstallationPipeline> _logger;
 

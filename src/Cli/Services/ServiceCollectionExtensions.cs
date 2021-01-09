@@ -1,4 +1,5 @@
 using Cli.Services.Installers;
+using Cli.Services.Installers.Vcs;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cli.Services
@@ -10,6 +11,8 @@ namespace Cli.Services
             services.AddLogging();
             
             services.AddTransient<IInstallationPipeline, DefaultInstallationPipeline>();
+
+            services.AddLibGit2Sharp();
             services.AddTransient<IPipelineServiceInstaller, GitInstaller>();
             
             return services;

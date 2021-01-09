@@ -1,6 +1,7 @@
 // ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -28,10 +29,20 @@ namespace Cli
     internal record ServiceOptions : IReadOnlyDictionary<string, ServiceEntry>
     {
         public const string DefaultInstallationDirectory = "services";
+        private ServiceEntry? _manager;
 
         public string? CustomInstallationDirectory { get; init; }
 
-        public ServiceEntry? Manager { get; init; }
+        public ServiceEntry? Manager
+        {
+            get => _manager;
+            set {
+                if (value == null) throw new ArgumentNullException(nameof(Manager));
+                
+                // Maybe won't always want to overwrite a custom name.
+                _manager = value with { Name = nameof(Manager) };
+            }
+        }
 
         public IEnumerator<KeyValuePair<string, ServiceEntry>> GetEnumerator()
         {

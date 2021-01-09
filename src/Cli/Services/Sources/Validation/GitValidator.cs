@@ -8,11 +8,9 @@ namespace Cli.Services.Sources.Validation
         public GitValidator()
         {
             RuleFor(x => x.Type).Equal(SourceType.Git);
-            RuleFor(x => x.CloneUrl)
-                .NotNull()
-                .NotEmpty()
-                .ValidUrl()
-                .Must(x => x?.EndsWith(".git") ?? false);
+            RuleFor(x => x.CloneUrl).NotEmpty().ValidUrl();
+            RuleFor(x => x.CloneUrl).Must(x => x?.EndsWith(".git") ?? false)
+                .WithMessage("Must end with \".git\"");
         }
     }
 }

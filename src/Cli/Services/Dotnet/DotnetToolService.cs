@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Cli.Internal;
+using Cli.Internal.Wrappers.Process;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

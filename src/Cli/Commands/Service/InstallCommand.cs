@@ -3,7 +3,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Linq;
 using System.Threading.Tasks;
-using Cli.Internal;
+using Cli.Services.Installation;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

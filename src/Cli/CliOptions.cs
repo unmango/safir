@@ -71,7 +71,7 @@ namespace Cli
             return false;
         }
 
-        public ServiceEntry this[string key] => throw new System.NotImplementedException();
+        public ServiceEntry this[string key] => throw new NotImplementedException();
 
         public IEnumerable<string> Keys
         {

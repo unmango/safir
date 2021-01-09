@@ -10,11 +10,11 @@ using Cli.Commands;
 using Cli.Internal;
 using Cli.Middleware;
 using Cli.Services;
+using Cli.Services.Installation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Events;
 using Serilog.Formatting.Compact;
 using static System.Environment;
 

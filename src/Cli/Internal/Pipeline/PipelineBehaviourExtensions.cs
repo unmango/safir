@@ -26,6 +26,28 @@ namespace Cli.Internal.Pipeline
                             innerContext => second(innerContext, next, cancellationToken),
                             cancellationToken));
         
+        public static IPipelineBehaviour<T> Decorate<T>(
+            this IPipelineBehaviour<T> behaviour,
+            IPipelineBehaviour<T> decorator)
+            where T : class
+            => behaviour.Decorate(decorator.GetInvokeDelegate());
+
+        public static IPipelineBehaviour<T> Decorate<T>(this IPipelineBehaviour<T> behaviour, InvokeAsync<T> decorator)
+            where T : class
+        {
+            ValueTask Invoke(T context, Func<T, ValueTask> next, CancellationToken cancellationToken)
+                => decorator(
+                    context,
+                    behaviour.GetInvokeDelegate().GetNextDelegate(next, cancellationToken),
+                    cancellationToken);
+
+            return new DelegateBehaviour<T>(behaviour.GetAppliesToDelegate(), Invoke);
+        }
+
+        public static AppliesTo<T> GetAppliesToDelegate<T>(this IPipelineBehaviour<T> behaviour)
+            where T : class
+            => behaviour.AppliesTo;
+
         public static InvokeAsync<T> GetInvokeDelegate<T>(this IPipelineBehaviour<T> behaviour)
             where T : class
             => behaviour.InvokeAsync;
@@ -44,5 +66,16 @@ namespace Cli.Internal.Pipeline
             CancellationToken cancellationToken = default)
             where T : class
             => behaviours.GetPipelineDelegate().InvokeAsync(context, next, cancellationToken);
+
+        public static Func<T, ValueTask> GetNextDelegate<T>(
+            this InvokeAsync<T> invokeAsync,
+            CancellationToken cancellationToken = default)
+            => invokeAsync.GetNextDelegate(_ => ValueTask.CompletedTask, cancellationToken);
+
+        public static Func<T, ValueTask> GetNextDelegate<T>(
+            this InvokeAsync<T> invokeAsync,
+            Func<T, ValueTask> next,
+            CancellationToken cancellationToken = default)
+            => context => invokeAsync(context, next, cancellationToken);
     }
 }

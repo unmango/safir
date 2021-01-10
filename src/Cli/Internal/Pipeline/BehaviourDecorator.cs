@@ -30,6 +30,9 @@ namespace Cli.Internal.Pipeline
 
         public ValueTask InvokeAsync(T context, Func<T, ValueTask> next, CancellationToken cancellationToken = default)
         {
+            // This can only short-circuit, can't skip decorated
+            // Would like to be able to skip decorated w/o
+            // relying on `AppliesTo`
             return _decorator.InvokeAsync(
                 context,
                 _decorated.GetNextDelegate(next, cancellationToken),

@@ -30,27 +30,33 @@ namespace Cli.Internal.Pipeline
             this IPipelineBehaviour<T> behaviour,
             IPipelineBehaviour<T> decorator)
             where T : class
-            => behaviour.Decorate(decorator.GetInvokeDelegate());
+            => new BehaviourDecorator<T>(behaviour, decorator);
 
-        public static IPipelineBehaviour<T> Decorate<T>(this IPipelineBehaviour<T> behaviour, InvokeAsync<T> decorator)
+        public static IPipelineBehaviour<T> Decorate<T>(
+            this IPipelineBehaviour<T> behaviour,
+            InvokeAsync<T> decorator)
             where T : class
-        {
-            ValueTask Invoke(T context, Func<T, ValueTask> next, CancellationToken cancellationToken)
-                => decorator(
-                    context,
-                    behaviour.GetInvokeDelegate().GetNextDelegate(next, cancellationToken),
-                    cancellationToken);
+            => behaviour.Decorate(new DelegateBehaviour<T>(decorator));
 
-            return new DelegateBehaviour<T>(behaviour.GetAppliesToDelegate(), Invoke);
-        }
-
-        public static AppliesTo<T> GetAppliesToDelegate<T>(this IPipelineBehaviour<T> behaviour)
+        public static IPipelineBehaviour<T> Decorate<T>(
+            this IPipelineBehaviour<T> behaviour,
+            AppliesTo<T> appliesTo,
+            InvokeAsync<T> decorator)
             where T : class
-            => behaviour.AppliesTo;
+            => behaviour.Decorate(new DelegateBehaviour<T>(appliesTo, decorator));
 
-        public static InvokeAsync<T> GetInvokeDelegate<T>(this IPipelineBehaviour<T> behaviour)
+        public static Func<T, ValueTask> GetNextDelegate<T>(
+            this IPipelineBehaviour<T> behaviour,
+            CancellationToken cancellationToken = default)
             where T : class
-            => behaviour.InvokeAsync;
+            => behaviour.GetInvokeDelegate().GetNextDelegate(cancellationToken);
+
+        public static Func<T, ValueTask> GetNextDelegate<T>(
+            this IPipelineBehaviour<T> behaviour,
+            Func<T, ValueTask> next,
+            CancellationToken cancellationToken = default)
+            where T : class
+            => behaviour.GetInvokeDelegate().GetNextDelegate(next, cancellationToken);
 
         public static ValueTask InvokePipelineAsync<T>(
             this IEnumerable<IPipelineBehaviour<T>> behaviours,
@@ -77,5 +83,13 @@ namespace Cli.Internal.Pipeline
             Func<T, ValueTask> next,
             CancellationToken cancellationToken = default)
             => context => invokeAsync(context, next, cancellationToken);
+
+        private static AppliesTo<T> GetAppliesToDelegate<T>(this IPipelineBehaviour<T> behaviour)
+            where T : class
+            => behaviour.AppliesTo;
+
+        private static InvokeAsync<T> GetInvokeDelegate<T>(this IPipelineBehaviour<T> behaviour)
+            where T : class
+            => behaviour.InvokeAsync;
     }
 }

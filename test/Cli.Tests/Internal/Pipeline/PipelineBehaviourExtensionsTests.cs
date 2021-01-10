@@ -21,18 +21,19 @@ namespace Cli.Tests.Internal.Pipeline
         [Fact]
         public async Task Decorate_DecoratesBehaviour()
         {
+            // TODO: This test needs a once over...
             var flag = false;
-            var key = new object();
+            var context = new object();
             
             var decorated = _behaviour.Object.Decorate((_, next, _) => {
                 flag = true;
-                return next(key);
+                return next(context);
             });
             await decorated.InvokeAsync(new object(), _ => ValueTask.CompletedTask);
 
             Assert.True(flag);
             _behaviour.Verify(x => x.InvokeAsync(
-                key,
+                context,
                 It.IsAny<Func<object, ValueTask>>(),
                 It.IsAny<CancellationToken>()));
         }

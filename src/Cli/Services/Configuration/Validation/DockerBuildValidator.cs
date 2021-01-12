@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Cli.Services.Sources.Validation
+namespace Cli.Services.Configuration.Validation
 {
     internal class DockerBuildValidator : AbstractValidator<ServiceSource>
     {

@@ -3,9 +3,9 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Linq;
 using System.Threading.Tasks;
+using Cli.Services;
 using Cli.Services.Installation;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Cli.Commands.Service
 {
@@ -31,16 +31,16 @@ namespace Cli.Commands.Service
         // ReSharper disable once ClassNeverInstantiated.Global
         public sealed class InstallHandler : ICommandHandler
         {
-            private readonly IOptions<ServiceOptions> _options;
+            private readonly IServiceRegistry _registry;
             private readonly IInstallationService _installer;
             private readonly ILogger<InstallCommand> _logger;
 
             public InstallHandler(
-                IOptions<ServiceOptions> options,
+                IServiceRegistry registry,
                 IInstallationService installer,
                 ILogger<InstallCommand> logger)
             {
-                _options = options;
+                _registry = registry;
                 _installer = installer;
                 _logger = logger;
             }
@@ -56,7 +56,7 @@ namespace Cli.Commands.Service
                 _logger.Option(nameof(directory), directory!);
                 _logger.Option(nameof(services), services!);
 
-                var toInstall = _options.Value
+                var toInstall = _registry
                     .Join(
                         services!,
                         x => x.Key,

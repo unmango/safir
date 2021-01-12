@@ -1,7 +1,7 @@
 using System.IO;
 using FluentValidation;
 
-namespace Cli.Services.Sources.Validation
+namespace Cli.Services.Configuration.Validation
 {
     internal sealed class LocalDirectoryValidator : AbstractValidator<ServiceSource>
     {

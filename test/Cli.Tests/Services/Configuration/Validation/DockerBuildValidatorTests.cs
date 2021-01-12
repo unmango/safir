@@ -1,20 +1,20 @@
 using System.Collections.Generic;
-using Cli.Services;
-using Cli.Services.Sources.Validation;
+using Cli.Services.Configuration;
+using Cli.Services.Configuration.Validation;
 using Cli.Tests.Helpers;
 using FluentValidation;
 using FluentValidation.TestHelper;
 using Xunit;
 
-namespace Cli.Tests.Services.Sources.Validation
+namespace Cli.Tests.Services.Configuration.Validation
 {
-    public class DockerImageValidatorTests
+    public class DockerBuildValidatorTests
     {
-        private readonly DockerImageValidator _validator = new();
+        private readonly DockerBuildValidator _validator = new();
         
         [Theory]
-        [MemberData(nameof(SourceTypeValuesExcept), SourceType.DockerImage)]
-        public void RequiresDockerImageSourceType(SourceType type)
+        [MemberData(nameof(SourceTypeValuesExcept), SourceType.DockerBuild)]
+        public void RequiresDockerBuildSourceType(SourceType type)
         {
             var source = new ServiceSource { Type = type };
 
@@ -25,29 +25,16 @@ namespace Cli.Tests.Services.Sources.Validation
 
         [Theory]
         [ClassData(typeof(NullOrWhitespaceStrings))]
-        public void RequiresImageName(string? imageName)
+        public void RequiresBuildContext(string? buildContext)
         {
             var source = new ServiceSource {
-                Type = SourceType.DockerImage,
-                ImageName = imageName,
+                Type = SourceType.DockerBuild,
+                BuildContext = buildContext,
             };
 
             var result = _validator.TestValidate(source);
 
-            result.ShouldHaveValidationErrorFor(x => x.ImageName);
-        }
-
-        [Fact]
-        public void ValidatesForDockerImage()
-        {
-            var source = new ServiceSource {
-                Type = SourceType.DockerImage,
-                ImageName = "image",
-            };
-
-            var result = _validator.TestValidate(source);
-
-            result.ShouldNotHaveAnyValidationErrors();
+            result.ShouldHaveValidationErrorFor(x => x.BuildContext);
         }
 
         [Theory]
@@ -66,6 +53,19 @@ namespace Cli.Tests.Services.Sources.Validation
 
             result.ShouldHaveValidationErrorFor(x => x.Tag);
             Assert.Contains(result.Errors, x => x.Severity == Severity.Info);
+        }
+
+        [Fact]
+        public void ValidatesForDockerBuild()
+        {
+            var source = new ServiceSource {
+                Type = SourceType.DockerBuild,
+                BuildContext = "context",
+            };
+
+            var result = _validator.TestValidate(source);
+
+            result.ShouldNotHaveAnyValidationErrors();
         }
 
         private static IEnumerable<object[]> SourceTypeValuesExcept(SourceType type) => SourceTypeValues.Except(type);

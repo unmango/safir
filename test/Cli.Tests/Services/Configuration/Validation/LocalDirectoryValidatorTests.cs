@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using Cli.Services;
-using Cli.Services.Sources.Validation;
+using Cli.Services.Configuration;
+using Cli.Services.Configuration.Validation;
 using Cli.Tests.Helpers;
 using FluentValidation.TestHelper;
 using Xunit;
 
-namespace Cli.Tests.Services.Sources.Validation
+namespace Cli.Tests.Services.Configuration.Validation
 {
     public class LocalDirectoryValidatorTests
     {

@@ -1,4 +1,4 @@
-namespace Cli.Services
+namespace Cli.Services.Configuration
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     internal record ServiceSource
@@ -11,20 +11,20 @@ namespace Cli.Services
         
         public int? Priority { get; init; }
         
-        public string? CloneUrl { get; init; }
+        public string? BuildContext { get; init; }
         
-        public string? ToolName { get; init; }
+        public string? CloneUrl { get; init; }
         
         public string? ExtraArgs { get; init; }
         
-        public string? SourceDirectory { get; init; }
+        public string? ImageName { get; init; }
         
         public string? ProjectFile { get; init; }
         
-        public string? ImageName { get; init; }
+        public string? SourceDirectory { get; init; }
         
         public string? Tag { get; init; }
         
-        public string? BuildContext { get; init; }
+        public string? ToolName { get; init; }
     }
 }

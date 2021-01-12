@@ -33,6 +33,10 @@ namespace Cli.Services.Process
             _args = args.ToList();
         }
 
+        public string Name { get; } = string.Empty;
+        
+        public IEnumerable<IServiceSource> Sources { get; } = Enumerable.Empty<IServiceSource>();
+
         public Task StartAsync(CancellationToken cancellationToken = default)
         {
             _logger.StartInvoked(GetType());

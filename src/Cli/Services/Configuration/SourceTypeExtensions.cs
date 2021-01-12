@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Cli.Services
+namespace Cli.Services.Configuration
 {
     internal static class SourceTypeExtensions
     {

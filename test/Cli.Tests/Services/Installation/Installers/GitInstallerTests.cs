@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Cli.Internal.Wrappers.Git;
 using Cli.Services;
 using Cli.Services.Installation;
 using Cli.Services.Installation.Installers;
+using Cli.Services.Sources;
 using Cli.Tests.Helpers;
 using LibGit2Sharp;
 using Moq;
@@ -22,13 +22,11 @@ namespace Cli.Tests.Services.Installation.Installers
         private readonly AutoMocker _mocker = new();
         private readonly GitInstaller _installer;
 
-        private static readonly ServiceSource _defaultSource = new() {
-            Type = SourceType.Git, CloneUrl = CloneUrl
-        };
+        private static readonly GitSource _defaultSource = new("Name", CloneUrl);
 
         private static readonly InstallationContext _defaultContext = new(
             WorkingDirectory,
-            new ServiceEntry(),
+            new DefaultService("Name", new List<IServiceSource>()),
             new[] { _defaultSource });
 
         public GitInstallerTests()
@@ -48,11 +46,11 @@ namespace Cli.Tests.Services.Installation.Installers
         }
 
         [Theory]
-        [MemberData(nameof(SourceTypeValuesExcept), SourceType.Git)]
-        public void DoesNotApplyToNonGitSources(SourceType type)
+        [MemberData(nameof(SourcesExcept), typeof(GitSource))]
+        public void DoesNotApplyToNonGitSources(IServiceSource source)
         {
             var context = _defaultContext with {
-                Sources = new[] { _defaultSource with { Type = type } }
+                Sources = new[] { source }
             };
 
             var result = _installer.AppliesTo(context);
@@ -60,7 +58,7 @@ namespace Cli.Tests.Services.Installation.Installers
             Assert.False(result);
         }
 
-        [Theory]
+        [Theory(Skip = "Need to review if this is functionality I want")]
         [ClassData(typeof(NullOrWhitespaceStrings))]
         public void DoesNotApplyToInvalidCloneUrl(string cloneUrl)
         {
@@ -86,17 +84,18 @@ namespace Cli.Tests.Services.Installation.Installers
         {
             var repository = _mocker.GetMock<IRepositoryFunctions>();
             repository.Setup(x => x.IsValid(WorkingDirectory)).Returns(false);
+            var expected = $"{WorkingDirectory}/name";
 
             await _installer.InstallAsync(_defaultContext).AsTask();
 
-            repository.Verify(x => x.Clone(CloneUrl, WorkingDirectory, It.IsAny<CloneOptions>()));
+            repository.Verify(x => x.Clone(CloneUrl, expected, It.IsAny<CloneOptions>()));
         }
 
         [Fact]
         public async Task InstallAsync_SkipsCloneWhenRepositoryExists()
         {
             var repository = _mocker.GetMock<IRepositoryFunctions>();
-            repository.Setup(x => x.IsValid(WorkingDirectory)).Returns(true);
+            repository.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
 
             await _installer.InstallAsync(_defaultContext);
 
@@ -111,10 +110,11 @@ namespace Cli.Tests.Services.Installation.Installers
             const string cloneUrl = "https://different.example.com/repo.git";
             var repository = _mocker.GetMock<IRepositoryFunctions>();
             var installer = new GitInstaller(cloneUrl, repository.Object);
+            var expected = $"{WorkingDirectory}/name";
 
             await installer.InstallAsync(_defaultContext);
 
-            repository.Verify(x => x.Clone(cloneUrl, WorkingDirectory, It.IsAny<CloneOptions>()));
+            repository.Verify(x => x.Clone(cloneUrl, expected, It.IsAny<CloneOptions>()));
             repository.Verify(x => x.Clone(CloneUrl, It.IsAny<string>(), It.IsAny<CloneOptions>()), Times.Never);
         }
 
@@ -130,11 +130,12 @@ namespace Cli.Tests.Services.Installation.Installers
                 }
             };
             var repository = _mocker.GetMock<IRepositoryFunctions>();
+            var expected = $"{WorkingDirectory}/name";
 
             await _installer.InstallAsync(context);
 
-            repository.Verify(x => x.Clone(url1, WorkingDirectory, It.IsAny<CloneOptions>()));
-            repository.Verify(x => x.Clone(url2, WorkingDirectory, It.IsAny<CloneOptions>()));
+            repository.Verify(x => x.Clone(url1, expected, It.IsAny<CloneOptions>()));
+            repository.Verify(x => x.Clone(url2, expected, It.IsAny<CloneOptions>()));
             repository.Verify(
                 x => x.Clone(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CloneOptions>()),
                 Times.Exactly(2));
@@ -146,7 +147,7 @@ namespace Cli.Tests.Services.Installation.Installers
             const string name = "serviceName";
             var expected = $"{WorkingDirectory}/{name}".ToLower();
             var context = _defaultContext with {
-                Service = new ServiceEntry { Name = name }
+                Service = new DefaultService(name, new List<IServiceSource>())
             };
             var repository = _mocker.GetMock<IRepositoryFunctions>();
 
@@ -156,16 +157,11 @@ namespace Cli.Tests.Services.Installation.Installers
         }
 
         [Theory]
-        [ClassData(typeof(InvalidTypesAndUrls))]
-        public async Task InvokeAsync_DoesNotInstallWhenNotApplicable(SourceType type, string? cloneUrl)
+        [MemberData(nameof(SourcesExcept), typeof(GitSource))]
+        public async Task InvokeAsync_DoesNotInstallWhenNotApplicable(IServiceSource source)
         {
             var context = _defaultContext with {
-                Sources = new[] {
-                    _defaultSource with {
-                        Type = type,
-                        CloneUrl = cloneUrl
-                    }
-                }
+                Sources = new[] { source }
             };
             var repository = _mocker.GetMock<IRepositoryFunctions>();
 
@@ -177,16 +173,11 @@ namespace Cli.Tests.Services.Installation.Installers
         }
 
         [Theory]
-        [ClassData(typeof(InvalidTypesAndUrls))]
-        public async Task InvokeAsync_InvokesNextDelegateWhenNotApplicable(SourceType type, string? cloneUrl)
+        [MemberData(nameof(SourcesExcept), typeof(GitSource))]
+        public async Task InvokeAsync_InvokesNextDelegateWhenNotApplicable(IServiceSource source)
         {
             var context = _defaultContext with {
-                Sources = new[] {
-                    _defaultSource with {
-                        Type = type,
-                        CloneUrl = cloneUrl
-                    }
-                }
+                Sources = new[] { source }
             };
             var flag = false;
 
@@ -198,20 +189,6 @@ namespace Cli.Tests.Services.Installation.Installers
             Assert.True(flag);
         }
 
-        private static IEnumerable<object[]> SourceTypeValuesExcept(SourceType type) => SourceTypeValues.Except(type);
-
-        private class InvalidTypesAndUrls : TheoryData<SourceType, string?>
-        {
-            public InvalidTypesAndUrls()
-            {
-                foreach (var type in SourceTypeValuesExcept(SourceType.Git).Select(x => (SourceType)x.Single()))
-                {
-                    foreach (var cloneUrl in new NullOrWhitespaceStrings().Select(x => x.Single() as string))
-                    {
-                        Add(type, cloneUrl);
-                    }
-                }
-            }
-        }
+        private static IEnumerable<object[]> SourcesExcept(Type type) => ServiceSources.Except(type);
     }
 }

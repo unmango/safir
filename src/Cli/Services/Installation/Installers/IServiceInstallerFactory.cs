@@ -1,3 +1,5 @@
+using Cli.Services.Configuration;
+
 namespace Cli.Services.Installation.Installers
 {
     internal interface IServiceInstallerFactory

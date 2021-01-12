@@ -3,7 +3,7 @@ using FluentValidation;
 using FluentValidation.Internal;
 using FluentValidation.Results;
 
-namespace Cli.Services.Sources.Validation
+namespace Cli.Services.Configuration.Validation
 {
     internal static class ServiceSourceExtensions
     {
@@ -28,8 +28,9 @@ namespace Cli.Services.Sources.Validation
             SourceType type,
             Action<ValidationStrategy<ServiceSource>>? options = null)
             => type switch {
-                // TODO: I can do better than throw here
-                SourceType.Docker => throw new NotSupportedException("Can't validate \"Docker\" source type"),
+                SourceType.Docker => new ValidationResult(new[] {
+                    new ValidationFailure("Type", "Can't validate \"Docker\" source type")
+                }),
                 SourceType.DockerBuild => source.ValidateDockerBuild(options),
                 SourceType.DockerImage => source.ValidateDockerImage(options),
                 SourceType.DotnetTool => source.ValidateDotnetTool(options),

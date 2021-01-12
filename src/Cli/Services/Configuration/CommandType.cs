@@ -1,4 +1,4 @@
-namespace Cli.Services
+namespace Cli.Services.Configuration
 {
     internal enum CommandType
     {

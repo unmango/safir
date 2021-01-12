@@ -1,4 +1,4 @@
-namespace Cli.Services
+namespace Cli.Services.Configuration
 {
     public enum SourceType
     {

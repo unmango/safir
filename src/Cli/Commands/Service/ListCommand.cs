@@ -5,7 +5,7 @@ using System.CommandLine.Rendering;
 using System.CommandLine.Rendering.Views;
 using System.Linq;
 using System.Threading.Tasks;
-using Cli.Services;
+using Cli.Services.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace Cli.Commands.Service

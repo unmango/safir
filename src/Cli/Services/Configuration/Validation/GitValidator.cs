@@ -1,7 +1,7 @@
 using Cli.Internal.Validation;
 using FluentValidation;
 
-namespace Cli.Services.Sources.Validation
+namespace Cli.Services.Configuration.Validation
 {
     internal sealed class GitValidator : AbstractValidator<ServiceSource>
     {

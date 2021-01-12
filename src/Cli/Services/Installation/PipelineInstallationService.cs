@@ -23,7 +23,7 @@ namespace Cli.Services.Installation
         }
 
         public async Task InstallAsync(
-            ServiceEntry service,
+            IService service,
             string? directory = null,
             CancellationToken cancellationToken = default)
         {

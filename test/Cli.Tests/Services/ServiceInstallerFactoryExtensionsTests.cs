@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Cli.Services;
+using Cli.Services.Configuration;
 using Cli.Services.Installation;
 using Cli.Services.Installation.Installers;
 using Cli.Tests.Helpers;

@@ -1,13 +1,9 @@
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Cli.Services
 {
-    internal interface IServiceRegistry
+    internal interface IServiceRegistry : IReadOnlyDictionary<string, IService>
     {
-        IReadOnlyList<ServiceEntry> Services { get; }
-
-        Task<IService> GetServiceAsync(ServiceEntry service, CancellationToken cancellationToken = default);
+        IEnumerable<IService> Services { get; }
     }
 }

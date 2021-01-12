@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Cli.Services
+namespace Cli.Services.Configuration
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     internal record ServiceEntry

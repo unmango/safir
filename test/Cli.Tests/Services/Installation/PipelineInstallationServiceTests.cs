@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cli.Services;
+using Cli.Services.Configuration;
 using Cli.Services.Installation;
+using Cli.Tests.Helpers;
 using Moq;
 using Moq.AutoMock;
 using Xunit;
@@ -14,7 +16,7 @@ namespace Cli.Tests.Services.Installation
     {
         private const string WorkingDirectory = "workingDirectory";
         private static readonly AutoMocker _mocker = new();
-        private readonly ServiceEntry _defaultService = new();
+        private readonly DefaultService _defaultService = new("Name", new List<IServiceSource>());
         private readonly PipelineInstallationService _service = _mocker.Get<PipelineInstallationService>();
 
         public PipelineInstallationServiceTests()
@@ -44,8 +46,8 @@ namespace Cli.Tests.Services.Installation
         [Fact]
         public async Task InvokesPipeline()
         {
-            var expectedSources = new[] { new ServiceSource() };
-            var service = _defaultService with { Sources = expectedSources };
+            var expectedSources = new[] { new TestConcreteServiceSource() };
+            IService service = _defaultService with { Sources = expectedSources };
             var pipeline = _mocker.GetMock<IInstallationPipeline>();
 
             await _service.InstallAsync(service);

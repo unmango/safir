@@ -10,6 +10,7 @@ using Cli.Commands;
 using Cli.Internal;
 using Cli.Middleware;
 using Cli.Services;
+using Cli.Services.Configuration;
 using Cli.Services.Installation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,9 +56,7 @@ namespace Cli
                         .Bind(config.GetSection("services"))
                         .AddValidators();
 
-                    services.AddTransient<IServiceDirectory, ConfigurationServiceDirectory>();
-
-                    services.AddInstallationService();
+                    services.AddSafirCliServices();
                 })
                 .ConfigureLogging((context, builder) => {
                     var configDir = context.Configuration[ConfigDirectoryKey];

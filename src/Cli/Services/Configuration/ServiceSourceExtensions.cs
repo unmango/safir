@@ -2,18 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cli.Services
+namespace Cli.Services.Configuration
 {
     internal static class ServiceSourceExtensions
     {
-        public static IEnumerable<ServiceSource> OrderByPriority(this IEnumerable<ServiceSource> sources)
+        public static IEnumerable<T> OrderByPriority<T>(this IEnumerable<T> sources)
+            where T : IServiceSource
         {
-            return sources.OrderByDescending(x => x.Priority.HasValue).ThenBy(x => x.Priority);
+            // TODO: Logic for putting entries with 'unset' priority last when converting to concrete entry
+            return sources.OrderByDescending(x => x.Priority == default).ThenBy(x => x.Priority);
         }
 
-        public static ServiceSource HighestPriority(
-            this IEnumerable<ServiceSource> sources,
-            Func<ServiceSource, bool>? predicate = null)
+        public static T HighestPriority<T>(
+            this IEnumerable<T> sources,
+            Func<T, bool>? predicate = null)
+            where T : IServiceSource
         {
             var ordered = sources.OrderByPriority();
             return predicate == null
@@ -21,9 +24,10 @@ namespace Cli.Services
                 : ordered.First(predicate);
         }
 
-        public static ServiceSource? HighestPriorityOrDefault(
-            this IEnumerable<ServiceSource> sources,
-            Func<ServiceSource, bool>? predicate = null)
+        public static T? HighestPriorityOrDefault<T>(
+            this IEnumerable<T> sources,
+            Func<T, bool>? predicate = null)
+            where T : IServiceSource
         {
             var ordered = sources.OrderByPriority();
             return predicate == null

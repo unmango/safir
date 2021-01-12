@@ -1,4 +1,5 @@
 using System;
+using Cli.Services.Configuration;
 using Cli.Services.Installation.Installers;
 
 namespace Cli.Services.Installation

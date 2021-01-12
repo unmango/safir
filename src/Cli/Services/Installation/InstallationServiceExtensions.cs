@@ -9,7 +9,7 @@ namespace Cli.Services.Installation
     {
         public static Task InstallAsync(
             this IInstallationService installer,
-            IEnumerable<ServiceEntry> services,
+            IEnumerable<IService> services,
             bool concurrent = false,
             string? directory = null,
             CancellationToken cancellationToken = default)
@@ -19,7 +19,7 @@ namespace Cli.Services.Installation
 
         public static async Task InstallAsync(
             this IInstallationService installer,
-            IEnumerable<ServiceEntry> services,
+            IEnumerable<IService> services,
             string? directory = null,
             CancellationToken cancellationToken = default)
         {

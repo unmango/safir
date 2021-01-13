@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 
 namespace Cli.Internal.Pipeline
 {
-    internal delegate bool AppliesTo<in T>(T context);
-
     internal delegate ValueTask InvokeAsync<T>(
         T context,
         Func<T, ValueTask> next,
@@ -13,8 +11,6 @@ namespace Cli.Internal.Pipeline
     
     internal interface IPipelineBehaviour<T> where T : class
     {
-        bool AppliesTo(T context);
-        
         ValueTask InvokeAsync(T context, Func<T, ValueTask> next, CancellationToken cancellationToken = default);
     }
 }

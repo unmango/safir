@@ -12,7 +12,9 @@ namespace Cli.Services.Installation
         Func<InstallationContext, ValueTask> next,
         CancellationToken cancellationToken);
     
-    internal interface IInstallationMiddleware : IPipelineBehaviour<InstallationContext>
+    internal interface IInstallationMiddleware :
+        IPipelineBehaviour<InstallationContext>,
+        IAppliesTo<InstallationContext>
     {
     }
 }

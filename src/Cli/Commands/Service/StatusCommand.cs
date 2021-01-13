@@ -1,5 +1,6 @@
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.CommandLine.IO;
 using System.Threading.Tasks;
 
 namespace Cli.Commands.Service
@@ -8,7 +9,7 @@ namespace Cli.Commands.Service
     {
         public StatusCommand() : base("status", "Get the status of the selected service(s)")
         {
-            AddOption(new ServiceOption());
+            AddArgument(new ServiceArgument());
         }
         
         // ReSharper disable once ClassNeverInstantiated.Global
@@ -16,7 +17,9 @@ namespace Cli.Commands.Service
         {
             public Task<int> InvokeAsync(InvocationContext context)
             {
-                throw new System.NotImplementedException();
+                context.Console.Out.WriteLine($"Installed: {true}");
+
+                return Task.FromResult(0);
             }
         }
     }

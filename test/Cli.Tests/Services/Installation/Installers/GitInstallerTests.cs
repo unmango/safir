@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cli.Internal;
+using Cli.Internal.Progress;
 using Cli.Internal.Wrappers.Git;
 using Cli.Services;
 using Cli.Services.Installation;
@@ -41,8 +43,9 @@ namespace Cli.Tests.Services.Installation.Installers
         public void Constructor_RequiresValidGitUrl(string url)
         {
             var repository = _mocker.GetMock<IRepositoryFunctions>();
+            var progress = _mocker.GetMock<IProgressReporter>();
 
-            Assert.Throws<ArgumentException>(() => new GitInstaller(url, repository.Object));
+            Assert.Throws<ArgumentException>(() => new GitInstaller(url, repository.Object, progress.Object));
         }
 
         [Theory]
@@ -109,7 +112,8 @@ namespace Cli.Tests.Services.Installation.Installers
         {
             const string cloneUrl = "https://different.example.com/repo.git";
             var repository = _mocker.GetMock<IRepositoryFunctions>();
-            var installer = new GitInstaller(cloneUrl, repository.Object);
+            var progress = _mocker.GetMock<IProgressReporter>();
+            var installer = new GitInstaller(cloneUrl, repository.Object, progress.Object);
             var expected = $"{WorkingDirectory}/name";
 
             await installer.InstallAsync(_defaultContext);

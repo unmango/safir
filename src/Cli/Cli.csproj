@@ -21,6 +21,7 @@
     <PackageReference Include="System.CommandLine.Hosting" Version="0.3.0-alpha.20574.7" />
     <PackageReference Include="System.CommandLine.Rendering" Version="0.3.0-alpha.20574.7" />
     <PackageReference Include="System.Linq.Async" Version="5.0.0" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cli.Internal;
+using Cli.Internal.Progress;
 using Cli.Internal.Wrappers.Git;
 using Cli.Services.Configuration;
 using Cli.Services.Configuration.Validation;
@@ -16,14 +18,17 @@ namespace Cli.Services.Installation.Installers
         private readonly CloneOptions _options = new();
         private readonly string? _cloneUrl;
         private readonly IRepositoryFunctions _repository;
+        private readonly IProgressReporter _progress;
 
         // ReSharper disable once MemberCanBePrivate.Global
-        public GitInstaller(IRepositoryFunctions repository)
+        public GitInstaller(IRepositoryFunctions repository, IProgressReporter progress)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _progress = progress;
         }
 
-        internal GitInstaller(string cloneUrl, IRepositoryFunctions repository) : this(repository)
+        internal GitInstaller(string cloneUrl, IRepositoryFunctions repository, IProgressReporter progress)
+            : this(repository, progress)
         {
             _cloneUrl = ValidateUrl(cloneUrl);
         }
@@ -65,8 +70,15 @@ namespace Cli.Services.Installation.Installers
         {
             if (_repository.IsValid(directory)) return;
 
-            // TODO: Progress callback?   
+            _options.OnProgress = OnProgress;
+            
             _repository.Clone(cloneUrl, directory, _options);
+        }
+
+        private bool OnProgress(string text)
+        {
+            _progress.Report(text);
+            return true;
         }
 
         private static string ValidateUrl(string? cloneUrl)

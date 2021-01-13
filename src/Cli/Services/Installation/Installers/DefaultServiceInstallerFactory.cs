@@ -1,4 +1,6 @@
 using System;
+using Cli.Internal;
+using Cli.Internal.Progress;
 using Cli.Internal.Wrappers.Git;
 using Cli.Services.Configuration;
 using Cli.Services.Configuration.Validation;
@@ -38,7 +40,8 @@ namespace Cli.Services.Installation.Installers
         {
             var gitSource = source.GetGitSource();
             var repository = _services.GetRequiredService<IRepositoryFunctions>();
-            return new GitInstaller(gitSource.CloneUrl, repository);
+            var progress = _services.GetRequiredService<IProgressReporter>();
+            return new GitInstaller(gitSource.CloneUrl, repository, progress);
         }
 
         public IServiceInstaller GetLocalDirectoryInstaller(ServiceSource source)

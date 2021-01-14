@@ -6,8 +6,7 @@ using System.CommandLine.Rendering.Views;
 using System.Linq;
 using System.Threading.Tasks;
 using Cli.Services;
-using Cli.Services.Configuration;
-using Microsoft.Extensions.Options;
+using static Cli.Internal.ConsoleText;
 
 namespace Cli.Commands.Service
 {
@@ -64,14 +63,6 @@ namespace Cli.Commands.Service
                 _console.Append(table, _console.DetectOutputMode());
 
                 return Task.FromResult(context.ResultCode);
-            }
-
-            private static View Underline(string text)
-            {
-                return new ContentView(new ContainerSpan(
-                    StyleSpan.UnderlinedOn(),
-                    new ContentSpan(text),
-                    StyleSpan.UnderlinedOff()));
             }
         }
     }

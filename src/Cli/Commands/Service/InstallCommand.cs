@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Cli.Commands.Service
 {
-    internal class InstallCommand : Command
+    internal sealed class InstallCommand : Command
     {
         private static readonly Option<bool> _concurrent = new(
             new[] { "--concurrent" },
@@ -23,6 +23,7 @@ namespace Cli.Commands.Service
 
         public InstallCommand() : base("install", "Installs the specified service(s)")
         {
+            AddAlias("i");
             AddOption(_concurrent);
             AddOption(_directory);
             AddArgument(_services);

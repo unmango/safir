@@ -19,7 +19,7 @@ namespace Cli.Commands.Service
             new[] { "-d", "--directory" },
             "Optional directory to install to");
 
-        private static readonly ServiceArgument _services = new("The name of the service to install");
+        private static readonly ServiceArgument _services = new("The name of the service(s) to install");
 
         public InstallCommand() : base("install", "Installs the specified service(s)")
         {

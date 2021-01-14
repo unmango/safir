@@ -31,17 +31,17 @@ namespace Cli.Commands.Service
 
             public Task<int> InvokeAsync(InvocationContext context)
             {
-                var table = new TableView<KeyValuePair<string, IService>> {
-                    Items = _services.ToList()
+                var table = new TableView<IService> {
+                    Items = _services.Services.ToList(),
                 };
 
                 table.AddColumn(
-                    entry => entry.Key,
+                    entry => entry.Name,
                     Underline("Name"),
                     ColumnDefinition.SizeToContent());
 
                 table.AddColumn(
-                    entry => entry.Value.Sources.Count(),
+                    entry => entry.Sources.Count(),
                     Underline("Configured Sources"),
                     ColumnDefinition.Star(1));
 

@@ -5,6 +5,7 @@ using System.CommandLine.Rendering;
 using System.CommandLine.Rendering.Views;
 using System.Linq;
 using System.Threading.Tasks;
+using Cli.Services;
 using Cli.Services.Configuration;
 using Microsoft.Extensions.Options;
 
@@ -20,19 +21,19 @@ namespace Cli.Commands.Service
         // ReSharper disable once ClassNeverInstantiated.Global
         public sealed class ListHandler : ICommandHandler
         {
-            private readonly IOptions<ServiceOptions> _options;
+            private readonly IServiceRegistry _services;
             private readonly IConsole _console;
 
-            public ListHandler(IOptions<ServiceOptions> options, IConsole console)
+            public ListHandler(IServiceRegistry services, IConsole console)
             {
-                _options = options;
+                _services = services;
                 _console = console;
             }
 
             public Task<int> InvokeAsync(InvocationContext context)
             {
-                var table = new TableView<KeyValuePair<string, ServiceEntry>> {
-                    Items = _options.Value.ToList()
+                var table = new TableView<KeyValuePair<string, IService>> {
+                    Items = _services.ToList()
                 };
 
                 table.AddColumn(

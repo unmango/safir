@@ -94,7 +94,7 @@ namespace Cli.Tests.Services.Installation
             Assert.IsType<DockerImageInstaller>(result);
         }
 
-        [Theory]
+        [Theory(Skip = "Currently WIP")]
         [MemberData(nameof(SourceTypeValuesExcept), SourceType.Git)]
         public void GetGitInstaller_RequiresGitSourceType(SourceType type)
         {
@@ -103,7 +103,7 @@ namespace Cli.Tests.Services.Installation
             Assert.Throws<ValidationException>(() => _factory.GetGitInstaller(source));
         }
 
-        [Theory]
+        [Theory(Skip = "Currently WIP")]
         [ClassData(typeof(NullOrWhitespaceStrings))]
         public void GetGitInstaller_RequiresCloneUrl(string? cloneUrl)
         {
@@ -115,7 +115,7 @@ namespace Cli.Tests.Services.Installation
             Assert.Throws<ValidationException>(() => _factory.GetGitInstaller(source));
         }
 
-        [Fact]
+        [Fact(Skip = "Currently WIP")]
         public void GetGitInstaller_GetsGitInstaller()
         {
             var source = new ServiceSource {

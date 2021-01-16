@@ -48,37 +48,49 @@ namespace Cli.Tests.Services.Installation.Installers
             Assert.Throws<ArgumentException>(() => new GitInstaller(url, repository.Object, progress.Object));
         }
 
-        [Theory]
-        [MemberData(nameof(SourcesExcept), typeof(GitSource))]
-        public void DoesNotApplyToNonGitSources(IServiceSource source)
-        {
-            var context = _defaultContext with {
-                Sources = new[] { source }
-            };
+        // TODO: Maybe add this test back if we refactor ISourceInstaller
+        // [Theory]
+        // [MemberData(nameof(SourcesExcept), typeof(GitSource))]
+        // public void DoesNotApplyToNonGitSources(IServiceSource source)
+        // {
+        //     var context = _defaultContext with {
+        //         Sources = new[] { source }
+        //     };
+        //
+        //     var result = _installer.AppliesTo(context);
+        //
+        //     Assert.False(result);
+        // }
 
-            var result = _installer.AppliesTo(context);
+        // TODO: Review
+        // [Theory(Skip = "Need to review if this is functionality I want")]
+        // [ClassData(typeof(NullOrWhitespaceStrings))]
+        // public void DoesNotApplyToInvalidCloneUrl(string cloneUrl)
+        // {
+        //     var context = _defaultContext with {
+        //         Sources = new[] { _defaultSource with { CloneUrl = cloneUrl } }
+        //     };
+        //
+        //     var result = _installer.AppliesTo(context);
+        //
+        //     Assert.False(result);
+        // }
 
-            Assert.False(result);
-        }
+        // TODO: Maybe add this test back if we refactor ISourceInstaller
+        // [Fact]
+        // public void AppliesToValidContext()
+        // {
+        //     var result = _installer.AppliesTo(_defaultContext);
+        //
+        //     Assert.True(result);
+        // }
 
-        [Theory(Skip = "Need to review if this is functionality I want")]
-        [ClassData(typeof(NullOrWhitespaceStrings))]
-        public void DoesNotApplyToInvalidCloneUrl(string cloneUrl)
-        {
-            var context = _defaultContext with {
-                Sources = new[] { _defaultSource with { CloneUrl = cloneUrl } }
-            };
-
-            var result = _installer.AppliesTo(context);
-
-            Assert.False(result);
-        }
-
+        // TODO: Necessary? Always returns true at the time of this comment
         [Fact]
-        public void AppliesToValidContext()
+        public void AppliesToGitSource()
         {
-            var result = _installer.AppliesTo(_defaultContext);
-
+            var result = _installer.AppliesTo(_defaultSource);
+            
             Assert.True(result);
         }
 
@@ -158,39 +170,6 @@ namespace Cli.Tests.Services.Installation.Installers
             await _installer.InstallAsync(context);
             
             repository.Verify(x => x.Clone(CloneUrl, expected, It.IsAny<CloneOptions>()));
-        }
-
-        [Theory]
-        [MemberData(nameof(SourcesExcept), typeof(GitSource))]
-        public async Task InvokeAsync_DoesNotInstallWhenNotApplicable(IServiceSource source)
-        {
-            var context = _defaultContext with {
-                Sources = new[] { source }
-            };
-            var repository = _mocker.GetMock<IRepositoryFunctions>();
-
-            await _installer.InvokeAsync(context, _ => ValueTask.CompletedTask);
-            
-            repository.Verify(
-                x => x.Clone(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CloneOptions>()),
-                Times.Never);
-        }
-
-        [Theory]
-        [MemberData(nameof(SourcesExcept), typeof(GitSource))]
-        public async Task InvokeAsync_InvokesNextDelegateWhenNotApplicable(IServiceSource source)
-        {
-            var context = _defaultContext with {
-                Sources = new[] { source }
-            };
-            var flag = false;
-
-            await _installer.InvokeAsync(context, _ => {
-                flag = true;
-                return ValueTask.CompletedTask;
-            });
-            
-            Assert.True(flag);
         }
 
         private static IEnumerable<object[]> SourcesExcept(Type type) => ServiceSources.Except(type);

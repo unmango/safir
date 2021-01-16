@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IInstallationService, PipelineInstallationService>();
 
             services.AddLibGit2Sharp();
-            services.AddTransient<IInstallationMiddleware, GitInstaller>();
+            // services.AddTransient<IInstallationMiddleware, GitInstaller>();
             
             return services;
         }

@@ -38,10 +38,11 @@ namespace Cli.Services.Installation.Installers
 
         public IServiceInstaller GetGitInstaller(ServiceSource source)
         {
-            var gitSource = source.GetGitSource();
-            var repository = _services.GetRequiredService<IRepositoryFunctions>();
-            var progress = _services.GetRequiredService<IProgressReporter>();
-            return new GitInstaller(gitSource.CloneUrl, repository, progress);
+            throw new NotImplementedException();
+            // var gitSource = source.GetGitSource();
+            // var repository = _services.GetRequiredService<IRepositoryFunctions>();
+            // var progress = _services.GetRequiredService<IProgressReporter>();
+            // return new GitInstaller(gitSource.CloneUrl, repository, progress);
         }
 
         public IServiceInstaller GetLocalDirectoryInstaller(ServiceSource source)

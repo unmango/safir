@@ -1,9 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cli.Internal;
 using Cli.Internal.Progress;
 using Cli.Internal.Wrappers.Git;
 using Cli.Services.Configuration;
@@ -13,14 +10,13 @@ using LibGit2Sharp;
 
 namespace Cli.Services.Installation.Installers
 {
-    internal class GitInstaller : ServiceInstallerMiddleware
+    internal class GitInstaller : SynchronousSourceInstaller<GitSource>
     {
         private readonly CloneOptions _options = new();
         private readonly string? _cloneUrl;
         private readonly IRepositoryFunctions _repository;
         private readonly IProgressReporter _progress;
 
-        // ReSharper disable once MemberCanBePrivate.Global
         public GitInstaller(IRepositoryFunctions repository, IProgressReporter progress)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -33,27 +29,25 @@ namespace Cli.Services.Installation.Installers
             _cloneUrl = ValidateUrl(cloneUrl);
         }
 
-        public override bool AppliesTo(InstallationContext context)
+        public override bool AppliesTo(GitSource context) => true;
+
+        public override IServiceInstalled GetInstalled(InstallationContext context)
         {
-            return context.Sources.Any(x => x is GitSource);
+            var cloneDirectory = GetCloneDirectory(context);
+            return _repository.IsValid(cloneDirectory)
+                ? ServiceInstalled.At(cloneDirectory)
+                : ServiceInstalled.NoWhere();
         }
 
-        public override ValueTask InstallAsync(
-            InstallationContext context,
-            CancellationToken cancellationToken = default)
+        public override IServiceUpdate GetUpdate(InstallationContext context)
         {
-            Install(context);
-
-            return ValueTask.CompletedTask;
+            throw new NotImplementedException();
         }
 
-        private void Install(InstallationContext context)
+        public override void Install(InstallationContext context)
         {
             var (workingDirectory, service, sources) = context;
-            var cloneDirectory = !string.IsNullOrWhiteSpace(service.Name)
-                ? Path.Combine(workingDirectory, service.Name.ToLower())
-                : workingDirectory;
-
+            var cloneDirectory = GetCloneDirectory(workingDirectory, service);
             if (!string.IsNullOrWhiteSpace(_cloneUrl))
             {
                 Clone(_cloneUrl, cloneDirectory);
@@ -66,12 +60,15 @@ namespace Cli.Services.Installation.Installers
             }
         }
 
+        public override void Update(InstallationContext context)
+        {
+            throw new NotImplementedException();
+        }
+
         private void Clone(string cloneUrl, string directory)
         {
             if (_repository.IsValid(directory)) return;
-
             _options.OnProgress = OnProgress;
-            
             _repository.Clone(cloneUrl, directory, _options);
         }
 
@@ -80,6 +77,14 @@ namespace Cli.Services.Installation.Installers
             _progress.Report(text);
             return true;
         }
+
+        private static string GetCloneDirectory(InstallationContext context)
+            => GetCloneDirectory(context.WorkingDirectory, context.Service);
+
+        private static string GetCloneDirectory(string workingDirectory, IService service)
+            => !string.IsNullOrWhiteSpace(service.Name)
+                ? Path.Combine(workingDirectory, service.Name.ToLower())
+                : workingDirectory;
 
         private static string ValidateUrl(string? cloneUrl)
         {

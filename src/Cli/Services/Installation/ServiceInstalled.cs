@@ -4,6 +4,6 @@ namespace Cli.Services.Installation
     {
         public static ServiceInstalled At(string location) => new(true, location);
 
-        public static ServiceInstalled NoWhere() => new(false, string.Empty);
+        public static ServiceInstalled Nowhere() => new(false, string.Empty);
     }
 }

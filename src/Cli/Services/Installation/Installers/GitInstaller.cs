@@ -36,7 +36,7 @@ namespace Cli.Services.Installation.Installers
             var cloneDirectory = GetCloneDirectory(context);
             return _repository.IsValid(cloneDirectory)
                 ? ServiceInstalled.At(cloneDirectory)
-                : ServiceInstalled.NoWhere();
+                : ServiceInstalled.Nowhere();
         }
 
         public override IServiceUpdate GetUpdate(InstallationContext context)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cli.Internal.Progress;
 using Cli.Internal.Wrappers.Git;
 using Cli.Services.Configuration;
 using Cli.Services.Installation.Installers;
@@ -13,14 +14,14 @@ namespace Cli.Tests.Services.Installation
     public class DefaultServiceInstallerFactoryTests
     {
         private readonly Mock<IRepositoryFunctions> _repositoryFunctions = new();
-        private readonly Mock<IRemoteFunctions> _remoteFunctions = new();
+        private readonly Mock<IProgressReporter> _progressReporter = new();
         private readonly Mock<IServiceProvider> _services = new();
         private readonly DefaultServiceInstallerFactory _factory;
         
         public DefaultServiceInstallerFactoryTests()
         {
             _services.Setup(x => x.GetService(typeof(IRepositoryFunctions))).Returns(_repositoryFunctions.Object);
-            _services.Setup(x => x.GetService(typeof(IRemoteFunctions))).Returns(_remoteFunctions.Object);
+            _services.Setup(x => x.GetService(typeof(IProgressReporter))).Returns(_progressReporter.Object);
             
             _factory = new DefaultServiceInstallerFactory(_services.Object);
         }
@@ -121,7 +122,6 @@ namespace Cli.Tests.Services.Installation
                 Type = SourceType.Git,
                 CloneUrl = "https://example.com/repo.git",
             };
-            _remoteFunctions.Setup(x => x.IsValidName(It.IsAny<string>())).Returns(true);
 
             var result = _factory.GetGitInstaller(source);
 

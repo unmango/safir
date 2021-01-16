@@ -4,12 +4,8 @@ using Cli.Internal.Pipeline;
 
 namespace Cli.Services.Installation
 {
-    internal interface IServiceInstaller<in T> :
-        IPipeline<InstallationContext>,
-        IAppliesTo<T>,
-        IAppliesTo<InstallationContext>
-        where T : IServiceSource
-
+    internal interface IServiceInstaller<in T> : IPipeline<InstallationContext>, IAppliesTo<InstallationContext>
+        where T : IService
     {
         ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default);
         

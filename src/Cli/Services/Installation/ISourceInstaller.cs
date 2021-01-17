@@ -9,15 +9,17 @@ namespace Cli.Services.Installation
         where T : IServiceSource
     {
         ValueTask<ISourceInstalled> GetInstalledAsync(
+            T source,
             InstallationContext context,
             CancellationToken cancellationToken = default);
 
         ValueTask<IServiceUpdate> GetUpdateAsync(
+            T source,
             InstallationContext context,
             CancellationToken cancellationToken = default);
 
-        ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default);
+        ValueTask InstallAsync(T source, InstallationContext context, CancellationToken cancellationToken = default);
 
-        ValueTask UpdateAsync(InstallationContext context, CancellationToken cancellationToken = default);
+        ValueTask UpdateAsync(T source, InstallationContext context, CancellationToken cancellationToken = default);
     }
 }

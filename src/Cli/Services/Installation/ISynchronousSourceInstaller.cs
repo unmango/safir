@@ -5,12 +5,12 @@ namespace Cli.Services.Installation
     internal interface ISynchronousSourceInstaller<in T> : IAppliesTo<T>
         where T : IServiceSource
     {
-        ISourceInstalled GetInstalled(InstallationContext context);
+        ISourceInstalled GetInstalled(T source, InstallationContext context);
 
-        IServiceUpdate GetUpdate(InstallationContext context);
+        IServiceUpdate GetUpdate(T source, InstallationContext context);
 
-        void Install(InstallationContext context);
+        void Install(T source, InstallationContext context);
 
-        void Update(InstallationContext context);
+        void Update(T source, InstallationContext context);
     }
 }

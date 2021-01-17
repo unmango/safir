@@ -8,35 +8,47 @@ namespace Cli.Services.Installation.Installers
     {
         public abstract bool AppliesTo(T context);
 
-        public abstract ISourceInstalled GetInstalled(InstallationContext context);
+        public abstract ISourceInstalled GetInstalled(T source, InstallationContext context);
 
-        public ValueTask<ISourceInstalled> GetInstalledAsync(InstallationContext context, CancellationToken cancellationToken = default)
+        public ValueTask<ISourceInstalled> GetInstalledAsync(
+            T source,
+            InstallationContext context,
+            CancellationToken cancellationToken = default)
         {
-            var installed = GetInstalled(context);
+            var installed = GetInstalled(source, context);
             return ValueTask.FromResult(installed);
         }
 
-        public abstract IServiceUpdate GetUpdate(InstallationContext context);
+        public abstract IServiceUpdate GetUpdate(T source, InstallationContext context);
 
-        public ValueTask<IServiceUpdate> GetUpdateAsync(InstallationContext context, CancellationToken cancellationToken = default)
+        public ValueTask<IServiceUpdate> GetUpdateAsync(
+            T source,
+            InstallationContext context,
+            CancellationToken cancellationToken = default)
         {
-            var update = GetUpdate(context);
+            var update = GetUpdate(source, context);
             return ValueTask.FromResult(update);
         }
 
-        public abstract void Install(InstallationContext context);
+        public abstract void Install(T source, InstallationContext context);
 
-        public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
+        public ValueTask InstallAsync(
+            T source,
+            InstallationContext context,
+            CancellationToken cancellationToken = default)
         {
-            Install(context);
+            Install(source, context);
             return ValueTask.CompletedTask;
         }
 
-        public abstract void Update(InstallationContext context);
+        public abstract void Update(T source, InstallationContext context);
 
-        public ValueTask UpdateAsync(InstallationContext context, CancellationToken cancellationToken = default)
+        public ValueTask UpdateAsync(
+            T source,
+            InstallationContext context,
+            CancellationToken cancellationToken = default)
         {
-            Update(context);
+            Update(source, context);
             return ValueTask.CompletedTask;
         }
     }

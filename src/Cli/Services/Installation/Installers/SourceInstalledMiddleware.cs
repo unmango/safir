@@ -16,10 +16,13 @@ namespace Cli.Services.Installation.Installers
             Func<InstallationContext, ValueTask> next,
             CancellationToken cancellationToken = default)
         {
-            var result = await Installer.GetInstalledAsync(context, cancellationToken);
-            if (result.Installed && result.Source != null)
+            foreach (var source in GetApplicableSources(context))
             {
-                context = context.WithProperty(SourceInstalled.Key(result.Source), true);
+                var result = await Installer.GetInstalledAsync(source, context, cancellationToken);
+                if (result.Installed && result.Source != null)
+                {
+                    context = context.MarkInstalled(source);
+                }
             }
 
             await next(context);

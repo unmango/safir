@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Cli.Services.Installation.Installers
         
         protected ISourceInstaller<T> Installer { get; }
 
-        public virtual bool AppliesTo(InstallationContext context) => context.Sources.OfType<T>().Any(AppliesTo);
+        public virtual bool AppliesTo(InstallationContext context) => GetApplicableSources(context).Any();
 
         public abstract ValueTask InvokeAsync(
             InstallationContext context,
@@ -23,5 +24,8 @@ namespace Cli.Services.Installation.Installers
             CancellationToken cancellationToken = default);
 
         protected virtual bool AppliesTo(T source) => Installer.AppliesTo(source);
+
+        protected IEnumerable<T> GetApplicableSources(InstallationContext context)
+            => context.Sources.OfType<T>().Where(AppliesTo);
     }
 }

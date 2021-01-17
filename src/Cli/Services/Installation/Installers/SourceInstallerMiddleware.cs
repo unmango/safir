@@ -16,7 +16,12 @@ namespace Cli.Services.Installation.Installers
             Func<InstallationContext, ValueTask> next,
             CancellationToken cancellationToken = default)
         {
-            await Installer.InstallAsync(context, cancellationToken);
+            // TODO: Install all applicable?
+            foreach (var source in GetApplicableSources(context))
+            {
+                await Installer.InstallAsync(source, context, cancellationToken);
+            }
+
             await next(context);
         }
     }

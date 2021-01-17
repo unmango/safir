@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 using Cli.Internal.Progress;
 using Cli.Internal.Wrappers.Git;
 using Cli.Services.Configuration;
@@ -17,6 +16,7 @@ namespace Cli.Services.Installation.Installers
         private readonly IRepositoryFunctions _repository;
         private readonly IProgressReporter _progress;
 
+        // ReSharper disable once MemberCanBePrivate.Global
         public GitInstaller(IRepositoryFunctions repository, IProgressReporter progress)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -31,36 +31,34 @@ namespace Cli.Services.Installation.Installers
 
         public override bool AppliesTo(GitSource context) => true;
 
-        public override ISourceInstalled GetInstalled(InstallationContext context)
+        public override ISourceInstalled GetInstalled(GitSource source, InstallationContext context)
         {
             var cloneDirectory = GetCloneDirectory(context);
+            
+            // TODO: Verify source is the repo at the directory
             return _repository.IsValid(cloneDirectory)
-                ? SourceInstalled.At(cloneDirectory)
+                ? SourceInstalled.At(source, cloneDirectory)
                 : SourceInstalled.Nowhere();
         }
 
-        public override IServiceUpdate GetUpdate(InstallationContext context)
+        public override IServiceUpdate GetUpdate(GitSource source, InstallationContext context)
         {
             throw new NotImplementedException();
         }
 
-        public override void Install(InstallationContext context)
+        public override void Install(GitSource source, InstallationContext context)
         {
-            var (workingDirectory, service, sources) = context;
+            var (workingDirectory, service, _) = context;
             var cloneDirectory = GetCloneDirectory(workingDirectory, service);
-            if (!string.IsNullOrWhiteSpace(_cloneUrl))
-            {
-                Clone(_cloneUrl, cloneDirectory);
-                return;
-            }
-
-            foreach (var source in sources.OfType<GitSource>())
-            {
-                Clone(source.CloneUrl, cloneDirectory);
-            }
+            
+            var toClone = string.IsNullOrWhiteSpace(_cloneUrl)
+                ? source.CloneUrl
+                : _cloneUrl;
+            
+            Clone(toClone, cloneDirectory);
         }
 
-        public override void Update(InstallationContext context)
+        public override void Update(GitSource source, InstallationContext context)
         {
             throw new NotImplementedException();
         }

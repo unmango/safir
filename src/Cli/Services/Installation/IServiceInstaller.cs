@@ -1,14 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Cli.Internal.Pipeline;
 
 namespace Cli.Services.Installation
 {
-    internal interface IServiceInstaller<in T> : IPipeline<InstallationContext>, IAppliesTo<InstallationContext>
-        where T : IService
+    internal interface IServiceInstaller
     {
-        ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default);
-        
-        ValueTask<bool> IsInstalledAsync(InstallationContext context, CancellationToken cancellationToken = default);
+        ValueTask<IServiceInstalled> GetInstalledAsync(IService service, CancellationToken cancellationToken = default);
+
+        Task InstallAsync(IService service, string? directory = null, CancellationToken cancellationToken = default);
     }
 }

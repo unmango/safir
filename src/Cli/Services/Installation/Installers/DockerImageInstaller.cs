@@ -1,11 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Cli.Services.Sources;
 
 // ReSharper disable NotAccessedField.Local
 
 namespace Cli.Services.Installation.Installers
 {
-    internal class DockerImageInstaller : IServiceInstaller
+    internal class DockerImageInstaller : ISourceInstaller<DockerImageSource>
     {
         private readonly string _imageName;
         private readonly string? _tag;
@@ -15,8 +16,31 @@ namespace Cli.Services.Installation.Installers
             _imageName = imageName;
             _tag = tag;
         }
-        
-        public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
+
+        public ValueTask<ISourceInstalled> GetInstalledAsync(
+            SourceContext<DockerImageSource> context,
+            CancellationToken cancellationToken = default)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ValueTask<IServiceUpdate> GetUpdateAsync(
+            SourceContext<DockerImageSource> context,
+            CancellationToken cancellationToken = default)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ValueTask InstallAsync(
+            SourceContext<DockerImageSource> context,
+            CancellationToken cancellationToken = default)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ValueTask UpdateAsync(
+            SourceContext<DockerImageSource> context,
+            CancellationToken cancellationToken = default)
         {
             throw new System.NotImplementedException();
         }

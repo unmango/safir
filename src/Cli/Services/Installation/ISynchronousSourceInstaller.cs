@@ -1,16 +1,14 @@
-using Cli.Internal.Pipeline;
-
 namespace Cli.Services.Installation
 {
-    internal interface ISynchronousSourceInstaller<in T> : IAppliesTo<T>
+    internal interface ISynchronousSourceInstaller<T> : ISourceInstaller
         where T : IServiceSource
     {
-        ISourceInstalled GetInstalled(T source, InstallationContext context);
+        ISourceInstalled GetInstalled(SourceContext<T> context);
 
-        IServiceUpdate GetUpdate(T source, InstallationContext context);
+        IServiceUpdate GetUpdate(SourceContext<T> context);
 
-        void Install(T source, InstallationContext context);
+        void Install(SourceContext<T> context);
 
-        void Update(T source, InstallationContext context);
+        void Update(SourceContext<T> context);
     }
 }

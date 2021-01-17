@@ -29,36 +29,38 @@ namespace Cli.Services.Installation.Installers
             _cloneUrl = ValidateUrl(cloneUrl);
         }
 
-        public override bool AppliesTo(GitSource context) => true;
+        public override bool AppliesTo(ISourceContext context) => context is SourceContext<GitSource>;
 
-        public override ISourceInstalled GetInstalled(GitSource source, InstallationContext context)
+        public override ISourceInstalled GetInstalled(SourceContext<GitSource> context)
         {
-            var cloneDirectory = GetCloneDirectory(context);
+            var cloneDirectory = GetCloneDirectory(context.Parent);
             
             // TODO: Verify source is the repo at the directory
             return _repository.IsValid(cloneDirectory)
-                ? SourceInstalled.At(source, cloneDirectory)
+                ? SourceInstalled.At(context.Source, cloneDirectory)
                 : SourceInstalled.Nowhere();
         }
 
-        public override IServiceUpdate GetUpdate(GitSource source, InstallationContext context)
+        public override IServiceUpdate GetUpdate(SourceContext<GitSource> context)
         {
             throw new NotImplementedException();
         }
 
-        public override void Install(GitSource source, InstallationContext context)
+        public override void Install(SourceContext<GitSource> context)
         {
-            var (workingDirectory, service, _) = context;
-            var cloneDirectory = GetCloneDirectory(workingDirectory, service);
+            // TODO: Move this logic into the caller.
+            var cloneDirectory = GetCloneDirectory(
+                context.Parent.WorkingDirectory,
+                context.Parent.Service);
             
             var toClone = string.IsNullOrWhiteSpace(_cloneUrl)
-                ? source.CloneUrl
+                ? context.Source.CloneUrl
                 : _cloneUrl;
             
             Clone(toClone, cloneDirectory);
         }
 
-        public override void Update(GitSource source, InstallationContext context)
+        public override void Update(SourceContext<GitSource> context)
         {
             throw new NotImplementedException();
         }

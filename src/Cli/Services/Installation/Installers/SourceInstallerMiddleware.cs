@@ -20,6 +20,9 @@ namespace Cli.Services.Installation.Installers
             foreach (var source in GetApplicableSources(context))
             {
                 await Installer.InstallAsync(source, context, cancellationToken);
+                
+                // TODO: Check installed? Return result?
+                context.MarkInstalled(source);
             }
 
             await next(context);

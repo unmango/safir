@@ -1,17 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Cli.Services.Installation.Installers
 {
-    internal sealed class NoOpInstaller : IServiceInstaller
+    internal sealed class NoOpInstaller : ISourceInstaller
     {
         public static readonly NoOpInstaller Value = new();
 
         private NoOpInstaller() { }
         
-        public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
+        public bool AppliesTo(ISourceContext context)
         {
-            return new ValueTask();
+            throw new System.NotImplementedException();
         }
     }
 }

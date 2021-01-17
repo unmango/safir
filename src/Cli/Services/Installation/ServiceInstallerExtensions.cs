@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Cli.Services.Installation
 {
-    internal static class InstallationServiceExtensions
+    internal static class ServiceInstallerExtensions
     {
         public static Task InstallAsync(
-            this IInstallationService installer,
+            this IServiceInstaller installer,
             IEnumerable<IService> services,
             bool concurrent = false,
             string? directory = null,
@@ -18,7 +18,7 @@ namespace Cli.Services.Installation
                 : InstallAsync(installer, services, directory, cancellationToken);
 
         public static async Task InstallAsync(
-            this IInstallationService installer,
+            this IServiceInstaller installer,
             IEnumerable<IService> services,
             string? directory = null,
             CancellationToken cancellationToken = default)

@@ -4,22 +4,23 @@ using Cli.Internal.Pipeline;
 
 namespace Cli.Services.Installation
 {
-    // TODO: Consider changing to AppliesTo<InstallationContext>
-    internal interface ISourceInstaller<in T> : IAppliesTo<T>
+    internal interface ISourceInstaller : IAppliesTo<ISourceContext>
+    {
+    }
+
+    internal interface ISourceInstaller<T> : ISourceInstaller
         where T : IServiceSource
     {
         ValueTask<ISourceInstalled> GetInstalledAsync(
-            T source,
-            InstallationContext context,
+            SourceContext<T> context,
             CancellationToken cancellationToken = default);
 
         ValueTask<IServiceUpdate> GetUpdateAsync(
-            T source,
-            InstallationContext context,
+            SourceContext<T> context,
             CancellationToken cancellationToken = default);
 
-        ValueTask InstallAsync(T source, InstallationContext context, CancellationToken cancellationToken = default);
+        ValueTask InstallAsync(SourceContext<T> context, CancellationToken cancellationToken = default);
 
-        ValueTask UpdateAsync(T source, InstallationContext context, CancellationToken cancellationToken = default);
+        ValueTask UpdateAsync(SourceContext<T> context, CancellationToken cancellationToken = default);
     }
 }

@@ -8,7 +8,7 @@ namespace Cli.Services.Installation
     internal interface ISourceInstaller<in T> : IAppliesTo<T>
         where T : IServiceSource
     {
-        ValueTask<IServiceInstalled> GetInstalledAsync(
+        ValueTask<ISourceInstalled> GetInstalledAsync(
             InstallationContext context,
             CancellationToken cancellationToken = default);
 

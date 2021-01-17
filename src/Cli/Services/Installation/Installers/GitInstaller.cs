@@ -31,12 +31,12 @@ namespace Cli.Services.Installation.Installers
 
         public override bool AppliesTo(GitSource context) => true;
 
-        public override IServiceInstalled GetInstalled(InstallationContext context)
+        public override ISourceInstalled GetInstalled(InstallationContext context)
         {
             var cloneDirectory = GetCloneDirectory(context);
             return _repository.IsValid(cloneDirectory)
-                ? ServiceInstalled.At(cloneDirectory)
-                : ServiceInstalled.Nowhere();
+                ? SourceInstalled.At(cloneDirectory)
+                : SourceInstalled.Nowhere();
         }
 
         public override IServiceUpdate GetUpdate(InstallationContext context)

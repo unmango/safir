@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace Cli.Services.Installation.Installers
 {
-    internal sealed class SourceInstallerMiddleware<T> : SourceMiddleware<T>
+    internal class SourceInstalledMiddleware<T> : SourceMiddleware<T>
         where T : IServiceSource
     {
-        public SourceInstallerMiddleware(ISourceInstaller<T> installer) : base(installer)
+        public SourceInstalledMiddleware(ISourceInstaller<T> installer) : base(installer)
         {
         }
 
@@ -16,7 +16,12 @@ namespace Cli.Services.Installation.Installers
             Func<InstallationContext, ValueTask> next,
             CancellationToken cancellationToken = default)
         {
-            await Installer.InstallAsync(context, cancellationToken);
+            var result = await Installer.GetInstalledAsync(context, cancellationToken);
+            if (result.Installed && result.Source != null)
+            {
+                context = context.WithProperty(SourceInstalled.Key(result.Source), true);
+            }
+
             await next(context);
         }
     }

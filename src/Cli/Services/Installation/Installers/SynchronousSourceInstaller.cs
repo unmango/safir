@@ -8,9 +8,9 @@ namespace Cli.Services.Installation.Installers
     {
         public abstract bool AppliesTo(T context);
 
-        public abstract IServiceInstalled GetInstalled(InstallationContext context);
+        public abstract ISourceInstalled GetInstalled(InstallationContext context);
 
-        public ValueTask<IServiceInstalled> GetInstalledAsync(InstallationContext context, CancellationToken cancellationToken = default)
+        public ValueTask<ISourceInstalled> GetInstalledAsync(InstallationContext context, CancellationToken cancellationToken = default)
         {
             var installed = GetInstalled(context);
             return ValueTask.FromResult(installed);

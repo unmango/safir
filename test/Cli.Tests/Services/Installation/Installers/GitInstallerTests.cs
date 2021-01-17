@@ -94,83 +94,84 @@ namespace Cli.Tests.Services.Installation.Installers
             Assert.True(result);
         }
 
-        [Fact]
-        public async Task InstallAsync_ClonesRepository()
-        {
-            var repository = _mocker.GetMock<IRepositoryFunctions>();
-            repository.Setup(x => x.IsValid(WorkingDirectory)).Returns(false);
-            var expected = $"{WorkingDirectory}/name";
-
-            await _installer.InstallAsync(_defaultContext).AsTask();
-
-            repository.Verify(x => x.Clone(CloneUrl, expected, It.IsAny<CloneOptions>()));
-        }
-
-        [Fact]
-        public async Task InstallAsync_SkipsCloneWhenRepositoryExists()
-        {
-            var repository = _mocker.GetMock<IRepositoryFunctions>();
-            repository.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
-
-            await _installer.InstallAsync(_defaultContext);
-
-            repository.Verify(
-                x => x.Clone(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CloneOptions>()),
-                Times.Never);
-        }
-
-        [Fact]
-        public async Task InstallAsync_InstallsExplicitCloneUrl()
-        {
-            const string cloneUrl = "https://different.example.com/repo.git";
-            var repository = _mocker.GetMock<IRepositoryFunctions>();
-            var progress = _mocker.GetMock<IProgressReporter>();
-            var installer = new GitInstaller(cloneUrl, repository.Object, progress.Object);
-            var expected = $"{WorkingDirectory}/name";
-
-            await installer.InstallAsync(_defaultContext);
-
-            repository.Verify(x => x.Clone(cloneUrl, expected, It.IsAny<CloneOptions>()));
-            repository.Verify(x => x.Clone(CloneUrl, It.IsAny<string>(), It.IsAny<CloneOptions>()), Times.Never);
-        }
-
-        [Fact]
-        public async Task InstallAsync_InstallsAllSources()
-        {
-            const string url1 = "https://1.example.com/repo.git";
-            const string url2 = "https://2.example.com/repo.git";
-            var context = _defaultContext with {
-                Sources = new[] {
-                    _defaultSource with { CloneUrl = url1 },
-                    _defaultSource with { CloneUrl = url2 },
-                }
-            };
-            var repository = _mocker.GetMock<IRepositoryFunctions>();
-            var expected = $"{WorkingDirectory}/name";
-
-            await _installer.InstallAsync(context);
-
-            repository.Verify(x => x.Clone(url1, expected, It.IsAny<CloneOptions>()));
-            repository.Verify(x => x.Clone(url2, expected, It.IsAny<CloneOptions>()));
-            repository.Verify(
-                x => x.Clone(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CloneOptions>()),
-                Times.Exactly(2));
-        }
-
-        [Fact]
-        public async Task InstallAsync_InstallsToServiceNameSubDirectory()
-        {
-            const string name = "serviceName";
-            var expected = $"{WorkingDirectory}/{name}".ToLower();
-            var context = _defaultContext with {
-                Service = new DefaultService(name, new List<IServiceSource>())
-            };
-            var repository = _mocker.GetMock<IRepositoryFunctions>();
-
-            await _installer.InstallAsync(context);
-            
-            repository.Verify(x => x.Clone(CloneUrl, expected, It.IsAny<CloneOptions>()));
-        }
+        // [Fact]
+        // public async Task InstallAsync_ClonesRepository()
+        // {
+        //     var repository = _mocker.GetMock<IRepositoryFunctions>();
+        //     repository.Setup(x => x.IsValid(WorkingDirectory)).Returns(false);
+        //     var expected = $"{WorkingDirectory}/name";
+        //
+        //     await _installer.InstallAsync(_defaultContext).AsTask();
+        //
+        //     repository.Verify(x => x.Clone(CloneUrl, expected, It.IsAny<CloneOptions>()));
+        // }
+        
+        // [Fact]
+        // public async Task InstallAsync_SkipsCloneWhenRepositoryExists()
+        // {
+        //     var repository = _mocker.GetMock<IRepositoryFunctions>();
+        //     repository.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
+        //
+        //     await _installer.InstallAsync(_defaultContext);
+        //
+        //     repository.Verify(
+        //         x => x.Clone(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CloneOptions>()),
+        //         Times.Never);
+        // }
+        
+        // [Fact]
+        // public async Task InstallAsync_InstallsExplicitCloneUrl()
+        // {
+        //     const string cloneUrl = "https://different.example.com/repo.git";
+        //     var repository = _mocker.GetMock<IRepositoryFunctions>();
+        //     var progress = _mocker.GetMock<IProgressReporter>();
+        //     var installer = new GitInstaller(cloneUrl, repository.Object, progress.Object);
+        //     var expected = $"{WorkingDirectory}/name";
+        //
+        //     await installer.InstallAsync(_defaultContext);
+        //
+        //     repository.Verify(x => x.Clone(cloneUrl, expected, It.IsAny<CloneOptions>()));
+        //     repository.Verify(x => x.Clone(CloneUrl, It.IsAny<string>(), It.IsAny<CloneOptions>()), Times.Never);
+        // }
+        
+        // [Fact]
+        // public async Task InstallAsync_InstallsAllSources()
+        // {
+        //     const string url1 = "https://1.example.com/repo.git";
+        //     const string url2 = "https://2.example.com/repo.git";
+        //     var context = _defaultContext with {
+        //         Sources = new[] {
+        //             _defaultSource with { CloneUrl = url1 },
+        //             _defaultSource with { CloneUrl = url2 },
+        //         }
+        //     };
+        //     var repository = _mocker.GetMock<IRepositoryFunctions>();
+        //     var expected = $"{WorkingDirectory}/name";
+        //
+        //     await _installer.InstallAsync(context);
+        //
+        //     repository.Verify(x => x.Clone(url1, expected, It.IsAny<CloneOptions>()));
+        //     repository.Verify(x => x.Clone(url2, expected, It.IsAny<CloneOptions>()));
+        //     repository.Verify(
+        //         x => x.Clone(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CloneOptions>()),
+        //         Times.Exactly(2));
+        // }
+        //
+        
+        // [Fact]
+        // public async Task InstallAsync_InstallsToServiceNameSubDirectory()
+        // {
+        //     const string name = "serviceName";
+        //     var expected = $"{WorkingDirectory}/{name}".ToLower();
+        //     var context = _defaultContext with {
+        //         Service = new DefaultService(name, new List<IServiceSource>())
+        //     };
+        //     var repository = _mocker.GetMock<IRepositoryFunctions>();
+        //
+        //     await _installer.InstallAsync(context);
+        //     
+        //     repository.Verify(x => x.Clone(CloneUrl, expected, It.IsAny<CloneOptions>()));
+        // }
 
         private static IEnumerable<object[]> SourcesExcept(Type type) => ServiceSources.Except(type);
     }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Cli.Internal.Pipeline
 {
-    internal static class InvokeAsyncExtensions
+    internal static class InvokeDelegateExtensions
     {
         // Alias to match the name of delegate.Invoke
         public static ValueTask Invoke<T>(

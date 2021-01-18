@@ -5,7 +5,7 @@ namespace Cli.Services.Installation
 {
     internal interface IServiceInstaller
     {
-        ValueTask<IServiceInstalled> GetInstalledAsync(IService service, CancellationToken cancellationToken = default);
+        ValueTask<ServiceInstalled> GetInstalledAsync(IService service, CancellationToken cancellationToken = default);
 
         Task InstallAsync(IService service, string? directory = null, CancellationToken cancellationToken = default);
     }

@@ -11,11 +11,11 @@ namespace Cli.Services.Installation
     internal interface ISourceInstaller<T> : ISourceInstaller
         where T : IServiceSource
     {
-        ValueTask<ISourceInstalled> GetInstalledAsync(
+        ValueTask<SourceInstalled> GetInstalledAsync(
             SourceContext<T> context,
             CancellationToken cancellationToken = default);
 
-        ValueTask<IServiceUpdate> GetUpdateAsync(
+        ValueTask<ServiceUpdate> GetUpdateAsync(
             SourceContext<T> context,
             CancellationToken cancellationToken = default);
 

@@ -23,7 +23,7 @@ namespace Cli.Services.Installation
             _logger = logger;
         }
 
-        public ValueTask<IServiceInstalled> GetInstalledAsync(
+        public ValueTask<ServiceInstalled> GetInstalledAsync(
             IService service,
             CancellationToken cancellationToken = default)
         {

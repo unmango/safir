@@ -1,6 +1,6 @@
 namespace Cli.Services.Installation
 {
-    internal record SourceInstalled(bool Installed, string Location, IServiceSource? Source) : ISourceInstalled
+    internal record SourceInstalled(bool Installed, string Location, IServiceSource? Source)
     {
         public static SourceInstalled At(IServiceSource source, string location) => new(true, location, source);
 

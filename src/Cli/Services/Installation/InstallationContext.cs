@@ -5,6 +5,7 @@ using System.Collections.Immutable;
 namespace Cli.Services.Installation
 {
     internal record InstallationContext(
+        Operation Operation,
         string WorkingDirectory,
         IService Service,
         IEnumerable<IServiceSource> Sources)

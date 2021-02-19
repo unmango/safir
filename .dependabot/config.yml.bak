@@ -1,0 +1,90 @@
+version: 1
+
+update_configs:
+- package_manager: "javascript"
+  directory: "/src/UI/Safir.Angular"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+
+- package_manager: "javascript"
+  directory: "/src/UI/Safir.Electron"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+
+- package_manager: "dotnet:nuget"
+  directory: "/src/Files/Safir.Files.Agent"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+
+- package_manager: "dotnet:nuget"
+  directory: "/src/Files/Safir.Files.Manager.Client"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+
+- package_manager: "dotnet:nuget"
+  directory: "/src/Files/Safir.Files.Manager.Protos"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+
+- package_manager: "dotnet:nuget"
+  directory: "/src/Files/Safir.Files.Manager.Service"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+
+- package_manager: "dotnet:nuget"
+  directory: "/src/Cli/Safir.Cli"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+  
+- package_manager: "dotnet:nuget"
+  directory: "/src/Cli/Safir.CommandLine"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+
+- package_manager: "dotnet:nuget"
+  directory: "/src/Cli/Safir.CommandLine.Abstractions"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+
+- package_manager: "dotnet:nuget"
+  directory: "/src/Cli/Safir.CommandLine.Hosting"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"
+
+- package_manager: "dotnet:nuget"
+  directory: "/src/Safir.Common"
+  update_schedule: "live"
+  automerged_updates:
+  - match:
+      dependency_type: "all"
+      update_type: "semver:patch"

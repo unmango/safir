@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.Net.Client" Version="2.35.0" />
-    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.34.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.35.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />

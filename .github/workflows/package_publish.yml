@@ -1,0 +1,24 @@
+on:
+  push:
+    branches: [main]
+    tags: ["*.*.*"]
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  CI: true
+jobs:
+  package_build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-dotnet@v1
+    - run: dotnet nuget update source github --username UnstoppableMango --password ${{ secrets.GITHUB_TOKEN }}
+    - run: dotnet build --configuration Release --nologo
+    - run: dotnet test --no-build
+    - run: dotnet pack --configuration Release --no-build --nologo
+    - run: |
+        dotnet nuget push src/**/*.nupkg \
+          --source https://nuget.pkg.github.com/unmango/index.json \
+          --api-key ${{ secrets.GITHUB_TOKEN }}

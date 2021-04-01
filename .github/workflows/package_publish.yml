@@ -30,7 +30,7 @@ jobs:
     - name: Build solution
       run: dotnet build --configuration Release --nologo
     - name: Run tests
-      run: dotnet test --no-build --nologo
+      run: dotnet test --configuration Release --no-build --nologo
     - name: Package libraries
       run: dotnet pack --configuration Release --no-build --nologo
     - name: Push packages to Github

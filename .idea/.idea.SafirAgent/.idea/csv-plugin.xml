@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/test/Safir.Agent.Tests/Queries/ListFilesTests.cs">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

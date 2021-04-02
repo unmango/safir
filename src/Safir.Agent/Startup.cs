@@ -10,10 +10,6 @@ using Safir.Agent.Domain;
 using Safir.Agent.Services;
 using Serilog;
 
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnassignedGetOnlyAutoProperty
-// ReSharper disable CA1822
-
 namespace Safir.Agent
 {
     public class Startup
@@ -23,7 +19,7 @@ namespace Safir.Agent
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -37,10 +33,11 @@ namespace Safir.Agent
 
             services.AddTransient<IDirectory, SystemDirectoryWrapper>();
             services.AddTransient<IFile, SystemFileWrapper>();
+            services.AddTransient<IPath, SystemPathWrapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

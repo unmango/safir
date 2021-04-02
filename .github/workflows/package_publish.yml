@@ -35,6 +35,6 @@ jobs:
       run: dotnet pack --configuration Release --no-build --nologo
     - name: Push packages to Github
       run: |
-        dotnet nuget push src/**/*.nupkg \
+        dotnet nuget push src/**/{*.nupkg,!*.symbols.nupkg} \
           --source https://nuget.pkg.github.com/unmango/index.json \
           --api-key ${{ secrets.GITHUB_TOKEN }}

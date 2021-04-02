@@ -21,7 +21,7 @@
     <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
   
-  <PropertyGroup Condition=" '$(IsPackable)' == 'true' ">
+  <PropertyGroup>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>

@@ -10,11 +10,7 @@ namespace Safir.Agent
     {
         public static void Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
+            Log.Logger = ConfigureSerilog(new LoggerConfiguration())
                 .CreateBootstrapLogger();
 
             try
@@ -31,17 +27,22 @@ namespace Safir.Agent
                 Log.CloseAndFlush();
             }
         }
-        
+
         private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseSerilog((context, services, configuration) => configuration
+                .UseSerilog((context, services, configuration) => ConfigureSerilog(configuration)
                     .ReadFrom.Configuration(context.Configuration)
-                    .ReadFrom.Services(services)
-                    .Enrich.FromLogContext()
-                    .WriteTo.Console())
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+                    .ReadFrom.Services(services))
+                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+
+        private static LoggerConfiguration ConfigureSerilog(LoggerConfiguration configuration)
+        {
+            return configuration
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                .MinimumLevel.Verbose()
+                .Enrich.FromLogContext()
+                .WriteTo.Console(outputTemplate: "[{SourceContext:1} {Level:u3}] {Message:lj}{NewLine}{Exception}");
+        }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Safir.Agent.Configuration;
 using Safir.Agent.Domain;
 using Safir.Agent.Services;
@@ -30,10 +31,13 @@ namespace Safir.Agent
 
             services.AddMediatR(typeof(Startup));
             services.Configure<AgentOptions>(Configuration);
+            services.AddTransient<IPostConfigureOptions<AgentOptions>, ReplaceEnvironmentVariables>();
 
             services.AddTransient<IDirectory, SystemDirectoryWrapper>();
             services.AddTransient<IFile, SystemFileWrapper>();
             services.AddTransient<IPath, SystemPathWrapper>();
+
+            services.AddHostedService<DataDirectoryWatcher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -16,8 +16,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent.Client", "src\Safir.Agent.Client\Safir.Agent.Client.csproj", "{98BE40BA-5E2C-487C-8B9F-D6BC03F23E34}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{2404A7E6-574A-44F2-8C83-A9EB4B837962}"
+ProjectSection(SolutionItems) = preProject
+	.github\dependabot.yml = .github\dependabot.yml
+EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".vscode", ".vscode", "{3782019D-68FB-43A1-A89D-83059684FEA1}"
+ProjectSection(SolutionItems) = preProject
+	.vscode\launch.json = .vscode\launch.json
+	.vscode\tasks.json = .vscode\tasks.json
+EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{61F30D70-06F4-4008-BF74-7816C16C6502}"
 ProjectSection(SolutionItems) = preProject
@@ -25,6 +32,12 @@ ProjectSection(SolutionItems) = preProject
 	NuGet.Config = NuGet.Config
 	Directory.Build.props = Directory.Build.props
 	Directory.Build.targets = Directory.Build.targets
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{5E1FC754-B835-47D8-8524-4691A6012201}"
+ProjectSection(SolutionItems) = preProject
+	.github\workflows\docker_publish.yml = .github\workflows\docker_publish.yml
+	.github\workflows\pull_request.yml = .github\workflows\pull_request.yml
 EndProjectSection
 EndProject
 Global
@@ -94,5 +107,6 @@ Global
 		{70AD3969-5EFD-46EA-B762-791A3A6F5A00} = {34A85B9D-A7B8-42E1-AA95-D2C977D4C954}
 		{90120164-99E4-474B-9E09-F78A18D5D728} = {34A85B9D-A7B8-42E1-AA95-D2C977D4C954}
 		{98BE40BA-5E2C-487C-8B9F-D6BC03F23E34} = {34A85B9D-A7B8-42E1-AA95-D2C977D4C954}
+		{5E1FC754-B835-47D8-8524-4691A6012201} = {2404A7E6-574A-44F2-8C83-A9EB4B837962}
 	EndGlobalSection
 EndGlobal

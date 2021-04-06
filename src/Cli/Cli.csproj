@@ -10,7 +10,7 @@
     <PackageReference Include="FluentValidation" Version="9.5.4" />
     <PackageReference Include="LibGit2Sharp" Version="0.27.0-preview-0096" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
-    <PackageReference Include="MinVer" Version="2.4.0" PrivateAssets="All" />
+    <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="All" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
     <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />

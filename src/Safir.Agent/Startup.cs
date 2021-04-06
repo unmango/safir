@@ -37,6 +37,7 @@ namespace Safir.Agent
             services.AddTransient<IFile, SystemFileWrapper>();
             services.AddTransient<IPath, SystemPathWrapper>();
 
+            services.AddHostedService<AkkaService>();
             services.AddHostedService<DataDirectoryWatcher>();
         }
 

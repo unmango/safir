@@ -6,26 +6,34 @@ using Akka.Actor;
 using Akka.Configuration;
 using Akka.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Safir.Agent.Services
 {
     internal sealed class AkkaService : IHostedService
     {
         private readonly IServiceProvider _services;
+        private readonly ILogger<AkkaService> _logger;
         private ActorSystem? _system;
 
-        public AkkaService(IServiceProvider services)
+        public AkkaService(IServiceProvider services, ILogger<AkkaService> logger)
         {
-            _services = services;
+            _services = services ?? throw new ArgumentNullException(nameof(services));
+            _logger = logger;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Starting akka service");
+            _logger.LogDebug("Reading app.hocon");
             var hocon = await File.ReadAllTextAsync("app.hocon", cancellationToken);
+            
+            _logger.LogDebug("Creating akka configuration");
             var configuration = ConfigurationFactory.ParseString(hocon);
             var bootstrap = BootstrapSetup.Create().WithConfig(configuration);
             var di = ServiceProviderSetup.Create(_services);
             
+            _logger.LogDebug("Creating safir agent actor system");
             _system = ActorSystem.Create("SafirAgent", bootstrap.And(di));
         }
 

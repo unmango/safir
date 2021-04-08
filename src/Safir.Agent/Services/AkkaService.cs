@@ -7,10 +7,11 @@ using Akka.Configuration;
 using Akka.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Safir.Agent.Actors;
 
 namespace Safir.Agent.Services
 {
-    internal sealed class AkkaService : IHostedService
+    internal sealed class AkkaService : IHostedService, IAkkaSystem
     {
         private readonly IServiceProvider _services;
         private readonly ILogger<AkkaService> _logger;
@@ -22,9 +23,12 @@ namespace Safir.Agent.Services
             _logger = logger;
         }
 
+        public ActorSystem System => _system ?? throw new InvalidOperationException("System has not been initialized");
+
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Starting akka service");
+            
             _logger.LogDebug("Reading app.hocon");
             var hocon = await File.ReadAllTextAsync("app.hocon", cancellationToken);
             
@@ -35,6 +39,10 @@ namespace Safir.Agent.Services
             
             _logger.LogDebug("Creating safir agent actor system");
             _system = ActorSystem.Create("SafirAgent", bootstrap.And(di));
+
+            var serviceProvider = ServiceProvider.For(_system);
+            var optionsMonitor = _system.ActorOf(serviceProvider.Props<OptionsMonitorActor>());
+            _system.ActorOf(serviceProvider.Props<DataManagerActor>(optionsMonitor));
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)

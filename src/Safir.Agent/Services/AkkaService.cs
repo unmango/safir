@@ -41,8 +41,6 @@ namespace Safir.Agent.Services
             _system = ActorSystem.Create("SafirAgent", bootstrap.And(di));
 
             var serviceProvider = ServiceProvider.For(_system);
-            var optionsMonitor = _system.ActorOf(serviceProvider.Props<OptionsMonitorActor>());
-            _system.ActorOf(serviceProvider.Props<DataManagerActor>(optionsMonitor));
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)

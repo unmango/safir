@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.Configuration;
 using Akka.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Safir.Agent.Actors;
 
 namespace Safir.Agent.Services
 {
+    using ServiceProvider = Akka.DependencyInjection.ServiceProvider;
+    
     internal sealed class AkkaService : IHostedService, IAkkaSystem
     {
         private readonly IServiceProvider _services;
@@ -30,7 +33,7 @@ namespace Safir.Agent.Services
             _logger.LogInformation("Starting akka service");
             
             _logger.LogDebug("Reading app.hocon");
-            var hocon = await File.ReadAllTextAsync("app.hocon", cancellationToken);
+            var hocon = await ReadAppHoconAsync(cancellationToken);
             
             _logger.LogDebug("Creating akka configuration");
             var configuration = ConfigurationFactory.ParseString(hocon);
@@ -49,6 +52,18 @@ namespace Safir.Agent.Services
             // theoretically, shouldn't even need this - will be invoked automatically via CLR exit hook
             // but it's good practice to actually terminate IHostedServices when ASP.NET asks you to
             await CoordinatedShutdown.Get(_system).Run(CoordinatedShutdown.ClrExitReason.Instance);
+        }
+
+        private Task<string> ReadAppHoconAsync(CancellationToken cancellationToken)
+        {
+            var environment = _services.GetRequiredService<IHostEnvironment>();
+            var file = environment.EnvironmentName switch {
+                // Environments.Development => "app.Development.hocon", // Maybe in C# 10?
+                "Development" => "app.Development.hocon",
+                _ => "app.hocon",
+            };
+
+            return File.ReadAllTextAsync(file, cancellationToken);
         }
     }
 }

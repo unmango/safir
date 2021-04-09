@@ -1,0 +1,4 @@
+akka {
+  loglevel=DEBUG,
+  loggers=["Akka.Logger.Serilog.SerilogLogger, Akka.Logger.Serilog"]
+}

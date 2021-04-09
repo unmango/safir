@@ -17,13 +17,13 @@ namespace Safir.Agent.Actors
         public record Deleted(string? Name, string Root, string Path) : FileSystemMessage(Name, Root, Path);
         
         private readonly ILoggingAdapter _logger = Context.GetLogger();
-        private readonly IActorRef _reporter;
+        private readonly IActorRef _subscriber;
         private readonly string _path;
         private FileSystemWatcher? _watcher;
 
-        public FileWatcherActor(IActorRef reporter, string path)
+        public FileWatcherActor(IActorRef subscriber, string path)
         {
-            _reporter = reporter;
+            _subscriber = subscriber;
             _path = path;
         }
 
@@ -57,25 +57,25 @@ namespace Safir.Agent.Actors
         private void OnCreated(object sender, FileSystemEventArgs e)
         {
             _logger.Debug("File created: {FullPath}", e.FullPath);
-            _reporter.Tell(new Created(e.Name, _path, e.FullPath));
+            _subscriber.Tell(new Created(e.Name, _path, e.FullPath));
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
             _logger.Debug("File changed: {FullPath}", e.FullPath);
-            _reporter.Tell(new Changed(e.Name, _path, e.FullPath));
+            _subscriber.Tell(new Changed(e.Name, _path, e.FullPath));
         }
 
         private void OnRenamed(object sender, FileSystemEventArgs e)
         {
             _logger.Debug("File renamed: {FullPath}", e.FullPath);
-            _reporter.Tell(new Renamed(e.Name, _path, e.FullPath));
+            _subscriber.Tell(new Renamed(e.Name, _path, e.FullPath));
         }
 
         private void OnDeleted(object sender, FileSystemEventArgs e)
         {
             _logger.Debug("File deleted: {FullPath}", e.FullPath);
-            _reporter.Tell(new Deleted(e.Name, _path, e.FullPath));
+            _subscriber.Tell(new Deleted(e.Name, _path, e.FullPath));
         }
 
         private void OnError(object sender, ErrorEventArgs e)

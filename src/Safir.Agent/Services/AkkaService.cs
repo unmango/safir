@@ -8,12 +8,9 @@ using Akka.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Safir.Agent.Actors;
 
 namespace Safir.Agent.Services
 {
-    using ServiceProvider = Akka.DependencyInjection.ServiceProvider;
-    
     internal sealed class AkkaService : IHostedService, IAkkaSystem
     {
         private readonly IServiceProvider _services;
@@ -42,9 +39,6 @@ namespace Safir.Agent.Services
             
             _logger.LogDebug("Creating safir agent actor system");
             _system = ActorSystem.Create("SafirAgent", bootstrap.And(di));
-
-            var serviceProvider = ServiceProvider.For(_system);
-            _system.ActorOf(serviceProvider.Props<DataManagerActor>(), "data");
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)

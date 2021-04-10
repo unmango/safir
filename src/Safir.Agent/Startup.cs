@@ -37,8 +37,12 @@ namespace Safir.Agent
             services.AddTransient<IFile, SystemFileWrapper>();
             services.AddTransient<IPath, SystemPathWrapper>();
 
-            services.AddHostedService<AkkaService>();
+            services.AddSingleton<AkkaService>();
+            services.AddSingleton<IAkkaSystem>(s => s.GetRequiredService<AkkaService>());
+            services.AddHostedService(s => s.GetRequiredService<AkkaService>());
             // services.AddHostedService<DataDirectoryWatcher>();
+
+            services.AddSingleton<IDataManager, AkkaDataManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

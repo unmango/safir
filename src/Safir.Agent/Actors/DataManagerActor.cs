@@ -15,7 +15,6 @@ namespace Safir.Agent.Actors
         private readonly IServiceScope _serviceScope;
         private readonly IServiceProvider _services;
         private readonly IOptionsMonitor<AgentOptions> _options;
-        private IActorRef? _fileWatcher;
         private IActorRef? _directory;
         
         public DataManagerActor(IServiceProvider services)
@@ -24,6 +23,7 @@ namespace Safir.Agent.Actors
             _services = _serviceScope.ServiceProvider;
             _options = _services.GetRequiredService<IOptionsMonitor<AgentOptions>>();
 
+            Receive<DataDirectoryActor.List>(OnList);
             Receive<DirectoryValidator.ValidationError>(OnValidationError);
             Receive<DirectoryValidator.ValidationSuccess>(OnValidationSuccess);
         }
@@ -31,13 +31,19 @@ namespace Safir.Agent.Actors
         protected override void PreStart()
         {
             var options = _options.CurrentValue;
-            var validator = Context.ActorOf<DirectoryValidator>();
+            var validator = Context.ActorOf<DirectoryValidator>("validator");
             validator.Tell(options.DataDirectory);
         }
 
         protected override void PostStop()
         {
             _serviceScope.Dispose();
+        }
+
+        private void OnList(DataDirectoryActor.List message)
+        {
+            // TODO: Gotta handle the response
+            _directory.Tell(message);
         }
 
         private void OnValidationError(DirectoryValidator.ValidationError message)
@@ -49,10 +55,6 @@ namespace Safir.Agent.Actors
         {
             _logger.Debug("Data directory validated");
             var directory = _options.CurrentValue.DataDirectory!;
-            
-            _logger.Debug("Creating file watcher for data directory");
-            var fileWatcherProps = Props.Create<FileWatcherActor>(Self, directory);
-            _fileWatcher = Context.ActorOf(fileWatcherProps, "fileWatcher");
 
             _logger.Debug("Creating actor for data directory");
             var directoryProps = Props.Create<DataDirectoryActor>(directory);

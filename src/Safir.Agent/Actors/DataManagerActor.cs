@@ -16,6 +16,7 @@ namespace Safir.Agent.Actors
         private readonly IServiceProvider _services;
         private readonly IOptionsMonitor<AgentOptions> _options;
         private IActorRef? _fileWatcher;
+        private IActorRef? _directory;
         
         public DataManagerActor(IServiceProvider services)
         {
@@ -52,6 +53,10 @@ namespace Safir.Agent.Actors
             _logger.Debug("Creating file watcher for data directory");
             var fileWatcherProps = Props.Create<FileWatcherActor>(Self, directory);
             _fileWatcher = Context.ActorOf(fileWatcherProps, "fileWatcher");
+
+            _logger.Debug("Creating actor for data directory");
+            var directoryProps = Props.Create<DataDirectoryActor>(directory);
+            _directory = Context.ActorOf(directoryProps, "directory");
         }
     }
 }

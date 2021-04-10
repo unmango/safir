@@ -1,6 +1,8 @@
+using Akka.Actor;
+
 namespace Safir.Agent.Actors
 {
-    public class EventBusActor
+    public class EventBusActor : ReceiveActor
     {
         
     }

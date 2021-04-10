@@ -39,9 +39,10 @@ namespace Safir.Agent.Services
                 _logger.LogInformation("No data directory set, returning");
                 return;
             }
-            
+
+            var enumerationOptions = _options.Value.EnumerationOptions;
             _logger.LogTrace("Sending list files request");
-            var result = await _sender.Send(new ListFilesRequest(root));
+            var result = await _sender.Send(new ListFilesRequest(root, enumerationOptions));
             _logger.LogTrace("Got list files response");
 
             if (!result.Files.Any()) return;

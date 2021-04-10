@@ -66,19 +66,19 @@ namespace Safir.Agent.Tests.Queries
         }
 
         [Fact]
-        public async Task RecursesSubDirectories()
+        public async Task PassesEnumerationOptionsFromRequest()
         {
             const string dir = "dir";
             _mock.Setup<IDirectory, bool>(x => x.Exists(dir)).Returns(true);
-            var request = new ListFilesRequest(dir);
+            var options = new EnumerationOptions();
+            var request = new ListFilesRequest(dir, options);
 
             await _handler.Handle(request, default);
 
             _mock.GetMock<IDirectory>().Verify(x => x.EnumerateFileSystemEntries(
                 dir,
                 It.IsAny<string>(),
-                // ReSharper disable once RedundantBoolCompare
-                It.Is<EnumerationOptions>(y => y.RecurseSubdirectories == true)));
+                It.Is<EnumerationOptions>(y => y == options)));
         }
 
         [Fact]

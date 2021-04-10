@@ -2,9 +2,9 @@ using Akka.Actor;
 
 namespace Safir.Agent.Actors
 {
-    internal sealed class FileEventHandlerActor : ReceiveActor
+    internal sealed class FileEventBusActor : ReceiveActor
     {
-        public FileEventHandlerActor()
+        public FileEventBusActor()
         {
             Receive<FileWatcherActor.Created>(OnFileCreated);
             Receive<FileWatcherActor.Changed>(OnFileChanged);

@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9300C5E9-5EF1-47AE-BD94-C5B41DCB01D8/4D/Observable.Events.cs">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/Safir.Agent/Configuration/AgentOptions.cs">
           <value>
             <Attribute>

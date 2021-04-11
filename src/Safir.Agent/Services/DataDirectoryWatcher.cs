@@ -1,38 +1,45 @@
 using System;
 using System.IO;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Safir.Agent.Configuration;
 using Safir.Agent.Domain;
-using Safir.Agent.Events;
 
 namespace Safir.Agent.Services
 {
-    internal sealed class DataDirectoryWatcher : IHostedService
+    internal sealed class DataDirectoryWatcher : IHostedService, IFileWatcher
     {
+        private static readonly IObservable<FileSystemEventArgs> _emptyObservable =
+            Observable.Empty<FileSystemEventArgs>();
+
         private readonly IOptions<AgentOptions> _options;
         private readonly IDirectory _directory;
-        private readonly IPublisher _publisher;
         private readonly ILogger<DataDirectoryWatcher> _logger;
         private FileSystemWatcher? _fileWatcher;
 
         public DataDirectoryWatcher(
             IOptions<AgentOptions> options,
             IDirectory directory,
-            IPublisher publisher,
             ILogger<DataDirectoryWatcher> logger)
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
             _directory = directory ?? throw new ArgumentNullException(nameof(directory));
-            _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
             _logger = logger;
         }
-        
-        private CancellationTokenSource? TokenSource { get; set; }
+
+        public IObservable<FileSystemEventArgs> Created { get; private set; } = _emptyObservable;
+
+        public IObservable<FileSystemEventArgs> Changed { get; private set; } = _emptyObservable;
+
+        public IObservable<FileSystemEventArgs> Deleted { get; private set; } = _emptyObservable;
+
+        public IObservable<RenamedEventArgs> Renamed { get; private set; } = Observable.Empty<RenamedEventArgs>();
+
+        public IObservable<ErrorEventArgs> Error { get; private set; } = Observable.Empty<ErrorEventArgs>();
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
@@ -58,14 +65,7 @@ namespace Safir.Agent.Services
             };
 
             _logger.LogTrace("Assigning filesystem watcher event handlers");
-            _fileWatcher.Created += OnCreated;
-            _fileWatcher.Changed += OnChanged;
-            _fileWatcher.Renamed += OnRenamed;
-            _fileWatcher.Deleted += OnDeleted;
-            _fileWatcher.Error += OnError;
-            
-            _logger.LogTrace("Creating cancellation token source");
-            TokenSource = new CancellationTokenSource();
+            CreateObservablesFromEvents(this, _fileWatcher);
 
             _logger.LogTrace("Finishing data directory watcher start");
             return Task.CompletedTask;
@@ -75,67 +75,45 @@ namespace Safir.Agent.Services
         {
             _logger.LogInformation("Stopping data directory watcher");
 
-            if (TokenSource != null)
-            {
-                _logger.LogTrace("Disposing token source");
-                TokenSource.Dispose();
-            }
-
             if (_fileWatcher == null)
             {
                 _logger.LogTrace("No file watcher created, returning");
                 return Task.CompletedTask;
             }
 
-            _logger.LogTrace("Removing filesystem watcher event handlers");
-            _fileWatcher.Created -= OnCreated;
-            _fileWatcher.Changed -= OnChanged;
-            _fileWatcher.Renamed -= OnRenamed;
-            _fileWatcher.Deleted -= OnDeleted;
-            _fileWatcher.Error -= OnError;
-            
+            _logger.LogTrace("Disposing file watcher");
+            _fileWatcher.Dispose();
+
             _logger.LogTrace("Finishing data directory watcher stop");
             return Task.CompletedTask;
         }
 
-        private async void OnCreated(object sender, FileSystemEventArgs e)
+        private static void CreateObservablesFromEvents(DataDirectoryWatcher service, FileSystemWatcher watcher)
         {
-            _logger.LogDebug("Creating file created event");
-            var notification = new FileCreated(e.FullPath);
-            await SendAsync(this, notification);
-        }
+            service.Created = Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
+                    x => watcher.Created += x,
+                    x => watcher.Created -= x)
+                .Select(x => x.EventArgs);
 
-        private async void OnChanged(object sender, FileSystemEventArgs e)
-        {
-            _logger.LogDebug("Creating file changed event");
-            var notification = new FileChanged(e.FullPath);
-            await SendAsync(this, notification);
-        }
+            service.Changed = Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
+                    x => watcher.Changed += x,
+                    x => watcher.Changed -= x)
+                .Select(x => x.EventArgs);
 
-        private async void OnRenamed(object sender, FileSystemEventArgs e)
-        {
-            _logger.LogDebug("Creating file renamed event");
-            var notification = new FileRenamed(e.FullPath);
-            await SendAsync(this, notification);
-        }
+            service.Deleted = Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
+                    x => watcher.Deleted += x,
+                    x => watcher.Deleted -= x)
+                .Select(x => x.EventArgs);
 
-        private async void OnDeleted(object sender, FileSystemEventArgs e)
-        {
-            _logger.LogDebug("Creating file deleted event");
-            var notification = new FileDeleted(e.FullPath);
-            await SendAsync(this, notification);
-        }
+            service.Renamed = Observable.FromEventPattern<RenamedEventHandler, RenamedEventArgs>(
+                    x => watcher.Renamed += x,
+                    x => watcher.Renamed -= x)
+                .Select(x => x.EventArgs);
 
-        private void OnError(object sender, ErrorEventArgs e)
-        {
-            _logger.LogError(e.GetException(), "Error in file watcher");
-        }
-
-        private static Task SendAsync(DataDirectoryWatcher service, INotification notification)
-        {
-            service._logger.LogDebug("Sending generic file event");
-            var token = service.TokenSource?.Token ?? default;
-            return service._publisher.Publish(notification, token);
+            service.Error = Observable.FromEventPattern<ErrorEventHandler, ErrorEventArgs>(
+                    x => watcher.Error += x,
+                    x => watcher.Error -= x)
+                .Select(x => x.EventArgs);
         }
     }
 }

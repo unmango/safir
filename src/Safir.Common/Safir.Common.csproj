@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Product>Safir.Common</Product>
+    <Description>Common types for the Safir project.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 

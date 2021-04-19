@@ -1,0 +1,15 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Safir.Agent.Protos";
+
+service Host {
+  rpc GetInfo(google.protobuf.Empty) returns (HostInfo);
+}
+
+message HostInfo {
+  string host_name = 1;
+  string machine_name = 2;
+  string data_directory = 3;
+  int32 max_depth = 4;
+}

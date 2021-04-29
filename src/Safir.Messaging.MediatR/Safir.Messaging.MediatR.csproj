@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj"/>
+    <ProjectReference Include="..\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IsExternalInit" Version="1.0.0" PrivateAssets="all"/>
-    <PackageReference Include="MediatR" Version="9.0.0"/>
+    <PackageReference Include="IsExternalInit" Version="1.0.0" PrivateAssets="all" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

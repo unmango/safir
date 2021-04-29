@@ -33,7 +33,7 @@ namespace Safir.Messaging
         {
             using var stream = new MemoryStream();
             Serializer.Serialize(stream, message);
-            return subscriber.PublishAsync(channel, stream.ToArray(), CommandFlags.None);
+            return subscriber.PublishAsync(channel, stream.ToArray());
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Safir.Messaging
             _logger = logger;
         }
 
-        private IConnectionMultiplexer Connection => _connection ??= _connectionTask.Result;
+        private IConnectionMultiplexer Connection => _connection ??= _connectionTask.GetAwaiter().GetResult();
         
         public IObservable<T> GetObservable<T>() where T : IEvent
         {

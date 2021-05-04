@@ -1,39 +1,48 @@
 using System;
-using System.IO;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using ProtoBuf;
+using JetBrains.Annotations;
+using MessagePack;
+using MessagePack.Resolvers;
 using StackExchange.Redis;
 
 namespace Safir.Messaging
 {
+    // TODO: Handle abstractions in generic args like IEvent
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public static class SubscriberExtensions
     {
-        public static IObservable<T> CreateObservable<T>(this ISubscriber subscriber, RedisChannel channel)
-        {
-            return Observable.Create<T>(observer => subscriber.SubscribeAsync(channel, (_, value) => {
-                using var stream = new MemoryStream(value);
-                var message = Serializer.Deserialize<T>(stream);
-                observer.OnNext(message);
-            }));
-        }
+        private static MessagePackSerializerOptions _serializerOptions = ContractlessStandardResolver.Options;
         
         public static IObservable<T> AsObservable<T>(this ChannelMessageQueue queue)
         {
             return Observable.Create<T>(observer => () => {
                 queue.OnMessage(channelMessage => {
-                    using var stream = new MemoryStream(channelMessage.Message);
-                    var message = Serializer.Deserialize<T>(stream);
-                    observer.OnNext(message);
+                    observer.OnNext(Deserialize<T>(channelMessage.Message));
                 });
             });
         }
-
-        public static Task PublishAsync<T>(this ISubscriber subscriber, RedisChannel channel, T message)
+        
+        public static IObservable<T> CreateObservable<T>(this ISubscriber subscriber, RedisChannel channel)
         {
-            using var stream = new MemoryStream();
-            Serializer.Serialize(stream, message);
-            return subscriber.PublishAsync(channel, stream.ToArray());
+            return Observable.Create<T>(observer => subscriber.SubscribeAsync(channel, (_, value) => {
+                observer.OnNext(Deserialize<T>(value));
+            }));
+        }
+
+        public static Task<long> PublishAsync<T>(this ISubscriber subscriber, RedisChannel channel, T message)
+        {
+            return subscriber.PublishAsync(channel, Serialize(message));
+        }
+
+        private static T Deserialize<T>(RedisValue value)
+        {
+            return MessagePackSerializer.Deserialize<T>(value, _serializerOptions);
+        }
+
+        private static RedisValue Serialize<T>(T message)
+        {
+            return MessagePackSerializer.Serialize(message, _serializerOptions);
         }
     }
 }

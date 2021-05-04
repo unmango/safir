@@ -7,10 +7,9 @@ using Safir.Messaging.MediatR;
 // ReSharper disable once CheckNamespace
 namespace MediatR
 {
-    [UsedImplicitly]
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public static class PublisherExtensions
     {
-        [UsedImplicitly]
         public static Task Publish<T>(
             this IPublisher publisher,
             T @event,

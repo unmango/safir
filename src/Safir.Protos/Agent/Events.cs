@@ -1,7 +1,6 @@
-// ReSharper disable CheckNamespace
-
 using Safir.Messaging;
 
+// ReSharper disable CheckNamespace
 namespace Safir.Agent.Protos
 {
     public partial class FileCreated : IEvent { }

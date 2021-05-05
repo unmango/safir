@@ -20,8 +20,26 @@ namespace Safir.Messaging
         }
 
         // TODO: I don't like this
-        private IConnectionMultiplexer Connection => _connection ??= _connectionTask.GetAwaiter().GetResult();
-        
+        private IConnectionMultiplexer Connection
+        {
+            get {
+                if (_connection != null) return _connection;
+
+                try
+                {
+                    _connection = _connectionTask.GetAwaiter().GetResult();
+                }
+                catch (RedisException exception)
+                {
+                    const string message = "Unable to connect to Redis server";
+                    _logger.LogError(exception, message);
+                    throw new EventBusException(message, exception);
+                }
+
+                return _connection;
+            }
+        }
+
         public IObservable<T> GetObservable<T>() where T : IEvent
         {
             _logger.LogTrace("Getting connection subscriber");

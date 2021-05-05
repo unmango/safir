@@ -22,12 +22,27 @@ namespace Safir.Redis
             _logger = logger;
         }
         
+        // TODO: Exponential backoff or something probably...
         public async Task<IConnectionMultiplexer> ConnectAsync(CancellationToken cancellationToken = default)
         {
             _logger.LogTrace("Parsing redis configuration");
             var config = ConfigurationOptions.Parse(_options.Value.Configuration);
-            _logger.LogDebug("Connecting to redis instance");
-            return await ConnectionMultiplexer.ConnectAsync(config);
+
+            try
+            {
+                _logger.LogDebug("Connecting to redis instance");
+                return await ConnectionMultiplexer.ConnectAsync(config);
+            }
+            catch (RedisConnectionException exception)
+            {
+                _logger.LogTrace(exception, "Failed to connect to Redis server");
+                throw;
+            }
+            catch (RedisException exception)
+            {
+                _logger.LogTrace(exception, "Generic Redis exception");
+                throw;
+            }
         }
     }
 }

@@ -3,7 +3,7 @@
 /workspace.xml
 # Rider ignored files
 /contentModel.xml
-/.idea.SafirAgent.iml
+/.idea.Safir.Agent.iml
 /projectSettingsUpdater.xml
 /modules.xml
 # Datasource local storage ignored files

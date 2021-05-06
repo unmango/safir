@@ -45,10 +45,12 @@ jobs:
         # Use Docker `latest` tag convention
         [ "$VERSION" == "main" ] && VERSION=latest
 
-        echo GITHUB_IMAGE_ID=$IMAGE_ID
-        echo DOCKERHUB_IMAGE_ID=$IMAGE_ID
+        echo GITHUB_IMAGE_ID=$GITHUB_IMAGE_ID
+        echo DOCKERHUB_IMAGE_ID=$DOCKERHUB_IMAGE_ID
         echo VERSION=$VERSION
 
-        docker tag $IMAGE_NAME $GITHUB_IMAGE_ID:$VERSION $DOCKERHUB_IMAGE_ID:$VERSION
+        docker tag $IMAGE_NAME $GITHUB_IMAGE_ID:$VERSION
+        docker tag $IMAGE_NAME $DOCKERHUB_IMAGE_ID:$VERSION
+        
         docker push $GITHUB_IMAGE_ID:$VERSION
         docker push $DOCKERHUB_IMAGE_ID:$VERSION

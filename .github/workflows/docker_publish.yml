@@ -20,7 +20,7 @@ jobs:
         docker build . --file Dockerfile  \
           --build-arg GithubUsername=${{ github.actor }} \
           --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }} \
-          --tag $IMAGE_NAME:$(date +%s)
+          --tag $IMAGE_NAME
 
     - name: Log into registries
       run: |

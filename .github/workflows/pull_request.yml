@@ -29,4 +29,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Docker build
-      run: docker build . --file Dockerfile --tag safir-agent:$(date +%s)
+      run: |
+        docker build . --file Dockerfile \
+          --build-arg GithubUsername=UnstoppableMango \
+          --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }} \
+          --tag safir-agent:$(date +%s)

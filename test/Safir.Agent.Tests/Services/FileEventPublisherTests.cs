@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Moq;
 using Moq.AutoMock;
-using Safir.Agent.Events;
+using Safir.Agent.Protos;
 using Safir.Agent.Services;
+using Safir.Messaging.MediatR;
 using Xunit;
 
 namespace Safir.Agent.Tests.Services
@@ -36,7 +37,7 @@ namespace Safir.Agent.Tests.Services
             subject.OnNext(new(WatcherChangeTypes.Created, "/dir", name));
             
             publisher.Verify(x => x.Publish<INotification>(
-                It.Is<FileCreated>(e => e.Path == name),
+                It.Is<Notification<FileCreated>>(e => e.Value.Path == name),
                 It.IsAny<CancellationToken>()));
         }
 
@@ -54,7 +55,7 @@ namespace Safir.Agent.Tests.Services
             subject.OnNext(new(WatcherChangeTypes.Changed, "/dir", name));
             
             publisher.Verify(x => x.Publish<INotification>(
-                It.Is<FileChanged>(e => e.Path == name),
+                It.Is<Notification<FileChanged>>(e => e.Value.Path == name),
                 It.IsAny<CancellationToken>()));
         }
 
@@ -72,7 +73,7 @@ namespace Safir.Agent.Tests.Services
             subject.OnNext(new(WatcherChangeTypes.Deleted, "/dir", name));
             
             publisher.Verify(x => x.Publish<INotification>(
-                It.Is<FileDeleted>(e => e.Path == name),
+                It.Is<Notification<FileDeleted>>(e => e.Value.Path == name),
                 It.IsAny<CancellationToken>()));
         }
 
@@ -90,7 +91,7 @@ namespace Safir.Agent.Tests.Services
             subject.OnNext(new(WatcherChangeTypes.Renamed, "/dir", name, oldName));
             
             publisher.Verify(x => x.Publish<INotification>(
-                It.Is<FileRenamed>(e => e.Path == name && e.OldPath == oldName),
+                It.Is<Notification<FileRenamed>>(e => e.Value.Path == name && e.Value.OldPath == oldName),
                 It.IsAny<CancellationToken>()));
         }
 

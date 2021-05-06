@@ -22,7 +22,9 @@ jobs:
           docker-compose --file docker-compose.test.yml build
           docker-compose --file docker-compose.test.yml run sut
         else
-          docker build . --file Dockerfile
+          docker build . --file Dockerfile \
+            --build-arg GithubUsername=UnstoppableMango \
+            --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }}
         fi
 
   # Push image to GitHub Packages.
@@ -37,7 +39,11 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Build image
-      run: docker build . --file Dockerfile --tag $IMAGE_NAME
+      run: |
+        docker build . --file Dockerfile  \
+          --build-arg GithubUsername=UnstoppableMango \
+          --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }} \
+          --tag $IMAGE_NAME
 
     - name: Log into registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin

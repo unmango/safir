@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Safir.Agent.Events;
+using Safir.Agent.Protos;
+using Safir.Messaging;
 using Unit = System.Reactive.Unit;
 
 namespace Safir.Agent.Services
@@ -50,37 +51,38 @@ namespace Safir.Agent.Services
         private Task<Unit> OnCreated(FileSystemEventArgs eventArgs, CancellationToken cancellationToken)
         {
             _logger.LogTrace("Publishing created event");
-            var @event = new FileCreated(eventArgs.Name!);
+            var @event = new FileCreated { Path = eventArgs.Name };
             return Publish(_publisher, @event, cancellationToken);
         }
 
         private Task<Unit> OnChanged(FileSystemEventArgs eventArgs, CancellationToken cancellationToken)
         {
             _logger.LogTrace("Publishing changed event");
-            var @event = new FileChanged(eventArgs.Name!);
+            var @event = new FileChanged { Path = eventArgs.Name };
             return Publish(_publisher, @event, cancellationToken);
         }
 
         private Task<Unit> OnDeleted(FileSystemEventArgs eventArgs, CancellationToken cancellationToken)
         {
             _logger.LogTrace("Publishing deleted event");
-            var @event = new FileDeleted(eventArgs.Name!);
+            var @event = new FileDeleted { Path = eventArgs.Name };
             return Publish(_publisher, @event, cancellationToken);
         }
 
         private Task<Unit> OnRenamed(RenamedEventArgs eventArgs, CancellationToken cancellationToken)
         {
             _logger.LogTrace("Publishing renamed event");
-            var @event = new FileRenamed(eventArgs.Name!, eventArgs.OldName!);
+            var @event = new FileRenamed { Path = eventArgs.Name, OldPath = eventArgs.OldName };
             return Publish(_publisher, @event, cancellationToken);
         }
 
-        private static async Task<Unit> Publish(
+        private static async Task<Unit> Publish<T>(
             IPublisher publisher,
-            INotification notification,
+            T message,
             CancellationToken cancellationToken)
+            where T : IEvent
         {
-            await publisher.Publish(notification, cancellationToken);
+            await publisher.Publish<T>(message, cancellationToken);
             return Unit.Default;
         }
     }

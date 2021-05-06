@@ -21,9 +21,21 @@ jobs:
           --build-arg GithubUsername=${{ github.actor }} \
           --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }} \
           --tag $IMAGE_NAME
-        
-    - name: Tag image
+
+    - name: Log into registries
       run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u unstoppablemango --password-stdin
+        
+    - name: Push image
+      run: |
+        GITHUB_IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+        DOCKERHUB_IMAGE_ID=unstoppablemango/${{ github.repository }}/$IMAGE_NAME
+
+        # Change all uppercase to lowercase
+        GITHUB_IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+        DOCKERHUB_IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+        
         # Strip git ref prefix from version
         VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
@@ -32,34 +44,11 @@ jobs:
 
         # Use Docker `latest` tag convention
         [ "$VERSION" == "main" ] && VERSION=latest
+
+        echo GITHUB_IMAGE_ID=$IMAGE_ID
+        echo DOCKERHUB_IMAGE_ID=$IMAGE_ID
         echo VERSION=$VERSION
 
-        docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-
-    - name: Log into GitHub registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-    - name: Push image to GitHub
-      run: |
-        IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-
-        # Change all uppercase to lowercase
-        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-        echo IMAGE_ID=$IMAGE_ID
-        
-        docker push $IMAGE_ID:$VERSION
-      
-    - name: Log into Dockerhub registry
-      run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u unstoppablemango --password-stdin
-
-    - name: Push image to Dockerhub
-      run: |
-        IMAGE_ID=unstoppablemango/${{ github.repository }}/$IMAGE_NAME
-
-        # Change all uppercase to lowercase
-        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-        echo IMAGE_ID=$IMAGE_ID
-        
-        docker push $IMAGE_ID:$VERSION
+        docker tag $IMAGE_NAME $GITHUB_IMAGE_ID:$VERSION $DOCKERHUB_IMAGE_ID:$VERSION
+        docker push $GITHUB_IMAGE_ID:$VERSION
+        docker push $DOCKERHUB_IMAGE_ID:$VERSION

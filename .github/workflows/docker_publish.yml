@@ -5,33 +5,10 @@ on:
     tags: [v*]
     paths:
     - "src/Safir.Agent/**"
-    - "src/*.Protos/**"
 env:
   IMAGE_NAME: safir-agent
 jobs:
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  docker_test:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Run tests
-      run: |
-        if [ -f docker-compose.test.yml ]; then
-          docker-compose --file docker-compose.test.yml build
-          docker-compose --file docker-compose.test.yml run sut
-        else
-          docker build . --file Dockerfile \
-            --build-arg GithubUsername=UnstoppableMango \
-            --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }}
-        fi
-
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
   docker_push:
-    # Ensure test job passes before pushing image.
-    needs: docker_test
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
 
@@ -41,20 +18,12 @@ jobs:
     - name: Build image
       run: |
         docker build . --file Dockerfile  \
-          --build-arg GithubUsername=UnstoppableMango \
+          --build-arg GithubUsername=${{ github.actor }} \
           --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }} \
           --tag $IMAGE_NAME
-
-    - name: Log into registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-    - name: Push image
+        
+    - name: Tag image
       run: |
-        IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-
-        # Change all uppercase to lowercase
-        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
         # Strip git ref prefix from version
         VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
@@ -63,9 +32,34 @@ jobs:
 
         # Use Docker `latest` tag convention
         [ "$VERSION" == "main" ] && VERSION=latest
-
-        echo IMAGE_ID=$IMAGE_ID
         echo VERSION=$VERSION
 
         docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+
+    - name: Log into GitHub registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+    - name: Push image to GitHub
+      run: |
+        IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+
+        # Change all uppercase to lowercase
+        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+
+        echo IMAGE_ID=$IMAGE_ID
+        
+        docker push $IMAGE_ID:$VERSION
+      
+    - name: Log into Dockerhub registry
+      run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u unstoppablemango --password-stdin
+
+    - name: Push image to Dockerhub
+      run: |
+        IMAGE_ID=unstoppablemango/${{ github.repository }}/$IMAGE_NAME
+
+        # Change all uppercase to lowercase
+        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+
+        echo IMAGE_ID=$IMAGE_ID
+        
         docker push $IMAGE_ID:$VERSION

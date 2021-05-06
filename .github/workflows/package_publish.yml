@@ -6,7 +6,6 @@ on:
     paths:
     - "Directory.build.*"
     - "src/*.Client/**"
-    - "src/*.Protos/**"
 env:
   DOTNET_NOLOGO: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -24,7 +23,7 @@ jobs:
       run: |
         dotnet nuget update source \
           github \
-          --username UnstoppableMango \
+          --username ${{ github.actor }} \
           --password ${{ secrets.GITHUB_TOKEN }} \
           --store-password-in-clear-text
     - name: Build solution

@@ -20,7 +20,7 @@ jobs:
         docker build . --file Dockerfile  \
           --build-arg GithubUsername=${{ github.actor }} \
           --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }} \
-          --tag $IMAGE_NAME
+          --tag $IMAGE_NAME:$(date +%s)
 
     - name: Log into registries
       run: |
@@ -30,7 +30,7 @@ jobs:
     - name: Push image
       run: |
         GITHUB_IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-        DOCKERHUB_IMAGE_ID=unstoppablemango/${{ github.repository }}/$IMAGE_NAME
+        DOCKERHUB_IMAGE_ID=unstoppablemango/$IMAGE_NAME
 
         # Change all uppercase to lowercase
         GITHUB_IMAGE_ID=$(echo $GITHUB_IMAGE_ID | tr '[A-Z]' '[a-z]')

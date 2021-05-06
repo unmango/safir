@@ -36,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 ProjectSection(SolutionItems) = preProject
 	.github\workflows\docker_publish.yml = .github\workflows\docker_publish.yml
 	.github\workflows\pull_request.yml = .github\workflows\pull_request.yml
+	.github\workflows\package_publish.yml = .github\workflows\package_publish.yml
 EndProjectSection
 EndProject
 Global

@@ -9,6 +9,6 @@ services:
   redis:
     image: redis
     ports:
-      - 6379:6379
+    - 6379:6379
     cap_add:
-      - SYS_RESOURCE
+    - SYS_RESOURCE

@@ -1,6 +1,0 @@
-<Project>
-  <Target Name="UpdateCiSettings" AfterTargets="MinVer" Condition="'$(CI)' == 'true' AND '$(IsPackable)' == 'true'">
-    <!-- Could be used to tag a release -->
-    <!-- <Message Importance="High" Text="$(PackageVersion)" /> -->
-  </Target>
-</Project>

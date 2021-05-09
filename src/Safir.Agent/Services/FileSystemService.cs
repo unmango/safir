@@ -23,7 +23,7 @@ namespace Safir.Agent.Services
 
         public FileSystemService(IOptions<AgentOptions> options, ISender sender, ILogger<FileSystemService> logger)
         {
-            _options = options;
+            _options = options ?? throw new ArgumentNullException(nameof(options));
             _sender = sender ?? throw new ArgumentNullException(nameof(sender));
             _logger = logger;
         }

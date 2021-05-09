@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{632818CB-3301-411C-877B-0F8B21AC773A}"
+ProjectSection(SolutionItems) = preProject
+	test\Directory.Build.props = test\Directory.Build.props
+	test\xunit.runner.json = test\xunit.runner.json
+EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent.Tests", "test\Safir.Agent.Tests\Safir.Agent.Tests.csproj", "{34A38B08-16ED-4C22-A6B7-EAFC60846012}"
 EndProject

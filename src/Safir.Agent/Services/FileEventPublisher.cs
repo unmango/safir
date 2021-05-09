@@ -22,8 +22,8 @@ namespace Safir.Agent.Services
 
         public FileEventPublisher(IFileWatcher fileWatcher, IPublisher publisher, ILogger<FileEventPublisher> logger)
         {
-            _fileWatcher = fileWatcher;
-            _publisher = publisher;
+            _fileWatcher = fileWatcher ?? throw new ArgumentNullException(nameof(fileWatcher));
+            _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
             _logger = logger;
         }
 

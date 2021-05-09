@@ -23,8 +23,6 @@ namespace Safir.Agent
 
         private IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
@@ -48,7 +46,6 @@ namespace Safir.Agent
             services.AddHostedService<FileEventPublisher>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -67,6 +64,11 @@ namespace Safir.Agent
                 {
                     endpoints.MapGrpcReflectionService();
                 }
+
+                endpoints.MapGet("/config", async context => {
+                    var options = context.RequestServices.GetRequiredService<IOptions<AgentOptions>>();
+                    await context.Response.WriteAsJsonAsync(options.Value);
+                });
 
                 endpoints.MapGet("/", async context => {
                     await context.Response.WriteAsync(

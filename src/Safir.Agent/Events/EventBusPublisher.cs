@@ -29,25 +29,38 @@ namespace Safir.Agent.Events
         public Task Handle(Notification<FileCreated> notification, CancellationToken cancellationToken)
         {
             _logger.LogTrace("Publishing created event to bus");
-            return _bus.PublishAsync(notification, cancellationToken);
+            return TryPublishAsync(notification, cancellationToken);
         }
 
         public Task Handle(Notification<FileChanged> notification, CancellationToken cancellationToken)
         {
             _logger.LogTrace("Publishing changed event to bus");
-            return _bus.PublishAsync(notification, cancellationToken);
+            return TryPublishAsync(notification, cancellationToken);
         }
 
         public Task Handle(Notification<FileDeleted> notification, CancellationToken cancellationToken)
         {
             _logger.LogTrace("Publishing deleted event to bus");
-            return _bus.PublishAsync(notification, cancellationToken);
+            return TryPublishAsync(notification, cancellationToken);
         }
 
         public Task Handle(Notification<FileRenamed> notification, CancellationToken cancellationToken)
         {
             _logger.LogTrace("Publishing renamed event to bus");
-            return _bus.PublishAsync(notification, cancellationToken);
+            return TryPublishAsync(notification, cancellationToken);
+        }
+
+        private async Task TryPublishAsync<T>(Notification<T> notification, CancellationToken cancellationToken)
+            where T : IEvent
+        {
+            try
+            {
+                await _bus.PublishAsync(notification, cancellationToken);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Unable to publish event to bus");
+            }
         }
     }
 }

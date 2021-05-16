@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using LanguageExt.Common;
 
 namespace Safir.Messaging.Internal
 {
     internal interface ISubscribeHandlerWrapper
     {
-        IEnumerable<IDisposable> Subscribe(IEventBus bus, IEnumerable<IEventHandler> handlers);
+        IDisposable Subscribe(IEventBus bus, IEventHandler handler);
     }
 }

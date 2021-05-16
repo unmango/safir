@@ -8,7 +8,7 @@ namespace Safir.Messaging
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public interface IEventBus
     {
-        IObservable<T> GetObservable<T>() where T : IEvent;
+        Task<IDisposable> SubscribeAsync<T>(Action<T> callback, CancellationToken cancellationToken = default) where T : IEvent;
         
         Task PublishAsync<T>(T message, CancellationToken cancellationToken = default) where T : IEvent;
     }

@@ -1,5 +1,6 @@
+using System;
 using System.Collections.Generic;
-using System.Reactive.Subjects;
+using System.Reactive.Disposables;
 using System.Threading;
 using System.Threading.Tasks;
 using Moq;
@@ -12,7 +13,6 @@ namespace Safir.Messaging.Tests
     public class SubscriptionManagerTests
     {
         private readonly AutoMocker _mocker = new();
-        private readonly Subject<MockEvent> _eventSubject = new();
         private readonly Mock<IEventBus> _eventBus;
         private readonly SubscriptionManager _manager;
         private readonly CancellationToken _cancellationToken = default;
@@ -20,7 +20,6 @@ namespace Safir.Messaging.Tests
         public SubscriptionManagerTests()
         {
             _eventBus = _mocker.GetMock<IEventBus>();
-            _eventBus.Setup(x => x.GetObservable<MockEvent>()).Returns(_eventSubject);
             _manager = _mocker.CreateInstance<SubscriptionManager>();
         }
 
@@ -28,9 +27,8 @@ namespace Safir.Messaging.Tests
         public async Task StartAsync_StartsWithNoHandlers()
         {
             await _manager.StartAsync(_cancellationToken);
-            
+
             _eventBus.VerifyNoOtherCalls();
-            Assert.False(_eventSubject.HasObservers);
         }
 
         [Fact]
@@ -40,15 +38,45 @@ namespace Safir.Messaging.Tests
             _mocker.Use(typeof(IEnumerable<IEventHandler>), new[] { handler.Object });
             var manager = _mocker.CreateInstance<SubscriptionManager>();
             var expectedEvent = new MockEvent();
+            Action<MockEvent>? capturedCallback = null;
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()))
+                .Callback<Action<MockEvent>, CancellationToken>((x, _) => capturedCallback = x);
+
+            await manager.StartAsync(_cancellationToken);
+
+            _eventBus.Verify(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), _cancellationToken));
+
+            capturedCallback?.Invoke(expectedEvent);
+
+            handler.Verify(x => x.HandleAsync(expectedEvent, It.IsAny<CancellationToken>()));
+        }
+
+        [Fact]
+        public async Task StartAsync_StartsWhenHandlerFailsToSubscribe()
+        {
+            var handler1 = _mocker.GetMock<IEventHandler<MockEvent>>();
+            var handler2 = _mocker.GetMock<IEventHandler<MockEvent>>();
+            _mocker.Use(typeof(IEnumerable<IEventHandler>), new[] { handler1.Object, handler2.Object });
+            _eventBus.SetupSequence(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(Disposable.Empty)
+                .ThrowsAsync(new Exception("Test exception"));
+            Action<MockEvent>? callback = null;
+            var message = new MockEvent();
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()))
+                .Callback<Action<MockEvent>, CancellationToken>((x, _) => callback = x);
+            var manager = _mocker.CreateInstance<SubscriptionManager>();
 
             await manager.StartAsync(_cancellationToken);
             
-            _eventBus.Verify(x => x.GetObservable<MockEvent>());
-            Assert.True(_eventSubject.HasObservers);
+            _eventBus.Verify(
+                x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()),
+                Times.Exactly(2));
+            Assert.NotNull(callback);
             
-            _eventSubject.OnNext(expectedEvent);
+            callback?.Invoke(message);
             
-            handler.Verify(x => x.HandleAsync(expectedEvent, It.IsAny<CancellationToken>()));
+            handler1.Verify(x => x.HandleAsync(It.IsAny<MockEvent>(), It.IsAny<CancellationToken>()));
+            handler2.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -64,11 +92,15 @@ namespace Safir.Messaging.Tests
         {
             var handler = _mocker.GetMock<IEventHandler<MockEvent>>();
             _mocker.Use(typeof(IEnumerable<IEventHandler>), new[] { handler.Object });
+            var manager = _mocker.CreateInstance<SubscriptionManager>();
+            var disposable = _mocker.GetMock<IDisposable>();
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(disposable.Object);
 
-            await _manager.StartAsync(_cancellationToken);
-            await _manager.StopAsync(_cancellationToken);
-            
-            Assert.False(_eventSubject.HasObservers);
+            await manager.StartAsync(_cancellationToken);
+            await manager.StopAsync(_cancellationToken);
+
+            disposable.Verify(x => x.Dispose());
         }
     }
 }

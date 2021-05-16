@@ -4,8 +4,6 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using MessagePack;
-using MessagePack.Resolvers;
 using StackExchange.Redis;
 
 namespace Safir.Messaging
@@ -14,8 +12,6 @@ namespace Safir.Messaging
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public static class SubscriberExtensions
     {
-        private static MessagePackSerializerOptions _serializerOptions = ContractlessStandardResolver.Options;
-        
         public static IObservable<T> AsObservable<T>(this ChannelMessageQueue queue)
         {
             return Observable.Create<T>(observer => () => {
@@ -24,7 +20,7 @@ namespace Safir.Messaging
                 });
             });
         }
-        
+
         public static IObservable<T> CreateObservable<T>(this ISubscriber subscriber, RedisChannel channel)
         {
             return Observable.Create<T>(async observable => {
@@ -42,14 +38,24 @@ namespace Safir.Messaging
             return subscriber.PublishAsync(channel, Serialize(message));
         }
 
+        public static async Task<IDisposable> SubscribeAsync<T>(
+            this ISubscriber subscriber,
+            RedisChannel channel,
+            Action<T> callback)
+        {
+            await subscriber.SubscribeAsync(channel, (_, value) => callback(Deserialize<T>(value)));
+
+            return Disposable.Create(channel, x => subscriber.Unsubscribe(x));
+        }
+
         private static T Deserialize<T>(RedisValue value)
         {
-            return MessagePackSerializer.Deserialize<T>(value, _serializerOptions);
+            return DefaultSerializer.Instance.Deserialize<T>(value);
         }
 
         private static RedisValue Serialize<T>(T message)
         {
-            return MessagePackSerializer.Serialize(message, _serializerOptions);
+            return DefaultSerializer.Instance.Serialize(message);
         }
     }
 }

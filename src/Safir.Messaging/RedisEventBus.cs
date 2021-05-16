@@ -9,52 +9,48 @@ namespace Safir.Messaging
 {
     internal sealed class RedisEventBus : IEventBus
     {
-        private readonly ValueTask<IConnectionMultiplexer> _connectionTask;
+        private readonly IConnectionPool<IConnectionMultiplexer> _connectionPool;
         private readonly ILogger<RedisEventBus> _logger;
-        private IConnectionMultiplexer? _connection;
 
         public RedisEventBus(IConnectionPool<IConnectionMultiplexer> connectionPool, ILogger<RedisEventBus> logger)
         {
-            _connectionTask = connectionPool.GetConnectionAsync();
+            _connectionPool = connectionPool ?? throw new ArgumentNullException(nameof(connectionPool));
             _logger = logger;
         }
 
-        // TODO: I don't like this
-        private IConnectionMultiplexer Connection
+        public async Task<IDisposable> SubscribeAsync<T>(Action<T> callback, CancellationToken cancellationToken = default)
+            where T : IEvent
         {
-            get {
-                if (_connection != null) return _connection;
-
-                try
-                {
-                    _connection = _connectionTask.GetAwaiter().GetResult();
-                }
-                catch (RedisException exception)
-                {
-                    const string message = "Unable to connect to Redis server";
-                    _logger.LogError(exception, message);
-                    throw new EventBusException(message, exception);
-                }
-
-                return _connection;
-            }
-        }
-
-        public IObservable<T> GetObservable<T>() where T : IEvent
-        {
+            var connection = await GetConnectionAsync(cancellationToken);
             _logger.LogTrace("Getting connection subscriber");
-            var subscriber = Connection.GetSubscriber();
+            var subscriber = connection.GetSubscriber();
             _logger.LogTrace("Creating observable from subscriber");
-            return subscriber.CreateObservable<T>(typeof(T).Name);
+            return await subscriber.SubscribeAsync(typeof(T).Name, callback);
         }
 
         public async Task PublishAsync<T>(T message, CancellationToken cancellationToken = default) where T : IEvent
         {
+            var connection = await GetConnectionAsync(cancellationToken);
             _logger.LogTrace("Getting connection subscriber");
-            var subscriber = Connection.GetSubscriber();
+            var subscriber = connection.GetSubscriber();
             _logger.LogTrace("Publishing message");
             var receivers = await subscriber.PublishAsync(typeof(T).Name, message);
             _logger.LogDebug("{Count} clients received the message", receivers);
+        }
+
+        private async Task<IConnectionMultiplexer> GetConnectionAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                _logger.LogTrace("Getting connection from pool");
+                return await _connectionPool.GetConnectionAsync(cancellationToken);
+            }
+            catch (RedisException exception)
+            {
+                const string message = "Unable to connect to Redis server";
+                _logger.LogError(exception, message);
+                throw new EventBusException(message, exception);
+            }
         }
     }
 }

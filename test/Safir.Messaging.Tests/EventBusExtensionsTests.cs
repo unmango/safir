@@ -1,5 +1,5 @@
 using System;
-using System.Reactive.Subjects;
+using System.Reactive.Linq;
 using System.Threading;
 using Moq;
 using Moq.AutoMock;
@@ -13,29 +13,44 @@ namespace Safir.Messaging.Tests
     public class EventBusExtensionsTests
     {
         private readonly AutoMocker _mocker = new();
-        private readonly Subject<MockEvent> _eventSubject = new();
         private readonly Mock<IEventBus> _eventBus;
+        private readonly CancellationToken _cancellationToken = default;
 
         public EventBusExtensionsTests()
         {
             _eventBus = _mocker.GetMock<IEventBus>();
-            _eventBus.Setup(x => x.GetObservable<MockEvent>()).Returns(_eventSubject);
+        }
+
+        [Fact]
+        public void GetObservable_SubscribesToEvent()
+        {
+            var observable = _eventBus.Object.GetObservable<MockEvent>();
+
+            Assert.NotNull(observable);
+
+            observable.Subscribe();
+            
+            _eventBus.Verify(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), _cancellationToken));
+        }
+
+        [Fact]
+        public void GetObservable_ThrowsWhenSubscribed()
+        {
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()))
+                .ThrowsAsync(new Exception("Test exception"));
+            
+            var observable = _eventBus.Object.GetObservable<MockEvent>();
+
+            Assert.Throws<Exception>(() => observable.Subscribe());
         }
 
         [Fact]
         public void Subscribe_SubscribesActionCallback()
         {
-            MockEvent? captured = null;
-            Action<MockEvent> callback = x => captured = x;
-            var expectedEvent = new MockEvent();
+            var subscription = _eventBus.Object.Subscribe<MockEvent>(_ => { });
 
-            _eventBus.Object.Subscribe(callback);
-
-            _eventBus.Verify(x => x.GetObservable<MockEvent>());
-            
-            _eventSubject.OnNext(expectedEvent);
-            
-            Assert.Same(expectedEvent, captured);
+            Assert.NotNull(subscription);
+            _eventBus.Verify(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), _cancellationToken));
         }
 
         [Fact]
@@ -43,13 +58,16 @@ namespace Safir.Messaging.Tests
         {
             var handler = _mocker.GetMock<IEventHandler<MockEvent>>();
             var expectedEvent = new MockEvent();
+            Action<MockEvent>? capturedCallback = null;
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()))
+                .Callback<Action<MockEvent>, CancellationToken>((callback, _) => capturedCallback = callback);
 
             var subscription = _eventBus.Object.Subscribe(handler.Object);
 
             Assert.NotNull(subscription);
-            _eventBus.Verify(x => x.GetObservable<MockEvent>());
+            Assert.NotNull(capturedCallback);
             
-            _eventSubject.OnNext(expectedEvent);
+            capturedCallback?.Invoke(expectedEvent);
             
             handler.Verify(x => x.HandleAsync(expectedEvent, It.IsAny<CancellationToken>()));
         }
@@ -68,14 +86,17 @@ namespace Safir.Messaging.Tests
         {
             var handler = _mocker.GetMock<IEventHandler<MockEvent>>();
             var expectedEvent = new MockEvent();
+            Action<MockEvent>? capturedCallback = null;
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()))
+                .Callback<Action<MockEvent>, CancellationToken>((callback, _) => capturedCallback = callback);
 
             var subscriptions = _eventBus.Object.Subscribe(typeof(MockEvent), new[] { handler.Object });
             
             Assert.NotNull(subscriptions);
             Assert.Single(subscriptions);
-            _eventBus.Verify(x => x.GetObservable<MockEvent>());
+            Assert.NotNull(capturedCallback);
             
-            _eventSubject.OnNext(expectedEvent);
+            capturedCallback?.Invoke(expectedEvent);
             
             handler.Verify(x => x.HandleAsync(expectedEvent, It.IsAny<CancellationToken>()));
         }

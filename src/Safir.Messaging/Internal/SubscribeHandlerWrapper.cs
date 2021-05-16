@@ -1,15 +1,18 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Safir.Messaging.Internal
 {
     internal sealed class SubscribeHandlerWrapper<T> : ISubscribeHandlerWrapper
         where T : IEvent
     {
-        public IEnumerable<IDisposable> Subscribe(IEventBus bus, IEnumerable<IEventHandler> handlers)
+        public IDisposable Subscribe(IEventBus bus, IEventHandler handler)
         {
-            return handlers.Cast<IEventHandler<T>>().Select(bus.Subscribe);
+            if (handler is not IEventHandler<T> typed)
+            {
+                throw new InvalidOperationException("Incorrect handler type");
+            }
+
+            return bus.Subscribe(typed);
         }
     }
 }

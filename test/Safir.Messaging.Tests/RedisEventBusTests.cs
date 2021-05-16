@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Moq;
@@ -16,6 +17,7 @@ namespace Safir.Messaging.Tests
         private readonly Mock<IConnectionMultiplexer> _connection;
         private readonly Mock<ISubscriber> _subscriber;
         private readonly RedisEventBus _eventBus;
+        private readonly CancellationToken _cancellationToken = default;
 
         public RedisEventBusTests()
         {
@@ -30,18 +32,36 @@ namespace Safir.Messaging.Tests
         }
 
         [Fact]
-        public void Constructor_StartsAConnection()
+        public async Task SubscribeAsync_ThrowsWhenConnectionFails()
         {
-            _connectionPool.Verify(x => x.GetConnectionAsync(It.IsAny<CancellationToken>()));
+            _connectionPool.Setup(x => x.GetConnectionAsync(It.IsAny<CancellationToken>()))
+                .ThrowsAsync(new RedisException("Test exception"));
+
+            await Assert.ThrowsAsync<EventBusException>(
+                () => _eventBus.SubscribeAsync<MockEvent>(_ => { }, _cancellationToken));
         }
 
         [Fact]
-        public void GetObservable_CreatesSubscriber()
+        public async Task SubscribeAsync_SubscribesCallback()
         {
-            _eventBus.GetObservable<MockEvent>();
+            var subscription = await _eventBus.SubscribeAsync<MockEvent>(_ => { }, _cancellationToken);
 
-            // TODO: Maybe some way to verify callback was subscribed? Seems impossible at the moment
+            Assert.NotNull(subscription);
             _connection.Verify(x => x.GetSubscriber(It.IsAny<object>()));
+            _subscriber.Verify(x => x.SubscribeAsync(
+                It.IsAny<RedisChannel>(),
+                It.IsAny<Action<RedisChannel, RedisValue>>(),
+                It.IsAny<CommandFlags>()));
+        }
+
+        [Fact]
+        public async Task PublishAsync_ThrowsWhenConnectionFails()
+        {
+            _connectionPool.Setup(x => x.GetConnectionAsync(It.IsAny<CancellationToken>()))
+                .ThrowsAsync(new RedisException("Test exception"));
+
+            await Assert.ThrowsAsync<EventBusException>(
+                () => _eventBus.PublishAsync(new MockEvent(), _cancellationToken));
         }
 
         [Fact]
@@ -49,8 +69,8 @@ namespace Safir.Messaging.Tests
         {
             var message = new MockEvent();
 
-            await _eventBus.PublishAsync(message);
-            
+            await _eventBus.PublishAsync(message, _cancellationToken);
+
             _connection.Verify(x => x.GetSubscriber(It.IsAny<object>()));
             _subscriber.Verify(x => x.PublishAsync("MockEvent", It.IsAny<RedisValue>(), It.IsAny<CommandFlags>()));
         }

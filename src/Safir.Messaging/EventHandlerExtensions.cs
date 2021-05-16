@@ -29,6 +29,12 @@ namespace Safir.Messaging
             return handler.GetType().IsGenericHandler();
         }
 
+        public static IDisposable Subscribe<T>(this IEventHandler<T> handler, IEventBus bus)
+            where T : IEvent
+        {
+            return bus.Subscribe(handler);
+        }
+
         private static bool IsGenericHandler(this Type type)
         {
             return type.IsAssignableToGeneric(typeof(IEventHandler<>));

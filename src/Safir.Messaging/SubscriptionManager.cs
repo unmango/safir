@@ -30,7 +30,17 @@ namespace Safir.Messaging
             foreach (var group in _handlers.GroupByEvent())
             {
                 _logger.LogTrace("Subscribing handlers for event type {Type}", group.Key);
-                _subscriptions.AddRange(_eventBus.Subscribe(group.Key, group));
+                foreach (var handler in group)
+                {
+                    try
+                    {
+                        _subscriptions.Add(_eventBus.Subscribe(group.Key, handler));
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError(e, "Error while subscribing handler");
+                    }
+                }
             }
             
             _logger.LogTrace("Exiting StartAsync");

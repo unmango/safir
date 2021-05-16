@@ -13,6 +13,7 @@ namespace Safir.Messaging.Tests
         private readonly AutoMocker _mocker = new();
         private readonly Mock<IEventBus> _eventBus;
         private readonly DefaultTypedEventBus<MockEvent> _typedEventBus;
+        private readonly CancellationToken _cancellationToken = default;
 
         public DefaultTypedEventBusTests()
         {
@@ -24,13 +25,14 @@ namespace Safir.Messaging.Tests
         public void Subscribe_DelegatesSubscribeToGenericBus()
         {
             var observer = _mocker.Get<IObserver<MockEvent>>();
-            var observable = _mocker.GetMock<IObservable<MockEvent>>();
-            _eventBus.Setup(x => x.GetObservable<MockEvent>()).Returns(observable.Object);
+            var disposable = _mocker.GetMock<IDisposable>();
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), _cancellationToken))
+                .ReturnsAsync(disposable.Object)
+                .Verifiable();
 
             _typedEventBus.Subscribe(observer);
-            
-            _eventBus.Verify(x => x.GetObservable<MockEvent>());
-            observable.Verify(x => x.Subscribe(observer));
+
+            _eventBus.Verify();
         }
 
         [Fact]
@@ -38,8 +40,8 @@ namespace Safir.Messaging.Tests
         {
             var message = new MockEvent();
 
-            await _typedEventBus.PublishAsync(message);
-            
+            await _typedEventBus.PublishAsync(message, _cancellationToken);
+
             _eventBus.Verify(x => x.PublishAsync(message, It.IsAny<CancellationToken>()));
         }
     }

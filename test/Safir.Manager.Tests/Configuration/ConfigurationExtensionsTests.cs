@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using Moq.AutoMock;
 using Safir.Manager.Configuration;
@@ -8,23 +10,18 @@ namespace Safir.Manager.Tests.Configuration
 {
     public class ConfigurationExtensionsTests
     {
-        private readonly AutoMocker _mocker = new();
-        private readonly Mock<IConfiguration> _configuration;
-
-        public ConfigurationExtensionsTests()
-        {
-            _configuration = _mocker.GetMock<IConfiguration>();
-        }
-
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
         public void IsSelfContained_ChecksConfiguredValues(bool expected)
         {
-            _configuration.Setup(x => x["IsSelfContained"])
-                .Returns(expected.ToString);
-
-            var result = _configuration.Object.IsSelfContained();
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string> {
+                    ["SelfContained"] = expected.ToString()
+                })
+                .Build();
+            
+            var result = configuration.IsSelfContained();
             
             Assert.Equal(expected, result);
         }

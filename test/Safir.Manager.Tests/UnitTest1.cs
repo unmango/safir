@@ -1,7 +1,6 @@
-using System;
 using Xunit;
 
-namespace Manager.Tests
+namespace Safir.Manager.Tests
 {
     public class UnitTest1
     {

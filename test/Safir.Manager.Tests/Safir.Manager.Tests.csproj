@@ -14,11 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Manager\Manager.csproj" />
+    <ProjectReference Include="..\..\src\Safir.Manager\Safir.Manager.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\xunit.runner.json">
+    <Content Include="..\xunit.runner.json">
       <Link>xunit.runner.json</Link>
     </Content>
   </ItemGroup>

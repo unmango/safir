@@ -1,8 +1,13 @@
 version: 2
 updates:
-- package-ecosystem: nuget
-  directory: /
-  open-pull-requests-limit: 10
-  rebase-strategy: auto
+- directory: '/'
+  open-pull-requests-limit: 5
+  package-ecosystem: docker
+  schedule:
+    interval: daily
+      
+- directory: '/'
+  open-pull-requests-limit: 5
+  package-ecosystem: nuget
   schedule:
     interval: daily

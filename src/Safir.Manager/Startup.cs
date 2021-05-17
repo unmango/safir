@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Safir.Agent.Client.DependencyInjection;
+using Safir.Manager.Configuration;
 using Safir.Manager.Events;
 using Safir.Messaging.DependencyInjection;
 using Serilog;
@@ -17,13 +18,18 @@ namespace Safir.Manager
         {
             Configuration = configuration;
         }
-        
+
         private IConfiguration Configuration { get; }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
             services.AddGrpcReflection();
+
+            if (Configuration.IsSelfContained())
+            {
+                services.AddEntityFrameworkSqlite();
+            }
 
             services.AddSafirAgentClient();
             services.AddSafirMessaging(options => {
@@ -47,7 +53,7 @@ namespace Safir.Manager
                 {
                     endpoints.MapGrpcReflectionService();
                 }
-                
+
                 endpoints.MapGet("/", async context => {
                     await context.Response.WriteAsync(
                         "Communication with gRPC endpoints must be made through a gRPC client");

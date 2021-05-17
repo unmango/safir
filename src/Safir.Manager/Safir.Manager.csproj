@@ -8,6 +8,7 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.38.0" />
     <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.38.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.6" />
     <PackageReference Include="Safir.Agent.Client" Version="0.2.3-alpha-7" />
     <PackageReference Include="Safir.Messaging" Version="0.1.0-alpha" />
     <PackageReference Include="Safir.Protos" Version="0.1.0-alpha" />
@@ -17,6 +18,10 @@
 
   <ItemGroup>
     <Folder Include="Services" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="Safir.Manager.Tests" />
   </ItemGroup>
 
 </Project>

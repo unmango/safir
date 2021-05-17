@@ -80,6 +80,31 @@ namespace Safir.Messaging.Tests
         }
 
         [Fact]
+        public async Task StartAsync_ReSubscribesWhenHandlerThrows()
+        {
+            var handler = _mocker.GetMock<IEventHandler<MockEvent>>();
+            handler.SetupSequence(x => x.HandleAsync(It.IsAny<MockEvent>(), It.IsAny<CancellationToken>()))
+                .ThrowsAsync(new Exception("Test exception"))
+                .Returns(Task.CompletedTask);
+            _mocker.Use(typeof(IEnumerable<IEventHandler>), new[] { handler.Object });
+            Action<MockEvent>? callback = null;
+            var message = new MockEvent();
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()))
+                .Callback<Action<MockEvent>, CancellationToken>((x, _) => callback = x);
+            var manager = _mocker.CreateInstance<SubscriptionManager>();
+
+            await manager.StartAsync(_cancellationToken);
+            
+            _eventBus.Verify(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()));
+            Assert.NotNull(callback);
+            
+            callback?.Invoke(message);
+            callback?.Invoke(message);
+            
+            handler.Verify(x => x.HandleAsync(It.IsAny<MockEvent>(), It.IsAny<CancellationToken>()), Times.Exactly(2));
+        }
+
+        [Fact]
         public async Task StopAsync_StopsWithNoHandlers()
         {
             await _manager.StartAsync(_cancellationToken);

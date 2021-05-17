@@ -34,15 +34,19 @@ namespace Safir.Messaging
                 {
                     try
                     {
-                        _subscriptions.Add(_eventBus.Subscribe(group.Key, handler));
+                        var subscription = _eventBus.SubscribeRetry(group.Key, handler, e => {
+                            _logger.LogError(e, "Exception in handler");
+                        });
+
+                        _subscriptions.Add(subscription);
                     }
                     catch (Exception e)
                     {
-                        _logger.LogError(e, "Error while subscribing handler");
+                        _logger.LogError(e, "Exception while subscribing handler");
                     }
                 }
             }
-            
+
             _logger.LogTrace("Exiting StartAsync");
             return Task.CompletedTask;
         }
@@ -54,7 +58,7 @@ namespace Safir.Messaging
             {
                 subscription.Dispose();
             }
-            
+
             _logger.LogTrace("Exiting StopAsync");
             return Task.CompletedTask;
         }

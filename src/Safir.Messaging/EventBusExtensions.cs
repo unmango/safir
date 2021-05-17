@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Safir.Messaging.Internal;
 
@@ -20,6 +18,12 @@ namespace Safir.Messaging
             });
         }
 
+        public static IObservable<T> ObserveWith<T>(this IEventBus bus, IEventHandler<T> handler)
+            where T : IEvent
+        {
+            return bus.GetObservable<T>().ObserveWith(handler);
+        }
+
         public static IDisposable Subscribe<T>(this IEventBus bus, Action<T> callback)
             where T : IEvent
         {
@@ -29,13 +33,7 @@ namespace Safir.Messaging
         public static IDisposable Subscribe<T>(this IEventBus bus, IEventHandler<T> handler)
             where T : IEvent
         {
-            return bus.GetObservable<T>().SelectMany(HandleAsync).Subscribe();
-
-            async Task<Unit> HandleAsync(T message, CancellationToken cancellationToken)
-            {
-                await handler.HandleAsync(message, cancellationToken);
-                return Unit.Default;
-            }
+            return bus.ObserveWith(handler).Subscribe();
         }
 
         public static IEnumerable<IDisposable> Subscribe<T>(
@@ -46,16 +44,27 @@ namespace Safir.Messaging
             return bus.Subscribe(typeof(T), handlers);
         }
 
+        public static IDisposable SubscribeRetry<T>(this IEventBus bus, IEventHandler<T> handler, Action<Exception> onError)
+            where T : IEvent
+        {
+            return bus.ObserveWith(handler).Retry().SubscribeSafe(onError);
+        }
+
+        public static IDisposable SubscribeSafe<T>(this IEventBus bus, IObserver<T> observer)
+            where T : IEvent
+        {
+            return bus.GetObservable<T>().SubscribeSafe(observer);
+        }
+
+        public static IDisposable SubscribeSafe<T>(this IEventBus bus, IEventHandler<T> handler, Action<Exception> onError)
+            where T : IEvent
+        {
+            return bus.ObserveWith(handler).SubscribeSafe(onError);
+        }
+
         internal static IDisposable Subscribe(this IEventBus bus, Type eventType, IEventHandler handler)
         {
-            if (!typeof(IEvent).IsAssignableFrom(eventType))
-            {
-                throw new InvalidOperationException("eventType is not assignable to IEvent");
-            }
-
-            var wrapperType = typeof(SubscribeHandlerWrapper<>).MakeGenericType(eventType);
-            var wrapped = (ISubscribeHandlerWrapper)Activator.CreateInstance(wrapperType);
-            return wrapped.Subscribe(bus, handler);
+            return SubscribeSafe(bus, eventType, handler, _ => { });
         }
 
         internal static IEnumerable<IDisposable> Subscribe(
@@ -63,6 +72,15 @@ namespace Safir.Messaging
             Type eventType,
             IEnumerable<IEventHandler> handlers)
         {
+            return SubscribeSafe(bus, eventType, handlers, _ => { });
+        }
+
+        internal static IEnumerable<IDisposable> SubscribeRetry(
+            this IEventBus bus,
+            Type eventType,
+            IEnumerable<IEventHandler> handlers,
+            Action<Exception> onError)
+        {
             if (!typeof(IEvent).IsAssignableFrom(eventType))
             {
                 throw new InvalidOperationException("eventType is not assignable to IEvent");
@@ -70,7 +88,55 @@ namespace Safir.Messaging
 
             var wrapperType = typeof(SubscribeHandlerWrapper<>).MakeGenericType(eventType);
             var wrapped = (ISubscribeHandlerWrapper)Activator.CreateInstance(wrapperType);
-            return wrapped.Subscribe(bus, handlers);
+            return wrapped.SubscribeRetry(bus, handlers, onError);
+        }
+
+        internal static IDisposable SubscribeRetry(
+            this IEventBus bus,
+            Type eventType,
+            IEventHandler handler,
+            Action<Exception> onError)
+        {
+            if (!typeof(IEvent).IsAssignableFrom(eventType))
+            {
+                throw new InvalidOperationException("eventType is not assignable to IEvent");
+            }
+
+            var wrapperType = typeof(SubscribeHandlerWrapper<>).MakeGenericType(eventType);
+            var wrapped = (ISubscribeHandlerWrapper)Activator.CreateInstance(wrapperType);
+            return wrapped.SubscribeRetry(bus, handler, onError);
+        }
+
+        internal static IDisposable SubscribeSafe(
+            this IEventBus bus,
+            Type eventType,
+            IEventHandler handler,
+            Action<Exception> onError)
+        {
+            if (!typeof(IEvent).IsAssignableFrom(eventType))
+            {
+                throw new InvalidOperationException("eventType is not assignable to IEvent");
+            }
+
+            var wrapperType = typeof(SubscribeHandlerWrapper<>).MakeGenericType(eventType);
+            var wrapped = (ISubscribeHandlerWrapper)Activator.CreateInstance(wrapperType);
+            return wrapped.SubscribeSafe(bus, handler, onError);
+        }
+
+        internal static IEnumerable<IDisposable> SubscribeSafe(
+            this IEventBus bus,
+            Type eventType,
+            IEnumerable<IEventHandler> handlers,
+            Action<Exception> onError)
+        {
+            if (!typeof(IEvent).IsAssignableFrom(eventType))
+            {
+                throw new InvalidOperationException("eventType is not assignable to IEvent");
+            }
+
+            var wrapperType = typeof(SubscribeHandlerWrapper<>).MakeGenericType(eventType);
+            var wrapped = (ISubscribeHandlerWrapper)Activator.CreateInstance(wrapperType);
+            return wrapped.SubscribeSafe(bus, handlers, onError);
         }
     }
 }

@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
-using Moq;
-using Moq.AutoMock;
 using Safir.Manager.Configuration;
 using Xunit;
-using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace Safir.Manager.Tests.Configuration
 {

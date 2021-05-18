@@ -3,7 +3,9 @@ using System.IO;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Npgsql;
 using Safir.Manager.Configuration;
+using Safir.Manager.Domain;
 
 namespace Safir.Manager.Data
 {
@@ -15,14 +17,33 @@ namespace Safir.Manager.Data
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
         }
+
+        public DbSet<FileCreated> FileCreated { get; } = null!;
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var builder = new SqliteConnectionStringBuilder {
-                { "Data Source", Path.Combine(_options.Value.DataDirectory, "manager.db") }
-            };
+            var options = _options.Value;
+            
+            if (options.IsSelfContained)
+            {
+                var database = options.SqliteDatabase ?? ManagerOptions.DefaultSqliteDatabase;
+                
+                var builder = new SqliteConnectionStringBuilder {
+                    DataSource = Path.Combine(options.DataDirectory, database)
+                };
 
-            optionsBuilder.UseSqlite(builder.ConnectionString);
+                optionsBuilder.UseSqlite(builder.ConnectionString);
+            }
+            else
+            {
+                var builder = new NpgsqlConnectionStringBuilder {
+                    Database = options.PostgresDatabase ?? ManagerOptions.DefaultPostgresDatabase,
+                    Username = options.PostgresUsername,
+                    Password = options.PostgresPassword
+                };
+                
+                optionsBuilder.UseNpgsql(builder.ConnectionString);
+            }
         }
     }
 }

@@ -1,15 +1,27 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Safir.Agent.Protos;
+using Safir.Manager.Data;
 using Safir.Messaging;
 
 namespace Safir.Manager.Events
 {
-    public class FileCreatedHandler : IEventHandler<FileCreated>
+    [UsedImplicitly]
+    internal sealed class FileCreatedHandler : IEventHandler<FileCreated>
     {
-        public Task HandleAsync(FileCreated message, CancellationToken cancellationToken = default)
+        private readonly ManagerContext _context;
+
+        public FileCreatedHandler(ManagerContext context)
         {
-            throw new System.NotImplementedException();
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+        
+        public async Task HandleAsync(FileCreated message, CancellationToken cancellationToken = default)
+        {
+            var entity = new Domain.FileCreated(message.Path, "TODO");
+            var added = await _context.FileCreated.AddAsync(entity, cancellationToken);
         }
     }
 }

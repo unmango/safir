@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Safir.Agent.Client.DependencyInjection;
 using Safir.Manager.Configuration;
+using Safir.Manager.Data;
 using Safir.Manager.Events;
 using Safir.Messaging.DependencyInjection;
 using Serilog;
@@ -26,11 +27,17 @@ namespace Safir.Manager
             services.AddGrpc();
             services.AddGrpcReflection();
 
+            services.AddDbContext<ManagerContext>();
             if (Configuration.IsSelfContained())
             {
                 services.AddEntityFrameworkSqlite();
             }
+            else
+            {
+                services.AddEntityFrameworkNpgsql();
+            }
 
+            services.Configure<ManagerOptions>(Configuration);
             services.AddSafirAgentClient();
             services.AddSafirMessaging(options => {
                 options.ConnectionString = Configuration["Redis"];

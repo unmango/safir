@@ -38,6 +38,7 @@ namespace Safir.Manager.Data
             {
                 var builder = new NpgsqlConnectionStringBuilder {
                     Database = options.PostgresDatabase ?? ManagerOptions.DefaultPostgresDatabase,
+                    Host = options.PostgresHost,
                     Username = options.PostgresUsername,
                     Password = options.PostgresPassword
                 };

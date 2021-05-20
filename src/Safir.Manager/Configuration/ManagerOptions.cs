@@ -13,12 +13,14 @@ namespace Safir.Manager.Configuration
         public string DataDirectory { get; set; } = string.Empty;
         
         public bool IsSelfContained { get; set; }
+        
+        public string? PostgresDatabase { get; set; }
+
+        public string PostgresHost { get; set; } = string.Empty;
 
         public string PostgresPassword { get; set; } = string.Empty;
         
         public string PostgresUsername { get; set; } = string.Empty;
-        
-        public string? PostgresDatabase { get; set; }
         
         public string Redis { get; set; } = string.Empty;
         

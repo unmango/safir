@@ -16,6 +16,11 @@ namespace Safir.Messaging
                 .Where(IsGenericHandler)
                 .Select(x => x.GetGenericArguments()[0]);
         }
+
+        public static IEnumerable<Type> GetEventTypes(this IEnumerable<IEventHandler> handlers)
+        {
+            return handlers.SelectMany(GetEventTypes).Distinct();
+        }
         
         public static IEnumerable<IGrouping<Type, IEventHandler>> GroupByEvent(this IEnumerable<IEventHandler> handlers)
         {

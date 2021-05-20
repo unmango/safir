@@ -34,17 +34,21 @@ namespace Safir.Messaging.Tests
         [Fact]
         public async Task SubscribeAsync_ThrowsWhenConnectionFails()
         {
+            var observer = _mocker.GetMock<IObserver<MockEvent>>();
+            
             _connectionPool.Setup(x => x.GetConnectionAsync(It.IsAny<CancellationToken>()))
                 .ThrowsAsync(new RedisException("Test exception"));
 
             await Assert.ThrowsAsync<EventBusException>(
-                () => _eventBus.SubscribeAsync<MockEvent>(_ => { }, _cancellationToken));
+                () => _eventBus.SubscribeAsync(observer.Object, _cancellationToken));
         }
 
         [Fact]
         public async Task SubscribeAsync_SubscribesCallback()
         {
-            var subscription = await _eventBus.SubscribeAsync<MockEvent>(_ => { }, _cancellationToken);
+            var observer = _mocker.GetMock<IObserver<MockEvent>>();
+            
+            var subscription = await _eventBus.SubscribeAsync(observer.Object, _cancellationToken);
 
             Assert.NotNull(subscription);
             _connection.Verify(x => x.GetSubscriber(It.IsAny<object>()));

@@ -26,7 +26,7 @@ namespace Safir.Messaging.Tests
         {
             var observer = _mocker.Get<IObserver<MockEvent>>();
             var disposable = _mocker.GetMock<IDisposable>();
-            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), _cancellationToken))
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<IObserver<MockEvent>>(), _cancellationToken))
                 .ReturnsAsync(disposable.Object)
                 .Verifiable();
 

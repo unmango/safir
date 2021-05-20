@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Safir.Agent.Protos;
 using Safir.Messaging.Configuration;
 using Safir.Messaging.DependencyInjection;
 using Safir.Messaging.Tests.Fakes;
@@ -24,10 +25,13 @@ namespace Safir.Messaging.Tests.DependencyInjection
             var services = _services.AddEventHandler<MockEventHandler>()
                 .BuildServiceProvider();
 
-            var hostedServices = services.GetService<IEnumerable<IHostedService>>();
+            var hostedServices = services.GetService<IEnumerable<IHostedService>>()?.ToList();
             
             Assert.NotNull(hostedServices);
-            Assert.Single(hostedServices!.OfType<SubscriptionManager>());
+            Assert.Single(hostedServices!.OfType<SubscriptionManager<FileCreated>>());
+            Assert.Single(hostedServices!.OfType<SubscriptionManager<FileChanged>>());
+            Assert.Single(hostedServices!.OfType<SubscriptionManager<FileDeleted>>());
+            Assert.Single(hostedServices!.OfType<SubscriptionManager<FileRenamed>>());
         }
 
         [Fact]

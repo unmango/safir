@@ -41,11 +41,24 @@ namespace Safir.Messaging
         public static async Task<IDisposable> SubscribeAsync<T>(
             this ISubscriber subscriber,
             RedisChannel channel,
+            IObserver<T> observer)
+        {
+            await subscriber.SubscribeAsync(channel, (_, value) => {
+                observer.OnNext(Deserialize<T>(value));
+            });
+
+            return Disposable.Create(channel, x => {
+                subscriber.Unsubscribe(x);
+                observer.OnCompleted();
+            });
+        }
+
+        public static Task<IDisposable> SubscribeAsync<T>(
+            this ISubscriber subscriber,
+            RedisChannel channel,
             Action<T> callback)
         {
-            await subscriber.SubscribeAsync(channel, (_, value) => callback(Deserialize<T>(value)));
-
-            return Disposable.Create(channel, x => subscriber.Unsubscribe(x));
+            return subscriber.SubscribeAsync(channel, Observer.Create(callback));
         }
 
         private static T Deserialize<T>(RedisValue value)

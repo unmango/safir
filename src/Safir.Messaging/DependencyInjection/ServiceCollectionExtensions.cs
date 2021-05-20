@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using Safir.Agent.Protos;
 using Safir.Messaging.Configuration;
 using Safir.Redis.Configuration;
 using Safir.Redis.DependencyInjection;
@@ -19,7 +20,11 @@ namespace Safir.Messaging.DependencyInjection
             
             services.AddSafirMessaging();
             
-            services.AddHostedService<SubscriptionManager>();
+            services.AddHostedService<SubscriptionManager<FileCreated>>();
+            services.AddHostedService<SubscriptionManager<FileChanged>>();
+            services.AddHostedService<SubscriptionManager<FileDeleted>>();
+            services.AddHostedService<SubscriptionManager<FileRenamed>>();
+            
             services.TryAddEnumerable(ServiceDescriptor.Transient<IEventHandler, T>());
 
             return services;

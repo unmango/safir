@@ -30,13 +30,13 @@ namespace Safir.Messaging.Tests
 
             observable.Subscribe();
             
-            _eventBus.Verify(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), _cancellationToken));
+            _eventBus.Verify(x => x.SubscribeAsync(It.IsAny<IObserver<MockEvent>>(), _cancellationToken));
         }
 
         [Fact]
         public void GetObservable_ThrowsWhenSubscribed()
         {
-            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()))
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<IObserver<MockEvent>>(), It.IsAny<CancellationToken>()))
                 .ThrowsAsync(new Exception("Test exception"));
             
             var observable = _eventBus.Object.GetObservable<MockEvent>();
@@ -50,7 +50,7 @@ namespace Safir.Messaging.Tests
             var subscription = _eventBus.Object.Subscribe<MockEvent>(_ => { });
 
             Assert.NotNull(subscription);
-            _eventBus.Verify(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), _cancellationToken));
+            _eventBus.Verify(x => x.SubscribeAsync(It.IsAny<IObserver<MockEvent>>(), _cancellationToken));
         }
 
         [Fact]
@@ -58,16 +58,16 @@ namespace Safir.Messaging.Tests
         {
             var handler = _mocker.GetMock<IEventHandler<MockEvent>>();
             var expectedEvent = new MockEvent();
-            Action<MockEvent>? capturedCallback = null;
-            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()))
-                .Callback<Action<MockEvent>, CancellationToken>((callback, _) => capturedCallback = callback);
+            IObserver<MockEvent>? observer = null;
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<IObserver<MockEvent>>(), It.IsAny<CancellationToken>()))
+                .Callback<IObserver<MockEvent>, CancellationToken>((callback, _) => observer = callback);
 
             var subscription = _eventBus.Object.Subscribe(handler.Object);
 
             Assert.NotNull(subscription);
-            Assert.NotNull(capturedCallback);
+            Assert.NotNull(observer);
             
-            capturedCallback?.Invoke(expectedEvent);
+            observer?.OnNext(expectedEvent);
             
             handler.Verify(x => x.HandleAsync(expectedEvent, It.IsAny<CancellationToken>()));
         }
@@ -86,17 +86,17 @@ namespace Safir.Messaging.Tests
         {
             var handler = _mocker.GetMock<IEventHandler<MockEvent>>();
             var expectedEvent = new MockEvent();
-            Action<MockEvent>? capturedCallback = null;
-            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<Action<MockEvent>>(), It.IsAny<CancellationToken>()))
-                .Callback<Action<MockEvent>, CancellationToken>((callback, _) => capturedCallback = callback);
+            IObserver<MockEvent>? observer = null;
+            _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<IObserver<MockEvent>>(), It.IsAny<CancellationToken>()))
+                .Callback<IObserver<MockEvent>, CancellationToken>((callback, _) => observer = callback);
 
             var subscriptions = _eventBus.Object.Subscribe(typeof(MockEvent), new[] { handler.Object });
             
             Assert.NotNull(subscriptions);
             Assert.Single(subscriptions);
-            Assert.NotNull(capturedCallback);
+            Assert.NotNull(observer);
             
-            capturedCallback?.Invoke(expectedEvent);
+            observer?.OnNext(expectedEvent);
             
             handler.Verify(x => x.HandleAsync(expectedEvent, It.IsAny<CancellationToken>()));
         }

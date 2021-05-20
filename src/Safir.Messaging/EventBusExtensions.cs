@@ -14,7 +14,7 @@ namespace Safir.Messaging
         {
             return Observable.Create<T>(observable => {
                 var syncObservable = Observer.Synchronize(observable);
-                return bus.SubscribeAsync<T>(syncObservable.OnNext);
+                return bus.SubscribeAsync(syncObservable);
             });
         }
 

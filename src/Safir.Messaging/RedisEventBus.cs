@@ -18,14 +18,14 @@ namespace Safir.Messaging
             _logger = logger;
         }
 
-        public async Task<IDisposable> SubscribeAsync<T>(Action<T> callback, CancellationToken cancellationToken = default)
+        public async Task<IDisposable> SubscribeAsync<T>(IObserver<T> observer, CancellationToken cancellationToken = default)
             where T : IEvent
         {
             var connection = await GetConnectionAsync(cancellationToken);
             _logger.LogTrace("Getting connection subscriber");
             var subscriber = connection.GetSubscriber();
             _logger.LogTrace("Creating observable from subscriber");
-            return await subscriber.SubscribeAsync(typeof(T).Name, callback);
+            return await subscriber.SubscribeAsync(typeof(T).Name, observer);
         }
 
         public async Task PublishAsync<T>(T message, CancellationToken cancellationToken = default) where T : IEvent

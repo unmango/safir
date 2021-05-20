@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -9,6 +10,7 @@ using Safir.Manager.Domain;
 
 namespace Safir.Manager.Data
 {
+    [UsedImplicitly(ImplicitUseTargetFlags.Members)]
     internal class ManagerContext : DbContext
     {
         private readonly IOptions<ManagerOptions> _options;
@@ -18,7 +20,7 @@ namespace Safir.Manager.Data
             _options = options ?? throw new ArgumentNullException(nameof(options));
         }
 
-        public DbSet<FileCreated> FileCreated { get; } = null!;
+        public DbSet<FileCreated> FileCreated { get; set; } = null!;
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

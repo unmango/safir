@@ -30,12 +30,12 @@ namespace Safir.Manager
             if (Configuration.IsSelfContained())
             {
                 services.AddEntityFrameworkSqlite();
-                services.AddDbContext<SqliteManagerContext>();
+                services.AddDbContext<ManagerContext, SqliteManagerContext>();
             }
             else
             {
                 services.AddEntityFrameworkNpgsql();
-                services.AddDbContext<PostgresManagerContext>();
+                services.AddDbContext<ManagerContext, PostgresManagerContext>();
             }
 
             services.Configure<ManagerOptions>(Configuration);

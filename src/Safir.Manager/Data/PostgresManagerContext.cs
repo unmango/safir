@@ -18,14 +18,14 @@ namespace Safir.Manager.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var options = _options.Value;
-            
+
             var builder = new NpgsqlConnectionStringBuilder {
                 Database = options.PostgresDatabase ?? ManagerOptions.DefaultPostgresDatabase,
                 Host = options.PostgresHost,
                 Username = options.PostgresUsername,
                 Password = options.PostgresPassword
             };
-                
+
             optionsBuilder.UseNpgsql(builder.ConnectionString);
         }
     }

@@ -8,6 +8,7 @@ using Safir.Agent.Client.DependencyInjection;
 using Safir.Manager.Configuration;
 using Safir.Manager.Data;
 using Safir.Manager.Events;
+using Safir.Manager.Services;
 using Safir.Messaging.DependencyInjection;
 using Serilog;
 
@@ -44,6 +45,8 @@ namespace Safir.Manager
                 options.ConnectionString = Configuration["Redis"];
             });
             services.AddEventHandler<FileCreatedHandler>();
+
+            services.AddHostedService<DatabaseManager>();
         }
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)

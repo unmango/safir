@@ -27,14 +27,15 @@ namespace Safir.Manager
             services.AddGrpc();
             services.AddGrpcReflection();
 
-            services.AddDbContext<ManagerContext>();
             if (Configuration.IsSelfContained())
             {
                 services.AddEntityFrameworkSqlite();
+                services.AddDbContext<SqliteManagerContext>();
             }
             else
             {
                 services.AddEntityFrameworkNpgsql();
+                services.AddDbContext<PostgresManagerContext>();
             }
 
             services.Configure<ManagerOptions>(Configuration);

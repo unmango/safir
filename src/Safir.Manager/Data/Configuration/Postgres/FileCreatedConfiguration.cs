@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Safir.Manager.Domain;
 
-namespace Safir.Manager.Data.Configuration
+namespace Safir.Manager.Data.Configuration.Postgres
 {
     internal sealed class FileCreatedConfiguration : IEntityTypeConfiguration<FileCreated>
     {

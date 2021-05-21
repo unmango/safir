@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Npgsql;
 using Safir.Manager.Configuration;
+using Safir.Manager.Data.Configuration.Postgres;
 
 namespace Safir.Manager.Data
 {
@@ -27,6 +28,11 @@ namespace Safir.Manager.Data
             };
 
             optionsBuilder.UseNpgsql(builder.ConnectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new FileCreatedConfiguration());
         }
     }
 }

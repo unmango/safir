@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Safir.Manager.Data;
 
 namespace Safir.Manager.Services
@@ -12,10 +13,12 @@ namespace Safir.Manager.Services
     internal class DatabaseManager : IHostedService
     {
         private readonly IServiceProvider _services;
+        private readonly ILogger<DatabaseManager> _logger;
 
-        public DatabaseManager(IServiceProvider services)
+        public DatabaseManager(IServiceProvider services, ILogger<DatabaseManager> logger)
         {
             _services = services ?? throw new ArgumentNullException(nameof(services));
+            _logger = logger;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

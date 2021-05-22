@@ -21,5 +21,10 @@
   <ItemGroup>
     <InternalsVisibleTo Include="Safir.Manager.Tests" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Data\Configuration\Postgres" />
+    <Folder Include="Data\Configuration\Sqlite" />
+  </ItemGroup>
 
 </Project>

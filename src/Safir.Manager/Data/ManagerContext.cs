@@ -7,6 +7,8 @@ namespace Safir.Manager.Data
     [UsedImplicitly(ImplicitUseTargetFlags.Members)]
     internal abstract class ManagerContext : DbContext
     {
-        public DbSet<FileCreated> FileCreated { get; set; } = null!;
+        public DbSet<Event<string>> FileEvents { get; set; } = null!;
+
+        public DbSet<File> Files { get; set; } = null!;
     }
 }

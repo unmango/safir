@@ -25,7 +25,7 @@ namespace Safir.Messaging.DependencyInjection
             services.AddHostedService<SubscriptionManager<FileDeleted>>();
             services.AddHostedService<SubscriptionManager<FileRenamed>>();
             
-            services.TryAddEnumerable(ServiceDescriptor.Transient<IEventHandler, T>());
+            services.TryAddEnumerable(ServiceDescriptor.Scoped<IEventHandler, T>());
 
             return services;
         }

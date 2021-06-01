@@ -58,6 +58,12 @@ namespace Safir.Messaging.Tests.Internal
             _typedHandler.Verify(x => x.HandleAsync(It.IsAny<MockEvent>(), It.IsAny<CancellationToken>()));
         }
 
-        public record DifferentEvent : IEvent;
+        // ReSharper disable once ClassNeverInstantiated.Global
+        // ReSharper disable once MemberCanBePrivate.Global
+        public record DifferentEvent : IEvent
+        {
+            // ReSharper disable once UnassignedGetOnlyAutoProperty
+            public DateTime Occurred { get; }
+        }
     }
 }

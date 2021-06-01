@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -131,7 +132,12 @@ namespace Safir.Messaging.Tests.DependencyInjection
             }
         }
         
-        private class DifferentEvent : IEvent { }
+        // ReSharper disable once ClassNeverInstantiated.Local
+        private class DifferentEvent : IEvent
+        {
+            // ReSharper disable once UnassignedGetOnlyAutoProperty
+            public DateTime Occurred { get; }
+        }
 
         private class DifferentEventHandler : IEventHandler<DifferentEvent>
         {

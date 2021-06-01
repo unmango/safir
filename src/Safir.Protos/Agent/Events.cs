@@ -1,13 +1,13 @@
-using Safir.Messaging;
+using Safir.Protos.Internal;
 
 // ReSharper disable CheckNamespace
 namespace Safir.Agent.Protos
 {
-    public partial class FileCreated : IEvent { }
-    
-    public partial class FileChanged : IEvent { }
-    
-    public partial class FileDeleted : IEvent { }
-    
-    public partial class FileRenamed : IEvent { }
+    public partial class FileCreated : EventBase { }
+
+    public partial class FileChanged : EventBase { }
+
+    public partial class FileDeleted : EventBase { }
+
+    public partial class FileRenamed : EventBase { }
 }

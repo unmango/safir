@@ -211,7 +211,12 @@ namespace Safir.Messaging.Tests
             Assert.False(result);
         }
 
-        private record MockEvent2 : IEvent;
+        // ReSharper disable once CA1067
+        private record MockEvent2 : IEvent
+        {
+            // ReSharper disable once UnassignedGetOnlyAutoProperty
+            public DateTime Occurred { get; }
+        }
 
         private class MockEventHandler2 : IEventHandler<MockEvent2>
         {

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Safir.Redis</Product>
     <Description>Redis client implementation for the Safir project.</Description>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -63,12 +64,14 @@ namespace Safir.Messaging
 
         private static T Deserialize<T>(RedisValue value)
         {
-            return DefaultSerializer.Instance.Deserialize<T>(value);
+            return DefaultSerializer.Instance.Deserialize<T>((byte[])value);
         }
 
         private static RedisValue Serialize<T>(T message)
         {
-            return DefaultSerializer.Instance.Serialize(message);
+            using var stream = new MemoryStream();
+            DefaultSerializer.Instance.Serialize(stream, message);
+            return RedisValue.CreateFrom(stream);
         }
     }
 }

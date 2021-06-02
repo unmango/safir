@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using MartenIEventStore = Marten.Events.IEventStore;
+using IMartenEventStore = Marten.Events.IEventStore;
 
 namespace Safir.EventSourcing.Marten
 {
-    public class MartenEventStore : IEventStore
+    public class MartenEventStoreAdapter : IEventStore
     {
-        private readonly MartenIEventStore _martenStore;
+        private readonly IMartenEventStore _martenStore;
 
-        public MartenEventStore(MartenIEventStore martenStore)
+        public MartenEventStoreAdapter(IMartenEventStore martenStore)
         {
             _martenStore = martenStore ?? throw new ArgumentNullException(nameof(martenStore));
         }

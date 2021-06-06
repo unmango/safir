@@ -6,10 +6,13 @@
 
     <ItemGroup>
       <PackageReference Include="Marten" Version="3.13.4" />
+      <PackageReference Include="System.Linq.Async" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Safir.Common\Safir.Common.csproj" />
       <ProjectReference Include="..\Safir.EventSourcing.Abstractions\Safir.EventSourcing.Abstractions.csproj" />
+      <ProjectReference Include="..\Safir.EventSourcing\Safir.EventSourcing.csproj" />
     </ItemGroup>
 
 </Project>

@@ -5,8 +5,8 @@ namespace Safir.EventSourcing.EntityFrameworkCore
 {
     public class EventDbContext : DbContext
     {
-        [UsedImplicitly]
-        public DbSet<Event> Events { get; set; } = null!;
+        [PublicAPI]
+        public DbSet<Event> Events => Set<Event>();
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

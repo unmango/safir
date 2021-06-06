@@ -1,6 +1,4 @@
-using System;
 using System.Threading;
-using System.Threading.Tasks;
 using Moq;
 using Moq.AutoMock;
 using Xunit;
@@ -15,67 +13,6 @@ namespace Safir.EventSourcing.Tests
         public EventStoreExtensionsTests()
         {
             _store = _mocker.GetMock<IEventStore>();
-        }
-
-        [Fact]
-        public async Task AddAsync_AddsAsEventWithMetadata()
-        {
-            const long aggregateId = 420;
-            const string type = "type";
-            var data = new ReadOnlyMemory<byte>();
-            var occurred = DateTime.Now;
-            var correlationId = Guid.NewGuid();
-            var causationId = Guid.NewGuid();
-            const int version = 69;
-
-            await _store.Object.AddAsync(
-                aggregateId,
-                type,
-                data,
-                occurred,
-                correlationId,
-                causationId,
-                version);
-
-            _store.Verify(x => x.AddAsync(
-                It.Is<Event>(e =>
-                    e.AggregateId == aggregateId &&
-                    e.Type == type &&
-                    e.Data.Equals(data) &&
-                    e.Occurred == occurred &&
-                    e.Metadata.CorrelationId == correlationId &&
-                    e.Metadata.CausationId == causationId &&
-                    e.Version == version),
-                default));
-        }
-
-        [Fact]
-        public async Task AddAsync_AddsAsEvent()
-        {
-            const long aggregateId = 420;
-            const string type = "type";
-            var data = new ReadOnlyMemory<byte>();
-            var occurred = DateTime.Now;
-            var metadata = new Metadata();
-            const int version = 69;
-
-            await _store.Object.AddAsync(
-                aggregateId,
-                type,
-                data,
-                occurred,
-                metadata,
-                version);
-
-            _store.Verify(x => x.AddAsync(
-                It.Is<Event>(e =>
-                    e.AggregateId == aggregateId &&
-                    e.Type == type &&
-                    e.Data.Equals(data) &&
-                    e.Occurred == occurred &&
-                    e.Metadata == metadata &&
-                    e.Version == version),
-                default));
         }
 
         [Fact]

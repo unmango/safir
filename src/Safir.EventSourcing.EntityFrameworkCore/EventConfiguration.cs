@@ -13,12 +13,14 @@ namespace Safir.EventSourcing.EntityFrameworkCore
             builder.Property(x => x.Data).IsRequired();
             builder.Property(x => x.Position).IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.Occurred).IsRequired();
-            builder.Property(x => x.Metadata).IsRequired();
             builder.Property(x => x.Version).IsRequired();
 
             builder.HasKey(x => new { x.AggregateId, x.Position });
-            builder.HasDiscriminator(x => x.Type); // Necessary? Detrimental?
-            builder.OwnsOne(x => x.Metadata);
+
+            builder.OwnsOne(x => x.Metadata, metadataBuilder => {
+                metadataBuilder.Property(x => x.CorrelationId).IsRequired();
+                metadataBuilder.Property(x => x.CausationId).IsRequired();
+            });
         }
     }
 }

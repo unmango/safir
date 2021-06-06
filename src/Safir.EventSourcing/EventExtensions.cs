@@ -29,5 +29,9 @@ namespace Safir.EventSourcing
             await foreach (var @event in events.WithCancellation(cancellationToken))
                 yield return await serializer.DeserializeAsync(@event, cancellationToken);
         }
+        
+        public static Metadata GetMetadata<T>(this T @event)
+            where T : IEvent
+            => new(@event.CorrelationId, @event.CausationId);
     }
 }

@@ -13,9 +13,6 @@ namespace Safir.EventSourcing
     {
         private static readonly JsonSerializerOptions _options = new();
         private static readonly JsonWriterOptions _writerOptions = new();
-        private static readonly Lazy<DefaultSerializer> _instance = new();
-
-        public static ISerializer Instance => _instance.Value;
 
         public T Deserialize<T>(ReadOnlyMemory<byte> value)
         {
@@ -61,7 +58,7 @@ namespace Safir.EventSourcing
                 _options,
                 cancellationToken);
             
-            return new(task);
+            return new ValueTask(task);
         }
     }
 }

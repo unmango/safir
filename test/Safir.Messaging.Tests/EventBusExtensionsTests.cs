@@ -1,5 +1,4 @@
 using System;
-using System.Reactive.Linq;
 using System.Threading;
 using Moq;
 using Moq.AutoMock;

@@ -1,6 +1,4 @@
-using System;
 using System.Linq;
-using System.Threading;
 using Moq;
 using Moq.AutoMock;
 using Safir.Messaging.Internal;

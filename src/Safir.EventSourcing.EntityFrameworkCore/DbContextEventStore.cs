@@ -4,8 +4,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using LanguageExt;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Safir.Common.Tasks;
+using Safir.Messaging;
 
 namespace Safir.EventSourcing.EntityFrameworkCore
 {
@@ -14,18 +17,24 @@ namespace Safir.EventSourcing.EntityFrameworkCore
         where TContext : DbContext
     {
         private readonly TContext _context;
+        private readonly IEventSerializer _serializer;
         private readonly ILogger<DbContextEventStore<TContext>> _logger;
 
-        public DbContextEventStore(TContext context, ILogger<DbContextEventStore<TContext>> logger)
+        public DbContextEventStore(TContext context, IEventSerializer serializer, ILogger<DbContextEventStore<TContext>> logger)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+            _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task AddAsync(Event @event, CancellationToken cancellationToken = default)
+        public async Task AddAsync(long aggregateId, IEvent @event, CancellationToken cancellationToken = default)
         {
+            _logger.LogTrace("Serializing event {Event}", @event);
+            var serialized = await _serializer.SerializeAsync(aggregateId, @event, cancellationToken);
+            _logger.LogTrace("Serialized event {Event}", @event);
+            
             _logger.LogTrace("Adding event {Event}", @event);
-            await _context.AddAsync(@event, cancellationToken);
+            await _context.AddAsync(serialized, cancellationToken);
             _logger.LogTrace("Added event {Event}", @event);
 
             _logger.LogTrace("Saving changes asynchronously");
@@ -33,10 +42,14 @@ namespace Safir.EventSourcing.EntityFrameworkCore
             _logger.LogTrace("Saved changes asynchronously");
         }
 
-        public async Task AddAsync(IEnumerable<Event> events, CancellationToken cancellationToken = default)
+        public async Task AddAsync(long aggregateId, IEnumerable<IEvent> events, CancellationToken cancellationToken = default)
         {
+            _logger.LogTrace("Serializing events {Events}", events);
+            var serialized = await events.Select(x => _serializer.SerializeAsync(aggregateId, x, cancellationToken));
+            _logger.LogTrace("Serialized events {Events}", events);
+            
             _logger.LogTrace("Adding events {Events}", events);
-            await _context.AddRangeAsync(events, cancellationToken);
+            await _context.AddRangeAsync(serialized, cancellationToken);
             _logger.LogTrace("Added events {Events}", events);
 
             _logger.LogTrace("Saving changes asynchronously");
@@ -44,25 +57,31 @@ namespace Safir.EventSourcing.EntityFrameworkCore
             _logger.LogTrace("Saved changes asynchronously");
         }
 
-        public Task<Event> GetAsync(long id, CancellationToken cancellationToken = default)
+        public Task<IEvent> GetAsync(long id, CancellationToken cancellationToken = default)
         {
             _logger.LogTrace("Getting single event with id {Id}", id);
-            return GetEventSet().AsQueryable().FirstAsync(x => x.Id == id, cancellationToken);
+            return GetEventSet().SingleAsync(x => x.Id == id, cancellationToken)
+                .Bind(x => Deserialize(x, cancellationToken));
         }
 
-        public IAsyncEnumerable<Event> StreamBackwardsAsync(
+        public IAsyncEnumerable<IEvent> StreamBackwardsAsync(
             long aggregateId,
             int? count = null,
             CancellationToken cancellationToken = default)
         {
             var logCount = count.HasValue ? $"{count}" : "all";
-            _logger.LogTrace("Streaming {Count} events backwards with aggregate Id {Id}", logCount, aggregateId);
-            return GetEventSet().OrderByDescending(x => x.Position).Take(count ?? int.MaxValue).AsAsyncEnumerable();
+            _logger.LogTrace("Streaming {Count} event(s) backwards with aggregate Id {Id}", logCount, aggregateId);
+            return GetEventSet()
+                .Where(x => x.AggregateId == aggregateId)
+                .OrderByDescending(x => x.Position)
+                .Take(count ?? int.MaxValue)
+                .AsAsyncEnumerable()
+                .DeserializeAsync(_serializer, cancellationToken);
         }
 
-        public IAsyncEnumerable<Event> StreamAsync(
+        public IAsyncEnumerable<IEvent> StreamAsync(
             long aggregateId,
-            int startPosition = int.MinValue,
+            int startPosition = 0,
             int endPosition = int.MaxValue,
             CancellationToken cancellationToken = default)
         {
@@ -70,7 +89,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore
             {
                 throw new InvalidOperationException("Start position can't be after the end position");
             }
-            
+
             _logger.LogTrace(
                 "Streaming events with aggregateId {AggregateId} from start {Start} till end {End}",
                 aggregateId,
@@ -81,12 +100,18 @@ namespace Safir.EventSourcing.EntityFrameworkCore
                 .Where(x => x.AggregateId == aggregateId
                             && x.Position >= startPosition
                             && x.Position <= endPosition)
-                .AsAsyncEnumerable();
+                .AsAsyncEnumerable()
+                .DeserializeAsync(_serializer, cancellationToken);
         }
 
         protected virtual IQueryable<Event> GetEventSet()
         {
             return _context.Set<Event>().AsNoTracking();
+        }
+
+        private Task<IEvent> Deserialize(Event @event, CancellationToken cancellationToken)
+        {
+            return _serializer.DeserializeAsync(@event, cancellationToken).AsTask();
         }
     }
 }

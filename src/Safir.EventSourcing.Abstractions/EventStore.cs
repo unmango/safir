@@ -1,38 +1,28 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
+using Safir.Messaging;
 
 namespace Safir.EventSourcing
 {
     [PublicAPI]
     public abstract class EventStore : IEventStore
     {
-        private readonly ILogger _logger;
+        public abstract Task AddAsync(long aggregateId, IEvent @event, CancellationToken cancellationToken = default);
 
-        private EventStore() : this(NullLogger<EventStore>.Instance)
+        public virtual Task AddAsync(
+            long aggregateId,
+            IEnumerable<IEvent> events,
+            CancellationToken cancellationToken = default)
         {
+            return Task.WhenAll(events.Select(x => AddAsync(aggregateId, x, cancellationToken)));
         }
 
-        protected EventStore(ILogger<EventStore> logger)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
-        
-        public abstract Task AddAsync(Event @event, CancellationToken cancellationToken = default);
+        public abstract Task<IEvent> GetAsync(long id, CancellationToken cancellationToken = default);
 
-        public virtual Task AddAsync(IEnumerable<Event> events, CancellationToken cancellationToken = default)
-        {
-            return Task.WhenAll(events.Select(x => AddAsync((Event)x, cancellationToken)));
-        }
-
-        public abstract Task<Event> GetAsync(long id, CancellationToken cancellationToken = default);
-
-        public virtual IAsyncEnumerable<Event> StreamBackwardsAsync(
+        public virtual IAsyncEnumerable<IEvent> StreamBackwardsAsync(
             long aggregateId,
             int? count = null,
             CancellationToken cancellationToken = default)
@@ -40,7 +30,7 @@ namespace Safir.EventSourcing
             return StreamAsync(aggregateId, int.MaxValue, count ?? int.MinValue, cancellationToken);
         }
 
-        public abstract IAsyncEnumerable<Event> StreamAsync(
+        public abstract IAsyncEnumerable<IEvent> StreamAsync(
             long aggregateId,
             int startPosition = int.MinValue,
             int endPosition = int.MaxValue,

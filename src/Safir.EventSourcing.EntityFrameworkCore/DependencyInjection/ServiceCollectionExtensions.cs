@@ -6,7 +6,7 @@ using Safir.EventSourcing.DependencyInjection;
 
 namespace Safir.EventSourcing.EntityFrameworkCore.DependencyInjection
 {
-    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    [PublicAPI]
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddEventDbContext(this IServiceCollection services)

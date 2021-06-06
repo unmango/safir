@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.EventSourcing.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.EventSourcing.EntityFrameworkCore.Tests", "test\Safir.EventSourcing.EntityFrameworkCore.Tests\Safir.EventSourcing.EntityFrameworkCore.Tests.csproj", "{9E52A453-0F4C-4D2E-9CE9-73661F97DEFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Serialization.Protobuf", "src\Safir.Serialization.Protobuf\Safir.Serialization.Protobuf.csproj", "{EB2866CE-A6C9-4654-9D92-292CE913A2CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -236,6 +238,18 @@ Global
 		{9E52A453-0F4C-4D2E-9CE9-73661F97DEFE}.Release|x64.Build.0 = Release|Any CPU
 		{9E52A453-0F4C-4D2E-9CE9-73661F97DEFE}.Release|x86.ActiveCfg = Release|Any CPU
 		{9E52A453-0F4C-4D2E-9CE9-73661F97DEFE}.Release|x86.Build.0 = Release|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Debug|x64.Build.0 = Debug|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Debug|x86.Build.0 = Debug|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Release|x64.ActiveCfg = Release|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Release|x64.Build.0 = Release|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Release|x86.ActiveCfg = Release|Any CPU
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7D9BBDAA-9C15-43A3-BC29-398C5FAB527B} = {CC75D772-3E67-4095-9351-DCD6EEF144AD}
@@ -253,5 +267,6 @@ Global
 		{C6EC91DB-91E5-4B93-BC28-7145B5A3FADE} = {CC75D772-3E67-4095-9351-DCD6EEF144AD}
 		{72C35D91-4AE8-4A06-8FAF-F621A943D4FA} = {3915209A-D60D-48CA-BEBF-AF19F3F594ED}
 		{9E52A453-0F4C-4D2E-9CE9-73661F97DEFE} = {3915209A-D60D-48CA-BEBF-AF19F3F594ED}
+		{EB2866CE-A6C9-4654-9D92-292CE913A2CA} = {CC75D772-3E67-4095-9351-DCD6EEF144AD}
 	EndGlobalSection
 EndGlobal

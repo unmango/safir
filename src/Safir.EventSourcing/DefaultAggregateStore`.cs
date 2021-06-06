@@ -1,38 +1,66 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
 namespace Safir.EventSourcing
 {
-    public class DefaultAggregateStore<T> : IAggregateStore<T>
+    public class DefaultAggregateStore<T> : DefaultAggregateStore<T, Guid>, IAggregateStore<T>
         where T : IAggregate, new()
     {
-        private readonly IAggregateStore _aggregateStore;
-        private readonly ILogger<DefaultAggregateStore<T>> _logger;
+        public DefaultAggregateStore(IEventStore eventStore, ILogger<DefaultAggregateStore<T>> logger)
+            : base(eventStore, logger) { }
+    }
 
-        public DefaultAggregateStore(IAggregateStore aggregateStore, ILogger<DefaultAggregateStore<T>> logger)
+    public class DefaultAggregateStore<TAggregate, TId> : DefaultAggregateStore<TAggregate, TId, Guid>
+        where TAggregate : IAggregate<TId>, new()
+    {
+        public DefaultAggregateStore(
+            IEventStore<TId, Guid> eventStore,
+            ILogger<DefaultAggregateStore<TAggregate, TId>> logger)
+            : base(eventStore, logger) { }
+    }
+
+    public class DefaultAggregateStore<TAggregate, TAggregateId, TEventId> : IAggregateStore<TAggregate, TAggregateId>
+        where TAggregate : IAggregate<TAggregateId>, new()
+    {
+        private readonly IEventStore<TAggregateId, TEventId> _eventStore;
+        private readonly ILogger<DefaultAggregateStore<TAggregate, TAggregateId, TEventId>> _logger;
+
+        public DefaultAggregateStore(
+            IEventStore<TAggregateId, TEventId> eventStore,
+            ILogger<DefaultAggregateStore<TAggregate, TAggregateId, TEventId>> logger)
         {
-            _aggregateStore = aggregateStore ?? throw new ArgumentNullException(nameof(aggregateStore));
+            _eventStore = eventStore ?? throw new ArgumentNullException(nameof(eventStore));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public Task StoreAsync(T aggregate, CancellationToken cancellationToken = default)
+        public Task StoreAsync(TAggregate aggregate, CancellationToken cancellationToken = default)
         {
-            _logger.LogTrace("Delegating store operation to generic aggregate store");
-            return _aggregateStore.StoreAsync(aggregate, cancellationToken);
+            _logger.LogTrace("Dequeuing events on aggregate {Id}", aggregate.Id);
+            var events = aggregate.DequeueEvents().ToList();
+
+            if (!events.Any()) return Task.CompletedTask;
+
+            _logger.LogTrace("Adding events to event store");
+            return _eventStore.AddAsync(aggregate.Id, events, cancellationToken);
         }
 
-        public ValueTask<T> GetAsync(long id, CancellationToken cancellationToken = default)
+        public ValueTask<TAggregate> GetAsync(TAggregateId id, CancellationToken cancellationToken = default)
         {
-            _logger.LogTrace("Delegating get operation to generic aggregate store");
-            return _aggregateStore.GetAsync<T>(id, cancellationToken);
+            _logger.LogDebug("Getting event stream for aggregate {Id}", id);
+            // TODO: This cancellation token situation...
+            return _eventStore.StreamAsync(id, cancellationToken)
+                .AggregateAsync<TAggregate, TAggregateId>(cancellationToken);
         }
 
-        public ValueTask<T> GetAsync(long id, int version, CancellationToken cancellationToken = default)
+        public ValueTask<TAggregate> GetAsync(TAggregateId id, int version, CancellationToken cancellationToken = default)
         {
-            _logger.LogTrace("Delegating get operation to generic aggregate store");
-            return _aggregateStore.GetAsync<T>(id, version, cancellationToken);
+            _logger.LogDebug("Getting event stream for aggregate {Id} with version {Version}", id, version);
+            // TODO: This cancellation token situation...
+            return _eventStore.StreamAsync(id, version, cancellationToken)
+                .AggregateAsync<TAggregate, TAggregateId>(cancellationToken);
         }
     }
 }

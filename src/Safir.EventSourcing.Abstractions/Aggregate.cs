@@ -11,7 +11,7 @@ namespace Safir.EventSourcing
         [NonSerialized]
         private readonly Queue<IEvent> _events = new();
         
-        public long Id { get; protected init; }
+        public Guid Id { get; protected init; }
         
         public int Version { get; protected init; }
 

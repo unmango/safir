@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Safir.Messaging;
@@ -5,9 +6,12 @@ using Safir.Messaging;
 namespace Safir.EventSourcing
 {
     [PublicAPI]
-    public interface IAggregate
+    public interface IAggregate : IAggregate<Guid> { }
+    
+    [PublicAPI]
+    public interface IAggregate<out T>
     {
-        long Id { get; }
+        T Id { get; }
         
         int Version { get; }
         

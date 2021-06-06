@@ -26,7 +26,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
         [Fact]
         public async Task AddAsync_AddsAndSavesEvent()
         {
-            const long id = 420;
+            var id = Guid.NewGuid();
             IEvent value = new MockEvent();
             var serialized = new Event(id, "type", Array.Empty<byte>(), DateTime.Now, new Metadata(), 69);
             _serializer.Setup(x => x.SerializeAsync(id, value, It.IsAny<CancellationToken>()))
@@ -45,7 +45,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
         [InlineData(5)]
         public async Task AddAsync_Enumerable_AddsAndSavesAllEvents(int count)
         {
-            const long id = 420;
+            var id = Guid.NewGuid();
             var events = Enumerable.Repeat(new MockEvent(), count).Cast<IEvent>();
             var serialized = new Event(id, "type", Array.Empty<byte>(), DateTime.Now, new Metadata(), 69);
             _serializer.Setup(x => x.SerializeAsync(id, It.IsAny<IEvent>(), It.IsAny<CancellationToken>()))
@@ -60,7 +60,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
         [Fact]
         public async Task GetAsync_GetsEventMatchingId()
         {
-            var serialized = new Event(420, "type", Array.Empty<byte>(), DateTime.Now, new Metadata(), 69);
+            var serialized = new Event(Guid.NewGuid(), "type", Array.Empty<byte>(), DateTime.Now, new Metadata(), 69);
             // EF sets Metadata to `null` on AddAsync for some reason... using different objects seems to fix it
             var entry = await _context.AddAsync(serialized with { Metadata = new Metadata() });
             await _context.AddAsync(serialized with { Metadata = new Metadata() });
@@ -74,7 +74,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
         [Fact]
         public async Task StreamBackwardsAsync_ReturnsEventsReversed()
         {
-            const long id = 420;
+            var id = Guid.NewGuid();
             var serialized = new Event(id, "type", Array.Empty<byte>(), DateTime.Now, new Metadata(), 69);
             // EF sets Metadata to `null` on AddAsync for some reason... using different objects seems to fix it
             var entry1 = await _context.AddAsync(serialized with { Metadata = new Metadata() });
@@ -102,11 +102,11 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
         [Fact]
         public async Task StreamBackwardsAsync_ReturnsCorrectAggregateStream()
         {
-            const long id = 420;
+            var id = Guid.NewGuid();
             var serialized = new Event(id, "type", Array.Empty<byte>(), DateTime.Now, new Metadata(), 69);
             // EF sets Metadata to `null` on AddAsync for some reason... using different objects seems to fix it
             var entry1 = await _context.AddAsync(serialized with { Metadata = new Metadata() });
-            await _context.AddAsync(serialized with { AggregateId = 69, Metadata = new Metadata() });
+            await _context.AddAsync(serialized with { AggregateId = Guid.NewGuid(), Metadata = new Metadata() });
             await _context.SaveChangesAsync();
             _serializer.Setup(x => x.DeserializeAsync(It.IsAny<Event>(), It.IsAny<CancellationToken>()))
                 .Returns<Event, CancellationToken>((@event, _) => new ValueTask<IEvent>(new MockEvent(@event.Position)));
@@ -127,7 +127,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
         [Fact]
         public async Task StreamBackwardsAsync_ReturnsRequestedCount()
         {
-            const long id = 420;
+            var id = Guid.NewGuid();
             var serialized = new Event(id, "type", Array.Empty<byte>(), DateTime.Now, new Metadata(), 69);
             // EF sets Metadata to `null` on AddAsync for some reason... using different objects seems to fix it
             await _context.AddAsync(serialized with { Metadata = new Metadata() });
@@ -152,17 +152,17 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
         [Fact]
         public void StreamAsync_ThrowsWhenStartIsAfterEnd()
         {
-            Assert.Throws<InvalidOperationException>(() => _store.StreamAsync(420, 69, 68));
+            Assert.Throws<InvalidOperationException>(() => _store.StreamAsync(Guid.NewGuid(), 69, 68));
         }
 
         [Fact]
         public async Task StreamAsync_ReturnsCorrectAggregateStream()
         {
-            const long id = 420;
+            var id = Guid.NewGuid();
             var serialized = new Event(id, "type", Array.Empty<byte>(), DateTime.Now, new Metadata(), 69);
             // EF sets Metadata to `null` on AddAsync for some reason... using different objects seems to fix it
             var entry1 = await _context.AddAsync(serialized with { Metadata = new Metadata() });
-            await _context.AddAsync(serialized with { AggregateId = 69, Metadata = new Metadata() });
+            await _context.AddAsync(serialized with { AggregateId = Guid.NewGuid(), Metadata = new Metadata() });
             await _context.SaveChangesAsync();
             _serializer.Setup(x => x.DeserializeAsync(It.IsAny<Event>(), It.IsAny<CancellationToken>()))
                 .Returns<Event, CancellationToken>((@event, _) => new ValueTask<IEvent>(new MockEvent(@event.Position)));
@@ -183,7 +183,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
         [Fact]
         public async Task StreamAsync_ReturnsEventsStartingAtStartPosition()
         {
-            const long id = 420;
+            var id = Guid.NewGuid();
             var serialized = new Event(id, "type", Array.Empty<byte>(), DateTime.Now, new Metadata(), 69);
             // EF sets Metadata to `null` on AddAsync for some reason... using different objects seems to fix it
             await _context.AddAsync(serialized with { Metadata = new Metadata() });
@@ -208,7 +208,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
         [Fact]
         public async Task StreamAsync_ReturnsEventsEndingAtEndPosition()
         {
-            const long id = 420;
+            var id = Guid.NewGuid();
             var serialized = new Event(id, "type", Array.Empty<byte>(), DateTime.Now, new Metadata(), 69);
             // EF sets Metadata to `null` on AddAsync for some reason... using different objects seems to fix it
             var entry1 = await _context.AddAsync(serialized with { Metadata = new Metadata() });

@@ -22,7 +22,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
 
             // Limitation of SQLite in memory provider
             modelBuilder.Entity<Event>().Property(x => x.Id)
-                .HasValueGenerator((_, _) => new SequentialLongValueGenerator());
+                .HasValueGenerator((_, _) => new GuidValueGenerator());
             modelBuilder.Entity<Event>().Property(x => x.Position)
                 .HasValueGenerator((_, _) => new SequentialIntValueGenerator());
         }
@@ -43,18 +43,6 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
             var connection = new SqliteConnection("Filename=:memory:");
             connection.Open();
             return connection;
-        }
-
-        private class SequentialLongValueGenerator : ValueGenerator<long>
-        {
-            private long _last;
-
-            public override long Next(EntityEntry entry)
-            {
-                return ++_last;
-            }
-
-            public override bool GeneratesTemporaryValues => false;
         }
 
         private class SequentialIntValueGenerator : ValueGenerator<int>

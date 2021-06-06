@@ -27,7 +27,7 @@ namespace Safir.EventSourcing.Tests
         [Fact]
         public async Task SerializeAsync_SerializesAsEventEntity()
         {
-            const long id = 420;
+            var id = Guid.NewGuid();
             const string type = "type";
             IEvent value = new MockEvent();
             
@@ -55,7 +55,7 @@ namespace Safir.EventSourcing.Tests
             const string discriminator = "type";
             var type = typeof(MockEvent);
             const int version = 69;
-            var value = new Event(420, discriminator, Array.Empty<byte>(), DateTime.Now, new Metadata(), version);
+            var value = new Event(Guid.NewGuid(), discriminator, Array.Empty<byte>(), DateTime.Now, new Metadata(), version);
             _metadataProvider.Setup(x => x.GetTypeAsync(discriminator, version, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(type);
 

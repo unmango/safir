@@ -54,7 +54,7 @@ namespace Safir.EventSourcing.Tests
         public async Task GetAsync_GetsAggregate(int count)
         {
             var events = AsyncEnumerable.Repeat(new FakeEvent(), count);
-            const long id = 420;
+            var id = Guid.NewGuid();
             _eventStore
                 .Setup(x => x.StreamAsync(id, It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .Returns(events);
@@ -73,7 +73,7 @@ namespace Safir.EventSourcing.Tests
         public async Task GetAsync_GetsAggregateWithVersion(int count)
         {
             var events = AsyncEnumerable.Repeat(new FakeEvent(), count);
-            const long id = 420;
+            var id = Guid.NewGuid();
             const int version = 69;
             _eventStore.Setup(x => x.StreamAsync(id, version, It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .Returns(events);

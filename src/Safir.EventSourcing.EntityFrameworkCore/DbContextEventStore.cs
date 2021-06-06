@@ -27,7 +27,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task AddAsync(long aggregateId, IEvent @event, CancellationToken cancellationToken = default)
+        public async Task AddAsync(Guid aggregateId, IEvent @event, CancellationToken cancellationToken = default)
         {
             _logger.LogTrace("Serializing event {Event}", @event);
             var serialized = await _serializer.SerializeAsync(aggregateId, @event, cancellationToken);
@@ -42,7 +42,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore
             _logger.LogTrace("Saved changes asynchronously");
         }
 
-        public async Task AddAsync(long aggregateId, IEnumerable<IEvent> events, CancellationToken cancellationToken = default)
+        public async Task AddAsync(Guid aggregateId, IEnumerable<IEvent> events, CancellationToken cancellationToken = default)
         {
             _logger.LogTrace("Serializing events {Events}", events);
             var serialized = await events.Select(x => _serializer.SerializeAsync(aggregateId, x, cancellationToken));
@@ -57,7 +57,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore
             _logger.LogTrace("Saved changes asynchronously");
         }
 
-        public Task<IEvent> GetAsync(long id, CancellationToken cancellationToken = default)
+        public Task<IEvent> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
             _logger.LogTrace("Getting single event with id {Id}", id);
             return GetEventSet().SingleAsync(x => x.Id == id, cancellationToken)
@@ -65,7 +65,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore
         }
 
         public IAsyncEnumerable<IEvent> StreamBackwardsAsync(
-            long aggregateId,
+            Guid aggregateId,
             int? count = null,
             CancellationToken cancellationToken = default)
         {
@@ -80,7 +80,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore
         }
 
         public IAsyncEnumerable<IEvent> StreamAsync(
-            long aggregateId,
+            Guid aggregateId,
             int startPosition = 0,
             int endPosition = int.MaxValue,
             CancellationToken cancellationToken = default)

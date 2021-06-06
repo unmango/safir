@@ -15,26 +15,54 @@ namespace Safir.EventSourcing
 
     [PublicAPI]
     public record Event(
-        long AggregateId,
+        Guid AggregateId,
+        string Type,
+        byte[] Data,
+        DateTime Occurred,
+        Metadata Metadata,
+        int Version) : Event<Guid, Guid>(AggregateId, Type, Data, Occurred, Metadata, Version)
+    {
+        // For EF binding
+        private Event(Guid aggregateId, string type, byte[] data, DateTime occurred, int version)
+            : this(aggregateId, type, data, occurred, Metadata.Empty, version) { }
+    }
+
+    [PublicAPI]
+    public record Event<T>(
+        T AggregateId,
+        string Type,
+        byte[] Data,
+        DateTime Occurred,
+        Metadata Metadata,
+        int Version) : Event<T, Guid>(AggregateId, Type, Data, Occurred, Metadata, Version)
+    {
+        // For EF binding
+        private Event(T aggregateId, string type, byte[] data, DateTime occurred, int version)
+            : this(aggregateId, type, data, occurred, Metadata.Empty, version) { }
+    }
+
+    [PublicAPI]
+    public record Event<TAggregateId, TId>(
+        TAggregateId AggregateId,
         string Type,
         byte[] Data,
         DateTime Occurred,
         Metadata Metadata,
         int Version)
     {
-        internal static Event Empty = new(
-            default,
-            nameof(Event),
+        internal static Event<TAggregateId, TId> Empty = new(
+            default!, // TODO: Nullability
+            nameof(Event<TAggregateId, TId>),
             Array.Empty<byte>(),
             default,
             new Metadata(),
             default);
 
         // For EF binding
-        private Event(long aggregateId, string type, byte[] data, DateTime occurred, int version)
+        private Event(TAggregateId aggregateId, string type, byte[] data, DateTime occurred, int version)
             : this(aggregateId, type, data, occurred, Metadata.Empty, version) { }
 
-        public long Id { get; init; }
+        public TId Id { get; init; } = default!; // TODO: Nullability
 
         public int Position { get; init; }
     }

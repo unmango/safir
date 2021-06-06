@@ -1,7 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Moq;
 using Moq.AutoMock;
+using Safir.Messaging;
 using Xunit;
 
 namespace Safir.EventSourcing.Tests
@@ -9,46 +13,104 @@ namespace Safir.EventSourcing.Tests
     public class DefaultGenericAggregateStoreTests
     {
         private readonly AutoMocker _mocker = new();
-        private readonly Mock<IAggregateStore> _nonGenericStore;
+        private readonly Mock<IEventStore> _eventStore;
         private readonly DefaultAggregateStore<FakeAggregate> _store;
 
         public DefaultGenericAggregateStoreTests()
         {
-            _nonGenericStore = _mocker.GetMock<IAggregateStore>();
+            _eventStore = _mocker.GetMock<IEventStore>();
             _store = _mocker.CreateInstance<DefaultAggregateStore<FakeAggregate>>();
+        }
+        
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(5)]
+        public async Task StoreAsync_AddsAllEvents(int count)
+        {
+            var events = Enumerable.Repeat(new FakeEvent(), count).Cast<IEvent>().ToArray();
+            var aggregate = new FakeAggregate(events);
+
+            await _store.StoreAsync(aggregate);
+
+            _eventStore.Verify(x => x.AddAsync(aggregate.Id, It.Is<IEnumerable<IEvent>>(y => y.Count() == count),
+                It.IsAny<CancellationToken>()));
         }
 
         [Fact]
-        public async Task StoreAsync_DelegateCallToNonGenericStore()
+        public async Task StoreAsync_DoesntPersistWhenNoEvents()
         {
             var aggregate = new FakeAggregate();
 
             await _store.StoreAsync(aggregate);
-            
-            _nonGenericStore.Verify(x => x.StoreAsync(aggregate, It.IsAny<CancellationToken>()));
+
+            _eventStore.VerifyNoOtherCalls();
         }
 
-        [Fact]
-        public async Task GetAsync_DelegateCallToNonGenericStore()
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(5)]
+        public async Task GetAsync_GetsAggregate(int count)
         {
-            const long id = 420;
+            var events = AsyncEnumerable.Repeat(new FakeEvent(), count);
+            var id = Guid.NewGuid();
+            _eventStore
+                .Setup(x => x.StreamAsync(id, It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Returns(events);
 
-            await _store.GetAsync(id);
-            
-            _nonGenericStore.Verify(x => x.GetAsync<FakeAggregate>(id, It.IsAny<CancellationToken>()));
+            var aggregate = await _store.GetAsync(id);
+
+            _eventStore.Verify();
+            Assert.NotNull(aggregate);
+            Assert.Equal(count, aggregate.NumApplied);
         }
 
-        [Fact]
-        public async Task GetAsyncWithVersion_DelegateCallToNonGenericStore()
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(5)]
+        public async Task GetAsync_GetsAggregateWithVersion(int count)
         {
-            const long id = 420;
+            var events = AsyncEnumerable.Repeat(new FakeEvent(), count);
+            var id = Guid.NewGuid();
             const int version = 69;
+            _eventStore.Setup(x => x.StreamAsync(id, version, It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Returns(events);
 
-            await _store.GetAsync(id, version);
-            
-            _nonGenericStore.Verify(x => x.GetAsync<FakeAggregate>(id, version, It.IsAny<CancellationToken>()));
+            var aggregate = await _store.GetAsync(id, version);
+
+            _eventStore.Verify();
+            Assert.NotNull(aggregate);
+            Assert.Equal(count, aggregate.NumApplied);
         }
 
-        public record FakeAggregate : Aggregate;
+        private record FakeEvent : IEvent
+        {
+            // ReSharper disable once UnassignedGetOnlyAutoProperty
+            public DateTime Occurred { get; }
+        }
+
+        // ReSharper disable once MemberCanBePrivate.Global
+        public record FakeAggregate : Aggregate
+        {
+            public FakeAggregate() { }
+
+            public FakeAggregate(params IEvent[] events)
+            {
+                foreach (var @event in events)
+                {
+                    Enqueue(@event);
+                }
+            }
+
+            public int NumApplied;
+
+            public override void Apply(IEvent @event)
+            {
+                NumApplied++;
+            }
+        }
     }
 }

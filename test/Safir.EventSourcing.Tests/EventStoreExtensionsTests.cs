@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Moq;
 using Moq.AutoMock;
@@ -18,7 +19,7 @@ namespace Safir.EventSourcing.Tests
         [Fact]
         public void StreamAsync_PassesDefaultValues()
         {
-            const long aggregateId = 420;
+            var aggregateId = Guid.NewGuid();
 
             _store.Object.StreamAsync(aggregateId);
 
@@ -32,7 +33,7 @@ namespace Safir.EventSourcing.Tests
         [Fact]
         public void StreamAsync_PassesDefaultEndPosition()
         {
-            const long aggregateId = 420;
+            var aggregateId = Guid.NewGuid();
             const int startPosition = 69;
 
             _store.Object.StreamAsync(aggregateId, startPosition);
@@ -47,7 +48,7 @@ namespace Safir.EventSourcing.Tests
         [Fact]
         public void StreamBackwardsAsync_PassesNullCount()
         {
-            const long aggregateId = 420;
+            var aggregateId = Guid.NewGuid();
 
             _store.Object.StreamBackwardsAsync(aggregateId, default(CancellationToken));
 
@@ -57,7 +58,7 @@ namespace Safir.EventSourcing.Tests
         [Fact]
         public void StreamFromAsync_PassesDefaultEndPosition()
         {
-            const long aggregateId = 420;
+            var aggregateId = Guid.NewGuid();
             const int startPosition = 69;
 
             _store.Object.StreamFromAsync(aggregateId, startPosition);
@@ -72,7 +73,7 @@ namespace Safir.EventSourcing.Tests
         [Fact]
         public void StreamUntilAsync_PassesDefaultStartPosition()
         {
-            const long aggregateId = 420;
+            var aggregateId = Guid.NewGuid();
             const int endPosition = 69;
 
             _store.Object.StreamUntilAsync(aggregateId, endPosition);

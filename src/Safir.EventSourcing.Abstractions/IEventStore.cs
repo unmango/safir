@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,23 +8,29 @@ using Safir.Messaging;
 namespace Safir.EventSourcing
 {
     [PublicAPI]
-    public interface IEventStore
+    public interface IEventStore : IEventStore<Guid> { }
+    
+    [PublicAPI]
+    public interface IEventStore<in T> : IEventStore<T, Guid> { }
+    
+    [PublicAPI]
+    public interface IEventStore<in TAggregateId, in TId>
     {
         // TODO: Accept generic event?
-        Task AddAsync(long aggregateId, IEvent @event, CancellationToken cancellationToken = default);
+        Task AddAsync(TAggregateId aggregateId, IEvent @event, CancellationToken cancellationToken = default);
 
-        Task AddAsync(long aggregateId, IEnumerable<IEvent> events, CancellationToken cancellationToken = default);
+        Task AddAsync(TAggregateId aggregateId, IEnumerable<IEvent> events, CancellationToken cancellationToken = default);
 
-        Task<IEvent> GetAsync(long id, CancellationToken cancellationToken = default);
+        Task<IEvent> GetAsync(TId id, CancellationToken cancellationToken = default);
 
         IAsyncEnumerable<IEvent> StreamAsync(
-            long aggregateId,
+            TAggregateId aggregateId,
             int startPosition = 0,
             int endPosition = int.MaxValue,
             CancellationToken cancellationToken = default);
 
         IAsyncEnumerable<IEvent> StreamBackwardsAsync(
-            long aggregateId,
+            TAggregateId aggregateId,
             int? count = null,
             CancellationToken cancellationToken = default);
     }

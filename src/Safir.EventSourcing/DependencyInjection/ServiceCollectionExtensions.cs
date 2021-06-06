@@ -13,9 +13,12 @@ namespace Safir.EventSourcing.DependencyInjection
             
             services.AddTransient<ISerializer, DefaultSerializer>();
             services.AddTransient<IEventSerializer, DefaultEventSerializer>();
+            services.AddTransient(typeof(IEventSerializer<>), typeof(DefaultEventSerializer<>));
+            services.AddTransient(typeof(IEventSerializer<,>), typeof(DefaultEventSerializer<,>));
             services.AddTransient<IEventMetadataProvider, DefaultEventMetadataProvider>();
             services.AddTransient<IAggregateStore, DefaultAggregateStore>();
             services.AddTransient(typeof(IAggregateStore<>), typeof(DefaultAggregateStore<>));
+            services.AddTransient(typeof(IAggregateStore<,>), typeof(DefaultAggregateStore<,>));
             
             return services;
         }

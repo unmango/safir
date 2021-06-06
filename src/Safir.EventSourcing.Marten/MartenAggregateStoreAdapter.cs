@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using Marten;
 using Microsoft.Extensions.Logging;
 
@@ -45,7 +44,7 @@ namespace Safir.EventSourcing.Marten
                 state: new T(),
                 token: cancellationToken);
             
-            return new ValueTask<T>(task);
+            return new ValueTask<T>(task!); // TODO: Nullability
         }
 
         public ValueTask<T> GetAsync<T>(long id, int version, CancellationToken cancellationToken = default)
@@ -58,7 +57,7 @@ namespace Safir.EventSourcing.Marten
                 state: new T(),
                 token: cancellationToken);
             
-            return new ValueTask<T>(task);
+            return new ValueTask<T>(task!); // TODO: Nullability
         }
     }
 }

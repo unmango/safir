@@ -15,8 +15,14 @@ namespace Safir.EventSourcing.Marten.DependencyInjection
             services.AddMarten(configure);
 
             services.AddScoped<IEventStore, MartenEventStoreAdapter>();
+            services.AddScoped<IAggregateStore, MartenAggregateStoreAdapter>();
 
             return services;
+        }
+
+        public static IServiceCollection UseDefaultAggregateStore(this IServiceCollection services)
+        {
+            return services.AddScoped<IAggregateStore, DefaultAggregateStore>();
         }
     }
 }

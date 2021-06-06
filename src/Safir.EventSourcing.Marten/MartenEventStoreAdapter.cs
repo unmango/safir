@@ -18,29 +18,29 @@ namespace Safir.EventSourcing.Marten
             _store = store ?? throw new ArgumentNullException(nameof(store));
         }
 
-        public Task AddAsync(long aggregateId, IEvent @event, CancellationToken cancellationToken = default)
+        public Task AddAsync(Guid aggregateId, IEvent @event, CancellationToken cancellationToken = default)
         {
             using var session = _store.OpenSession();
-            session.Events.Append(AsMartenId(aggregateId), @event);
+            session.Events.Append(aggregateId, @event);
             return session.SaveChangesAsync(cancellationToken);
         }
 
-        public Task AddAsync(long aggregateId, IEnumerable<IEvent> events, CancellationToken cancellationToken = default)
+        public Task AddAsync(Guid aggregateId, IEnumerable<IEvent> events, CancellationToken cancellationToken = default)
         {
             using var session = _store.OpenSession();
-            session.Events.Append(AsMartenId(aggregateId), events);
+            session.Events.Append(aggregateId, events);
             return session.SaveChangesAsync(cancellationToken);
         }
 
-        public Task<IEvent> GetAsync(long id, CancellationToken cancellationToken = default)
+        public async Task<IEvent> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            using var session = _store.OpenSession();
-            // return session.Events.LoadAsync(id, cancellationToken);
-            throw new NotImplementedException();
+            await using var session = _store.OpenSession();
+            var loaded = await session.Events.LoadAsync(id, cancellationToken);
+            return (IEvent)loaded.Data;
         }
 
         public IAsyncEnumerable<IEvent> StreamAsync(
-            long aggregateId,
+            Guid aggregateId,
             int startPosition = 0,
             int endPosition = int.MaxValue,
             CancellationToken cancellationToken = default)
@@ -48,29 +48,20 @@ namespace Safir.EventSourcing.Marten
             if (startPosition != 0) throw new NotSupportedException("Marten does not support specifying a start position");
             
             using var session = _store.OpenSession();
-            var stream = session.Events.FetchStreamAsync(
-                AsMartenId(aggregateId),
-                endPosition,
-                token: cancellationToken);
-            
+            var stream = session.Events.FetchStreamAsync(aggregateId, endPosition, token: cancellationToken);
             return stream.AsAsyncEnumerable(cancellationToken).Cast<IEvent>();
         }
 
         public IAsyncEnumerable<IEvent> StreamBackwardsAsync(
-            long aggregateId,
+            Guid aggregateId,
             int? count = null,
             CancellationToken cancellationToken = default)
         {
             using var session = _store.OpenSession();
-            var stream = session.Events.FetchStreamAsync(
-                AsMartenId(aggregateId),
-                token: cancellationToken);
-
+            var stream = session.Events.FetchStreamAsync(aggregateId, token: cancellationToken);
             return stream.AsAsyncEnumerable(cancellationToken)
                 .Reverse().Take(count ?? int.MaxValue)
                 .Cast<IEvent>();
         }
-
-        private static string AsMartenId(long aggregateId) => aggregateId.ToString();
     }
 }

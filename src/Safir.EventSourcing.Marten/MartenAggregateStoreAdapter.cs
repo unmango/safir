@@ -35,7 +35,13 @@ namespace Safir.EventSourcing.Marten
             return _eventStore.AddAsync(aggregate.Id, events, cancellationToken);
         }
 
-        public ValueTask<T> GetAsync<T>(long id, CancellationToken cancellationToken = default)
+        public Task StoreAsync<TAggregate, TId>(TAggregate aggregate, CancellationToken cancellationToken = default)
+            where TAggregate : class, IAggregate<TId>
+        {
+            throw new NotImplementedException();
+        }
+
+        public ValueTask<T> GetAsync<T>(Guid id, CancellationToken cancellationToken = default)
             where T : class, IAggregate, new()
         {
             using var session = _store.OpenSession();
@@ -43,11 +49,17 @@ namespace Safir.EventSourcing.Marten
                 id.ToString(),
                 state: new T(),
                 token: cancellationToken);
-            
+
             return new ValueTask<T>(task!); // TODO: Nullability
         }
 
-        public ValueTask<T> GetAsync<T>(long id, int version, CancellationToken cancellationToken = default)
+        public ValueTask<TAggregate> GetAsync<TAggregate, TId>(TId id, CancellationToken cancellationToken = default)
+            where TAggregate : class, IAggregate<TId>, new()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ValueTask<T> GetAsync<T>(Guid id, int version, CancellationToken cancellationToken = default)
             where T : class, IAggregate, new()
         {
             using var session = _store.OpenSession();
@@ -56,8 +68,14 @@ namespace Safir.EventSourcing.Marten
                 version,
                 state: new T(),
                 token: cancellationToken);
-            
+
             return new ValueTask<T>(task!); // TODO: Nullability
+        }
+
+        public ValueTask<TAggregate> GetAsync<TAggregate, TId>(TId id, int version, CancellationToken cancellationToken = default)
+            where TAggregate : IAggregate<TId>, new()
+        {
+            throw new NotImplementedException();
         }
     }
 }

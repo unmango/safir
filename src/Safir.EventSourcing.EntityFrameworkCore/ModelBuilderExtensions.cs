@@ -6,7 +6,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore
     [PublicAPI]
     public static class ModelBuilderExtensions
     {
-        public static void ConfigureEvents(this ModelBuilder builder)
+        public static void ApplyEventConfiguration(this ModelBuilder builder)
         {
             builder.ApplyConfiguration(new EventConfiguration());
         }

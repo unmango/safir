@@ -25,5 +25,8 @@ namespace Safir.EventSourcing
             where T : IEvent;
 
         ValueTask<IEvent> DeserializeAsync(Event<TAggregateId, TId> @event, CancellationToken cancellationToken = default);
+
+        ValueTask<T> DeserializeAsync<T>(Event<TAggregateId, TId> @event, CancellationToken cancellationToken = default)
+            where T : IEvent;
     }
 }

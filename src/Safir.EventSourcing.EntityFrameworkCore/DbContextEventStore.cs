@@ -64,6 +64,13 @@ namespace Safir.EventSourcing.EntityFrameworkCore
                 .Bind(x => Deserialize(x, cancellationToken));
         }
 
+        public Task<T> GetAsync<T>(Guid id, CancellationToken cancellationToken = default) where T : IEvent
+        {
+            _logger.LogTrace("Getting single event with id {Id}", id);
+            return GetEventSet().SingleAsync(x => x.Id == id, cancellationToken)
+                .Bind(x => Deserialize<T>(x, cancellationToken));
+        }
+
         public IAsyncEnumerable<IEvent> StreamBackwardsAsync(
             Guid aggregateId,
             int? count = null,
@@ -112,6 +119,12 @@ namespace Safir.EventSourcing.EntityFrameworkCore
         private Task<IEvent> Deserialize(Event @event, CancellationToken cancellationToken)
         {
             return _serializer.DeserializeAsync(@event, cancellationToken).AsTask();
+        }
+
+        private Task<T> Deserialize<T>(Event @event, CancellationToken cancellationToken)
+            where T : IEvent
+        {
+            return _serializer.DeserializeAsync<T>(@event, cancellationToken).AsTask();
         }
     }
 }

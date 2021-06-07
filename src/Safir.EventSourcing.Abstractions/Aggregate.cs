@@ -6,18 +6,26 @@ using Safir.Messaging;
 namespace Safir.EventSourcing
 {
     [PublicAPI]
-    public abstract record Aggregate : IAggregate
+    public abstract record Aggregate : Aggregate<Guid>, IAggregate
+    {
+        protected Aggregate() => Id = Guid.NewGuid();
+    }
+    
+    [PublicAPI]
+    public abstract record Aggregate<T> : IAggregate<T>
     {
         [NonSerialized]
         private readonly Queue<IEvent> _events = new();
+
+        public T Id { get; protected init; } = default!; // TODO: Nullability
         
-        public Guid Id { get; protected init; }
-        
-        public int Version { get; protected init; }
+        public int Version { get; protected set; }
 
         public IEnumerable<IEvent> Events => _events;
 
-        public virtual void Apply(IEvent @event) { }
+        protected virtual void Apply(IEvent @event) => TryUpdateVersion(@event);
+
+        void IAggregate<T>.Apply(IEvent @event) => Apply(@event);
 
         public IEnumerable<IEvent> DequeueEvents()
         {
@@ -28,5 +36,10 @@ namespace Safir.EventSourcing
         protected void ClearEvents() => _events.Clear();
 
         protected void Enqueue(IEvent @event) => _events.Enqueue(@event);
+
+        protected bool TryUpdateVersion(IEvent @event)
+        {
+            return (Version = Math.Max(Version, @event.Version)) == @event.Version;
+        }
     }
 }

@@ -21,7 +21,6 @@ namespace Safir.EventSourcing.Tests
             _eventStore = _mocker.GetMock<IEventStore>();
             _store = _mocker.CreateInstance<DefaultAggregateStore<FakeAggregate>>();
         }
-        
 
         [Theory]
         [InlineData(1)]
@@ -107,7 +106,7 @@ namespace Safir.EventSourcing.Tests
 
             public int NumApplied;
 
-            public override void Apply(IEvent @event)
+            protected override void Apply(IEvent @event)
             {
                 NumApplied++;
             }

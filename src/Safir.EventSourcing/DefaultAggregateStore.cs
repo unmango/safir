@@ -35,16 +35,13 @@ namespace Safir.EventSourcing
         public Task StoreAsync<TAggregate, TId>(TAggregate aggregate, CancellationToken cancellationToken = default)
             where TAggregate : IAggregate<TId>
         {
-            _logger.LogDebug("Fetching generic event store from service provider");
-            var store = _services.GetRequiredService<IEventStore<TId>>();
-            
             _logger.LogTrace("Dequeuing events on aggregate {Id}", aggregate.Id);
             var events = aggregate.DequeueEvents().ToList();
 
             if (!events.Any()) return Task.CompletedTask;
 
             _logger.LogTrace("Adding events to event store");
-            return store.AddAsync(aggregate.Id, events, cancellationToken);
+            return StoreFor<TId>().AddAsync(aggregate.Id, events, cancellationToken);
         }
 
         public ValueTask<T> GetAsync<T>(Guid id, CancellationToken cancellationToken = default)
@@ -59,12 +56,9 @@ namespace Safir.EventSourcing
         public ValueTask<TAggregate> GetAsync<TAggregate, TId>(TId id, CancellationToken cancellationToken = default)
             where TAggregate : IAggregate<TId>, new()
         {
-            _logger.LogDebug("Fetching generic event store from service provider");
-            var store = _services.GetRequiredService<IEventStore<TId>>();
-            
             _logger.LogDebug("Getting event stream for aggregate {Id}", id);
             // TODO: This cancellation token situation...
-            return store.StreamAsync(id, cancellationToken)
+            return StoreFor<TId>().StreamAsync(id, cancellationToken)
                 .AggregateAsync<TAggregate, TId>(cancellationToken);
         }
 
@@ -80,13 +74,23 @@ namespace Safir.EventSourcing
         public ValueTask<TAggregate> GetAsync<TAggregate, TId>(TId id, int version, CancellationToken cancellationToken = default)
             where TAggregate : IAggregate<TId>, new()
         {
-            _logger.LogDebug("Fetching generic event store from service provider");
-            var store = _services.GetRequiredService<IEventStore<TId>>();
-            
             _logger.LogDebug("Getting event stream for aggregate {Id} with version {Version}", id, version);
             // TODO: This cancellation token situation...
-            return store.StreamAsync(id, version, cancellationToken)
+            return StoreFor<TId>().StreamAsync(id, version, cancellationToken)
                 .AggregateAsync<TAggregate, TId>(cancellationToken);
+        }
+
+        private IEventStore<T> StoreFor<T>()
+        {
+            if (_store is IEventStore<T> store)
+            {
+                _logger.LogTrace("Using original event store");
+                return store;
+            }
+
+            // TODO: Do we need to worry about scope?
+            _logger.LogDebug("Fetching generic event store from service provider");
+            return _services.GetRequiredService<IEventStore<T>>();
         }
     }
 }

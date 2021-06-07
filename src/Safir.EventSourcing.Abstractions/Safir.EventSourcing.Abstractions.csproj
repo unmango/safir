@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Safir.EventSourcing.Abstractions</Product>
     <Description>Abstractions for Safir.EventSourcing.</Description>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
     <RootNamespace>Safir.EventSourcing</RootNamespace>
   </PropertyGroup>
 

@@ -1,7 +1,9 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Moq;
 using Moq.AutoMock;
+using Safir.Messaging;
 using Xunit;
 
 namespace Safir.EventSourcing.Tests
@@ -14,6 +16,50 @@ namespace Safir.EventSourcing.Tests
         public EventStoreExtensionsTests()
         {
             _store = _mocker.GetMock<IEventStore>();
+        }
+
+        [Fact]
+        public async Task CreatAsync_CreatesNewAggregate()
+        {
+            var @event = new MockEvent();
+
+            var aggregate = await _store.Object.CreateAsync<MockAggregate, Guid>(@event);
+            
+            _store.Verify(x => x.AddAsync(aggregate.Id, @event, It.IsAny<CancellationToken>()));
+            Assert.Contains(@event, aggregate.Events);
+        }
+
+        [Fact]
+        public async Task CreatAsync_CreatesNewAggregateWithAllEvents()
+        {
+            var events = new[] { new MockEvent(), new MockEvent() };
+
+            var aggregate = await _store.Object.CreateAsync<MockAggregate, Guid>(events);
+            
+            _store.Verify(x => x.AddAsync(aggregate.Id, events, It.IsAny<CancellationToken>()));
+            Assert.Equal(events, aggregate.Events);
+        }
+
+        [Fact]
+        public async Task NewAsync_CreatesNewEventStream()
+        {
+            var @event = new MockEvent();
+
+            var id = await _store.Object.NewAsync(@event);
+            
+            _store.Verify(x => x.AddAsync(id, @event, It.IsAny<CancellationToken>()));
+            Assert.NotEqual(Guid.Empty, id);
+        }
+
+        [Fact]
+        public async Task NewAsync_CreatesNewEventStreamWithAllEvents()
+        {
+            var events = new[] { new MockEvent(), new MockEvent() };
+
+            var id = await _store.Object.NewAsync(events);
+            
+            _store.Verify(x => x.AddAsync(id, events, It.IsAny<CancellationToken>()));
+            Assert.NotEqual(Guid.Empty, id);
         }
 
         [Fact]
@@ -83,6 +129,20 @@ namespace Safir.EventSourcing.Tests
                 0,
                 endPosition,
                 default));
+        }
+
+        private record MockEvent : IEvent
+        {
+            // ReSharper disable once UnassignedGetOnlyAutoProperty
+            public DateTime Occurred { get; }
+        }
+
+        private record MockAggregate : Aggregate
+        {
+            protected override void Apply(IEvent @event)
+            {
+                Enqueue(@event);
+            }
         }
     }
 }

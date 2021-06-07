@@ -72,5 +72,12 @@ namespace Safir.EventSourcing
             _logger.LogTrace("Deserializing event using type discriminator");
             return (IEvent)await _serializer.DeserializeAsync(type, @event.Data, cancellationToken);
         }
+
+        public ValueTask<T> DeserializeAsync<T>(Event<TAggregateId, TId> @event, CancellationToken cancellationToken = default)
+            where T : IEvent
+        {
+            _logger.LogTrace("Deserializing using generic type argument");
+            return _serializer.DeserializeAsync<T>(@event.Data, cancellationToken);
+        }
     }
 }

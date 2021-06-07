@@ -23,6 +23,9 @@ namespace Safir.EventSourcing
 
         Task<IEvent> GetAsync(TId id, CancellationToken cancellationToken = default);
 
+        Task<T> GetAsync<T>(TId id, CancellationToken cancellationToken = default)
+            where T : IEvent;
+
         IAsyncEnumerable<IEvent> StreamAsync(
             TAggregateId aggregateId,
             int startPosition = 0,

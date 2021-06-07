@@ -10,10 +10,10 @@ namespace Safir.EventSourcing
 {
     [PublicAPI]
     public abstract class EventStore : EventStore<Guid, Guid>, IEventStore { }
-    
+
     [PublicAPI]
     public abstract class EventStore<T> : EventStore<T, Guid>, IEventStore<T> { }
-    
+
     [PublicAPI]
     public abstract class EventStore<TAggregateId, TId> : IEventStore<TAggregateId, TId>
     {
@@ -28,6 +28,12 @@ namespace Safir.EventSourcing
         }
 
         public abstract Task<IEvent> GetAsync(TId id, CancellationToken cancellationToken = default);
+
+        public virtual async Task<T> GetAsync<T>(TId id, CancellationToken cancellationToken = default)
+            where T : IEvent
+        {
+            return (T)await GetAsync(id, cancellationToken);
+        }
 
         public virtual IAsyncEnumerable<IEvent> StreamBackwardsAsync(
             TAggregateId aggregateId,

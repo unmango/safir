@@ -105,7 +105,7 @@ namespace Safir.EventSourcing.Tests
 
             public int NumApplied;
 
-            public override void Apply(IEvent @event)
+            protected override void Apply(IEvent @event)
             {
                 NumApplied++;
             }

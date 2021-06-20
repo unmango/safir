@@ -53,7 +53,8 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
 
             await _store.AddAsync(id, events);
             
-            _serializer.Verify(x => x.SerializeAsync(id, It.IsAny<IEvent>(), It.IsAny<CancellationToken>()), Times.Exactly(count));
+            _serializer.Verify(
+                x => x.SerializeAsync(id, It.IsAny<IEvent>(), It.IsAny<CancellationToken>()), Times.Exactly(count));
             Assert.Contains(serialized, _context.Set<Event>());
         }
 
@@ -66,7 +67,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests
             await _context.AddAsync(serialized with { Metadata = new Metadata() });
             await _context.SaveChangesAsync();
 
-            await _store.GetAsync(entry.Entity.Id);
+            await _store.GetAsync<Guid>(entry.Entity.Id);
             
             _serializer.Verify(x => x.DeserializeAsync(entry.Entity, It.IsAny<CancellationToken>()));
         }

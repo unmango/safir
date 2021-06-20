@@ -43,16 +43,7 @@ namespace Safir.EventSourcing
 
         public static async IAsyncEnumerable<IEvent> DeserializeAsync<T>(
             this IAsyncEnumerable<Event<T>> events,
-            IEventSerializer<T> serializer,
-            [EnumeratorCancellation] CancellationToken cancellationToken)
-        {
-            await foreach (var @event in events.WithCancellation(cancellationToken))
-                yield return await serializer.DeserializeAsync(@event, cancellationToken);
-        }
-
-        public static async IAsyncEnumerable<IEvent> DeserializeAsync<TAggregateId, TId>(
-            this IAsyncEnumerable<Event<TAggregateId, TId>> events,
-            IEventSerializer<TAggregateId, TId> serializer,
+            IEventSerializer serializer,
             [EnumeratorCancellation] CancellationToken cancellationToken)
         {
             await foreach (var @event in events.WithCancellation(cancellationToken))

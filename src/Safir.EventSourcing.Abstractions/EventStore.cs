@@ -9,17 +9,14 @@ using Safir.Messaging;
 namespace Safir.EventSourcing
 {
     [PublicAPI]
-    public abstract class EventStore : EventStore<Guid, Guid>, IEventStore { }
-
-    [PublicAPI]
-    public abstract class EventStore<T> : EventStore<T, Guid>, IEventStore<T> { }
-
-    [PublicAPI]
-    public abstract class EventStore<TAggregateId, TId> : IEventStore<TAggregateId, TId>
+    public abstract class EventStore : IEventStore
     {
-        public abstract Task AddAsync(TAggregateId aggregateId, IEvent @event, CancellationToken cancellationToken = default);
+        public abstract Task AddAsync<TAggregateId>(
+            TAggregateId aggregateId,
+            IEvent @event,
+            CancellationToken cancellationToken = default);
 
-        public virtual Task AddAsync(
+        public virtual Task AddAsync<TAggregateId>(
             TAggregateId aggregateId,
             IEnumerable<IEvent> events,
             CancellationToken cancellationToken = default)
@@ -27,23 +24,27 @@ namespace Safir.EventSourcing
             return Task.WhenAll(events.Select(x => AddAsync(aggregateId, x, cancellationToken)));
         }
 
-        public abstract Task<IEvent> GetAsync(TId id, CancellationToken cancellationToken = default);
+        public abstract Task<IEvent> GetAsync<TAggregateId>(Guid id, CancellationToken cancellationToken = default);
 
-        public virtual async Task<T> GetAsync<T>(TId id, CancellationToken cancellationToken = default)
-            where T : IEvent
+        public virtual async Task<TEvent> GetAsync<TEvent, TAggregateId>(
+            Guid id,
+            CancellationToken cancellationToken = default)
+            where TEvent : IEvent
         {
-            return (T)await GetAsync(id, cancellationToken);
+            return (TEvent)await GetAsync<TAggregateId>(id, cancellationToken);
         }
 
-        public virtual IAsyncEnumerable<IEvent> StreamBackwardsAsync(
+        public virtual IAsyncEnumerable<IEvent> StreamBackwardsAsync<TAggregateId>(
             TAggregateId aggregateId,
             int? count = null,
             CancellationToken cancellationToken = default)
         {
-            return StreamAsync(aggregateId, int.MaxValue, count ?? int.MinValue, cancellationToken);
+            // TODO: Swapping start/end is inconsistent in impl. For example the DBContext
+            // impl doesn't allow start to be after end
+            return StreamAsync(aggregateId, int.MaxValue, count ?? 0, cancellationToken);
         }
 
-        public abstract IAsyncEnumerable<IEvent> StreamAsync(
+        public abstract IAsyncEnumerable<IEvent> StreamAsync<TAggregateId>(
             TAggregateId aggregateId,
             int startPosition = 0,
             int endPosition = int.MaxValue,

@@ -27,12 +27,15 @@ namespace Safir.EventSourcing.EntityFrameworkCore
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task AddAsync(Guid aggregateId, IEvent @event, CancellationToken cancellationToken = default)
+        public async Task AddAsync<TAggregateId>(
+            TAggregateId aggregateId,
+            IEvent @event,
+            CancellationToken cancellationToken = default)
         {
             _logger.LogTrace("Serializing event {Event}", @event);
             var serialized = await _serializer.SerializeAsync(aggregateId, @event, cancellationToken);
             _logger.LogTrace("Serialized event {Event}", @event);
-            
+
             _logger.LogTrace("Adding event {Event}", @event);
             await _context.AddAsync(serialized, cancellationToken);
             _logger.LogTrace("Added event {Event}", @event);
@@ -42,12 +45,15 @@ namespace Safir.EventSourcing.EntityFrameworkCore
             _logger.LogTrace("Saved changes asynchronously");
         }
 
-        public async Task AddAsync(Guid aggregateId, IEnumerable<IEvent> events, CancellationToken cancellationToken = default)
+        public async Task AddAsync<TAggregateId>(
+            TAggregateId aggregateId,
+            IEnumerable<IEvent> events,
+            CancellationToken cancellationToken = default)
         {
             _logger.LogTrace("Serializing events {Events}", events);
             var serialized = await events.Select(x => _serializer.SerializeAsync(aggregateId, x, cancellationToken));
             _logger.LogTrace("Serialized events {Events}", events);
-            
+
             _logger.LogTrace("Adding events {Events}", events);
             await _context.AddRangeAsync(serialized, cancellationToken);
             _logger.LogTrace("Added events {Events}", events);
@@ -57,41 +63,33 @@ namespace Safir.EventSourcing.EntityFrameworkCore
             _logger.LogTrace("Saved changes asynchronously");
         }
 
-        public Task<IEvent> GetAsync(Guid id, CancellationToken cancellationToken = default)
+        public Task<IEvent> GetAsync<TAggregateId>(Guid id, CancellationToken cancellationToken = default)
         {
+            if (id == null) throw new ArgumentNullException(nameof(id));
+
             _logger.LogTrace("Getting single event with id {Id}", id);
-            return GetEventSet().SingleAsync(x => x.Id == id, cancellationToken)
+            return GetEventSet<TAggregateId>().SingleAsync(x => id.Equals(x.Id), cancellationToken)
                 .Bind(x => Deserialize(x, cancellationToken));
         }
 
-        public Task<T> GetAsync<T>(Guid id, CancellationToken cancellationToken = default) where T : IEvent
+        public Task<TEvent> GetAsync<TEvent, TAggregateId>(Guid id, CancellationToken cancellationToken = default)
+            where TEvent : IEvent
         {
+            if (id == null) throw new ArgumentNullException(nameof(id));
+
             _logger.LogTrace("Getting single event with id {Id}", id);
-            return GetEventSet().SingleAsync(x => x.Id == id, cancellationToken)
-                .Bind(x => Deserialize<T>(x, cancellationToken));
+            return GetEventSet<TAggregateId>().SingleAsync(x => id.Equals(x.Id), cancellationToken)
+                .Bind(x => Deserialize<TEvent, TAggregateId>(x, cancellationToken));
         }
 
-        public IAsyncEnumerable<IEvent> StreamBackwardsAsync(
-            Guid aggregateId,
-            int? count = null,
-            CancellationToken cancellationToken = default)
-        {
-            var logCount = count.HasValue ? $"{count}" : "all";
-            _logger.LogTrace("Streaming {Count} event(s) backwards with aggregate Id {Id}", logCount, aggregateId);
-            return GetEventSet()
-                .Where(x => x.AggregateId == aggregateId)
-                .OrderByDescending(x => x.Position)
-                .Take(count ?? int.MaxValue)
-                .AsAsyncEnumerable()
-                .DeserializeAsync(_serializer, cancellationToken);
-        }
-
-        public IAsyncEnumerable<IEvent> StreamAsync(
-            Guid aggregateId,
+        public IAsyncEnumerable<IEvent> StreamAsync<TAggregateId>(
+            TAggregateId aggregateId,
             int startPosition = 0,
             int endPosition = int.MaxValue,
             CancellationToken cancellationToken = default)
         {
+            if (aggregateId == null) throw new ArgumentNullException(nameof(aggregateId));
+
             if (startPosition > endPosition)
             {
                 throw new InvalidOperationException("Start position can't be after the end position");
@@ -103,28 +101,48 @@ namespace Safir.EventSourcing.EntityFrameworkCore
                 startPosition,
                 endPosition);
 
-            return GetEventSet()
-                .Where(x => x.AggregateId == aggregateId
+            return GetEventSet<TAggregateId>()
+                .Where(x => aggregateId.Equals(x.AggregateId)
                             && x.Position >= startPosition
                             && x.Position <= endPosition)
                 .AsAsyncEnumerable()
                 .DeserializeAsync(_serializer, cancellationToken);
         }
 
-        protected virtual IQueryable<Event> GetEventSet()
+        public IAsyncEnumerable<IEvent> StreamBackwardsAsync<TAggregateId>(
+            TAggregateId aggregateId,
+            int? count = null,
+            CancellationToken cancellationToken = default)
         {
-            return _context.Set<Event>().AsNoTracking();
+            if (aggregateId == null) throw new ArgumentNullException(nameof(aggregateId));
+
+            var logCount = count.HasValue ? $"{count}" : "all";
+            _logger.LogTrace("Streaming {Count} event(s) backwards with aggregate Id {Id}", logCount, aggregateId);
+            return GetEventSet<TAggregateId>()
+                .Where(x => aggregateId.Equals(x.AggregateId))
+                .OrderByDescending(x => x.Position)
+                .Take(count ?? int.MaxValue)
+                .AsAsyncEnumerable()
+                .DeserializeAsync(_serializer, cancellationToken);
         }
 
-        private Task<IEvent> Deserialize(Event @event, CancellationToken cancellationToken)
+        protected virtual IQueryable<Event<TAggregateId>> GetEventSet<TAggregateId>()
+        {
+            return _context.Set<Event<TAggregateId>>().AsNoTracking();
+        }
+
+        private Task<IEvent> Deserialize<TAggregateId>(Event<TAggregateId> @event, CancellationToken cancellationToken)
         {
             return _serializer.DeserializeAsync(@event, cancellationToken).AsTask();
         }
 
-        private Task<T> Deserialize<T>(Event @event, CancellationToken cancellationToken)
-            where T : IEvent
+        // TODO: Fix order of generic params
+        private Task<TEvent> Deserialize<TEvent, TAggregateId>(
+            Event<TAggregateId> @event,
+            CancellationToken cancellationToken)
+            where TEvent : IEvent
         {
-            return _serializer.DeserializeAsync<T>(@event, cancellationToken).AsTask();
+            return _serializer.DeserializeAsync<TAggregateId, TEvent>(@event, cancellationToken).AsTask();
         }
     }
 }

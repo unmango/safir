@@ -8,4 +8,10 @@ namespace Safir.EventSourcing.EntityFrameworkCore
     {
         DbSet<Event> Events { get; }
     }
+    
+    [PublicAPI]
+    public interface IEventDbContext<T>
+    {
+        DbSet<Event<T>> Events { get; }
+    }
 }

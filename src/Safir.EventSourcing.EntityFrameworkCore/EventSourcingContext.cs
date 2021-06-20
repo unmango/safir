@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Safir.EventSourcing.EntityFrameworkCore
 {
-    public class EventDbContext : DbContext, IEventDbContext
+    public class EventSourcingContext : DbContext, IEventDbContext
     {
-        public EventDbContext(DbContextOptions<EventDbContext> options) : base(options) { }
+        public EventSourcingContext(DbContextOptions<EventSourcingContext> options) : base(options) { }
         
-        protected EventDbContext() { }
+        protected EventSourcingContext() { }
         
         [PublicAPI]
         public DbSet<Event> Events => Set<Event>();
@@ -18,11 +18,11 @@ namespace Safir.EventSourcing.EntityFrameworkCore
         }
     }
     
-    public class EventDbContext<T> : DbContext, IEventDbContext<T>
+    public class EventSourcingContext<T> : DbContext, IEventDbContext<T>
     {
-        public EventDbContext(DbContextOptions<EventDbContext<T>> options) : base(options) { }
+        public EventSourcingContext(DbContextOptions<EventSourcingContext<T>> options) : base(options) { }
         
-        protected EventDbContext() { }
+        protected EventSourcingContext() { }
         
         [PublicAPI]
         public DbSet<Event<T>> Events => Set<Event<T>>();

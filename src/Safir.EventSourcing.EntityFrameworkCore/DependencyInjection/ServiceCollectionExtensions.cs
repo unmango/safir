@@ -13,6 +13,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.DependencyInjection
         {
             services.AddEventSourcing();
             services.AddDbContextEventStore();
+            services.AddDbContextSnapshotStore();
 
             return services;
         }
@@ -22,6 +23,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.DependencyInjection
         {
             services.AddEventSourcing();
             services.AddDbContextEventStore<T>();
+            services.AddDbContextSnapshotStore<T>();
 
             return services;
         }
@@ -33,8 +35,8 @@ namespace Safir.EventSourcing.EntityFrameworkCore.DependencyInjection
             this IServiceCollection services,
             Action<DbContextOptionsBuilder> configure)
         {
-            services.AddDbContext<EventDbContext>(configure);
-            services.AddDbContextEventStore<EventDbContext>();
+            services.AddDbContext<EventSourcingContext>(configure);
+            services.AddDbContextEventStore<EventSourcingContext>();
 
             return services;
         }
@@ -46,6 +48,29 @@ namespace Safir.EventSourcing.EntityFrameworkCore.DependencyInjection
         {
             services.AddScoped<IEventStore, DbContextEventStore<T>>();
             services.AddScoped<IEventStore<Guid>, DbContextEventStore<T>>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddDbContextSnapshotStore(this IServiceCollection services)
+            => services.AddDbContextSnapshotStore(_ => { });
+
+        public static IServiceCollection AddDbContextSnapshotStore(
+            this IServiceCollection services,
+            Action<DbContextOptionsBuilder> configure)
+        {
+            services.AddDbContext<EventSourcingContext>(configure);
+            services.AddDbContextSnapshotStore<EventSourcingContext>();
+
+            return services;
+        }
+
+        // TODO: We assume the consumer has already added the DbContext so it can be configured correctly.
+        // This may need to be revisited, because we require it in the event store and it may not exist.
+        public static IServiceCollection AddDbContextSnapshotStore<T>(this IServiceCollection services)
+            where T : DbContext
+        {
+            services.AddScoped<ISnapshotStore, DbContextSnapshotStore<T>>();
 
             return services;
         }

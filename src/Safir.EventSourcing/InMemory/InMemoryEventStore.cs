@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Safir.Common;
 using Safir.Messaging;
 
@@ -15,6 +16,14 @@ namespace Safir.EventSourcing.InMemory
         private readonly ILogger<InMemoryEventStore> _logger;
         private readonly ConcurrentDictionary<Guid, IEvent> _events = new();
         private readonly ConcurrentDictionary<Guid, object> _aggregateMap = new();
+
+        // For testing
+        internal InMemoryEventStore(ConcurrentDictionary<Guid, IEvent> events, ConcurrentDictionary<Guid, object> aggregateMap)
+        {
+            _events = events ?? throw new ArgumentNullException(nameof(events));
+            _aggregateMap = aggregateMap ?? throw new ArgumentNullException(nameof(aggregateMap));
+            _logger = NullLogger<InMemoryEventStore>.Instance;
+        }
 
         public InMemoryEventStore(ILogger<InMemoryEventStore> logger)
         {

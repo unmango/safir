@@ -19,5 +19,9 @@
     <PackageReference Include="MinVer" PrivateAssets="all" />
     <PackageReference Include="System.Text.Json" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="Safir.EventSourcing.Tests" />
+  </ItemGroup>
 
 </Project>

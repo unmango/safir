@@ -39,6 +39,8 @@
     <WarningsNotAsErrors>$(WarningsNotAsErrors);xUnit1004</WarningsNotAsErrors>
     <!-- Treat nullable warnings as errors -->
     <WarningsAsErrors>$(WarningsAsErrors);CS8600;CS8602;CS8603;CS8625</WarningsAsErrors>
+
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
   </PropertyGroup>
 
   <PropertyGroup>

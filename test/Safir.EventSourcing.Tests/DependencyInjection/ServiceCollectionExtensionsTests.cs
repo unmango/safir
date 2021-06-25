@@ -56,5 +56,14 @@ namespace Safir.EventSourcing.Tests.DependencyInjection
 
             Assert.Contains(_services, x => x.ServiceType == typeof(ISafirEventSourcing));
         }
+
+        [Fact]
+        public void CanResolveCoreServices()
+        {
+            var services = _services.AddEventSourcing().BuildServiceProvider();
+
+            _ = services.GetRequiredService<IEventStore>(); // TODO: Update with in-memory store
+            _ = services.GetRequiredService<IAggregateStore>();
+        }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Npgsql;
+using Safir.EventSourcing.EntityFrameworkCore;
 using Safir.Manager.Configuration;
 
 namespace Safir.Manager.Data
@@ -31,6 +32,7 @@ namespace Safir.Manager.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyEventConfiguration();
         }
     }
 }

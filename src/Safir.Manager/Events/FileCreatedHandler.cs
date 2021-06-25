@@ -1,11 +1,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Faithlife.Utility;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Safir.Agent.Protos;
-using Safir.Manager.Data;
-using Safir.Manager.Domain;
+using Safir.EventSourcing;
 using Safir.Messaging;
 
 namespace Safir.Manager.Events
@@ -13,25 +13,23 @@ namespace Safir.Manager.Events
     [UsedImplicitly]
     internal sealed class FileCreatedHandler : IEventHandler<FileCreated>
     {
-        private readonly ManagerContext _context;
+        private readonly IEventStore _eventStore;
         private readonly ILogger<FileCreatedHandler> _logger;
 
-        public FileCreatedHandler(ManagerContext context, ILogger<FileCreatedHandler> logger)
+        public FileCreatedHandler(IEventStore eventStore, ILogger<FileCreatedHandler> logger)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-            _logger = logger;
+            _eventStore = eventStore ?? throw new ArgumentNullException(nameof(eventStore));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         
-        public async Task HandleAsync(FileCreated message, CancellationToken cancellationToken = default)
+        public Task HandleAsync(FileCreated message, CancellationToken cancellationToken = default)
         {
-            _logger.LogInformation("Handling file created event");
+            _logger.LogDebug("Handling FileCreated event");
+            _logger.LogTrace("Generating a guid from the file path");
+            var id = GuidUtility.Create(GuidUtility.UrlNamespace, message.Path);
             
-            
-            
-            var file = new File(message.Path, "TODO", 12345);
-            _context.Files.
-            
-            throw new NotImplementedException();
+            _logger.LogTrace("Adding FileCreated event: {Id}", id);
+            return _eventStore.AddAsync(id, message, cancellationToken);
         }
     }
 }

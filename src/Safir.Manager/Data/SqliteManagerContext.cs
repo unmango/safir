@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Safir.EventSourcing.EntityFrameworkCore;
 using Safir.Manager.Configuration;
 
 namespace Safir.Manager.Data
@@ -26,6 +27,11 @@ namespace Safir.Manager.Data
             };
 
             optionsBuilder.UseSqlite(builder.ConnectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyEventConfiguration();
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Safir.Agent.Client.DependencyInjection;
+using Safir.EventSourcing.EntityFrameworkCore.DependencyInjection;
 using Safir.Manager.Configuration;
 using Safir.Manager.Data;
 using Safir.Manager.Events;
@@ -41,6 +42,7 @@ namespace Safir.Manager
 
             services.Configure<ManagerOptions>(Configuration);
             services.AddSafirAgentClient();
+            services.AddEntityFrameworkEventSourcing<ManagerContext>();
             services.AddSafirMessaging(options => {
                 options.ConnectionString = Configuration["Redis"];
             });

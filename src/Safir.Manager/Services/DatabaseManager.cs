@@ -18,7 +18,7 @@ namespace Safir.Manager.Services
         public DatabaseManager(IServiceProvider services, ILogger<DatabaseManager> logger)
         {
             _services = services ?? throw new ArgumentNullException(nameof(services));
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

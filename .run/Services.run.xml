@@ -8,6 +8,7 @@
             <option value="agent" />
             <option value="pgadmin" />
             <option value="db" />
+            <option value="redis" />
           </list>
         </option>
         <option name="sourceFilePath" value="docker-compose.yml" />

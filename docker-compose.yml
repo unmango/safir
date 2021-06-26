@@ -8,6 +8,7 @@ services:
     depends_on:
     - redis
     - agent
+    - db
 
   agent:
     image: unstoppablemango/safir-agent
@@ -26,3 +27,30 @@ services:
     - 6379:6379
     cap_add:
     - SYS_RESOURCE
+      
+  db:
+    image: postgres
+    ports:
+    - 5432:5432 
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+#      POSTGRES_PASSWORD_FILE: /run/secrets/postgres-passwd
+#      PGDATA: /var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+    - 8080:80
+    volumes:
+    - ~/.pgadmin:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: example@example.com
+      PGADMIN_DEFAULT_PASSWORD: password 
+      PGADMIN_DISABLE_POSTFIX: 'true'
+      # This doesn't actually work atm
+      # PGADMIN_CONFIG_SERVER_MODE: 'False' # Needs to be capitalized because python
+      # PGADMIN_CONFIG_DATA_DIR: "'/var/lib/pgadmin'" # Needs to be quoted because this gets passed to config.py
+      # PGADMIN_CONFIG_LOG_FILE: "'/var/log/pgadmin/pgadmin4.log'" # Needs to be quoted because this gets passed to config.py
+    depends_on:
+    - db

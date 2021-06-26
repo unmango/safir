@@ -58,14 +58,17 @@ namespace Safir.Agent.Services
                 return Task.CompletedTask;
             }
 
-            _logger.LogTrace("Creating filesystem watcher");
+            _logger.LogTrace("Creating filesystem watcher for {Directory}", root);
             _fileWatcher = new FileSystemWatcher(root) {
                 EnableRaisingEvents = true,
                 IncludeSubdirectories = true,
             };
 
+            _fileWatcher.Created += (sender, args) => _logger.LogTrace("File created");
+            _fileWatcher.Deleted += (sender, args) => _logger.LogTrace("File created");
+
             _logger.LogTrace("Assigning filesystem watcher event handlers");
-            CreateObservablesFromEvents(this, _fileWatcher);
+            CreateObservablesFromEvents(_fileWatcher);
 
             _logger.LogTrace("Finishing data directory watcher start");
             return Task.CompletedTask;
@@ -88,29 +91,34 @@ namespace Safir.Agent.Services
             return Task.CompletedTask;
         }
 
-        private static void CreateObservablesFromEvents(DataDirectoryWatcher service, FileSystemWatcher watcher)
+        private void CreateObservablesFromEvents(FileSystemWatcher watcher)
         {
-            service.Created = Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
+            _logger.LogTrace("Creating [Created] event observable");
+            Created = Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
                     x => watcher.Created += x,
                     x => watcher.Created -= x)
                 .Select(x => x.EventArgs);
 
-            service.Changed = Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
+            _logger.LogTrace("Creating [Changed] event observable");
+            Changed = Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
                     x => watcher.Changed += x,
                     x => watcher.Changed -= x)
                 .Select(x => x.EventArgs);
 
-            service.Deleted = Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
+            _logger.LogTrace("Creating [Deleted] event observable");
+            Deleted = Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
                     x => watcher.Deleted += x,
                     x => watcher.Deleted -= x)
                 .Select(x => x.EventArgs);
 
-            service.Renamed = Observable.FromEventPattern<RenamedEventHandler, RenamedEventArgs>(
+            _logger.LogTrace("Creating [Renamed] event observable");
+            Renamed = Observable.FromEventPattern<RenamedEventHandler, RenamedEventArgs>(
                     x => watcher.Renamed += x,
                     x => watcher.Renamed -= x)
                 .Select(x => x.EventArgs);
 
-            service.Error = Observable.FromEventPattern<ErrorEventHandler, ErrorEventArgs>(
+            _logger.LogTrace("Creating [Error] event observable");
+            Error = Observable.FromEventPattern<ErrorEventHandler, ErrorEventArgs>(
                     x => watcher.Error += x,
                     x => watcher.Error -= x)
                 .Select(x => x.EventArgs);

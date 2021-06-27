@@ -1,0 +1,12 @@
+{
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": true,
+  "deno.suggest.imports.hosts": {
+    "https://esm.sh": false,
+    "https://deno.land": false
+  },
+  "deno.importMap": "./import_map.json",
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false
+}

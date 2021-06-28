@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "deno",
+      "command": "run",
+      "args": [
+				"--import-map=import_map.json",
+				"--allow-net",
+				"src/server.tsx"
+			],
+      "problemMatcher": [
+        "$deno"
+      ],
+      "label": "deno: run"
+    },
+    {
+      "type": "deno",
+      "command": "run",
+      "args": [
+				"--import-map=import_map.json",
+				"--inspect",
+				"--allow-net",
+				"src/server.tsx"
+			],
+      "problemMatcher": [
+        "$deno"
+      ],
+      "label": "deno: debug"
+    },
+    {
+      "type": "shell",
+      "command": "$DENO_DIR/bin/denon",
+      "args": ["start"],
+      "problemMatcher": [
+        "$deno"
+      ],
+      "label": "denon: run"
+    }
+  ]
+}

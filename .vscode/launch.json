@@ -1,0 +1,45 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Firefox",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "port": 9229,
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "reloadOnChange": {
+        "watch": "${workspaceFolder}/**/*.{ts,tsx,js,jsx}",
+        "ignore": "**/node_modules/**"
+      }
+    },
+    {
+      "name": "Deno: Run",
+      "request": "launch",
+      "type": "pwa-node",
+      "program": "src/server.tsx",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "run",
+        "--import-map=import_map.json",
+        "--inspect",
+        "--allow-net"
+      ],
+      "attachSimplePort": 9229
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Firefox: Debug",
+      "configurations": [
+        "Deno: Run",
+        "Launch Firefox"
+      ]
+    }
+  ]
+}

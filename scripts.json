@@ -1,0 +1,12 @@
+{
+  "$schema": "https://cdn.deno.land/denon/versions/2.4.8/raw/schema.json",
+  "scripts": {
+    "start": {
+      "cmd": "deno run src/server.tsx",
+      "desc": "Run HTTP server",
+      "allow": ["net"],
+      "importmap": "import_map.json"
+    },
+    "test": "deno test"
+  }
+}

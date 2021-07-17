@@ -1,6 +1,6 @@
 version: 2
 updates:
-- directory: '/'
+- directory: '/src/dotnet'
   open-pull-requests-limit: 10
   package-ecosystem: nuget
   schedule:

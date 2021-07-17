@@ -17,8 +17,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Protobuf Include="../../protos/**/*.proto" />
-    <Protobuf Update="..\..\protos\agent\*.proto">
+    <Protobuf Include="../../../../protos/**/*.proto" />
+    <Protobuf Update="../../../../protos/agent/*.proto">
       <Link>Agent\$(FileName).proto</Link>
     </Protobuf>
   </ItemGroup>

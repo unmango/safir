@@ -4,8 +4,8 @@ on:
     branches: [main]
     tags: ["*.*.*"]
     paths:
-    - "Directory.build.*"
-    - "src/**"
+    - "src/dotnet/Directory.build.*"
+    - "src/dotnet/src/**"
 env:
   DOTNET_NOLOGO: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -13,6 +13,9 @@ env:
 jobs:
   package_build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/dotnet
     steps:
     - uses: actions/checkout@v2
       with:

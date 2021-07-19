@@ -1652,6 +1652,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@grpc/grpc-js@npm:^1.3.5":
+  version: 1.3.5
+  resolution: "@grpc/grpc-js@npm:1.3.5"
+  dependencies:
+    "@types/node": ">=12.12.47"
+  checksum: 2acf1f73a861f81f84797f631821804c0f54ced6d16209a95f0c33a661610af2a646577f6d2571c01a351543b03aa9d7593d2977a8ed41f7a75b8577df3187fa
+  languageName: node
+  linkType: hard
+
 "@hapi/address@npm:2.x.x":
   version: 2.1.4
   resolution: "@hapi/address@npm:2.1.4"
@@ -2448,6 +2457,13 @@ __metadata:
   version: 14.14.31
   resolution: "@types/node@npm:14.14.31"
   checksum: 5b9ab3660ee63abc57affc836c0d50b2941a862c5b6c241c02762d8e1ad610f6b0d350d7426218dc401b5abc7d6294ee1b475da7c331e486d59a5608d1a0b777
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:>=12.12.47":
+  version: 16.3.2
+  resolution: "@types/node@npm:16.3.2"
+  checksum: 11896edc7022a40f8938e64f57e497b3110ca732bdef785f86f0a0a819609e9b78ad0c950dcaa59177bc299f2793489b605a3e713cdf7900a39031f0018e2134
   languageName: node
   linkType: hard
 
@@ -13680,6 +13696,7 @@ resolve@^2.0.0-next.3:
   version: 0.0.0-use.local
   resolution: "safir-ui@workspace:."
   dependencies:
+    "@grpc/grpc-js": ^1.3.5
     "@testing-library/dom": ^8.1.0
     "@testing-library/jest-dom": ^5.14.1
     "@testing-library/react": ^12.0.0

@@ -55,6 +55,9 @@ namespace Safir.Agent
 
             app.UseSerilogRequestLogging();
             app.UseRouting();
+            app.UseGrpcWeb(new GrpcWebOptions {
+                DefaultEnabled = true
+            });
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapGrpcService<FileSystemService>();

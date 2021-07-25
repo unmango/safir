@@ -1,6 +1,7 @@
 {
   "name": "safir",
   "private": true,
+  "license": "GPL-3.0-or-later",
   "scripts": {
     "build": "yarn workspaces foreach -vpt run build",
     "pack": "yarn workspaces foreach run pack",

@@ -1,5 +1,6 @@
 {
   "name": "@safir/protos",
+  "license": "GPL-3.0-or-later",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

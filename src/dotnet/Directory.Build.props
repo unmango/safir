@@ -8,6 +8,7 @@
 
     <Authors>UnstoppableMango</Authors>
     <Product>Safir.Common</Product>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageProjectUrl>https://github.com/unmango/safir-common</PackageProjectUrl>
     <RepositoryUrl>https://github.com/unmango/safir-common</RepositoryUrl>

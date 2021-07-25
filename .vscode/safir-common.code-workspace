@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../src/node"
+		},
+		{
+			"path": "../src/dotnet"
+		}
+	],
+	"settings": {}
+}

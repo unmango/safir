@@ -1,0 +1,12 @@
+{
+  "name": "safir",
+  "private": true,
+  "scripts": {
+    "build": "yarn workspaces foreach -vpt run build",
+    "pack": "yarn workspaces foreach run pack",
+    "test": "yarn workspaces foreach run test"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

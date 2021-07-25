@@ -1,0 +1,38 @@
+name: Node Pull Request
+on:
+  pull_request:
+    paths:
+    - protos/**
+    - src/node/**
+env:
+  CI: true
+jobs:
+  node_build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/node
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node
+      uses: actions/setup-node@v2
+
+    - name: Install Protoc
+      if: ${{ !env.ACT }}
+      uses: arduino/setup-protoc@v1
+
+    - name: Install grpc-web plugin
+      run: ./scripts/install-grpc-web.sh
+
+    - name: Use Yarn 2
+      run: yarn set version berry
+
+    - name: Restore dependencies
+      run: yarn install --immutable --check-cache
+
+    - name: Build app
+      run: yarn build
+
+    - name: Run tests
+      run: yarn test

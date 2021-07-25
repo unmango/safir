@@ -29,7 +29,7 @@ jobs:
       run: ./scripts/install-grpc-web.sh
 
     - name: Use Yarn 2
-      run: yarn set version berry
+      run: yarn set version berry --only-if-needed
 
     - name: Restore dependencies
       run: yarn install --immutable --check-cache

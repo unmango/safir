@@ -1,6 +1,11 @@
 {
   "name": "@safir/agent-client",
   "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/unmango/safir-common.git",
+    "directory": "src/node/packages/agent-client"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

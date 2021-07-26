@@ -1,8 +1,11 @@
 {
   "branches": ["main"],
   "plugins": [
+    ["@semantic-release/exec", {
+      "analyzeCommitsCmd": "../../scripts/analyzeCommits.sh"
+    }],
     ["@semantic-release/npm", {
-      "pkgRoot": "dist"
+      "pkgRoot": "."
     }],
     ["@semantic-release/git", {
       "assets": ["package.json"]

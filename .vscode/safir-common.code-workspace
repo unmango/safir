@@ -10,5 +10,9 @@
 			"path": "../src/dotnet"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			".releaserc": "json"
+		}
+	}
 }

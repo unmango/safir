@@ -1,0 +1,11 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    ["@semantic-release/npm", {
+      "pkgRoot": "dist"
+    }],
+    ["@semantic-release/git", {
+      "assets": ["package.json"]
+    }]
+  ]
+}

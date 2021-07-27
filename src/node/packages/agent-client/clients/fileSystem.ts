@@ -1,6 +1,6 @@
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import { firstValueFrom, Observable, Subject, toArray } from 'rxjs';
-import { agent } from '@safir/protos';
+import { agent } from '@unmango/safir-protos';
 
 export interface FileSystemClient {
   list(): Observable<string>;

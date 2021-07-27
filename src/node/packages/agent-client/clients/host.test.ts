@@ -1,7 +1,7 @@
-import { agent } from '@safir/protos';
+import { agent } from '@unmango/safir-protos';
 import { createClient, getInfoAsync } from './host';
 
-jest.mock('@safir/protos');
+jest.mock('@unmango/safir-protos');
 
 const baseUrl = 'testUrl';
 const mock = jest.fn();

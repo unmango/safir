@@ -1,7 +1,7 @@
-import { FileSystemClient } from '@safir/protos/dist/agent';
+import { FileSystemClient } from '@unmango/safir-protos/dist/agent';
 import { createClient, list, listAsync } from './fileSystem';
 
-jest.mock('@safir/protos/dist/agent');
+jest.mock('@unmango/safir-protos/dist/agent');
 
 const baseUrl = 'testUrl';
 

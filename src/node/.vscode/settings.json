@@ -5,6 +5,9 @@
   },
   "eslint.alwaysShowStatus": true,
   "eslint.nodePath": ".yarn/sdks",
+  "files.associations": {
+    ".releaserc": "json"
+  },
   "npm.packageManager": "yarn",
   "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "search.exclude": {
@@ -15,5 +18,8 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "[javascript]": {
     "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.formatOnSave": false
   }
 }

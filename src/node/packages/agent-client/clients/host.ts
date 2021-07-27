@@ -1,5 +1,5 @@
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
-import { agent } from '@safir/protos';
+import { agent } from '@unmango/safir-protos';
 
 export interface HostClient {
   getInfoAsnc(): Promise<agent.HostInfo>;

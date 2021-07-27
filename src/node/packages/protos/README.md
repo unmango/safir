@@ -1,4 +1,4 @@
-# @safir/protos
+# @unmango/safir-protos
 
 Generated gRPC client package for Safir
 

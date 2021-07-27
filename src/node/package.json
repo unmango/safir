@@ -2,9 +2,14 @@
   "name": "safir",
   "private": true,
   "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unmango/safir-common.git",
+    "directory": "src/node"
+  },
   "scripts": {
     "build": "yarn workspaces foreach -vpt run build",
-    "pack": "yarn workspaces foreach run pack",
+    "publish": "yarn workspaces foreach -vp run publish",
     "test": "yarn workspaces foreach run test"
   },
   "workspaces": [

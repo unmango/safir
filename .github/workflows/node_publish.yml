@@ -20,6 +20,12 @@ jobs:
         fetch-depth: 0
 
     - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+
+    - name: Install MinVer CLI
+      run: dotnet tool install --global minver-cli
+
+    - name: Setup Node.js
       uses: actions/setup-node@v2
 
     - name: Install Protoc
@@ -29,7 +35,7 @@ jobs:
       run: ./scripts/install-grpc-web.sh
 
     - name: Use Yarn 2
-      run: yarn set version berry
+      run: yarn set version berry --only-if-needed
 
     - name: Restore dependencies
       run: yarn install --immutable --check-cache
@@ -39,3 +45,8 @@ jobs:
 
     - name: Run tests
       run: yarn test
+
+    - name: Publish packages
+      run: yarn publish
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

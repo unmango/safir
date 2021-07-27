@@ -1652,15 +1652,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grpc/grpc-js@npm:^1.3.5":
-  version: 1.3.5
-  resolution: "@grpc/grpc-js@npm:1.3.5"
-  dependencies:
-    "@types/node": ">=12.12.47"
-  checksum: 2acf1f73a861f81f84797f631821804c0f54ced6d16209a95f0c33a661610af2a646577f6d2571c01a351543b03aa9d7593d2977a8ed41f7a75b8577df3187fa
-  languageName: node
-  linkType: hard
-
 "@hapi/address@npm:2.x.x":
   version: 2.1.4
   resolution: "@hapi/address@npm:2.1.4"
@@ -2894,6 +2885,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@unmango/safir-agent-client@npm:^0.7.3-alpha.0.1":
+  version: 0.7.3-alpha.0.1
+  resolution: "@unmango/safir-agent-client@npm:0.7.3-alpha.0.1"
+  dependencies:
+    "@unmango/safir-protos": 0.7.3-alpha.0.1
+    google-protobuf: ^3.17.3
+    grpc-web: ^1.2.1
+    rxjs: ^7.2.0
+  checksum: 7ace4e66613452523622ad537c18a1b6c7a7f4b0c34ba41a398b59c92251132345896342e66f0a49e74695819deb9d41ac605961e51b09e15c8b6e6f7897bd50
+  languageName: node
+  linkType: hard
+
+"@unmango/safir-protos@npm:0.7.3-alpha.0.1":
+  version: 0.7.3-alpha.0.1
+  resolution: "@unmango/safir-protos@npm:0.7.3-alpha.0.1"
+  dependencies:
+    google-protobuf: ^3.17.3
+    grpc-web: ^1.2.1
+  checksum: 0e640e8985f573a24193caeef2e533a1bb8333b0986d3c5ab60a7a3dfadd978bc7cc34edff482185f844b5642c7ef5c783a797ed2999d31c86c977bf25b85b9a
+  languageName: node
+  linkType: hard
+
 "@webassemblyjs/ast@npm:1.9.0":
   version: 1.9.0
   resolution: "@webassemblyjs/ast@npm:1.9.0"
@@ -3677,15 +3690,6 @@ __metadata:
   version: 4.1.2
   resolution: "axe-core@npm:4.1.2"
   checksum: e26d155e1dcaa48dffcbded84739c96c350069e20c52cb1ebdeaa8e2881a6ce683961276b3de57ca66b6ba8bd4d2beaed54d504c818198757c98d790586f7a92
-  languageName: node
-  linkType: hard
-
-"axios@npm:^0.21.1":
-  version: 0.21.1
-  resolution: "axios@npm:0.21.1"
-  dependencies:
-    follow-redirects: ^1.10.0
-  checksum: 864fb7b5d077d236737f10adca53bf451a93f35a15271f56fba8da07265a02d26b7d881b935a6697dc6adb0549ea3e56d2eecb403edaa3bb78f6479901c10f69
   languageName: node
   linkType: hard
 
@@ -7236,16 +7240,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.10.0":
-  version: 1.14.1
-  resolution: "follow-redirects@npm:1.14.1"
-  peerDependenciesMeta:
-    debug:
-      optional: true
-  checksum: 761a18699688b19d66b3e9199ecaf9cd39ede953f3529299c7fca4190b27b855c17c491170977844d5db5e169ffc35ebae999bb0833e9c9c61988d19c20ae7ab
-  languageName: node
-  linkType: hard
-
 "for-in@npm:^1.0.2":
   version: 1.0.2
   resolution: "for-in@npm:1.0.2"
@@ -7671,6 +7665,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"google-protobuf@npm:^3.17.3":
+  version: 3.17.3
+  resolution: "google-protobuf@npm:3.17.3"
+  checksum: 0a98f505041d138a9330dd4bc491ea153cab2372fdbf797c1c650062335ad17ffd5bee37980183875dc83fa92570cc651df1b92357810347dcb645c9e46eb992
+  languageName: node
+  linkType: hard
+
 "graceful-fs@npm:^4.1.11, graceful-fs@npm:^4.1.15, graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6":
   version: 4.2.6
   resolution: "graceful-fs@npm:4.2.6"
@@ -7682,6 +7683,13 @@ fsevents@^1.2.7:
   version: 1.3.0
   resolution: "growly@npm:1.3.0"
   checksum: 53cdecd4c16d7d9154a9061a9ccb87d602e957502ca69b529d7d1b2436c2c0b700ec544fc6b3e4cd115d59b81e62e44ce86bd0521403b579d3a2a97d7ce72a44
+  languageName: node
+  linkType: hard
+
+"grpc-web@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "grpc-web@npm:1.2.1"
+  checksum: a6d91802731234559447d4a460510d46468e8e4d42950d35c3fcbf060868e5eceb0c495def22b900f815d0ba0da9d8c080c30703c06c3d7b9cba46725a1adcfb
   languageName: node
   linkType: hard
 
@@ -13662,6 +13670,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"rxjs@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "rxjs@npm:7.2.0"
+  dependencies:
+    tslib: ~2.1.0
+  checksum: 45b46a5adcfcdbb36dccde6764f186a5ed76418531ba95a3f91662435f504c1b7ad0858c23b02479f24a2f307a293c87deddfecfddfa20e249f50cecb2199654
+  languageName: node
+  linkType: hard
+
 "safe-buffer@npm:5.1.2, safe-buffer@npm:~5.1.0, safe-buffer@npm:~5.1.1":
   version: 5.1.2
   resolution: "safe-buffer@npm:5.1.2"
@@ -13696,7 +13713,6 @@ resolve@^2.0.0-next.3:
   version: 0.0.0-use.local
   resolution: "safir-ui@workspace:."
   dependencies:
-    "@grpc/grpc-js": ^1.3.5
     "@testing-library/dom": ^8.1.0
     "@testing-library/jest-dom": ^5.14.1
     "@testing-library/react": ^12.0.0
@@ -13707,7 +13723,7 @@ resolve@^2.0.0-next.3:
     "@types/react-dom": ^17.0.9
     "@typescript-eslint/eslint-plugin": ^4.28.5
     "@typescript-eslint/parser": ^4.28.5
-    axios: ^0.21.1
+    "@unmango/safir-agent-client": ^0.7.3-alpha.0.1
     babel-eslint: ^10.1.0
     eslint: ^7.32.0
     eslint-config-prettier: ^8.3.0
@@ -15222,7 +15238,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.3":
+"tslib@npm:^2.0.3, tslib@npm:~2.1.0":
   version: 2.1.0
   resolution: "tslib@npm:2.1.0"
   checksum: aa189c8179de0427b0906da30926fd53c59d96ec239dff87d6e6bc831f608df0cbd6f77c61dabc074408bd0aa0b9ae4ec35cb2c15f729e32f37274db5730cb78

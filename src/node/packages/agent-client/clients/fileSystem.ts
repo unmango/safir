@@ -1,38 +1,18 @@
-import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
-import { firstValueFrom, Observable, Subject, toArray } from 'rxjs';
-import { agent } from '@unmango/safir-protos';
+import { Observable } from 'rxjs';
+import { list, listAsync } from '../filesystem';
+import { Credentials, ResponseCallbacks } from '../types';
 
 export interface FileSystemClient {
-  list(): Observable<string>;
-  listAsync(): Promise<string[]>;
+  list(callbacks?: ResponseCallbacks): Observable<string>;
+  listAsync(callbacks?: ResponseCallbacks): Promise<string[]>;
 }
 
-const client = (baseUrl: string): agent.FileSystemClient => {
-  return new agent.FileSystemClient(baseUrl);
-};
-
-export function createClient(baseUrl: string): FileSystemClient {
+export function createClient(
+  baseUrl: string,
+  credentials?: Credentials
+): FileSystemClient {
   return {
-    list: () => list(baseUrl),
-    listAsync: () => listAsync(baseUrl),
+    list: (c) => list(baseUrl, c, credentials),
+    listAsync: (c) => listAsync(baseUrl, c, credentials),
   };
 }
-
-export function list(baseUrl: string): Observable<string> {
-  const subject = new Subject<string>();
-  const stream = client(baseUrl).list(new Empty());
-
-  stream.on('data', x => subject.next(x as string));
-  stream.on('error', x => subject.error(x));
-  stream.on('end', () => subject.complete());
-
-  return subject.asObservable();
-};
-
-export function listAsync(baseUrl: string): Promise<string[]> {
-  return firstValueFrom(
-    list(baseUrl).pipe(toArray()),
-    {
-      defaultValue: []
-    });
-};

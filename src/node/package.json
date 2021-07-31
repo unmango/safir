@@ -14,5 +14,8 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
 }

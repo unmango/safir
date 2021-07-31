@@ -3512,6 +3512,8 @@ resolve@^1.20.0:
 "safir@workspace:.":
   version: 0.0.0-use.local
   resolution: "safir@workspace:."
+  dependencies:
+    typescript: ^4.3.5
   languageName: unknown
   linkType: soft
 

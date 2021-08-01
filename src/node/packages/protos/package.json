@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "build": "echo 'building' && ts-node scripts/build.ts",
+    "generate": "ts-node scripts/generate.ts",
     "prepack": "yarn build",
     "publish": "yarn version $(minver -t v) && yarn npm publish --tag latest --access public"
   },

@@ -8,7 +8,7 @@
     "directory": "src/node"
   },
   "scripts": {
-    "build": "yarn workspaces foreach -vpt run build",
+    "build": "tsc --build",
     "publish": "yarn workspaces foreach -vpt run publish",
     "test": "yarn workspaces foreach run test"
   },

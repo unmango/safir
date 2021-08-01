@@ -35,7 +35,7 @@ const { execAsync, globAsync, write } = util;
 
   const jsOutOptions = [
     'import_style=commonjs',
-  ].join(',') + ':' + gendir;
+  ].join(',') + ':' + outdir;
   write('jsOutOptions: ' + jsOutOptions);
 
   const grpcWebOutOptions = [
@@ -115,22 +115,6 @@ const { execAsync, globAsync, write } = util;
       write('Writing code exports to ' + indexFile);
       await fs.appendFile(indexFile, tsContent);
     }
-  }
-
-  try {
-    write('Executing tsc');
-    await execAsync('tsc');
-  } catch (err) {
-    console.error(err);
-  }
-
-  write('Copying type definitions');
-  const toCopy = await globAsync(path.join(gendir, '**', '*.{d.ts,js}'));
-  write('Files to copy:\n' + toCopy.join('\n  '));
-  for (const file of toCopy) {
-    const newFile = file.replace(gendir, outdir);
-    write('Copy:\n  ' + file + '\nto\n  ' + newFile);
-    await fs.copyFile(file, newFile);
   }
 }());
 

@@ -21,11 +21,21 @@ services:
     ports:
       - 6969:80
     environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      # ASPNETCORE_URLS: https://+:443
       REDIS: redis:6379
     volumes:
       - ~/Music:/data
     depends_on:
       - redis
+
+  agent-ui:
+    image: fullstorydev/grpcui
+    ports:
+      - 8080:8080
+    command: '-vvv localhost:6969'
+    depends_on:
+      - agent
 
   redis:
     image: redis

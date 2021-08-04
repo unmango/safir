@@ -9,7 +9,7 @@ services:
       - agent
 
   manager:
-    image: unstoppablemango/safir-manager
+    image: unstoppablemango/safir-manager:latest
     ports:
       - 6970:80
     depends_on:
@@ -17,7 +17,7 @@ services:
       - db
 
   agent:
-    image: unstoppablemango/safir-agent
+    image: unstoppablemango/safir-agent:latest
     ports:
       - 6969:80
     environment:

@@ -33,7 +33,7 @@ services:
     image: fullstorydev/grpcui
     ports:
       - 8080:8080
-    command: '-vvv localhost:6969'
+    command: '-plaintext agent:6969'
     depends_on:
       - agent
 

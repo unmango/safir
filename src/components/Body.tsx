@@ -8,14 +8,22 @@ const Body: React.FC = () => {
 
   useEffect(() => {
     console.log('in effect');
-    const subscription = list().subscribe(
-      (x) => {
-        console.log('in next');
-        setFiles((f) => [...f, x]);
-      },
-      (e) => console.error(e),
-      () => console.log('completed')
-    );
+
+    const subscription = list({
+      status: (status) => console.log(status),
+    }).subscribe((x) => {
+      console.log('data', x);
+      setFiles((f) => [...f, x]);
+    });
+
+    // const subscription = list().subscribe(
+    //   (x) => {
+    //     console.log('in next');
+    //     setFiles((f) => [...f, x]);
+    //   },
+    //   (e) => console.error(e),
+    //   () => console.log('completed')
+    // );
     return () => {
       console.log('unsubscribing');
       subscription.unsubscribe();

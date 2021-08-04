@@ -22,6 +22,7 @@ services:
       - 6969:80
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      DATADIRECTORY: /data
       # ASPNETCORE_URLS: https://+:443
       REDIS: redis:6379
     volumes:

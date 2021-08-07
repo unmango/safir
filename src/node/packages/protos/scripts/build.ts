@@ -46,7 +46,11 @@ const { execAsync, globAsync, write } = util;
 
   write('Collecting input files');
   const globbedProtoPath = path.join(indir, '**/*.proto');
-  const files = await globAsync(globbedProtoPath);
+  const files = await globAsync(globbedProtoPath, { follow: false });
+  files.push(...[
+    'annotations.proto',
+    'http.proto',
+  ].map(f => path.join(indir, 'google/api', f)));
   write('Files:\n  ' + files.join('\n  '));
 
   const protocCommand = [

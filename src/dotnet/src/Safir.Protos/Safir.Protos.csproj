@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Api.CommonProtos" Version="2.3.0" />
     <PackageReference Include="Google.Protobuf" Version="3.17.3" />
     <PackageReference Include="Grpc.Core.Api" Version="2.38.1" />
     <PackageReference Include="Grpc.Tools" Version="2.38.1" PrivateAssets="All" />
@@ -21,11 +22,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="$(ProtoDir)/agent/*.proto" ProtoRoot="$(ProtoDir)" >
+    <Protobuf Include="$(ProtoDir)/agent/*.proto" ProtoRoot="$(ProtoDir)">
       <Link>Agent\$(FileName).proto</Link>
-    </Protobuf>
-    <Protobuf Include="$(ProtoDir)/google/api/annotations.proto;$(ProtoDir)/google/api/http.proto" ProtoRoot="$(ProtoDir)" >
-      <Link>Google\Api\$(FileName).proto</Link>
     </Protobuf>
   </ItemGroup>
 

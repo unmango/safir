@@ -4,6 +4,10 @@ root = true
 indent_style = space
 insert_final_newline = true
 
+# Microsoft .NET properties
+csharp_indent_braces = false
+csharp_new_line_before_open_brace = accessors,control_blocks,events,indexers,local_functions,methods,properties,types
+
 [*.json]
 indent_size = 2
 

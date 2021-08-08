@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using Safir.Agent.Configuration;
 using Safir.Agent.Domain;
 using Safir.Agent.Services;
@@ -26,7 +28,15 @@ namespace Safir.Agent
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+            services.AddGrpcHttpApi();
             services.AddGrpcReflection();
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new OpenApiInfo {
+                    Title = "Safir Agent",
+                    Version = "v1"
+                });
+            });
+            services.AddGrpcSwagger();
 
             services.AddMediatR(typeof(Startup));
             services.AddSafirMessaging(options => {
@@ -54,10 +64,18 @@ namespace Safir.Agent
             }
 
             app.UseSerilogRequestLogging();
-            app.UseRouting();
+            app.UseHttpsRedirection();
+
             app.UseGrpcWeb(new GrpcWebOptions {
                 DefaultEnabled = true
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Safir Agent V1");
+            });
+
+            app.UseRouting();
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapGrpcService<FileSystemService>();
@@ -73,9 +91,9 @@ namespace Safir.Agent
                     await context.Response.WriteAsJsonAsync(options.Value);
                 });
 
-                endpoints.MapGet("/", async context => {
-                    await context.Response.WriteAsync(
-                        "Communication with gRPC endpoints must be made through a gRPC client");
+                endpoints.MapGet("/", context => {
+                    context.Response.Redirect("/swagger/index.html");
+                    return Task.CompletedTask;
                 });
             });
         }

@@ -7,11 +7,14 @@ namespace Safir.Agent.Configuration
     {
         public string? DataDirectory { get; set; }
         
+        public bool EnableGrpcReflection { get; [UsedImplicitly] set; }
+        
+        public bool EnableSwagger { get; [UsedImplicitly] set; }
+        
         public EnumerationOptions? EnumerationOptions { get; [UsedImplicitly] set; }
 
         public int MaxDepth { get; [UsedImplicitly] set; }
 
-        [UsedImplicitly]
         public string Redis { get; set; } = string.Empty;
     }
 }

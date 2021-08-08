@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using Safir.Agent.Configuration;
 using Safir.Agent.Domain;
 using Safir.Agent.Services;
@@ -30,20 +29,20 @@ namespace Safir.Agent
             services.AddGrpc();
             services.AddGrpcHttpApi();
             services.AddGrpcReflection();
-            services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new OpenApiInfo {
-                    Title = "Safir Agent",
-                    Version = "v1"
-                });
-            });
+            
+            services.AddSwaggerGen();
             services.AddGrpcSwagger();
 
             services.AddMediatR(typeof(Startup));
-            services.AddSafirMessaging(options => {
-                options.ConnectionString = Configuration["Redis"];
-            });
+            
+            services.AddSafirMessaging();
+            
             services.Configure<AgentOptions>(Configuration);
-            services.AddTransient<IPostConfigureOptions<AgentOptions>, ReplaceEnvironmentVariables>();
+            services.ConfigureOptions<ReplaceEnvironmentVariables>();
+            services.ConfigureOptions<ReplaceUnderscores>();
+            services.ConfigureOptions<GrpcWeb>();
+            services.ConfigureOptions<SafirMessaging>();
+            services.ConfigureOptions<Swagger>();
 
             services.AddTransient<IDirectory, SystemDirectoryWrapper>();
             services.AddTransient<IFile, SystemFileWrapper>();
@@ -65,30 +64,30 @@ namespace Safir.Agent
 
             app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
+            app.UseGrpcWeb();
 
-            app.UseGrpcWeb(new GrpcWebOptions {
-                DefaultEnabled = true
-            });
+            var options = app.ApplicationServices
+                .GetRequiredService<IOptions<AgentOptions>>()
+                .Value;
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Safir Agent V1");
-            });
-
+            if (env.IsDevelopment() || options.EnableSwagger)
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+            
             app.UseRouting();
-
             app.UseEndpoints(endpoints => {
                 endpoints.MapGrpcService<FileSystemService>();
                 endpoints.MapGrpcService<HostService>();
 
-                if (env.IsDevelopment())
+                if (env.IsDevelopment() || options.EnableGrpcReflection)
                 {
                     endpoints.MapGrpcReflectionService();
                 }
 
                 endpoints.MapGet("/config", async context => {
-                    var options = context.RequestServices.GetRequiredService<IOptions<AgentOptions>>();
-                    await context.Response.WriteAsJsonAsync(options.Value);
+                    await context.Response.WriteAsJsonAsync(options);
                 });
 
                 endpoints.MapGet("/", context => {

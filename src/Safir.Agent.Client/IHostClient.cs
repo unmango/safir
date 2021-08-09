@@ -1,7 +1,7 @@
 using System.Threading;
 using Grpc.Core;
 using JetBrains.Annotations;
-using Safir.Agent.Protos;
+using Safir.Protos;
 
 namespace Safir.Agent.Client
 {

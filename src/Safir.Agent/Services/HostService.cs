@@ -5,7 +5,7 @@ using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.Options;
 using Safir.Agent.Configuration;
-using Safir.Agent.Protos;
+using Safir.Protos;
 
 namespace Safir.Agent.Services
 {

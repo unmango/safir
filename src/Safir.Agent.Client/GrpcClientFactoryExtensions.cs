@@ -2,6 +2,7 @@ using Grpc.Net.ClientFactory;
 using JetBrains.Annotations;
 using Safir.Agent.Client.Internal;
 using Safir.Agent.Protos;
+using Safir.Protos;
 
 namespace Safir.Agent.Client
 {

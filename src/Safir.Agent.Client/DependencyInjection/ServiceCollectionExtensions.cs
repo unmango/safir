@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Safir.Agent.Client.Internal;
 using Safir.Agent.Protos;
+using Safir.Protos;
 
 namespace Safir.Agent.Client.DependencyInjection
 {

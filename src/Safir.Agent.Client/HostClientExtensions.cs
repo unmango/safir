@@ -2,7 +2,7 @@ using System.Threading;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using JetBrains.Annotations;
-using Safir.Agent.Protos;
+using Safir.Protos;
 
 namespace Safir.Agent.Client
 {

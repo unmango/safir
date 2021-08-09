@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="agent-client-publish" type="js.build_tools.npm" folderName="agent-client">
+    <package-json value="$PROJECT_DIR$/packages/agent-client/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="publish" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

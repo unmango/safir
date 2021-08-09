@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 option csharp_namespace = "Safir.Manager.Protos";
 
 service Media {
-  rpc List(google.protobuf.Empty) returns (MediaItem) {
+  rpc List(google.protobuf.Empty) returns (stream MediaItem) {
     option (google.api.http) = {
       get: "/v1/media/list"
     };

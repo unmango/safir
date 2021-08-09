@@ -3,7 +3,7 @@ syntax = "proto3";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
-option csharp_namespace = "Safir.Agent.Protos";
+option csharp_namespace = "Safir.Protos";
 
 service Host {
   rpc GetInfo(google.protobuf.Empty) returns (HostInfo) {

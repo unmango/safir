@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Safir.Manager.Protos";
+
+service Media {
+  rpc List(google.protobuf.Empty) returns (MediaItem) {
+    option (google.api.http) = {
+      get: "/v1/media/list"
+    };
+  }
+}
+
+message MediaItem {
+  string host = 1;
+  string path = 2;
+}

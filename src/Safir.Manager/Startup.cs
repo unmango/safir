@@ -1,11 +1,11 @@
 ﻿using System;
-using Grpc.Net.ClientFactory;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Safir.Agent.Client.DependencyInjection;
 using Safir.Manager.Agents;
 using Safir.Manager.Configuration;
@@ -29,10 +29,16 @@ namespace Safir.Manager
         {
             services.AddGrpc();
             services.AddGrpcReflection();
+            services.AddGrpcHttpApi();
+            services.AddGrpcSwagger();
 
-            services.AddSafirMessaging(options => {
-                options.ConnectionString = Configuration["Redis"];
-            });
+            services.AddSwaggerGen();
+
+            services.AddSafirMessaging();
+
+            services.Configure<ManagerOptions>(Configuration);
+            services.ConfigureOptions<SafirMessaging>();
+            services.ConfigureOptions<Swagger>();
 
             services.AddSingleton<AgentFactory>();
             var managerOptions = Configuration.Get<ManagerOptions>();
@@ -59,19 +65,30 @@ namespace Safir.Manager
             }
 
             app.UseSerilogRequestLogging();
+            app.UseHttpsRedirection();
+
+            var options = app.ApplicationServices
+                .GetRequiredService<IOptions<ManagerOptions>>()
+                .Value;
+
+            if (env.IsDevelopment() || options.EnableSwagger)
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
             
             app.UseRouting();
             app.UseEndpoints(endpoints => {
                 endpoints.MapGrpcService<MediaService>();
                 
-                if (env.IsDevelopment())
+                if (env.IsDevelopment() || options.EnableGrpcReflection)
                 {
                     endpoints.MapGrpcReflectionService();
                 }
-                
-                endpoints.MapGet("/", async context => {
-                    await context.Response.WriteAsync(
-                        "Communication with gRPC endpoints must be made through a gRPC client");
+
+                endpoints.MapGet("/", context => {
+                    context.Response.Redirect("/swagger/index.html");
+                    return Task.CompletedTask;
                 });
             });
         }

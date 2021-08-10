@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Safir.Manager.Client</Product>
     <Description>Client for making requests to a Safir manager.</Description>
-    <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net5.0;net6.0</TargetFrameworks>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 

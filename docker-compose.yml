@@ -11,7 +11,7 @@ services:
     - db
 
   agent:
-    image: unstoppablemango/safir-agent
+    image: unstoppablemango/safir-agent:latest
     ports:
     - 6969:80
     environment:

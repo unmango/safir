@@ -21,6 +21,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Client", "src\Safir.Manager.Client\Safir.Manager.Client.csproj", "{6ABE3684-2860-46B2-88FB-0B39D09B378C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{FBD8A1DC-653A-43DA-916B-6286AA86EE06}"
+ProjectSection(SolutionItems) = preProject
+	test\Directory.Build.props = test\Directory.Build.props
+EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Tests", "test\Safir.Manager.Tests\Safir.Manager.Tests.csproj", "{A1F3A4F1-8636-4F29-B716-A4DD8B304454}"
 EndProject

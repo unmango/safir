@@ -74,5 +74,17 @@ namespace Safir.Grpc
                 await streamWriter.WriteAsync(element).ConfigureAwait(false);
             }
         }
+
+        /// <summary>
+        /// Writes all elements from given enumerable to the stream.
+        /// </summary>
+        public static async Task WriteAllAsync<T>(this IServerStreamWriter<T> streamWriter, IAsyncEnumerable<T> elements)
+            where T : class
+        {
+            await foreach (var element in elements)
+            {
+                await streamWriter.WriteAsync(element).ConfigureAwait(false);
+            }
+        }
     }
 }

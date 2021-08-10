@@ -23,5 +23,11 @@
     <InternalsVisibleTo Include="Safir.Manager.Tests" />
     <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\docker-compose.yml" Link="docker-compose.yml" />
+    <None Include="..\..\Dockerfile" Link="Dockerfile" />
+    <None Include="..\..\.dockerignore" Link=".dockerignore" />
+  </ItemGroup>
 
 </Project>

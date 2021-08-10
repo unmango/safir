@@ -1,8 +1,23 @@
+.git
+.github
+.idea
+.vscode
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+build
+
 **/bin/
 **/obj/
 **/out/
 
 Dockerfile*
+.dockerignore
+.editorconfig
+.gitignore
 **/*.trx
 **/*.md
 **/*.ps1

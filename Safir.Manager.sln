@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{96AA2B0E
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
 		Directory.Build.props = Directory.Build.props
+		build.ps1 = build.ps1
+		build.sh = build.sh
+		NuGet.Config = NuGet.Config
+		NuGet.Docker.Config = NuGet.Docker.Config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D226064F-48DB-47E3-894A-B2048AC63ACB}"
@@ -26,6 +30,11 @@ ProjectSection(SolutionItems) = preProject
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Tests", "test\Safir.Manager.Tests\Safir.Manager.Tests.csproj", "{A1F3A4F1-8636-4F29-B716-A4DD8B304454}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{82727394-CCE4-482C-B40A-08C1B67D69BF}"
+ProjectSection(SolutionItems) = preProject
+	README.md = README.md
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

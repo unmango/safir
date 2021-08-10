@@ -5,7 +5,7 @@ ARG GithubPassword
 
 WORKDIR /build
 COPY src/Safir.Manager/*.csproj .
-COPY NuGet.Config .
+COPY NuGet.Docker.Config NuGet.Config
 RUN dotnet restore
 
 COPY src/Safir.Manager/ .

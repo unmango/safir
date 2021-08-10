@@ -11,12 +11,16 @@ namespace Safir.Agent.Client
     {
         public static IFileSystemClient CreateFileSystemClient(this GrpcClientFactory factory, string name)
         {
-            return new FileSystemClientWrapper(factory.CreateClient<FileSystem.FileSystemClient>(name));
+            var clientName = ClientName.FileSystem(name);
+            var client = factory.CreateClient<FileSystem.FileSystemClient>(clientName);
+            return new FileSystemClientWrapper(client);
         }
 
         public static IHostClient CreateHostClient(this GrpcClientFactory factory, string name)
         {
-            return new HostClientWrapper(factory.CreateClient<Host.HostClient>(name));
+            var clientName = ClientName.Host(name);
+            var client = factory.CreateClient<Host.HostClient>(clientName);
+            return new HostClientWrapper(client);
         }
     }
 }

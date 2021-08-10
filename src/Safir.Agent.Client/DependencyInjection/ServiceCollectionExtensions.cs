@@ -45,8 +45,8 @@ namespace Safir.Agent.Client.DependencyInjection
         public static IServiceCollection AddSafirAgentClient(this IServiceCollection services, string name)
         {
             services.AddWrappers();
-            services.AddGrpcClient<FileSystem.FileSystemClient>(name);
-            services.AddGrpcClient<Host.HostClient>(name);
+            services.AddGrpcClient<FileSystem.FileSystemClient>(ClientName.FileSystem(name));
+            services.AddGrpcClient<Host.HostClient>(ClientName.Host(name));
 
             return services;
         }
@@ -57,8 +57,8 @@ namespace Safir.Agent.Client.DependencyInjection
             Action<GrpcClientFactoryOptions> configureClient)
         {
             services.AddWrappers();
-            services.AddGrpcClient<FileSystem.FileSystemClient>(name, configureClient);
-            services.AddGrpcClient<Host.HostClient>(name, configureClient);
+            services.AddGrpcClient<FileSystem.FileSystemClient>(ClientName.FileSystem(name), configureClient);
+            services.AddGrpcClient<Host.HostClient>(ClientName.Host(name), configureClient);
 
             return services;
         }

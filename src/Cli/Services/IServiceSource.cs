@@ -6,8 +6,8 @@ namespace Cli.Services
     {
         SourceType Type { get; }
         
-        string Name { get; }
-        
         int Priority { get; init; }
+        
+        static abstract string Name { get; }
     }
 }

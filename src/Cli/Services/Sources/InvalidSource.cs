@@ -15,7 +15,7 @@ namespace Cli.Services.Sources
 
         SourceType IServiceSource.Type => Source.Type ?? throw new InvalidOperationException("Source.Type was null");
 
-        string IServiceSource.Name => Name ?? string.Empty;
+        static string IServiceSource.Name => Name ?? string.Empty;
 
         int IServiceSource.Priority
         {

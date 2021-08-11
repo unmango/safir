@@ -33,6 +33,9 @@ ProjectSection(SolutionItems) = preProject
 	global.json = global.json
 	NuGet.Config = NuGet.Config
 	Directory.Build.props = Directory.Build.props
+	NuGet.Docker.Config = NuGet.Docker.Config
+	build.ps1 = build.ps1
+	build.sh = build.sh
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{5E1FC754-B835-47D8-8524-4691A6012201}"
@@ -40,6 +43,12 @@ ProjectSection(SolutionItems) = preProject
 	.github\workflows\docker_publish.yml = .github\workflows\docker_publish.yml
 	.github\workflows\pull_request.yml = .github\workflows\pull_request.yml
 	.github\workflows\package_publish.yml = .github\workflows\package_publish.yml
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{0E9DF291-5C64-4636-AF3F-2DE5CE7AFCA2}"
+ProjectSection(SolutionItems) = preProject
+	LICENSE = LICENSE
+	README.md = README.md
 EndProjectSection
 EndProject
 Global

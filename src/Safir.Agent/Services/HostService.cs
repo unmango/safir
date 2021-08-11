@@ -6,6 +6,7 @@ using Grpc.Core;
 using Microsoft.Extensions.Options;
 using Safir.Agent.Configuration;
 using Safir.Protos;
+using Host = Safir.Protos.Host; // This was breaking the CI docker build for some reason...
 
 namespace Safir.Agent.Services
 {
@@ -15,7 +16,7 @@ namespace Safir.Agent.Services
 
         public HostService(IOptions<AgentOptions> options)
         {
-            _options = options;
+            _options = options ?? throw new ArgumentNullException(nameof(options));
         }
         
         public override Task<HostInfo> GetInfo(Empty request, ServerCallContext context)

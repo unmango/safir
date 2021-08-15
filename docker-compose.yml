@@ -21,9 +21,7 @@ services:
     ports:
       - 6969:80
     environment:
-      ASPNETCORE_ENVIRONMENT: Development
-      DATADIRECTORY: /data
-      # ASPNETCORE_URLS: https://+:443
+      ENABLEGRPCREFLECTION: true
       REDIS: redis:6379
     volumes:
       - ~/Music:/data

@@ -9,8 +9,8 @@ namespace Safir.Agent.Client
     [PublicAPI]
     public interface IFileSystemClient
     {
-        AsyncServerStreamingCall<FileSystemEntry> List(CancellationToken cancellationToken = default);
+        AsyncServerStreamingCall<FileSystemEntry> ListFiles(CancellationToken cancellationToken = default);
 
-        IAsyncEnumerable<FileSystemEntry> ListAsync(CancellationToken cancellationToken = default);
+        IAsyncEnumerable<FileSystemEntry> ListFilesAsync(CancellationToken cancellationToken = default);
     }
 }

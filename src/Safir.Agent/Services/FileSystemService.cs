@@ -28,7 +28,7 @@ namespace Safir.Agent.Services
             _logger = logger;
         }
 
-        public override async Task List(
+        public override async Task ListFiles(
             Empty request,
             IServerStreamWriter<FileSystemEntry> responseStream,
             ServerCallContext context)

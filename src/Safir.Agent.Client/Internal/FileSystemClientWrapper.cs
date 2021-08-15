@@ -15,14 +15,14 @@ namespace Safir.Agent.Client.Internal
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public AsyncServerStreamingCall<FileSystemEntry> List(CancellationToken cancellationToken = default)
+        public AsyncServerStreamingCall<FileSystemEntry> ListFiles(CancellationToken cancellationToken = default)
         {
-            return _client.List(cancellationToken);
+            return _client.ListFiles(cancellationToken);
         }
 
-        public IAsyncEnumerable<FileSystemEntry> ListAsync(CancellationToken cancellationToken = default)
+        public IAsyncEnumerable<FileSystemEntry> ListFilesAsync(CancellationToken cancellationToken = default)
         {
-            return _client.ListAsync(cancellationToken);
+            return _client.ListFilesAsync(cancellationToken);
         }
     }
 }

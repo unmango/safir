@@ -24,8 +24,6 @@ namespace Safir.Agent.Services
             return Task.FromResult(new HostInfo {
                 MachineName = Environment.MachineName,
                 HostName = Dns.GetHostName(),
-                DataDirectory = _options.Value.DataDirectory,
-                MaxDepth = _options.Value.MaxDepth,
             });
         }
     }

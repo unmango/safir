@@ -8,7 +8,14 @@
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/src",
       "pathMappings": [
-        { "url": "webpack:///src/*", "path": "${webRoot}/*" }
+        {
+          "url": "file://${webRoot}",
+          "path": "${workspaceFolder}/src"
+        },
+        {
+          "url": "webpack:///src/*",
+          "path": "${webRoot}/*"
+        }
       ],
       "enableCRAWorkaround": true
     },

@@ -6,21 +6,17 @@ namespace Safir.Manager.Agents
 {
     internal class AgentProxy : IAgent
     {
-        private readonly Lazy<IFileSystemClient> _fileSystem;
-        private readonly Lazy<IHostClient> _host;
-
-        public AgentProxy(string name, GrpcClientFactory factory)
+        public AgentProxy(string name, IFileSystemClient fileSystem, IHostClient host)
         {
-            _fileSystem = new(() => factory.CreateFileSystemClient(name));
-            _host = new(() => factory.CreateHostClient(name));
-
+            FileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+            Host = host ?? throw new ArgumentNullException(nameof(host));
             Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
-        public IFileSystemClient FileSystem => _fileSystem.Value;
+        public IFileSystemClient FileSystem { get; }
 
-        public IHostClient Host => _host.Value;
-        
+        public IHostClient Host { get; }
+
         public string Name { get; }
     }
 }

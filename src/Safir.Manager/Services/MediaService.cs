@@ -11,9 +11,9 @@ namespace Safir.Manager.Services
 {
     internal class MediaService : Media.MediaBase
     {
-        private readonly DefaultAgentAggregator _aggregator;
+        private readonly AgentAggregator _aggregator;
 
-        public MediaService(DefaultAgentAggregator aggregator)
+        public MediaService(AgentAggregator aggregator)
         {
             _aggregator = aggregator ?? throw new ArgumentNullException(nameof(aggregator));
         }

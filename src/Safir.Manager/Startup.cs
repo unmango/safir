@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,16 +45,15 @@ namespace Safir.Manager
             var managerOptions = Configuration.Get<ManagerOptions>();
             foreach (var agent in managerOptions.Agents)
             {
-                var name = agent.BaseUrl;
-                services.AddSafirAgentClient(name, options => {
+                services.AddSafirAgentClient(agent.Name, options => {
                     options.Address = new Uri(agent.BaseUrl);
                 });
-
-                services.AddTransient(
-                    s => s.GetRequiredService<AgentFactory>().Create(name));
             }
 
-            services.AddTransient<DefaultAgentAggregator>();
+            services.AddTransient<IAgents, AgentManager>();
+            services.AddTransient<IEnumerable<IAgent>, AgentManager>();
+
+            services.AddTransient<AgentAggregator>();
             services.AddEventHandler<FileCreatedHandler>();
         }
 

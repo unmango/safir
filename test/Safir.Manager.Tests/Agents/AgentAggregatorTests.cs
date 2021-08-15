@@ -12,21 +12,21 @@ using Xunit;
 
 namespace Safir.Manager.Tests.Agents
 {
-    public class DefaultAgentAggregatorTests
+    public class AgentAggregatorTests
     {
         private readonly AutoMocker _mocker = new();
         private readonly Mock<IAgent> _agent;
         private readonly Mock<IFileSystemClient> _fileSystem;
-        private readonly DefaultAgentAggregator _aggregator;
+        private readonly AgentAggregator _aggregator;
 
-        public DefaultAgentAggregatorTests()
+        public AgentAggregatorTests()
         {
             _agent = _mocker.GetMock<IAgent>();
             _agent.SetupGet(x => x.Name).Returns("test-name");
             _mocker.Use(typeof(IEnumerable<IAgent>), new[] { _agent.Object });
             _fileSystem = _mocker.GetMock<IFileSystemClient>();
             _agent.SetupGet(x => x.FileSystem).Returns(_fileSystem.Object);
-            _aggregator = _mocker.CreateInstance<DefaultAgentAggregator>();
+            _aggregator = _mocker.CreateInstance<AgentAggregator>();
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace Safir.Manager.Tests.Agents
             var agent2 = new Mock<IAgent>();
             agent2.SetupGet(x => x.FileSystem).Returns(fs2.Object);
             _mocker.Use(typeof(IEnumerable<IAgent>), new[] { _agent.Object, agent2.Object });
-            var aggregator = _mocker.CreateInstance<DefaultAgentAggregator>();
+            var aggregator = _mocker.CreateInstance<AgentAggregator>();
             
             _agent.SetupGet(x => x.Name).Returns("host1");
             agent2.SetupGet(x => x.Name).Returns("host2");

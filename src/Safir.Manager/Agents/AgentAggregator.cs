@@ -7,11 +7,11 @@ using Safir.Manager.Protos;
 
 namespace Safir.Manager.Agents
 {
-    internal class DefaultAgentAggregator
+    internal class AgentAggregator
     {
         private readonly IEnumerable<IAgent> _agents;
 
-        public DefaultAgentAggregator(IEnumerable<IAgent> agents)
+        public AgentAggregator(IEnumerable<IAgent> agents)
         {
             _agents = agents ?? throw new ArgumentNullException(nameof(agents));
         }

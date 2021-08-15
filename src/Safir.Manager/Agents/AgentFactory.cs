@@ -1,5 +1,6 @@
 using System;
 using Grpc.Net.ClientFactory;
+using Safir.Agent.Client;
 
 namespace Safir.Manager.Agents
 {
@@ -12,9 +13,12 @@ namespace Safir.Manager.Agents
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
         
-        public IAgent Create(string name)
+        public virtual IAgent Create(string name)
         {
-            return new AgentProxy(name, _factory);
+            var fileSystem = _factory.CreateFileSystemClient(name);
+            var host = _factory.CreateHostClient(name);
+            
+            return new AgentProxy(name, fileSystem, host);
         }
     }
 }

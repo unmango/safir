@@ -16,6 +16,4 @@ service Host {
 message HostInfo {
   string host_name = 1;
   string machine_name = 2;
-  string data_directory = 3;
-  int32 max_depth = 4;
 }

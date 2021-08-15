@@ -3,7 +3,7 @@ import { Metadata, Status } from 'grpc-web';
 import { Observer } from 'rxjs';
 import { MetadataCallback, StatusCallback } from '../types';
 import { MockClientReadableStream } from '../util';
-import { list } from './list';
+import { listFiles } from './listFiles';
 
 jest.mock('@unmango/safir-protos/dist/agent');
 
@@ -16,7 +16,7 @@ describe('list', () => {
   beforeEach(() => {
     mockStream = new MockClientReadableStream<string>();
     (FileSystemClient as jest.Mock).mockImplementation(() => ({
-      list: () => mockStream,
+      listFiles: () => mockStream,
     }));
 
     mockObserver = {
@@ -29,7 +29,7 @@ describe('list', () => {
   test('calls list with credentials', () => {
     const expected = { user: 'unmango' };
 
-    list(baseUrl, undefined, expected);
+    listFiles(baseUrl, undefined, expected);
 
     expect(FileSystemClient).toHaveBeenCalledWith(baseUrl, expected, undefined);
   });
@@ -37,13 +37,13 @@ describe('list', () => {
   test('calls list with options', () => {
     const expected = { something: 'option' };
 
-    list(baseUrl, undefined, undefined, expected);
+    listFiles(baseUrl, undefined, undefined, expected);
 
     expect(FileSystemClient).toHaveBeenCalledWith(baseUrl, undefined, expected);
   });
 
   test('completes observable when no data', () => {
-    const observable = list(baseUrl);
+    const observable = listFiles(baseUrl);
     observable.subscribe(mockObserver);
 
     mockStream.end();
@@ -56,7 +56,7 @@ describe('list', () => {
   test('calls error when error occurrs', () => {
     const expectedError = new Error();
 
-    const observable = list(baseUrl);
+    const observable = listFiles(baseUrl);
     observable.subscribe(mockObserver);
 
     mockStream.error(expectedError);
@@ -69,7 +69,7 @@ describe('list', () => {
   test('calls next when data is received', () => {
     const expectedResult = 'data';
 
-    const observable = list(baseUrl);
+    const observable = listFiles(baseUrl);
     observable.subscribe(mockObserver);
 
     mockStream.data(expectedResult);
@@ -85,7 +85,7 @@ describe('list', () => {
       test: 'test',
     };
 
-    const observable = list(baseUrl, { metadata: callback });
+    const observable = listFiles(baseUrl, { metadata: callback });
     observable.subscribe(mockObserver);
 
     mockStream.metadata(expectedResult);
@@ -103,7 +103,7 @@ describe('list', () => {
       details: 'birthday',
     };
 
-    const observable = list(baseUrl, { status: callback });
+    const observable = listFiles(baseUrl, { status: callback });
     observable.subscribe(mockObserver);
 
     mockStream.status(expectedResult);

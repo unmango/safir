@@ -1,5 +1,5 @@
 import { createClient } from './fileSystem';
-import { list, listAsync } from '../filesystem';
+import { listFiles, listFilesAsync } from '../filesystem';
 
 jest.mock('@unmango/safir-protos/dist/agent');
 jest.mock('../filesystem');
@@ -10,36 +10,36 @@ describe('createClient', () => {
   test('calls list with baseUrl', () => {
     const client = createClient(baseUrl);
 
-    client.list();
+    client.listFiles();
 
-    expect(list).toHaveBeenCalledWith(baseUrl, undefined, undefined);
+    expect(listFiles).toHaveBeenCalledWith(baseUrl, undefined, undefined);
   });
 
   test('calls list with credentials', () => {
     const expected = { user: 'unmango' };
     const client = createClient(baseUrl, expected);
 
-    client.list();
+    client.listFiles();
 
-    expect(list).toHaveBeenCalledWith(baseUrl, undefined, expected);
+    expect(listFiles).toHaveBeenCalledWith(baseUrl, undefined, expected);
   });
 
   test('calls listAsync with metadata callback', async () => {
     const client = createClient(baseUrl);
     const expected = { metadata: jest.fn() };
 
-    client.list(expected);
+    client.listFiles(expected);
 
-    expect(list).toHaveBeenCalledWith(baseUrl, expected, undefined);
+    expect(listFiles).toHaveBeenCalledWith(baseUrl, expected, undefined);
   });
 
   test('calls list with status callback', async () => {
     const client = createClient(baseUrl);
     const expected = { status: jest.fn() };
 
-    client.list(expected);
+    client.listFiles(expected);
 
-    expect(list).toHaveBeenCalledWith(baseUrl, expected, undefined);
+    expect(listFiles).toHaveBeenCalledWith(baseUrl, expected, undefined);
   });
 
   test('calls list with callbacks', async () => {
@@ -49,35 +49,35 @@ describe('createClient', () => {
       status: jest.fn(),
     };
 
-    client.list(expected);
+    client.listFiles(expected);
 
-    expect(list).toHaveBeenCalledWith(baseUrl, expected, undefined);
+    expect(listFiles).toHaveBeenCalledWith(baseUrl, expected, undefined);
   });
 
   test('calls listAsync with baseUrl', async () => {
     const client = createClient(baseUrl);
 
-    await client.listAsync();
+    await client.listFilesAsync();
 
-    expect(listAsync).toHaveBeenCalledWith(baseUrl, undefined, undefined);
+    expect(listFilesAsync).toHaveBeenCalledWith(baseUrl, undefined, undefined);
   });
 
   test('calls listAsync with metadata callback', async () => {
     const client = createClient(baseUrl);
     const expected = { metadata: jest.fn() };
 
-    await client.listAsync(expected);
+    await client.listFilesAsync(expected);
 
-    expect(listAsync).toHaveBeenCalledWith(baseUrl, expected, undefined);
+    expect(listFilesAsync).toHaveBeenCalledWith(baseUrl, expected, undefined);
   });
 
   test('calls listAsync with status callback', async () => {
     const client = createClient(baseUrl);
     const expected = { status: jest.fn() };
 
-    await client.listAsync(expected);
+    await client.listFilesAsync(expected);
 
-    expect(listAsync).toHaveBeenCalledWith(baseUrl, expected, undefined);
+    expect(listFilesAsync).toHaveBeenCalledWith(baseUrl, expected, undefined);
   });
 
   test('calls listAsync with callbacks', async () => {
@@ -87,8 +87,8 @@ describe('createClient', () => {
       status: jest.fn(),
     };
 
-    await client.listAsync(expected);
+    await client.listFilesAsync(expected);
 
-    expect(listAsync).toHaveBeenCalledWith(baseUrl, expected, undefined);
+    expect(listFilesAsync).toHaveBeenCalledWith(baseUrl, expected, undefined);
   });
 });

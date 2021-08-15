@@ -3,7 +3,7 @@ import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import { Observable, Subject } from 'rxjs';
 import { Credentials, ResponseCallbacks } from '../types';
 
-export function list(
+export function listFiles(
   baseUrl: string,
   callbacks?: ResponseCallbacks,
   credentials?: Credentials,
@@ -14,7 +14,7 @@ export function list(
     baseUrl,
     credentials,
     options,
-  ).list(new Empty());
+  ).listFiles(new Empty());
 
   if (callbacks?.metadata) {
     stream.on('metadata', callbacks.metadata);

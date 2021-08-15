@@ -1,14 +1,14 @@
 import { firstValueFrom, toArray } from 'rxjs';
 import { Credentials, ResponseCallbacks } from '../types';
-import { list } from './list';
+import { listFiles } from './listFiles';
 
-export function listAsync(
+export function listFilesAsync(
   baseUrl: string,
   callbacks?: ResponseCallbacks,
   credentials?: Credentials,
 ): Promise<string[]> {
   return firstValueFrom(
-    list(
+    listFiles(
       baseUrl,
       callbacks,
       credentials

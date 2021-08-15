@@ -6,9 +6,9 @@ import "google/protobuf/empty.proto";
 option csharp_namespace = "Safir.Agent.Protos";
 
 service FileSystem {
-  rpc List(google.protobuf.Empty) returns (stream FileSystemEntry) {
+  rpc ListFiles(google.protobuf.Empty) returns (stream FileSystemEntry) {
     option (google.api.http) = {
-      get: "/v1/fileSystem/list"
+      get: "/v1/files"
     };
   }
 }

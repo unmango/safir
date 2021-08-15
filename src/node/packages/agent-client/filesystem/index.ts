@@ -1,7 +1,7 @@
-import { list } from './list';
-import { listAsync } from './listAsync';
+import { listFiles } from './listFiles';
+import { listFilesAsync } from './listFilesAsync';
 
 export {
-  list,
-  listAsync,
+  listFiles,
+  listFilesAsync,
 };

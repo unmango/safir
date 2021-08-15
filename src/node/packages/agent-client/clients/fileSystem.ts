@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
-import { list, listAsync } from '../filesystem';
+import { listFiles, listFilesAsync } from '../filesystem';
 import { Credentials, ResponseCallbacks } from '../types';
 
 export interface FileSystemClient {
-  list(callbacks?: ResponseCallbacks): Observable<string>;
-  listAsync(callbacks?: ResponseCallbacks): Promise<string[]>;
+  listFiles(callbacks?: ResponseCallbacks): Observable<string>;
+  listFilesAsync(callbacks?: ResponseCallbacks): Promise<string[]>;
 }
 
 export function createClient(
@@ -12,7 +12,7 @@ export function createClient(
   credentials?: Credentials
 ): FileSystemClient {
   return {
-    list: (c) => list(baseUrl, c, credentials),
-    listAsync: (c) => listAsync(baseUrl, c, credentials),
+    listFiles: (c) => listFiles(baseUrl, c, credentials),
+    listFilesAsync: (c) => listFilesAsync(baseUrl, c, credentials),
   };
 }

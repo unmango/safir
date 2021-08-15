@@ -8,7 +8,7 @@ option csharp_namespace = "Safir.Manager.Protos";
 service Media {
   rpc List(google.protobuf.Empty) returns (stream MediaItem) {
     option (google.api.http) = {
-      get: "/v1/media/list"
+      get: "/v1/media"
     };
   }
 }

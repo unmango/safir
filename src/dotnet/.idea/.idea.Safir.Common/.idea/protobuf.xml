@@ -6,6 +6,9 @@
         <ImportRootEntry>
           <option name="path" value="file://$PROJECT_DIR$/../../protos" />
         </ImportRootEntry>
+        <ImportRootEntry>
+          <option name="path" value="file://$PROJECT_DIR$/../../protos/google" />
+        </ImportRootEntry>
       </list>
     </option>
   </component>

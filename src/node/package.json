@@ -16,6 +16,8 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@yarnpkg/sdks": "^2.4.1-rc.4",
     "typescript": "^4.3.5"
-  }
+  },
+  "packageManager": "yarn@3.0.1"
 }

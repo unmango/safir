@@ -21,7 +21,7 @@ services:
     ports:
       - 6969:80
     environment:
-      ENABLEGRPCREFLECTION: true
+      ENABLEGRPCREFLECTION: 'true'
       REDIS: redis:6379
     volumes:
       - ~/Music:/data

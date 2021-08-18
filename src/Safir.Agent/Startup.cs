@@ -32,17 +32,19 @@ namespace Safir.Agent
             
             services.AddSwaggerGen();
             services.AddGrpcSwagger();
+            services.ConfigureOptions<Swagger>();
+            
+            services.AddCors();
+            services.ConfigureOptions<Cors>();
 
             services.AddMediatR(typeof(Startup));
             
             services.AddSafirMessaging();
+            services.ConfigureOptions<SafirMessaging>();
             
             services.Configure<AgentOptions>(Configuration);
             services.ConfigureOptions<ReplaceEnvironmentVariables>();
             services.ConfigureOptions<ReplaceUnderscores>();
-            services.ConfigureOptions<GrpcWeb>();
-            services.ConfigureOptions<SafirMessaging>();
-            services.ConfigureOptions<Swagger>();
 
             services.AddTransient<IDirectory, SystemDirectoryWrapper>();
             services.AddTransient<IFile, SystemFileWrapper>();
@@ -63,8 +65,7 @@ namespace Safir.Agent
             }
 
             app.UseSerilogRequestLogging();
-            app.UseHttpsRedirection();
-            app.UseGrpcWeb();
+            // app.UseHttpsRedirection();
 
             var options = app.ApplicationServices
                 .GetRequiredService<IOptions<AgentOptions>>()
@@ -77,9 +78,11 @@ namespace Safir.Agent
             }
             
             app.UseRouting();
+            app.UseGrpcWeb(new() { DefaultEnabled = true });
+            app.UseCors();
             app.UseEndpoints(endpoints => {
-                endpoints.MapGrpcService<FileSystemService>();
-                endpoints.MapGrpcService<HostService>();
+                endpoints.MapGrpcService<FileSystemService>().RequireCors("AllowAll");
+                endpoints.MapGrpcService<HostService>().RequireCors("AllowAll");
 
                 if (env.IsDevelopment() || options.EnableGrpcReflection)
                 {

@@ -1,40 +1,34 @@
 import { useEffect, useState } from 'react';
-import { list } from '../services/agentClient';
+import { fileSystem } from '../services/agent';
 
 const Body: React.FC = () => {
+  const [files$] = useState(() => fileSystem.listFiles());
   const [files, setFiles] = useState<string[]>([]);
-
-  list().subscribe((x) => console.log(x));
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    console.log('in effect');
+    if (loaded) return;
 
-    const subscription = list({
-      status: (status) => console.log(status),
-    }).subscribe((x) => {
-      console.log('data', x);
-      setFiles((f) => [...f, x]);
+    const subscription = files$.subscribe({
+      next: (x) => {
+        setFiles((f) => [...f, x.getPath()]);
+      },
+      complete: () => setLoaded(true),
     });
 
-    // const subscription = list().subscribe(
-    //   (x) => {
-    //     console.log('in next');
-    //     setFiles((f) => [...f, x]);
-    //   },
-    //   (e) => console.error(e),
-    //   () => console.log('completed')
-    // );
     return () => {
       console.log('unsubscribing');
       subscription.unsubscribe();
     };
-  }, []);
+  }, [files$, loaded]);
 
   return (
     <div>
-      <span>Body</span>
+      <h4>Body</h4>
       {files.map((file) => (
-        <span>File: {file}</span>
+        <div key={file}>
+          <span>File: {file}</span>
+        </div>
       ))}
     </div>
   );

@@ -9,7 +9,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@unmango/safir-agent-client": "^0.7.12-alpha.0.1",
+    "@unmango/safir-grpc-client": "^0.7.12",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

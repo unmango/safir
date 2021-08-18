@@ -2911,25 +2911,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@unmango/safir-agent-client@npm:^0.7.12-alpha.0.1":
-  version: 0.7.12-alpha.0.1
-  resolution: "@unmango/safir-agent-client@npm:0.7.12-alpha.0.1"
+"@unmango/safir-grpc-client@npm:^0.7.12":
+  version: 0.7.12
+  resolution: "@unmango/safir-grpc-client@npm:0.7.12"
   dependencies:
-    "@unmango/safir-protos": 0.7.12-alpha.0.1
+    "@unmango/safir-protos": 0.7.12
     google-protobuf: ^3.17.3
     grpc-web: ^1.2.1
     rxjs: ^7.3.0
-  checksum: 544aaab62b451ff3dd033d5b2871f2f5b3149173b572514a81942c6b9db4dc76f4f3340a8e1d28ffe1e3e01b59a44618b0dbb8f8d3136530fe05c5c680b53e3b
+  checksum: 4599a440465088b24ea64f1cee48e319f09b3fb09d8890de237ae0b87879d1a796adfea83722c05af8ebbaf076c59f1f475fac6ce492b47433af9588bb44dc40
   languageName: node
   linkType: hard
 
-"@unmango/safir-protos@npm:0.7.12-alpha.0.1":
-  version: 0.7.12-alpha.0.1
-  resolution: "@unmango/safir-protos@npm:0.7.12-alpha.0.1"
+"@unmango/safir-protos@npm:0.7.12":
+  version: 0.7.12
+  resolution: "@unmango/safir-protos@npm:0.7.12"
   dependencies:
     google-protobuf: ^3.17.3
     grpc-web: ^1.2.1
-  checksum: 3c8c1cc977c4a1b67e5c293db78ae0f3341b529d40f63f7c8b43ed3525bb282d356f9696d09f3b75edecf05f7ecbf7ff824aaf12c4f4ed3b119c5f9b4cf26e00
+  checksum: e27402406aef09143921a23af756b41f171596c93561f38b8b296bf05a6c7bbee205e6994fbf7f80e961588f58fdeb87b04722468b7e9a72858fdaa822308878
   languageName: node
   linkType: hard
 
@@ -13280,7 +13280,7 @@ resolve@^2.0.0-next.3:
     "@types/react-dom": ^17.0.9
     "@typescript-eslint/eslint-plugin": ^4.29.2
     "@typescript-eslint/parser": ^4.29.2
-    "@unmango/safir-agent-client": ^0.7.12-alpha.0.1
+    "@unmango/safir-grpc-client": ^0.7.12
     babel-eslint: ^10.1.0
     eslint: ^7.32.0
     eslint-config-prettier: ^8.3.0

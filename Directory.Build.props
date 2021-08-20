@@ -17,6 +17,7 @@
     <IncludeSource>true</IncludeSource>
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <LangVersion>preview</LangVersion>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <Nullable>enable</Nullable>
     <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
+using JetBrains.Annotations;
 
-namespace Safir.Agent.Domain
+namespace Safir.Agent
 {
+    [PublicAPI]
     public interface IDirectory
     {
         IEnumerable<string> EnumerateFileSystemEntries(string path);

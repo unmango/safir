@@ -1,8 +1,10 @@
 using System;
 using System.IO;
+using JetBrains.Annotations;
 
-namespace Safir.Agent.Services
+namespace Safir.Agent
 {
+    [PublicAPI]
     public interface IFileWatcher
     {
         IObservable<FileSystemEventArgs> Created { get; }

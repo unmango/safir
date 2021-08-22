@@ -1,7 +1,7 @@
 import { FileSystemClient, FileSystemEntry } from '@unmango/safir-protos/dist/agent';
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import { ClientReadableStream, Metadata } from 'grpc-web';
-import { Observable } from 'rxjs';
+import { defer, Observable } from 'rxjs';
 import { toAsyncStream, toObservable } from '../shared';
 import { ChangeReturnType, ClientConstructorParams, GrpcClient } from '../types';
 
@@ -26,10 +26,12 @@ class Client implements Interface {
   }
 
   public listFiles(metadata?: Metadata): Observable<FileSystemEntry> {
-    const broken = this.client.listFiles(new Empty(), metadata);
-    const stream = broken as ClientReadableStream<FileSystemEntry>;
+    return defer(() => {
+      const broken = this.client.listFiles(new Empty(), metadata);
+      const stream = broken as ClientReadableStream<FileSystemEntry>;
 
-    return toObservable(stream);
+      return toObservable(stream);
+    });
   }
 
   public listFilesAsync(metadata?: Metadata): Promise<FileSystemEntry[]> {

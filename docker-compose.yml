@@ -12,6 +12,9 @@ services:
     image: unstoppablemango/safir-manager:latest
     ports:
       - 6970:80
+    environment:
+      ENABLEGRPCREFLECTION: 'true'
+      REDIS: redis:6379
     depends_on:
       - agent
       - db
@@ -32,7 +35,7 @@ services:
     image: fullstorydev/grpcui
     ports:
       - 8080:8080
-    command: '-plaintext agent:6969'
+    command: '-plaintext agent:80'
     depends_on:
       - agent
 

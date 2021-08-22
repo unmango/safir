@@ -1,33 +1,18 @@
-import { useEffect, useState } from 'react';
-import { fileSystem } from '../services/agent';
+import { bind } from '@react-rxjs/core';
+import { toArray } from 'rxjs';
+import { media } from '../services';
+
+const [useFiles] = bind(media.list().pipe(toArray()));
 
 const Body: React.FC = () => {
-  const [files$] = useState(() => fileSystem.listFiles());
-  const [files, setFiles] = useState<string[]>([]);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    if (loaded) return;
-
-    const subscription = files$.subscribe({
-      next: (x) => {
-        setFiles((f) => [...f, x.getPath()]);
-      },
-      complete: () => setLoaded(true),
-    });
-
-    return () => {
-      console.log('unsubscribing');
-      subscription.unsubscribe();
-    };
-  }, [files$, loaded]);
+  const files = useFiles();
 
   return (
     <div>
       <h4>Body</h4>
       {files.map((file) => (
-        <div key={file}>
-          <span>File: {file}</span>
+        <div key={file.getPath()}>
+          <span>File: {file.getPath()}</span>
         </div>
       ))}
     </div>

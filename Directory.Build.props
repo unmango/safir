@@ -18,6 +18,7 @@
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <LangVersion>preview</LangVersion>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <Nullable>enable</Nullable>
     <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>

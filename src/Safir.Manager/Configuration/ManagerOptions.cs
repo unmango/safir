@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
-using Safir.Agent.Client;
 
 namespace Safir.Manager.Configuration
 {
@@ -13,6 +11,10 @@ namespace Safir.Manager.Configuration
         public bool EnableGrpcReflection { get; set; }
         
         public bool EnableSwagger { get; set; }
+        
+        public bool ProxyAgent { get; set; }
+
+        public string ProxyDataDirectory { get; set; } = string.Empty;
 
         public string Redis { get; set; } = string.Empty;
     }

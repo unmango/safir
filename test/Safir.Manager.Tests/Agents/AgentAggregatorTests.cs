@@ -34,7 +34,7 @@ namespace Safir.Manager.Tests.Agents
         {
             const string expected = "expected";
             _agent.SetupGet(x => x.Name).Returns(expected);
-            _fileSystem.Setup(x => x.ListAsync(It.IsAny<CancellationToken>()))
+            _fileSystem.Setup(x => x.ListFilesAsync(It.IsAny<CancellationToken>()))
                 .Returns(AsyncEnumerable.Repeat(new FileSystemEntry(), 1));
 
             var result = await _aggregator.List(default).ToListAsync();
@@ -47,7 +47,7 @@ namespace Safir.Manager.Tests.Agents
         public async Task List_SetsPath()
         {
             const string expected = "expected";
-            _fileSystem.Setup(x => x.ListAsync(It.IsAny<CancellationToken>()))
+            _fileSystem.Setup(x => x.ListFilesAsync(It.IsAny<CancellationToken>()))
                 .Returns(AsyncEnumerable.Repeat(new FileSystemEntry {
                     Path = expected,
                 }, 1));
@@ -70,11 +70,11 @@ namespace Safir.Manager.Tests.Agents
             
             _agent.SetupGet(x => x.Name).Returns("host1");
             agent2.SetupGet(x => x.Name).Returns("host2");
-            _fileSystem.Setup(x => x.ListAsync(It.IsAny<CancellationToken>()))
+            _fileSystem.Setup(x => x.ListFilesAsync(It.IsAny<CancellationToken>()))
                 .Returns(AsyncEnumerable.Repeat(new FileSystemEntry {
                     Path = "path1"
                 }, 1));
-            fs2.Setup(x => x.ListAsync(It.IsAny<CancellationToken>()))
+            fs2.Setup(x => x.ListFilesAsync(It.IsAny<CancellationToken>()))
                 .Returns(AsyncEnumerable.Repeat(new FileSystemEntry {
                     Path = "path2"
                 }, 1));

@@ -1,8 +1,10 @@
+using JetBrains.Annotations;
 using Safir.Agent.Client;
 
 namespace Safir.Manager.Agents
 {
-    internal interface IAgent
+    [PublicAPI]
+    public interface IAgent
     {
         IFileSystemClient FileSystem { get; }
         

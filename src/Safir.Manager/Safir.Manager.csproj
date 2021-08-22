@@ -5,15 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.38.0" />
-    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.38.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.39.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.39.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.HttpApi" Version="0.1.0-alpha.21317.5" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.1.0-alpha.21317.5" />
-    <PackageReference Include="Safir.Agent.Client" Version="0.3.3" />
-    <PackageReference Include="Safir.Grpc" Version="0.7.8" />
-    <PackageReference Include="Safir.Messaging" Version="0.7.8" />
-    <PackageReference Include="Safir.Protos" Version="0.7.8" />
+    <PackageReference Include="Safir.Agent.Client" Version="0.3.7" />
+    <PackageReference Include="Safir.Grpc" Version="0.7.12" />
+    <PackageReference Include="Safir.Messaging" Version="0.7.12" />
+    <PackageReference Include="Safir.Protos" Version="0.7.12" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="System.Linq.Async" Version="5.0.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
@@ -28,6 +28,14 @@
     <None Include="..\..\docker-compose.yml" Link="docker-compose.yml" />
     <None Include="..\..\Dockerfile" Link="Dockerfile" />
     <None Include="..\..\.dockerignore" Link=".dockerignore" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Condition=" '$(Configuration)' != 'Debug' " Remove="ProxyData\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Safir.Manager.Abstractions\Safir.Manager.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

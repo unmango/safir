@@ -23,9 +23,9 @@ namespace Safir.Manager
         {
             Configuration = configuration;
         }
-        
+
         private IConfiguration Configuration { get; }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
@@ -41,17 +41,26 @@ namespace Safir.Manager
             services.ConfigureOptions<SafirMessaging>();
             services.ConfigureOptions<Swagger>();
 
-            services.AddSingleton<AgentFactory>();
             var managerOptions = Configuration.Get<ManagerOptions>();
-            foreach (var agent in managerOptions.Agents)
-            {
-                services.AddSafirAgentClient(agent.Name, options => {
-                    options.Address = new Uri(agent.BaseUrl);
-                });
-            }
 
-            services.AddTransient<IAgents, AgentManager>();
-            services.AddTransient<IEnumerable<IAgent>, AgentManager>();
+            if (managerOptions.ProxyAgent)
+            {
+                services.AddTransient<IAgents, AgentProxy>();
+                services.AddTransient<IEnumerable<IAgent>, AgentProxy>();
+            }
+            else
+            {
+                services.AddSingleton<AgentFactory>();
+                foreach (var agent in managerOptions.Agents)
+                {
+                    services.AddSafirAgentClient(agent.Name, options => {
+                        options.Address = new Uri(agent.BaseUrl);
+                    });
+                }
+
+                services.AddTransient<IAgents, AgentManager>();
+                services.AddTransient<IEnumerable<IAgent>, AgentManager>();
+            }
 
             services.AddTransient<AgentAggregator>();
             services.AddEventHandler<FileCreatedHandler>();
@@ -76,11 +85,11 @@ namespace Safir.Manager
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            
+
             app.UseRouting();
             app.UseEndpoints(endpoints => {
                 endpoints.MapGrpcService<MediaService>();
-                
+
                 if (env.IsDevelopment() || options.EnableGrpcReflection)
                 {
                     endpoints.MapGrpcReflectionService();

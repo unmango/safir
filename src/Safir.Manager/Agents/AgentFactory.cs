@@ -18,7 +18,7 @@ namespace Safir.Manager.Agents
             var fileSystem = _factory.CreateFileSystemClient(name);
             var host = _factory.CreateHostClient(name);
             
-            return new AgentProxy(name, fileSystem, host);
+            return new AgentClient(name, fileSystem, host);
         }
     }
 }

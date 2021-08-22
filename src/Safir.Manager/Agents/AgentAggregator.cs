@@ -19,7 +19,7 @@ namespace Safir.Manager.Agents
         public IAsyncEnumerable<MediaItem> List(CancellationToken cancellationToken)
         {
             return _agents.ToAsyncEnumerable()
-                .SelectMany(x => x.FileSystem.ListAsync(cancellationToken), ToMedia);
+                .SelectMany(x => x.FileSystem.ListFilesAsync(cancellationToken), ToMedia);
 
             static MediaItem ToMedia(IAgent agent, FileSystemEntry entry) => new() {
                 Host = agent.Name,

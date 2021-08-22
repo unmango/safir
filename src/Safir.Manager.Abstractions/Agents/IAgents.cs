@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Safir.Manager.Agents
 {
-    internal interface IAgents : IEnumerable<IAgent>
+    [PublicAPI]
+    public interface IAgents : IEnumerable<IAgent>
     {
         IAgent this[string name] { get; }
     }

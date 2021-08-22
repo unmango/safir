@@ -1,21 +1,11 @@
-import { bind } from '@react-rxjs/core';
-import { toArray } from 'rxjs';
-import { media } from '../services';
-
-const [useFiles] = bind(media.list().pipe(toArray()));
+import { Subscribe } from '@react-rxjs/core';
+import MediaList from './MediaList';
 
 const Body: React.FC = () => {
-  const files = useFiles();
-
   return (
-    <div>
-      <h4>Body</h4>
-      {files.map((file) => (
-        <div key={file.getPath()}>
-          <span>File: {file.getPath()}</span>
-        </div>
-      ))}
-    </div>
+    <Subscribe fallback={<span>Loading Media...</span>}>
+      <MediaList/>
+    </Subscribe>
   );
 };
 

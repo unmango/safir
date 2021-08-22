@@ -1,4 +1,3 @@
-import { Subscribe } from '@react-rxjs/core';
 import React from 'react';
 import './App.css';
 import Body from './components/Body';
@@ -8,9 +7,7 @@ const App: React.FC = () => {
   return (
     <>
       <Sidebar />
-      <Subscribe fallback={<span>loading...</span>}>
-        <Body />
-      </Subscribe>
+      <Body aria-label="body" />
     </>
   );
 };

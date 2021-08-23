@@ -38,12 +38,16 @@ namespace Safir.Manager
             
             services.AddCors();
             services.ConfigureOptions<Cors>();
+            
+            var managerOptions = Configuration.Get<ManagerOptions>();
 
-            services.AddSafirMessaging();
-            services.ConfigureOptions<SafirMessaging>();
+            if (managerOptions.EnableRedis)
+            {
+                services.AddSafirMessaging();
+                services.ConfigureOptions<SafirMessaging>();
+            }
 
             services.Configure<ManagerOptions>(Configuration);
-            var managerOptions = Configuration.Get<ManagerOptions>();
             if (managerOptions.ProxyAgent)
             {
                 services.AddTransient<IAgents, AgentProxy>();

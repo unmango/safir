@@ -10,6 +10,8 @@ namespace Safir.Manager.Configuration
         
         public bool EnableGrpcReflection { get; set; }
         
+        public bool EnableRedis { get; set; }
+        
         public bool EnableSwagger { get; set; }
         
         public bool ProxyAgent { get; set; }

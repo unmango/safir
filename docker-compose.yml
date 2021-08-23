@@ -14,7 +14,11 @@ services:
       - 6970:80
     environment:
       ENABLEGRPCREFLECTION: 'true'
+      ENABLESWAGGER: 'true'
+      PROXYAGENT: 'true'
       REDIS: redis:6379
+    # volumes:
+    #   - ./proxyData/manager:/proxyData
     depends_on:
       - agent
       - db

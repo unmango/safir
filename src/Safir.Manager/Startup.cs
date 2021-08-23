@@ -52,6 +52,7 @@ namespace Safir.Manager
             else
             {
                 services.AddSingleton<AgentFactory>();
+                services.AddSafirAgentClient();
                 foreach (var agent in managerOptions.Agents)
                 {
                     services.AddSafirAgentClient(agent.Name, options => {

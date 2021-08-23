@@ -103,10 +103,13 @@ namespace Safir.Manager
                     endpoints.MapGrpcReflectionService();
                 }
 
-                endpoints.MapGet("/", context => {
-                    context.Response.Redirect("/swagger/index.html");
-                    return Task.CompletedTask;
-                });
+                if (env.IsDevelopment() || options.EnableSwagger)
+                {
+                    endpoints.MapGet("/", context => {
+                        context.Response.Redirect("/swagger/index.html");
+                        return Task.CompletedTask;
+                    });
+                }
             });
         }
     }

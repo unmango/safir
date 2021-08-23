@@ -1,8 +1,23 @@
 import { FileSystemClient } from '@unmango/safir-grpc-client/dist/agent';
 import { MediaClient } from '@unmango/safir-grpc-client/dist/manager';
+import { MockFileSystemClient } from './fileSystem';
+import { MockMediaClient } from './media';
 
 const agentUrl = process.env.REACT_APP_AGENT_URL ?? '';
 const managerUrl = process.env.REACT_APP_MANAGER_URL ?? '';
 
-export const fileSystem = new FileSystemClient(agentUrl);
-export const media = new MediaClient(managerUrl);
+let fileSystem: FileSystemClient;
+let media: MediaClient;
+
+if (process.env.REACT_APP_PROXY_CLIENTS) {
+  fileSystem = new MockFileSystemClient('');
+  media = new MockMediaClient('');
+} else {
+  fileSystem = new FileSystemClient(agentUrl);
+  media = new MediaClient(managerUrl);
+}
+
+export {
+  fileSystem,
+  media,
+}

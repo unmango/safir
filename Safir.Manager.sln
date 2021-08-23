@@ -40,6 +40,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Abstractions"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Client.Abstractions", "src\Safir.Manager.Client.Abstractions\Safir.Manager.Client.Abstractions.csproj", "{51B9BF5F-7313-4E4B-AB3C-16FF814F590C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{551E8272-2E83-4F57-B308-8CA0DC216F27}"
+ProjectSection(SolutionItems) = preProject
+	.github\workflows\auto-merge.yml = .github\workflows\auto-merge.yml
+	.github\workflows\docker_publish.yml = .github\workflows\docker_publish.yml
+	.github\workflows\package_publish.yml = .github\workflows\package_publish.yml
+	.github\workflows\pull_request.yml = .github\workflows\pull_request.yml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,5 +128,6 @@ Global
 		{A1F3A4F1-8636-4F29-B716-A4DD8B304454} = {FBD8A1DC-653A-43DA-916B-6286AA86EE06}
 		{81418215-6713-4117-A6AA-43F99199E1AA} = {D226064F-48DB-47E3-894A-B2048AC63ACB}
 		{51B9BF5F-7313-4E4B-AB3C-16FF814F590C} = {D226064F-48DB-47E3-894A-B2048AC63ACB}
+		{551E8272-2E83-4F57-B308-8CA0DC216F27} = {0893977B-5D98-498A-9823-3BBDAE5FE55B}
 	EndGlobalSection
 EndGlobal

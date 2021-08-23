@@ -2,14 +2,18 @@ name: PR
 on:
   pull_request:
 env:
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   CI: true
 jobs:
   dotnet_build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
+      
     - name: Add github source credentials
       run: |
         dotnet nuget update source \
@@ -17,17 +21,21 @@ jobs:
           --username ${{ github.actor }} \
           --password ${{ secrets.GITHUB_TOKEN }} \
           --store-password-in-clear-text
+        
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore --nologo
+      
     - name: Build solution
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --nologo
+      
     - name: Run tests
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --nologo
 
   docker_build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
     - name: Docker build
       run: |
         docker build . --file Dockerfile \

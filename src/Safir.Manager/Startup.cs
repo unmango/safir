@@ -29,20 +29,21 @@ namespace Safir.Manager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
-            services.AddGrpcReflection();
             services.AddGrpcHttpApi();
-            services.AddGrpcSwagger();
-
+            services.AddGrpcReflection();
+            
             services.AddSwaggerGen();
+            services.AddGrpcSwagger();
+            services.ConfigureOptions<Swagger>();
+            
+            services.AddCors();
+            services.ConfigureOptions<Cors>();
 
             services.AddSafirMessaging();
+            services.ConfigureOptions<SafirMessaging>();
 
             services.Configure<ManagerOptions>(Configuration);
-            services.ConfigureOptions<SafirMessaging>();
-            services.ConfigureOptions<Swagger>();
-
             var managerOptions = Configuration.Get<ManagerOptions>();
-
             if (managerOptions.ProxyAgent)
             {
                 services.AddTransient<IAgents, AgentProxy>();
@@ -74,7 +75,7 @@ namespace Safir.Manager
             }
 
             app.UseSerilogRequestLogging();
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             var options = app.ApplicationServices
                 .GetRequiredService<IOptions<ManagerOptions>>()
@@ -87,8 +88,10 @@ namespace Safir.Manager
             }
 
             app.UseRouting();
+            app.UseGrpcWeb(new() { DefaultEnabled = true });
+            app.UseCors();
             app.UseEndpoints(endpoints => {
-                endpoints.MapGrpcService<MediaService>();
+                endpoints.MapGrpcService<MediaService>().RequireCors("AllowAll");
 
                 if (env.IsDevelopment() || options.EnableGrpcReflection)
                 {

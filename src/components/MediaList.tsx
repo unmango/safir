@@ -11,7 +11,9 @@ const MediaList: React.FC = () => {
   return (
     <div>
       {files.map((file) => (
-        <Media item={file} />
+        <div key={file.getPath()}>
+          <Media item={file} />
+        </div>
       ))}
     </div>
   );

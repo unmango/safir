@@ -5,6 +5,7 @@ on:
     tags: ["*.*.*"]
     paths:
     - "Directory.build.*"
+    - "src/*.Abstractions/**"
     - "src/*.Client/**"
 env:
   DOTNET_NOLOGO: true

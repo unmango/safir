@@ -13,12 +13,13 @@ services:
     ports:
       - 6970:80
     environment:
+      AGENTS__0__BASEURL: http://agent:6969
       ENABLEGRPCREFLECTION: 'true'
       ENABLESWAGGER: 'true'
-      PROXYAGENT: 'true'
+      # PROXYAGENT: 'true'
       REDIS: redis:6379
-    # volumes:
-    #   - ./proxyData/manager:/proxyData
+    volumes:
+      - ./proxyData/manager:/proxyData
     depends_on:
       - agent
       - db
@@ -29,6 +30,7 @@ services:
       - 6969:80
     environment:
       ENABLEGRPCREFLECTION: 'true'
+      ENABLESWAGGER: 'true'
       REDIS: redis:6379
     volumes:
       - ~/Music:/data

@@ -5,10 +5,17 @@ import Sidebar from './components/Sidebar';
 
 const App: React.FC = () => {
   return (
-    <>
-      <Sidebar />
-      <Body aria-label="body" />
-    </>
+    <div className="App">
+      <div className="Header">
+        <span>Header</span>
+      </div>
+      <div className="Sidebar">
+        <Sidebar aria-label="sidebar" />
+      </div>
+      <div className="Body">
+        <Body aria-label="body" />
+      </div>
+    </div>
   );
 };
 

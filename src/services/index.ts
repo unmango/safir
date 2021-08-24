@@ -9,7 +9,7 @@ const managerUrl = process.env.REACT_APP_MANAGER_URL ?? '';
 let fileSystem: FileSystemClient;
 let media: MediaClient;
 
-if (process.env.REACT_APP_PROXY_CLIENTS) {
+if ((/true/i).test(process.env.REACT_APP_PROXY_CLIENTS || 'false')) {
   fileSystem = new MockFileSystemClient('');
   media = new MockMediaClient('');
 } else {

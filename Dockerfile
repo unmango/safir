@@ -1,4 +1,4 @@
-FROM node:16.11.1 AS build
+FROM node:16.12.0 AS build
 
 ENV CI=true
 WORKDIR /app

@@ -1,0 +1,37 @@
+version: 2
+updates:
+- directory: '/src/agent'
+  open-pull-requests-limit: 5
+  package-ecosystem: docker
+  schedule:
+    interval: daily
+
+- directory: '/src/agent/src/Safir.Agent'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+- directory: '/src/agent/src/Safir.Agent.Abstractions'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+- directory: '/src/agent/src/Safir.Agent.Client'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+- directory: '/src/agent/src/Safir.Agent.Client.Abstractions'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+- directory: '/src/agent/test/Safir.Agent.Tests'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily

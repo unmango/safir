@@ -1,0 +1,49 @@
+name: NuGet Publish
+on:
+  push:
+    branches: [main]
+    tags: ["*.*.*"]
+    paths:
+    - "src/agent/Directory.build.*"
+    - "src/agent/src/*.Abstractions/**"
+    - "src/agent/src/*.Client/**"
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  CI: true
+jobs:
+  package_build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/agent
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+
+    - name: Update Github NuGet Credentials
+      run: |
+        dotnet nuget update source \
+          github \
+          --username ${{ github.actor }} \
+          --password ${{ secrets.GITHUB_TOKEN }} \
+          --store-password-in-clear-text
+
+    - name: Build solution
+      run: dotnet build --configuration Release --nologo
+
+    - name: Run tests
+      run: dotnet test --configuration Release --no-build --nologo
+
+    - name: Package libraries
+      run: dotnet pack --configuration Release --no-build --nologo
+
+    - name: Push packages to Github
+      run: |
+        dotnet nuget push src/**/*.nupkg \
+          --source https://nuget.pkg.github.com/unmango/index.json \
+          --api-key ${{ secrets.GITHUB_TOKEN }}

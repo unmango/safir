@@ -1,4 +1,4 @@
-name: Docker Publish
+name: Agent Docker Publish
 on:
   push:
     branches: [main]
@@ -26,7 +26,7 @@ jobs:
         DOCKERHUB_IMAGE_ID=unstoppablemango/$IMAGE_NAME
         
         dotnet tool restore && VERSION=$(dotnet minver -t v)
-        docker build . --file Dockerfile  \
+        docker build . --file Dockerfile \
           --build-arg GithubUsername=${{ github.actor }} \
           --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }} \
           --tag $IMAGE_NAME:latest \

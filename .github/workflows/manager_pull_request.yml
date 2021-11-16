@@ -1,4 +1,4 @@
-name: Agent PR
+name: Manager PR
 on:
   pull_request:
 env:
@@ -10,28 +10,28 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/agent
+        working-directory: src/manager
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
-
-    - name: Update Github NuGet Credentials
+      
+    - name: Add github source credentials
       run: |
         dotnet nuget update source \
           github \
           --username ${{ github.actor }} \
           --password ${{ secrets.GITHUB_TOKEN }} \
           --store-password-in-clear-text
-
+        
     - name: Restore dependencies
       run: dotnet restore --nologo
-
+      
     - name: Build solution
       run: dotnet build --no-restore --nologo
-
+      
     - name: Run tests
       run: dotnet test --no-build --verbosity normal --nologo
 
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/agent
+        working-directory: src/manager
 
     steps:
     - uses: actions/checkout@v2
@@ -49,4 +49,4 @@ jobs:
         docker build . --file Dockerfile \
           --build-arg GithubUsername=${{ github.actor }} \
           --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }} \
-          --tag safir-agent:$(date +%s)
+          --tag safir-manager:$(date +%s)

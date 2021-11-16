@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Safir.Cli": {
-      "commandName": "Project",
-      "commandLineArgs": "add ."
-    }
-  }
-}

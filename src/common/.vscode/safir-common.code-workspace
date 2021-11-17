@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../src/node"
+		},
+		{
+			"path": "../src/dotnet"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			".releaserc": "json"
+		}
+	}
+}

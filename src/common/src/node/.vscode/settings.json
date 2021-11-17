@@ -1,0 +1,25 @@
+{
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": false
+  },
+  "eslint.alwaysShowStatus": true,
+  "eslint.nodePath": ".yarn/sdks",
+  "files.associations": {
+    ".releaserc": "json"
+  },
+  "npm.packageManager": "yarn",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[json]": {
+    "editor.formatOnSave": false
+  }
+}

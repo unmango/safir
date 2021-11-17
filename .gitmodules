@@ -1,0 +1,3 @@
+[submodule "submodules/googleapis"]
+	path = submodules/googleapis
+	url = git@github.com:googleapis/googleapis.git

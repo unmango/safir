@@ -1,0 +1,8 @@
+{
+    "protoc": {
+      "options": [
+        "-I ../protos",
+        "-I ../protos/google/api"
+      ]
+    }
+}

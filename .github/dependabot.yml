@@ -35,3 +35,36 @@ updates:
   package-ecosystem: nuget
   schedule:
     interval: daily
+
+- directory: '/src/cli/src/Cli'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+- directory: '/src/cli/test/Cli.Tests'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+# TODO: Lots of dirs under here
+- directory: '/src/common/src/dotnet/src'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+# TODO: Lots of dirs under here
+- directory: '/src/common/src/dotnet/test'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+# TODO: When depbot supports yarn V2
+# - directory: '/src/common/src/node'
+#   open-pull-requests-limit: 10
+#   package-ecosystem: npm
+#   schedule:
+#     interval: daily

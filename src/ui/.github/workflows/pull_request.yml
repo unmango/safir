@@ -1,0 +1,32 @@
+name: PR
+on:
+  pull_request:
+env:
+  CI: true
+jobs:
+  yarn_build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Restore dependencies
+        run: yarn install --immutable --check-cache
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Build app
+        run: yarn build
+
+  docker_build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker build
+        run: docker build . --file Dockerfile

@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.39.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.39.0" />
+    <PackageReference Include="Grpc.AspNetCore.Web" Version="2.39.0" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Grpc.HttpApi" Version="0.1.0-alpha.21317.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.1.0-alpha.21317.5" />
+    <PackageReference Include="Safir.Grpc" Version="0.7.12" />
+    <PackageReference Include="Safir.Messaging" Version="0.7.12" />
+    <PackageReference Include="Safir.Messaging.MediatR" Version="0.7.12" />
+    <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Safir.Agent.Abstractions\Safir.Agent.Abstractions.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\Dockerfile" Link="Dockerfile" />
+    <None Include="..\..\docker-compose.yml" Link="docker-compose.yml" />
+    <None Include="..\..\.dockerignore" Link=".dockerignore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Safir.Agent.Tests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
+
+</Project>

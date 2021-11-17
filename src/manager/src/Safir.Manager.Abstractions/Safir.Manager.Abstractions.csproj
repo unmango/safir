@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Safir.Manager.Client.Abstractions</Product>
+    <Description>Abstractions for a Safir manager.</Description>
+    <TargetFrameworks>netstandard2.1;net5.0;net6.0</TargetFrameworks>
+    <RootNamespace>Safir.Manager</RootNamespace>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="all" />
+    <PackageReference Include="Safir.Agent.Client.Abstractions" Version="0.3.7" />
+  </ItemGroup>
+
+</Project>

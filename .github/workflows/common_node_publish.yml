@@ -1,27 +1,36 @@
-name: Node Pull Request
+name: Common Node Publish
 on:
-  pull_request:
+  push:
+    branches: [main]
+    tags: ["*.*.*"]
     paths:
-    - protos/**
-    - src/node/**
+    - src/common/src/node/package.json
+    - src/common/src/node/packages/**
 env:
   CI: true
 jobs:
-  node_build:
+  node_publish:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/node
+        working-directory: src/common/src/node
+
     steps:
     - uses: actions/checkout@v2
       with:
+        fetch-depth: 0
         submodules: recursive
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+
+    - name: Install MinVer CLI
+      run: dotnet tool install --global minver-cli
 
     - name: Setup Node.js
       uses: actions/setup-node@v2
 
     - name: Install Protoc
-      if: ${{ !env.ACT }}
       uses: arduino/setup-protoc@v1
 
     - name: Install grpc-web plugin
@@ -38,3 +47,8 @@ jobs:
 
     - name: Run tests
       run: yarn test
+
+    - name: Publish packages
+      run: yarn publish
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

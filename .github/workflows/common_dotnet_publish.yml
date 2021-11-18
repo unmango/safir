@@ -1,11 +1,11 @@
-name: NuGet Publish
+name: Common NuGet Publish
 on:
   push:
     branches: [main]
     tags: ["*.*.*"]
     paths:
-    - "src/dotnet/Directory.build.*"
-    - "src/dotnet/src/**"
+    - "src/common/src/dotnet/Directory.build.*"
+    - "src/common/src/dotnet/src/**"
 env:
   DOTNET_NOLOGO: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/dotnet
+        working-directory: src/common/src/dotnet
+
     steps:
     - uses: actions/checkout@v2
       with:

@@ -1,11 +1,17 @@
-name: PR
+name: UI PR
 on:
   pull_request:
+    paths:
+      - src/ui/**
 env:
   CI: true
 jobs:
   yarn_build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/ui
+
     steps:
       - uses: actions/checkout@v2
 
@@ -25,6 +31,10 @@ jobs:
 
   docker_build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/ui
+
     steps:
       - uses: actions/checkout@v2
 

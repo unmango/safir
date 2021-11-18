@@ -1,18 +1,21 @@
-name: Docker Publish
+name: UI Docker Publish
 on:
   push:
     branches: [main]
     tags: [v*]
     paths:
-      - "src/**"
-      - "public/**"
-      - "package.json"
+      - "src/ui/src/**"
+      - "src/ui/public/**"
+      - "src/ui/package.json"
 env:
   IMAGE_NAME: safir-ui
 jobs:
   docker_push:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
+    defaults:
+      run:
+        working-directory: src/ui
 
     steps:
       - uses: actions/checkout@v2

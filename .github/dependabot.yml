@@ -68,3 +68,52 @@ updates:
 #   package-ecosystem: npm
 #   schedule:
 #     interval: daily
+
+- directory: '/src/manager'
+  open-pull-requests-limit: 5
+  package-ecosystem: docker
+  schedule:
+    interval: daily
+
+- directory: '/src/manager/src/Safir.Manager'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+- directory: '/src/manager/src/Safir.Manager.Abstractions'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+- directory: '/src/manager/src/Safir.Manager.Client'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+- directory: '/src/manager/src/Safir.Agent.Manager.Abstractions'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+- directory: '/src/manager/test/Safir.Manager.Tests'
+  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+
+- directory: '/src/ui'
+  open-pull-requests-limit: 5
+  package-ecosystem: docker
+  schedule:
+    interval: daily
+
+# TODO: When depbot supports yarn V2
+# - directory: '/src/ui'
+#   open-pull-requests-limit: 10
+#   package-ecosystem: npm
+#   schedule:
+#     interval: daily

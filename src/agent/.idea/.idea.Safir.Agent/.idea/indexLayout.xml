@@ -3,6 +3,9 @@
   <component name="UserContentModel">
     <attachedFolders>
       <Path>.</Path>
+      <Path>../cli</Path>
+      <Path>../common/src/dotnet</Path>
+      <Path>../manager</Path>
     </attachedFolders>
     <explicitIncludes />
     <explicitExcludes />

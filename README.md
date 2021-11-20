@@ -2,6 +2,8 @@
 
 A distributed take on media management.
 
+# THIS IS VERY OUT OF DATE AND I HAVEN'T UPDATED IT YET
+
 ## CI/CD
 
 Safir uses Azure DevOps for continuous integration/continuous deployment.
@@ -91,3 +93,9 @@ To build and run the electron desktop app:
 cd src/UI/Safir.Electron
 npm run start:electron
 ```
+
+## License
+
+GNU General Public License v3.0 or later
+
+See [COPYING](COPYING) to see the full text.

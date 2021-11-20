@@ -1,8 +1,10 @@
 root = true
 
 [*]
+charset = utf-8
 indent_style = space
 insert_final_newline = true
+trim_trailing_whitespace = true
 
 [*.json]
 indent_size = 2
@@ -10,9 +12,17 @@ indent_size = 2
 [*.yml]
 indent_size = 2
 
-[*.{xml,props,targets}]
+[*.proto]
+indent_size = 2
+
+[*.{xml,props,targets,Config,*proj}]
 indent_size = 2
 
 [*.cs]
 indent_size = 4
 dotnet_sort_system_directives_first = true
+
+# Microsoft .NET properties
+csharp_indent_braces = false
+csharp_new_line_before_open_brace = accessors,control_blocks,events,indexers,local_functions,methods,properties,types
+csharp_wrap_before_arrow_with_expressions = true

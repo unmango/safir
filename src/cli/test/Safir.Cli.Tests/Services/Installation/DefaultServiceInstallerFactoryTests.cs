@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FluentValidation;
 using Moq;
+using Safir.Cli.Internal.Progress;
 using Safir.Cli.Internal.Wrappers.Git;
 using Safir.Cli.Services.Configuration;
 using Safir.Cli.Services.Installation.Installers;
@@ -16,15 +17,15 @@ namespace Safir.Cli.Tests.Services.Installation
         private readonly Mock<IRemoteFunctions> _remoteFunctions = new();
         private readonly Mock<IServiceProvider> _services = new();
         private readonly DefaultServiceInstallerFactory _factory;
-        
+
         public DefaultServiceInstallerFactoryTests()
         {
             _services.Setup(x => x.GetService(typeof(IRepositoryFunctions))).Returns(_repositoryFunctions.Object);
             _services.Setup(x => x.GetService(typeof(IRemoteFunctions))).Returns(_remoteFunctions.Object);
-            
+
             _factory = new DefaultServiceInstallerFactory(_services.Object);
         }
-        
+
         [Theory]
         [MemberData(nameof(SourceTypeValuesExcept), SourceType.DockerBuild)]
         public void GetDockerBuildInstaller_RequiresDockerBuildSourceType(SourceType type)
@@ -58,7 +59,7 @@ namespace Safir.Cli.Tests.Services.Installation
 
             Assert.IsType<DockerBuildInstaller>(result);
         }
-        
+
         [Theory]
         [MemberData(nameof(SourceTypeValuesExcept), SourceType.DockerImage)]
         public void GetDockerImageInstaller_RequiresDockerBuildSourceType(SourceType type)
@@ -117,6 +118,7 @@ namespace Safir.Cli.Tests.Services.Installation
         [Fact]
         public void GetGitInstaller_GetsGitInstaller()
         {
+            _services.Setup(x => x.GetService(typeof(IProgressReporter))).Returns(Mock.Of<IProgressReporter>());
             var source = new ServiceSource {
                 Type = SourceType.Git,
                 CloneUrl = "https://example.com/repo.git",

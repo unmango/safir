@@ -36,6 +36,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal --nologo
 
   docker_build:
+    if: ${{ false }} # TODO
     runs-on: ubuntu-latest
     defaults:
       run:

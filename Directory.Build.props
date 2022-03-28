@@ -31,6 +31,19 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <SourceRoot>$(MSBuildThisFileDirectory)\src</SourceRoot>
+    <AgentRoot>$(SourceRoot)\agent</AgentRoot>
+    <AgentSrc>$(AgentRoot)\src</AgentSrc>
+    <CliRoot>$(SourceRoot)\cli</CliRoot>
+    <CliSrc>$(CliRoot)\src</CliSrc>
+    <CommonRoot>$(SourceRoot)\common\src\dotnet</CommonRoot>
+    <CommonSrc>$(CommonRoot)\src</CommonSrc>
+    <ManagerRoot>$(SourceRoot)\manager</ManagerRoot>
+    <ManagerSrc>$(ManagerRoot)\src</ManagerSrc>
+    <ProtoRoot>$(MSBuildThisFileDirectory)\protos</ProtoRoot>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>

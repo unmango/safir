@@ -11,32 +11,32 @@
     <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.HttpApi" Version="0.1.0-alpha.21317.5" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.1.0-alpha.21317.5" />
-    <PackageReference Include="Safir.Agent.Client" Version="0.3.7" />
-    <PackageReference Include="Safir.Grpc" Version="0.7.12" />
-    <PackageReference Include="Safir.Messaging" Version="0.7.12" />
-    <PackageReference Include="Safir.Protos" Version="0.7.12" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="System.Linq.Async" Version="5.0.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <InternalsVisibleTo Include="Safir.Manager.Tests" />
-    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+    <ProjectReference Include="$(AgentSrc)\Safir.Agent.Client\Safir.Agent.Client.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Grpc\Safir.Grpc.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Messaging\Safir.Messaging.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
+    <ProjectReference Include="$(ManagerSrc)\Safir.Manager.Abstractions\Safir.Manager.Abstractions.csproj" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <None Include="..\..\docker-compose.yml" Link="docker-compose.yml" />
-    <None Include="..\..\Dockerfile" Link="Dockerfile" />
-    <None Include="..\..\.dockerignore" Link=".dockerignore" />
+    <None Include="$(ManagerRoot)\docker-compose.yml" Link="docker-compose.yml" />
+    <None Include="$(ManagerRoot)\Dockerfile" Link="Dockerfile" />
+    <None Include="$(ManagerRoot)\.dockerignore" Link=".dockerignore" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Content Condition=" '$(Configuration)' != 'Debug' " Remove="ProxyData\**" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <ProjectReference Include="..\Safir.Manager.Abstractions\Safir.Manager.Abstractions.csproj" />
+    <InternalsVisibleTo Include="Safir.Manager.Tests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>
 
 </Project>

@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
-    <ProjectReference Include="..\..\src\Safir.Messaging.MediatR\Safir.Messaging.MediatR.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Messaging.MediatR\Safir.Messaging.MediatR.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Safir.Common\Safir.Common.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Common\Safir.Common.csproj" />
   </ItemGroup>
 
 </Project>

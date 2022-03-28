@@ -24,7 +24,7 @@ export function listFiles(
     stream.on('status', callbacks.status);
   }
 
-  stream.on('data', x => subject.next(x as string));
+  stream.on('data', x => subject.next(x.toString()));
   stream.on('error', e => subject.error(e));
   stream.on('end', () => subject.complete());
 

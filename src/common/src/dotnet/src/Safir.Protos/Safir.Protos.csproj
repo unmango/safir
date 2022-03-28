@@ -18,7 +18,8 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <ProtoDir>../../../../protos</ProtoDir>
+    <!-- TODO: Use some sort of relative pathing-->
+    <ProtoDir>../../../../../../protos</ProtoDir>
   </PropertyGroup>
 
   <ItemGroup>

@@ -12,21 +12,21 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.HttpApi" Version="0.1.0-alpha.21317.5" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.1.0-alpha.21317.5" />
-    <PackageReference Include="Safir.Grpc" Version="0.7.12" />
-    <PackageReference Include="Safir.Messaging" Version="0.7.12" />
-    <PackageReference Include="Safir.Messaging.MediatR" Version="0.7.12" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Safir.Agent.Abstractions\Safir.Agent.Abstractions.csproj" />
+    <ProjectReference Include="$(AgentSrc)\Safir.Agent.Abstractions\Safir.Agent.Abstractions.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Grpc\Safir.Grpc.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Messaging\Safir.Messaging.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Messaging.MediatR\Safir.Messaging.MediatR.csproj" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <None Include="..\..\Dockerfile" Link="Dockerfile" />
-    <None Include="..\..\docker-compose.yml" Link="docker-compose.yml" />
-    <None Include="..\..\.dockerignore" Link=".dockerignore" />
+    <None Include="$(AgentRoot)\Dockerfile" Link="Dockerfile" />
+    <None Include="$(AgentRoot)\docker-compose.yml" Link="docker-compose.yml" />
+    <None Include="$(AgentRoot)\.dockerignore" Link=".dockerignore" />
   </ItemGroup>
 
   <ItemGroup>

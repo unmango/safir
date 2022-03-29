@@ -11,18 +11,12 @@
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="Moq.AutoMock" Version="3.1.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="3.1.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" PrivateAssets="all" />
+    <PackageReference Include="coverlet.collector" Version="3.1.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Safir.Cli\Safir.Cli.csproj" />
+    <ProjectReference Include="$(CliSrc)\Safir.Cli\Safir.Cli.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="UnattendedHostPersistenceState">
+    <option name="openedFilesInfos">
+      <list>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1542" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/Directory.Build.props" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/manager/src/Safir.Manager.Client.Abstractions/Safir.Manager.Client.Abstractions.csproj" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="581" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/manager/test/Safir.Manager.Tests/Safir.Manager.Tests.csproj" />
+        </OpenedFileInfo>
+      </list>
+    </option>
+  </component>
   <component name="com.jetbrains.rider.android.RiderAndroidMiscFileCreationComponent">
     <option name="ENSURE_MISC_FILE_EXISTS" value="true" />
   </component>

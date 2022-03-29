@@ -10,7 +10,10 @@
 
   <ItemGroup>
     <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="all" />
-    <PackageReference Include="Safir.Agent.Client.Abstractions" Version="0.3.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(AgentSrc)\Safir.Agent.Client.Abstractions\Safir.Agent.Client.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

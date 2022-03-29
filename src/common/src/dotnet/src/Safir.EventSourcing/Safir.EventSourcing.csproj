@@ -7,9 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Safir.Common.Abstractions\Safir.Common.Abstractions.csproj" />
-    <ProjectReference Include="..\Safir.Common\Safir.Common.csproj" />
-    <ProjectReference Include="..\Safir.EventSourcing.Abstractions\Safir.EventSourcing.Abstractions.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Common\Safir.Common.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.EventSourcing.Abstractions\Safir.EventSourcing.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

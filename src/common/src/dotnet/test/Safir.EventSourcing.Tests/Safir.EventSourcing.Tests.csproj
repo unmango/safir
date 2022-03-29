@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Safir.EventSourcing\Safir.EventSourcing.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.EventSourcing\Safir.EventSourcing.csproj" />
   </ItemGroup>
 
 </Project>

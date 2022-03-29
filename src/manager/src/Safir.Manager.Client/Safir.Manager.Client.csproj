@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Safir.Manager.Client.Abstractions\Safir.Manager.Client.Abstractions.csproj" />
+    <ProjectReference Include="$(ManagerSrc)\Safir.Manager.Client.Abstractions\Safir.Manager.Client.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

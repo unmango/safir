@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Safir.Messaging\Safir.Messaging.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Messaging\Safir.Messaging.csproj" />
   </ItemGroup>
 
 </Project>

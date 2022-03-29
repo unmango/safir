@@ -7,29 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Google.Api.CommonProtos" Version="2.3.0" />
     <PackageReference Include="Google.Protobuf" Version="3.17.3" />
     <PackageReference Include="Grpc.Core.Api" Version="2.38.1" />
     <PackageReference Include="Grpc.Tools" Version="2.38.1" PrivateAssets="All" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <!-- TODO: Use some sort of relative pathing-->
-    <ProtoDir>../../../../../../protos</ProtoDir>
-  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(CommonSrc)\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="$(ProtoDir)/*.proto" ProtoRoot="$(ProtoDir)">
+    <Protobuf Include="$(ProtoRoot)/*.proto" ProtoRoot="$(ProtoRoot)">
       <Link>$(FileName).proto</Link>
     </Protobuf>
-    <Protobuf Include="$(ProtoDir)/agent/*.proto" ProtoRoot="$(ProtoDir)">
+    <Protobuf Include="$(ProtoRoot)/agent/*.proto" ProtoRoot="$(ProtoRoot)">
       <Link>Agent\$(FileName).proto</Link>
     </Protobuf>
-    <Protobuf Include="$(ProtoDir)/manager/*.proto" ProtoRoot="$(ProtoDir)">
+    <Protobuf Include="$(ProtoRoot)/manager/*.proto" ProtoRoot="$(ProtoRoot)">
       <Link>Manager\$(FileName).proto</Link>
     </Protobuf>
   </ItemGroup>

@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <InternalsVisibleTo Include="Safir.EventSourcing.Tests" />
   </ItemGroup>

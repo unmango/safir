@@ -4,7 +4,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
+    <RepositoryRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), Safir.sln))</RepositoryRoot>
 
     <Authors>UnstoppableMango</Authors>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
@@ -40,7 +40,7 @@
     <CommonSrc>$(CommonRoot)\src</CommonSrc>
     <ManagerRoot>$(SourceRoot)\manager</ManagerRoot>
     <ManagerSrc>$(ManagerRoot)\src</ManagerSrc>
-    <ProtoRoot>$(MSBuildThisFileDirectory)\..\protos</ProtoRoot>
+    <ProtoRoot>$(RepositoryRoot)\protos</ProtoRoot>
   </PropertyGroup>
 
   <PropertyGroup>

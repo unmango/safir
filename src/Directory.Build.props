@@ -31,7 +31,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <SourceRoot>$(MSBuildThisFileDirectory)\src</SourceRoot>
+    <SourceRoot>$(MSBuildThisFileDirectory)</SourceRoot>
     <AgentRoot>$(SourceRoot)\agent</AgentRoot>
     <AgentSrc>$(AgentRoot)\src</AgentSrc>
     <CliRoot>$(SourceRoot)\cli</CliRoot>
@@ -40,7 +40,7 @@
     <CommonSrc>$(CommonRoot)\src</CommonSrc>
     <ManagerRoot>$(SourceRoot)\manager</ManagerRoot>
     <ManagerSrc>$(ManagerRoot)\src</ManagerSrc>
-    <ProtoRoot>$(MSBuildThisFileDirectory)\protos</ProtoRoot>
+    <ProtoRoot>$(MSBuildThisFileDirectory)\..\protos</ProtoRoot>
   </PropertyGroup>
 
   <PropertyGroup>

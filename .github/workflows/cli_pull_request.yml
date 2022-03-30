@@ -1,8 +1,8 @@
-name: Agent PR
+name: CLI PR
 on:
   pull_request:
     paths:
-    - src/agent/**
+    - src/cli/**
 env:
   DOTNET_NOLOGO: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/agent
+        working-directory: src/cli
 
     steps:
     - uses: actions/checkout@v2
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/agent
+        working-directory: src/cli
 
     steps:
     - uses: actions/checkout@v2
@@ -44,6 +44,4 @@ jobs:
     - name: Docker build
       run: |
         docker build . --file Dockerfile \
-          --build-arg GithubUsername=${{ github.actor }} \
-          --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }} \
-          --tag safir-agent:$(date +%s)
+          --tag safirctl:$(date +%s)

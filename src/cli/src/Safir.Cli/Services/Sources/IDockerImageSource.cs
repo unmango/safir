@@ -1,9 +1,8 @@
-namespace Safir.Cli.Services.Sources
+namespace Safir.Cli.Services.Sources;
+
+internal interface IDockerImageSource : IServiceSource
 {
-    internal interface IDockerImageSource : IServiceSource
-    {
-        string ImageName { get; }
+    string ImageName { get; }
         
-        string? Tag { get; }
-    }
+    string? Tag { get; }
 }

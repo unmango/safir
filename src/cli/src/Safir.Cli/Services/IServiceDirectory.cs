@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 
-namespace Safir.Cli.Services
+namespace Safir.Cli.Services;
+
+public interface IServiceDirectory
 {
-    public interface IServiceDirectory
-    {
-        string GetInstallationDirectory(IEnumerable<string>? extraPaths = null);
-    }
+    string GetInstallationDirectory(IEnumerable<string>? extraPaths = null);
 }

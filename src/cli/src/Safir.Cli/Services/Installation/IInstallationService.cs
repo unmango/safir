@@ -1,13 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Safir.Cli.Services.Installation
+namespace Safir.Cli.Services.Installation;
+
+internal interface IInstallationService
 {
-    internal interface IInstallationService
-    {
-        Task InstallAsync(
-            IService service,
-            string? directory = null,
-            CancellationToken cancellationToken = default);
-    }
+    Task InstallAsync(
+        IService service,
+        string? directory = null,
+        CancellationToken cancellationToken = default);
 }

@@ -1,11 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Safir.Cli.Internal.Pipeline
+namespace Safir.Cli.Internal.Pipeline;
+
+public interface IPipeline<in T>
+    where T : class
 {
-    public interface IPipeline<in T>
-        where T : class
-    {
-        ValueTask InvokeAsync(T context, CancellationToken cancellationToken);
-    }
+    ValueTask InvokeAsync(T context, CancellationToken cancellationToken);
 }

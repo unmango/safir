@@ -1,18 +1,17 @@
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.Options;
 
-namespace Safir.Agent.Configuration
+namespace Safir.Agent.Configuration;
+
+internal class Cors : IConfigureOptions<CorsOptions>
 {
-    internal class Cors : IConfigureOptions<CorsOptions>
+    public void Configure(CorsOptions options)
     {
-        public void Configure(CorsOptions options)
-        {
-            options.AddPolicy("AllowAll", builder => {
-                builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
-            });
-        }
+        options.AddPolicy("AllowAll", builder => {
+            builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
+        });
     }
 }

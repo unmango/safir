@@ -1,15 +1,14 @@
 using System;
 
-namespace Safir.Cli.Internal
-{
-    internal static class StringExtensions
-    {
-        private static readonly Func<string, string, double> _defaultDistanceAlgorithm =
-            (x, y) => x.JaroWinklerDistance(y);
+namespace Safir.Cli.Internal;
 
-        public static double Distance(this string x, string y)
-        {
-            return _defaultDistanceAlgorithm(x, y);
-        }
+internal static class StringExtensions
+{
+    private static readonly Func<string, string, double> _defaultDistanceAlgorithm =
+        (x, y) => x.JaroWinklerDistance(y);
+
+    public static double Distance(this string x, string y)
+    {
+        return _defaultDistanceAlgorithm(x, y);
     }
 }

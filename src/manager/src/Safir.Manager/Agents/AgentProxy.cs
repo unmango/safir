@@ -11,87 +11,86 @@ using Safir.Agent.Protos;
 using Safir.Manager.Configuration;
 using Safir.Protos;
 
-namespace Safir.Manager.Agents
+namespace Safir.Manager.Agents;
+
+public class AgentProxy : IAgents, IAgent
 {
-    public class AgentProxy : IAgents, IAgent
+    public AgentProxy(IOptions<ManagerOptions> options)
     {
-        public AgentProxy(IOptions<ManagerOptions> options)
+        var requestProxy = new JsonFileRequestProxy(options.Value.ProxyDataDirectory);
+        FileSystem = new FileSystemProxy(requestProxy);
+        Host = new HostProxy(requestProxy);
+    }
+
+    public IFileSystemClient FileSystem { get; }
+
+    public IHostClient Host { get; }
+
+    public string Name => "Proxy";
+
+    public IEnumerator<IAgent> GetEnumerator()
+    {
+        yield return this;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    public IAgent this[string name] => this;
+
+    private class FileSystemProxy : IFileSystemClient
+    {
+        private readonly JsonFileRequestProxy _requestProxy;
+
+        public FileSystemProxy(JsonFileRequestProxy requestProxy)
         {
-            var requestProxy = new JsonFileRequestProxy(options.Value.ProxyDataDirectory);
-            FileSystem = new FileSystemProxy(requestProxy);
-            Host = new HostProxy(requestProxy);
+            _requestProxy = requestProxy ?? throw new ArgumentNullException(nameof(requestProxy));
         }
 
-        public IFileSystemClient FileSystem { get; }
-
-        public IHostClient Host { get; }
-
-        public string Name => "Proxy";
-
-        public IEnumerator<IAgent> GetEnumerator()
+        public AsyncServerStreamingCall<FileSystemEntry> ListFiles(CancellationToken cancellationToken = default)
         {
-            yield return this;
+            return ListFilesAsync(cancellationToken).AsAsyncServerStreamingCall();
         }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        public IAgent this[string name] => this;
-
-        private class FileSystemProxy : IFileSystemClient
+        public IAsyncEnumerable<FileSystemEntry> ListFilesAsync(CancellationToken cancellationToken = default)
         {
-            private readonly JsonFileRequestProxy _requestProxy;
+            return _requestProxy.RequestAsyncEnumerable<FileSystemEntry>(
+                "FileSystem/ListFiles",
+                new(),
+                cancellationToken);
+        }
+    }
 
-            public FileSystemProxy(JsonFileRequestProxy requestProxy)
-            {
-                _requestProxy = requestProxy ?? throw new ArgumentNullException(nameof(requestProxy));
-            }
+    private class HostProxy : IHostClient
+    {
+        private readonly JsonFileRequestProxy _requestProxy;
 
-            public AsyncServerStreamingCall<FileSystemEntry> ListFiles(CancellationToken cancellationToken = default)
-            {
-                return ListFilesAsync(cancellationToken).AsAsyncServerStreamingCall();
-            }
+        public HostProxy(JsonFileRequestProxy requestProxy)
+        {
+            _requestProxy = requestProxy ?? throw new ArgumentNullException(nameof(requestProxy));
+        }
 
-            public IAsyncEnumerable<FileSystemEntry> ListFilesAsync(CancellationToken cancellationToken = default)
+        public HostInfo GetInfo(CancellationToken cancellationToken = default)
+        {
+            return GetInfoAsync(cancellationToken).GetAwaiter().GetResult();
+        }
+
+        public AsyncUnaryCall<HostInfo> GetInfoAsync(CancellationToken cancellationToken = default)
+        {
+            return new(
+                Request(),
+                Task.FromResult(Metadata.Empty),
+                () => Status.DefaultSuccess,
+                () => Metadata.Empty,
+                () => { });
+
+            async Task<HostInfo> Request()
             {
-                return _requestProxy.RequestAsyncEnumerable<FileSystemEntry>(
-                    "FileSystem/ListFiles",
-                    new(),
+                var result = await _requestProxy.RequestAsync<HostInfo>(
+                    "Host/GetInfo",
+                    null,
                     cancellationToken);
-            }
-        }
 
-        private class HostProxy : IHostClient
-        {
-            private readonly JsonFileRequestProxy _requestProxy;
-
-            public HostProxy(JsonFileRequestProxy requestProxy)
-            {
-                _requestProxy = requestProxy ?? throw new ArgumentNullException(nameof(requestProxy));
-            }
-
-            public HostInfo GetInfo(CancellationToken cancellationToken = default)
-            {
-                return GetInfoAsync(cancellationToken).GetAwaiter().GetResult();
-            }
-
-            public AsyncUnaryCall<HostInfo> GetInfoAsync(CancellationToken cancellationToken = default)
-            {
-                return new(
-                    Request(),
-                    Task.FromResult(Metadata.Empty),
-                    () => Status.DefaultSuccess,
-                    () => Metadata.Empty,
-                    () => { });
-
-                async Task<HostInfo> Request()
-                {
-                    var result = await _requestProxy.RequestAsync<HostInfo>(
-                        "Host/GetInfo",
-                        null,
-                        cancellationToken);
-
-                    return result ?? new HostInfo();
-                }
+                return result ?? new HostInfo();
             }
         }
     }

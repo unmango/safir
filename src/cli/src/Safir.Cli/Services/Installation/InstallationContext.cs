@@ -2,18 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
-namespace Safir.Cli.Services.Installation
+namespace Safir.Cli.Services.Installation;
+
+internal record InstallationContext(
+    string WorkingDirectory,
+    IService Service,
+    IEnumerable<IServiceSource> Sources)
 {
-    internal record InstallationContext(
-        string WorkingDirectory,
-        IService Service,
-        IEnumerable<IServiceSource> Sources)
-    {
-        public Exception? Exception { get; init; }
+    public Exception? Exception { get; init; }
         
-        public bool Installed { get; init; }
+    public bool Installed { get; init; }
         
-        public IImmutableDictionary<object, object> Properties { get; init; } =
-            ImmutableDictionary<object, object>.Empty;
-    }
+    public IImmutableDictionary<object, object> Properties { get; init; } =
+        ImmutableDictionary<object, object>.Empty;
 }

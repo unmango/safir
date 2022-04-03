@@ -1,12 +1,11 @@
 using System.IO;
 
-namespace Safir.Agent.Domain
+namespace Safir.Agent.Domain;
+
+internal sealed class SystemPathWrapper : IPath
 {
-    internal sealed class SystemPathWrapper : IPath
+    public string GetRelativePath(string relativeTo, string path)
     {
-        public string GetRelativePath(string relativeTo, string path)
-        {
-            return Path.GetRelativePath(relativeTo, path);
-        }
+        return Path.GetRelativePath(relativeTo, path);
     }
 }

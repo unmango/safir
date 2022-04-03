@@ -1,9 +1,8 @@
-namespace Safir.Cli.Services.Sources
+namespace Safir.Cli.Services.Sources;
+
+internal interface IDotnetToolSource : IServiceSource
 {
-    internal interface IDotnetToolSource : IServiceSource
-    {
-        string ToolName { get; }
+    string ToolName { get; }
         
-        string? ExtraArgs { get; }
-    }
+    string? ExtraArgs { get; }
 }

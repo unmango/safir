@@ -3,43 +3,42 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
-namespace Safir.Cli.Services.Installation
+namespace Safir.Cli.Services.Installation;
+
+// ReSharper disable once ClassNeverInstantiated.Global
+internal class PipelineInstallationService : IInstallationService
 {
-    // ReSharper disable once ClassNeverInstantiated.Global
-    internal class PipelineInstallationService : IInstallationService
+    private readonly IServiceDirectory _serviceDirectory;
+    private readonly IInstallationPipeline _installationPipeline;
+    private readonly ILogger<PipelineInstallationService> _logger;
+
+    public PipelineInstallationService(
+        IServiceDirectory serviceDirectory,
+        IInstallationPipeline installationPipeline,
+        ILogger<PipelineInstallationService> logger)
     {
-        private readonly IServiceDirectory _serviceDirectory;
-        private readonly IInstallationPipeline _installationPipeline;
-        private readonly ILogger<PipelineInstallationService> _logger;
+        _serviceDirectory = serviceDirectory ?? throw new ArgumentNullException(nameof(serviceDirectory));
+        _installationPipeline = installationPipeline ?? throw new ArgumentNullException(nameof(installationPipeline));
+        _logger = logger;
+    }
 
-        public PipelineInstallationService(
-            IServiceDirectory serviceDirectory,
-            IInstallationPipeline installationPipeline,
-            ILogger<PipelineInstallationService> logger)
-        {
-            _serviceDirectory = serviceDirectory ?? throw new ArgumentNullException(nameof(serviceDirectory));
-            _installationPipeline = installationPipeline ?? throw new ArgumentNullException(nameof(installationPipeline));
-            _logger = logger;
-        }
+    public async Task InstallAsync(
+        IService service,
+        string? directory = null,
+        CancellationToken cancellationToken = default)
+    {
+        _logger.InvokedWorkingDirectory(directory);
+        var workingDirectory = _serviceDirectory.GetInstallationDirectory(directory);
+        _logger.ResolvedWorkingDirectory(workingDirectory);
 
-        public async Task InstallAsync(
-            IService service,
-            string? directory = null,
-            CancellationToken cancellationToken = default)
-        {
-            _logger.InvokedWorkingDirectory(directory);
-            var workingDirectory = _serviceDirectory.GetInstallationDirectory(directory);
-            _logger.ResolvedWorkingDirectory(workingDirectory);
-
-            var context = new InstallationContext(
-                workingDirectory,
-                service,
-                // TODO: Select sources
-                service.Sources);
+        var context = new InstallationContext(
+            workingDirectory,
+            service,
+            // TODO: Select sources
+            service.Sources);
             
-            _logger.InitialContextCreated(context);
+        _logger.InitialContextCreated(context);
 
-            await _installationPipeline.InstallAsync(context, cancellationToken);
-        }
+        await _installationPipeline.InstallAsync(context, cancellationToken);
     }
 }

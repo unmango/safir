@@ -1,10 +1,9 @@
 using JetBrains.Annotations;
 
-namespace Safir.Agent
+namespace Safir.Agent;
+
+[PublicAPI]
+public interface IFile
 {
-    [PublicAPI]
-    public interface IFile
-    {
-        bool Exists(string? path);
-    }
+    bool Exists(string? path);
 }

@@ -1,8 +1,7 @@
-namespace Safir.Cli.Services.Dotnet
+namespace Safir.Cli.Services.Dotnet;
+
+public enum DotnetCommand
 {
-    public enum DotnetCommand
-    {
-        Run,
-        Tool,
-    }
+    Run,
+    Tool,
 }

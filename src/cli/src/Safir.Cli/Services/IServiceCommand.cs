@@ -1,7 +1,6 @@
-namespace Safir.Cli.Services
+namespace Safir.Cli.Services;
+
+public interface IServiceCommand
 {
-    public interface IServiceCommand
-    {
         
-    }
 }

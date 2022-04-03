@@ -2,20 +2,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Safir.Messaging.Configuration;
 
-namespace Safir.Agent.Configuration
+namespace Safir.Agent.Configuration;
+
+internal class SafirMessaging : IConfigureOptions<MessagingOptions>
 {
-    internal class SafirMessaging : IConfigureOptions<MessagingOptions>
+    private readonly AgentOptions _options;
+
+    public SafirMessaging(IConfiguration configuration)
     {
-        private readonly AgentOptions _options;
+        _options = configuration.Get<AgentOptions>();
+    }
 
-        public SafirMessaging(IConfiguration configuration)
-        {
-            _options = configuration.Get<AgentOptions>();
-        }
-
-        public void Configure(MessagingOptions options)
-        {
-            options.ConnectionString = _options.Redis;
-        }
+    public void Configure(MessagingOptions options)
+    {
+        options.ConnectionString = _options.Redis;
     }
 }

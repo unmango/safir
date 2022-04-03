@@ -7,21 +7,20 @@ using Safir.Grpc;
 using Safir.Manager.Agents;
 using Safir.Manager.Protos;
 
-namespace Safir.Manager.Services
+namespace Safir.Manager.Services;
+
+internal class MediaService : Media.MediaBase
 {
-    internal class MediaService : Media.MediaBase
+    private readonly AgentAggregator _aggregator;
+
+    public MediaService(AgentAggregator aggregator)
     {
-        private readonly AgentAggregator _aggregator;
+        _aggregator = aggregator ?? throw new ArgumentNullException(nameof(aggregator));
+    }
 
-        public MediaService(AgentAggregator aggregator)
-        {
-            _aggregator = aggregator ?? throw new ArgumentNullException(nameof(aggregator));
-        }
-
-        public override Task List(Empty request, IServerStreamWriter<MediaItem> responseStream, ServerCallContext context)
-        {
-            var media = _aggregator.List(context.CancellationToken);
-            return responseStream.WriteAllAsync(media);
-        }
+    public override Task List(Empty request, IServerStreamWriter<MediaItem> responseStream, ServerCallContext context)
+    {
+        var media = _aggregator.List(context.CancellationToken);
+        return responseStream.WriteAllAsync(media);
     }
 }

@@ -1,7 +1,6 @@
-namespace Safir.Redis
+namespace Safir.Redis;
+
+public interface IRedisClient
 {
-    public interface IRedisClient
-    {
         
-    }
 }

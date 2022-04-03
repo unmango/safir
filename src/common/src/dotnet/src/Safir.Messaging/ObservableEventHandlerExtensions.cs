@@ -1,17 +1,16 @@
 using System;
 using System.Reactive.Linq;
 
-namespace Safir.Messaging
+namespace Safir.Messaging;
+
+public static class ObservableEventHandlerExtensions
 {
-    public static class ObservableEventHandlerExtensions
+    public static IObservable<T> ObserveWith<T>(this IObservable<T> observable, IEventHandler<T> handler)
+        where T : IEvent
     {
-        public static IObservable<T> ObserveWith<T>(this IObservable<T> observable, IEventHandler<T> handler)
-            where T : IEvent
-        {
-            return observable.SelectMany(async (message, cancellationToken) => {
-                await handler.HandleAsync(message, cancellationToken);
-                return message;
-            });
-        }
+        return observable.SelectMany(async (message, cancellationToken) => {
+            await handler.HandleAsync(message, cancellationToken);
+            return message;
+        });
     }
 }

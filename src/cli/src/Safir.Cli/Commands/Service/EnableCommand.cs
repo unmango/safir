@@ -2,21 +2,20 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
-namespace Safir.Cli.Commands.Service
-{
-    public sealed class EnableCommand : Command
-    {
-        public EnableCommand() : base("enable", "Enable a service")
-        {
-            AddAlias("e");
-        }
+namespace Safir.Cli.Commands.Service;
 
-        public sealed class EnableHandler : ICommandHandler
+public sealed class EnableCommand : Command
+{
+    public EnableCommand() : base("enable", "Enable a service")
+    {
+        AddAlias("e");
+    }
+
+    public sealed class EnableHandler : ICommandHandler
+    {
+        public Task<int> InvokeAsync(InvocationContext context)
         {
-            public Task<int> InvokeAsync(InvocationContext context)
-            {
-                throw new System.NotImplementedException();
-            }
+            throw new System.NotImplementedException();
         }
     }
 }

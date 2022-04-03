@@ -1,15 +1,14 @@
 using JetBrains.Annotations;
 using Safir.Agent.Client;
 
-namespace Safir.Manager.Agents
+namespace Safir.Manager.Agents;
+
+[PublicAPI]
+public interface IAgent
 {
-    [PublicAPI]
-    public interface IAgent
-    {
-        IFileSystemClient FileSystem { get; }
+    IFileSystemClient FileSystem { get; }
         
-        IHostClient Host { get; }
+    IHostClient Host { get; }
         
-        string Name { get; }
-    }
+    string Name { get; }
 }

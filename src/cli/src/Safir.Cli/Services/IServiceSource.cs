@@ -1,13 +1,12 @@
 using Safir.Cli.Services.Configuration;
 
-namespace Safir.Cli.Services
+namespace Safir.Cli.Services;
+
+public interface IServiceSource
 {
-    public interface IServiceSource
-    {
-        SourceType Type { get; }
+    SourceType Type { get; }
         
-        string Name { get; }
+    string Name { get; }
         
-        int Priority { get; init; }
-    }
+    int Priority { get; init; }
 }

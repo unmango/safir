@@ -1,20 +1,19 @@
 using LibGit2Sharp;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Safir.Cli.Internal.Wrappers.Git
+namespace Safir.Cli.Internal.Wrappers.Git;
+
+internal static class ServiceCollectionExtensions
 {
-    internal static class ServiceCollectionExtensions
+    public static IServiceCollection AddLibGit2Sharp(this IServiceCollection services)
     {
-        public static IServiceCollection AddLibGit2Sharp(this IServiceCollection services)
-        {
-            // TODO: Is this valid
-            services.AddTransient<IRepository, Repository>();
+        // TODO: Is this valid
+        services.AddTransient<IRepository, Repository>();
             
-            // Wrappers
-            services.AddTransient<IRepositoryFunctions, LibGit2SharpStaticRepositoryWrapper>();
-            services.AddTransient<IRemoteFunctions, LibGit2SharpStaticRemoteWrapper>();
+        // Wrappers
+        services.AddTransient<IRepositoryFunctions, LibGit2SharpStaticRepositoryWrapper>();
+        services.AddTransient<IRemoteFunctions, LibGit2SharpStaticRemoteWrapper>();
             
-            return services;
-        }
+        return services;
     }
 }

@@ -2,18 +2,17 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Safir.Cli.Services.Installation.Installers
-{
-    internal class DelegateServiceInstaller : IServiceInstaller
-    {
-        private readonly InstallAsync _installAsync;
+namespace Safir.Cli.Services.Installation.Installers;
 
-        public DelegateServiceInstaller(InstallAsync installAsync)
-        {
-            _installAsync = installAsync ?? throw new ArgumentNullException(nameof(installAsync));
-        }
-        
-        public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
-            => _installAsync(context, cancellationToken);
+internal class DelegateServiceInstaller : IServiceInstaller
+{
+    private readonly InstallAsync _installAsync;
+
+    public DelegateServiceInstaller(InstallAsync installAsync)
+    {
+        _installAsync = installAsync ?? throw new ArgumentNullException(nameof(installAsync));
     }
+        
+    public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
+        => _installAsync(context, cancellationToken);
 }

@@ -1,6 +1,5 @@
-namespace Safir.Cli.Internal.Progress
+namespace Safir.Cli.Internal.Progress;
+
+internal interface IProgressScope : IProgressReporter
 {
-    internal interface IProgressScope : IProgressReporter
-    {
-    }
 }

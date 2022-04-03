@@ -1,10 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Safir.Cli.Services.Installation
+namespace Safir.Cli.Services.Installation;
+
+internal interface IInstallationPipeline
 {
-    internal interface IInstallationPipeline
-    {
-        ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default);
-    }
+    ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default);
 }

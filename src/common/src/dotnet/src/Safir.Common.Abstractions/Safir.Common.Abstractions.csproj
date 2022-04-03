@@ -11,6 +11,7 @@
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Update="IsExternalInit" Version="1.0.2" />
+    <PackageReference Update="JetBrains.Annotations" Version="2021.3.0" />
   </ItemGroup>
 
 </Project>

@@ -25,7 +25,7 @@ namespace Safir.Messaging.Tests
         public void Subscribe_DelegatesSubscribeToGenericBus()
         {
             var observer = _mocker.Get<IObserver<MockEvent>>();
-            var disposable = _mocker.GetMock<IDisposable>();
+            var disposable = new Mock<IDisposable>();
             _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<IObserver<MockEvent>>(), _cancellationToken))
                 .ReturnsAsync(disposable.Object)
                 .Verifiable();

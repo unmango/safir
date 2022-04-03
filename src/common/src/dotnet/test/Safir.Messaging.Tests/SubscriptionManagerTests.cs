@@ -22,15 +22,15 @@ namespace Safir.Messaging.Tests
         public SubscriptionManagerTests()
         {
             _services = _mocker.GetMock<IServiceProvider>();
-            
+
             var scope = _mocker.GetMock<IServiceScope>();
             scope.SetupGet(x => x.ServiceProvider).Returns(_services.Object);
-            
+
             var factory = _mocker.GetMock<IServiceScopeFactory>();
             factory.Setup(x => x.CreateScope()).Returns(scope.Object);
 
             _services.Setup(x => x.GetService(typeof(IServiceScopeFactory))).Returns(factory.Object);
-            
+
             _eventBus = _mocker.GetMock<IEventBus>();
             _manager = _mocker.CreateInstance<SubscriptionManager<MockEvent>>();
         }
@@ -129,7 +129,7 @@ namespace Safir.Messaging.Tests
             var handler = _mocker.GetMock<IEventHandler<MockEvent>>();
             _mocker.Use(typeof(IEnumerable<IEventHandler>), new[] { handler.Object });
             var manager = _mocker.CreateInstance<SubscriptionManager<MockEvent>>();
-            var disposable = _mocker.GetMock<IDisposable>();
+            var disposable = new Mock<IDisposable>();
             _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<IObserver<MockEvent>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(disposable.Object);
 

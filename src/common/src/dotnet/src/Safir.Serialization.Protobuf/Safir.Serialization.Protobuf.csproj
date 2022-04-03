@@ -10,7 +10,6 @@
     <PackageReference Include="Google.Protobuf" Version="3.20.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     <PackageReference Update="IsExternalInit" Version="1.0.2" />
-    <PackageReference Update="JetBrains.Annotations" Version="2021.3.0" />
   </ItemGroup>
 
   <ItemGroup>

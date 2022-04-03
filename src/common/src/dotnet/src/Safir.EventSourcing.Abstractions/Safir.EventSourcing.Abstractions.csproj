@@ -15,8 +15,4 @@
     <InternalsVisibleTo Include="Safir.EventSourcing.Tests" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="JetBrains.Annotations" Version="2021.3.0" />
-  </ItemGroup>
-
 </Project>

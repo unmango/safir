@@ -17,7 +17,6 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
     <DotNetCliToolReference Include="dotnet-codegen" Version="0.6.1" />
     <PackageReference Update="IsExternalInit" Version="1.0.2" />
-    <PackageReference Update="JetBrains.Annotations" Version="2021.3.0" />
   </ItemGroup>
 
 </Project>

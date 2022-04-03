@@ -16,7 +16,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
     <PackageReference Update="IsExternalInit" Version="1.0.2" />
-    <PackageReference Update="JetBrains.Annotations" Version="2021.3.0" />
   </ItemGroup>
 
 </Project>

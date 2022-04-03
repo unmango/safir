@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Update="IsExternalInit" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>

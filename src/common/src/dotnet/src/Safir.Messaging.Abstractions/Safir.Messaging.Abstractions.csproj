@@ -7,4 +7,8 @@
     <RootNamespace>Safir.Messaging</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Update="IsExternalInit" Version="1.0.2" />
+  </ItemGroup>
+
 </Project>

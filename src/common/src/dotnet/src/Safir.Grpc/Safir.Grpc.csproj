@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.Core.Api" Version="2.45.0" />
+    <PackageReference Update="IsExternalInit" Version="1.0.2" />
   </ItemGroup>
 
 </Project>

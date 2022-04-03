@@ -8,14 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="LanguageExt.Core" Version="4.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
-    <PackageReference Update="IsExternalInit" Version="1.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(CommonSrc)\Safir.Common.Abstractions\Safir.Common.Abstractions.csproj" />
-    <ProjectReference Include="$(CommonSrc)\Safir.EventSourcing\Safir.EventSourcing.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Common.Abstractions\Safir.Common.Abstractions.csproj"/>
+    <ProjectReference Include="$(CommonSrc)\Safir.EventSourcing\Safir.EventSourcing.csproj"/>
   </ItemGroup>
 
 </Project>

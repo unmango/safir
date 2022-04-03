@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
-    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.39.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.44.0" />
     <PackageReference Include="Grpc.AspNetCore.Web" Version="2.39.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />

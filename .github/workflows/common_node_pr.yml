@@ -3,7 +3,7 @@ on:
   pull_request:
     paths:
     - protos/**
-    - src/common/src/node/**
+    - src/common/node/**
 env:
   CI: true
 jobs:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/common/src/node
+        working-directory: src/common/node
 
     steps:
     - uses: actions/checkout@v2

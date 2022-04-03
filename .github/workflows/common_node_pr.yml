@@ -1,4 +1,4 @@
-name: Common Node Pull Request
+name: Common Node PR
 on:
   pull_request:
     paths:

@@ -1,4 +1,4 @@
-name: Common .NET Pull Request
+name: Common .NET PR
 on:
   pull_request:
     paths:

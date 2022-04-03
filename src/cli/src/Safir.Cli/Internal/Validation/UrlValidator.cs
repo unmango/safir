@@ -1,19 +1,21 @@
 using System;
+using FluentValidation;
 using FluentValidation.Validators;
 
 namespace Safir.Cli.Internal.Validation
 {
-    public class UrlValidator : PropertyValidator
+    public class UrlValidator<T> : PropertyValidator<T, string?>
     {
-        protected override string GetDefaultMessageTemplate()
+        public override string Name => "UrlValidator";
+
+        protected override string GetDefaultMessageTemplate(string errorCode)
         {
             return "{PropertyName} must be a valid url.";
         }
 
-        protected override bool IsValid(PropertyValidatorContext context)
+        public override bool IsValid(ValidationContext<T> context, string? value)
         {
-            return context.PropertyValue is string value
-                   && Uri.IsWellFormedUriString(value, UriKind.RelativeOrAbsolute);
+            return Uri.IsWellFormedUriString(value, UriKind.RelativeOrAbsolute);
         }
     }
 }

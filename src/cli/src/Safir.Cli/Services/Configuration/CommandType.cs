@@ -1,11 +1,10 @@
-namespace Safir.Cli.Services.Configuration
+namespace Safir.Cli.Services.Configuration;
+
+internal enum CommandType
 {
-    internal enum CommandType
-    {
-        DotnetRun,
-        DotnetTool,
-        Process,
-        DockerRun,
-        Systemd,
-    }
+    DotnetRun,
+    DotnetTool,
+    Process,
+    DockerRun,
+    Systemd,
 }

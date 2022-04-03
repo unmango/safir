@@ -1,10 +1,9 @@
 using JetBrains.Annotations;
 
-namespace Safir.Agent
+namespace Safir.Agent;
+
+[PublicAPI]
+public interface IPath
 {
-    [PublicAPI]
-    public interface IPath
-    {
-        string GetRelativePath(string relativeTo, string path);
-    }
+    string GetRelativePath(string relativeTo, string path);
 }

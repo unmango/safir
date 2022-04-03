@@ -3,22 +3,21 @@ using System.Threading.Tasks;
 
 // ReSharper disable NotAccessedField.Local
 
-namespace Safir.Cli.Services.Installation.Installers
-{
-    internal class DotnetToolInstaller : IServiceInstaller
-    {
-        private readonly string _toolName;
-        private readonly string? _extraArgs;
+namespace Safir.Cli.Services.Installation.Installers;
 
-        public DotnetToolInstaller(string toolName, string? extraArgs)
-        {
-            _toolName = toolName;
-            _extraArgs = extraArgs;
-        }
+internal class DotnetToolInstaller : IServiceInstaller
+{
+    private readonly string _toolName;
+    private readonly string? _extraArgs;
+
+    public DotnetToolInstaller(string toolName, string? extraArgs)
+    {
+        _toolName = toolName;
+        _extraArgs = extraArgs;
+    }
         
-        public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
+    public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
+    {
+        throw new System.NotImplementedException();
     }
 }

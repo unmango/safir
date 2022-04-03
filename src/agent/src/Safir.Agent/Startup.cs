@@ -13,91 +13,90 @@ using Safir.Agent.Services;
 using Safir.Messaging.DependencyInjection;
 using Serilog;
 
-namespace Safir.Agent
+namespace Safir.Agent;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
+        Configuration = configuration;
+    }
+
+    private IConfiguration Configuration { get; }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddGrpc();
+        services.AddGrpcHttpApi();
+        services.AddGrpcReflection();
+
+        services.AddSwaggerGen();
+        services.AddGrpcSwagger();
+        services.ConfigureOptions<Swagger>();
+
+        services.AddCors();
+        services.ConfigureOptions<Cors>();
+
+        services.AddMediatR(typeof(Startup));
+
+        services.AddSafirMessaging();
+        services.ConfigureOptions<SafirMessaging>();
+
+        services.Configure<AgentOptions>(Configuration);
+        services.ConfigureOptions<ReplaceEnvironmentVariables>();
+        services.ConfigureOptions<ReplaceUnderscores>();
+
+        services.AddTransient<IDirectory, SystemDirectoryWrapper>();
+        services.AddTransient<IFile, SystemFileWrapper>();
+        services.AddTransient<IPath, SystemPathWrapper>();
+
+        services.AddSingleton<DataDirectoryWatcher>();
+        services.AddHostedService(s => s.GetRequiredService<DataDirectoryWatcher>());
+        services.AddSingleton<IFileWatcher>(s => s.GetRequiredService<DataDirectoryWatcher>());
+
+        services.AddHostedService<FileEventPublisher>();
+    }
+
+    public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
         {
-            Configuration = configuration;
+            app.UseDeveloperExceptionPage();
         }
 
-        private IConfiguration Configuration { get; }
+        app.UseSerilogRequestLogging();
+        // app.UseHttpsRedirection();
 
-        public void ConfigureServices(IServiceCollection services)
+        var options = app.ApplicationServices
+            .GetRequiredService<IOptions<AgentOptions>>()
+            .Value;
+
+        if (env.IsDevelopment() || options.EnableSwagger)
         {
-            services.AddGrpc();
-            services.AddGrpcHttpApi();
-            services.AddGrpcReflection();
-            
-            services.AddSwaggerGen();
-            services.AddGrpcSwagger();
-            services.ConfigureOptions<Swagger>();
-            
-            services.AddCors();
-            services.ConfigureOptions<Cors>();
-
-            services.AddMediatR(typeof(Startup));
-            
-            services.AddSafirMessaging();
-            services.ConfigureOptions<SafirMessaging>();
-            
-            services.Configure<AgentOptions>(Configuration);
-            services.ConfigureOptions<ReplaceEnvironmentVariables>();
-            services.ConfigureOptions<ReplaceUnderscores>();
-
-            services.AddTransient<IDirectory, SystemDirectoryWrapper>();
-            services.AddTransient<IFile, SystemFileWrapper>();
-            services.AddTransient<IPath, SystemPathWrapper>();
-
-            services.AddSingleton<DataDirectoryWatcher>();
-            services.AddHostedService(s => s.GetRequiredService<DataDirectoryWatcher>());
-            services.AddSingleton<IFileWatcher>(s => s.GetRequiredService<DataDirectoryWatcher>());
-
-            services.AddHostedService<FileEventPublisher>();
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
 
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
+        app.UseRouting();
+        app.UseGrpcWeb(new() { DefaultEnabled = true });
+        app.UseCors();
+        app.UseEndpoints(endpoints => {
+            endpoints.MapGrpcService<FileSystemService>().RequireCors("AllowAll");
+            endpoints.MapGrpcService<HostService>().RequireCors("AllowAll");
+
+            if (env.IsDevelopment() || options.EnableGrpcReflection)
             {
-                app.UseDeveloperExceptionPage();
+                endpoints.MapGrpcReflectionService();
             }
 
-            app.UseSerilogRequestLogging();
-            // app.UseHttpsRedirection();
-
-            var options = app.ApplicationServices
-                .GetRequiredService<IOptions<AgentOptions>>()
-                .Value;
-
-            if (env.IsDevelopment() || options.EnableSwagger)
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-            
-            app.UseRouting();
-            app.UseGrpcWeb(new() { DefaultEnabled = true });
-            app.UseCors();
-            app.UseEndpoints(endpoints => {
-                endpoints.MapGrpcService<FileSystemService>().RequireCors("AllowAll");
-                endpoints.MapGrpcService<HostService>().RequireCors("AllowAll");
-
-                if (env.IsDevelopment() || options.EnableGrpcReflection)
-                {
-                    endpoints.MapGrpcReflectionService();
-                }
-
-                endpoints.MapGet("/config", async context => {
-                    await context.Response.WriteAsJsonAsync(options);
-                });
-
-                endpoints.MapGet("/", context => {
-                    context.Response.Redirect("/swagger/index.html");
-                    return Task.CompletedTask;
-                });
+            endpoints.MapGet("/config", async context => {
+                await context.Response.WriteAsJsonAsync(options);
             });
-        }
+
+            endpoints.MapGet("/", context => {
+                context.Response.Redirect("/swagger/index.html");
+                return Task.CompletedTask;
+            });
+        });
     }
 }

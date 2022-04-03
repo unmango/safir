@@ -7,85 +7,84 @@ using Microsoft.Extensions.Logging;
 using Safir.Cli.Services;
 using Safir.Cli.Services.Installation;
 
-namespace Safir.Cli.Commands.Service
+namespace Safir.Cli.Commands.Service;
+
+internal class InstallCommand : Command
 {
-    internal class InstallCommand : Command
+    private static readonly Option<bool> _concurrent = new(
+        new[] { "--concurrent" },
+        "Install multiple services concurrently");
+
+    private static readonly Option<string> _directory = new(
+        new[] { "-d", "--directory" },
+        "Optional directory to install to");
+
+    private static readonly ServiceArgument _services = new("The name of the service to install");
+
+    public InstallCommand() : base("install", "Installs the specified service(s)")
     {
-        private static readonly Option<bool> _concurrent = new(
-            new[] { "--concurrent" },
-            "Install multiple services concurrently");
+        AddOption(_concurrent);
+        AddOption(_directory);
+        AddArgument(_services);
+    }
 
-        private static readonly Option<string> _directory = new(
-            new[] { "-d", "--directory" },
-            "Optional directory to install to");
+    // ReSharper disable once ClassNeverInstantiated.Global
+    public sealed class InstallHandler : ICommandHandler
+    {
+        private readonly IServiceRegistry _registry;
+        private readonly IInstallationService _installer;
+        private readonly ILogger<InstallCommand> _logger;
 
-        private static readonly ServiceArgument _services = new("The name of the service to install");
-
-        public InstallCommand() : base("install", "Installs the specified service(s)")
+        public InstallHandler(
+            IServiceRegistry registry,
+            IInstallationService installer,
+            ILogger<InstallCommand> logger)
         {
-            AddOption(_concurrent);
-            AddOption(_directory);
-            AddArgument(_services);
+            _registry = registry;
+            _installer = installer;
+            _logger = logger;
         }
 
-        // ReSharper disable once ClassNeverInstantiated.Global
-        public sealed class InstallHandler : ICommandHandler
+        public async Task<int> InvokeAsync(InvocationContext context)
         {
-            private readonly IServiceRegistry _registry;
-            private readonly IInstallationService _installer;
-            private readonly ILogger<InstallCommand> _logger;
+            var parseResult = context.ParseResult;
+            var concurrent = parseResult.ValueForOption(_concurrent);
+            var directory = parseResult.ValueForOption(_directory);
+            var services = parseResult.ValueForArgument(_services)!.ToList();
 
-            public InstallHandler(
-                IServiceRegistry registry,
-                IInstallationService installer,
-                ILogger<InstallCommand> logger)
+            _logger.BoolOption(nameof(concurrent), concurrent);
+            _logger.Option(nameof(directory), directory!);
+            _logger.Option(nameof(services), services!);
+
+            var toInstall = _registry
+                .Join(
+                    services!,
+                    x => x.Key,
+                    x => x,
+                    (pair, _) => (Name: pair.Key, Service: pair.Value),
+                    StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            var names = toInstall.Select(x => x.Name).ToList();
+            _logger.ServicesToInstall(names);
+            _logger.UnmatchedServices(services.Except(names, StringComparer.OrdinalIgnoreCase));
+
+            try
             {
-                _registry = registry;
-                _installer = installer;
-                _logger = logger;
+                await _installer.InstallAsync(
+                    toInstall.Select(x => x.Service),
+                    concurrent,
+                    directory,
+                    context.GetCancellationToken());
+
+                _logger.InstallationSucceeded();
+
+                return context.ResultCode;
             }
-
-            public async Task<int> InvokeAsync(InvocationContext context)
+            catch (Exception e)
             {
-                var parseResult = context.ParseResult;
-                var concurrent = parseResult.ValueForOption(_concurrent);
-                var directory = parseResult.ValueForOption(_directory);
-                var services = parseResult.ValueForArgument(_services)!.ToList();
-
-                _logger.BoolOption(nameof(concurrent), concurrent);
-                _logger.Option(nameof(directory), directory!);
-                _logger.Option(nameof(services), services!);
-
-                var toInstall = _registry
-                    .Join(
-                        services!,
-                        x => x.Key,
-                        x => x,
-                        (pair, _) => (Name: pair.Key, Service: pair.Value),
-                        StringComparer.OrdinalIgnoreCase)
-                    .ToList();
-
-                var names = toInstall.Select(x => x.Name).ToList();
-                _logger.ServicesToInstall(names);
-                _logger.UnmatchedServices(services.Except(names, StringComparer.OrdinalIgnoreCase));
-
-                try
-                {
-                    await _installer.InstallAsync(
-                        toInstall.Select(x => x.Service),
-                        concurrent,
-                        directory,
-                        context.GetCancellationToken());
-
-                    _logger.InstallationSucceeded();
-
-                    return context.ResultCode;
-                }
-                catch (Exception e)
-                {
-                    _logger.InstallationFailed(e);
-                    return 1;
-                }
+                _logger.InstallationFailed(e);
+                return 1;
             }
         }
     }

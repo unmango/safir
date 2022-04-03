@@ -3,22 +3,21 @@ using System.Threading.Tasks;
 
 // ReSharper disable NotAccessedField.Local
 
-namespace Safir.Cli.Services.Installation.Installers
-{
-    internal class DockerImageInstaller : IServiceInstaller
-    {
-        private readonly string _imageName;
-        private readonly string? _tag;
+namespace Safir.Cli.Services.Installation.Installers;
 
-        public DockerImageInstaller(string imageName, string? tag)
-        {
-            _imageName = imageName;
-            _tag = tag;
-        }
+internal class DockerImageInstaller : IServiceInstaller
+{
+    private readonly string _imageName;
+    private readonly string? _tag;
+
+    public DockerImageInstaller(string imageName, string? tag)
+    {
+        _imageName = imageName;
+        _tag = tag;
+    }
         
-        public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
+    public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
+    {
+        throw new System.NotImplementedException();
     }
 }

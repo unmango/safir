@@ -1,13 +1,12 @@
 using FluentValidation;
 
-namespace Safir.Cli.Services.Configuration.Validation
+namespace Safir.Cli.Services.Configuration.Validation;
+
+internal sealed class DotnetToolValidator : AbstractValidator<ServiceSource>
 {
-    internal sealed class DotnetToolValidator : AbstractValidator<ServiceSource>
+    public DotnetToolValidator()
     {
-        public DotnetToolValidator()
-        {
-            RuleFor(x => x.Type).Equal(SourceType.DotnetTool);
-            RuleFor(x => x.ToolName).NotNull().NotEmpty();
-        }
+        RuleFor(x => x.Type).Equal(SourceType.DotnetTool);
+        RuleFor(x => x.ToolName).NotNull().NotEmpty();
     }
 }

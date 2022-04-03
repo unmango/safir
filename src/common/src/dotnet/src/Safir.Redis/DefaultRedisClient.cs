@@ -1,7 +1,6 @@
-namespace Safir.Redis
+namespace Safir.Redis;
+
+internal sealed class DefaultRedisClient : IRedisClient
 {
-    internal sealed class DefaultRedisClient : IRedisClient
-    {
         
-    }
 }

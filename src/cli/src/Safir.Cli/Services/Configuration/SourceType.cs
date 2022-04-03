@@ -1,12 +1,11 @@
-namespace Safir.Cli.Services.Configuration
+namespace Safir.Cli.Services.Configuration;
+
+public enum SourceType
 {
-    public enum SourceType
-    {
-        Docker,
-        DockerBuild,
-        DockerImage,
-        DotnetTool,
-        Git,
-        LocalDirectory,
-    }
+    Docker,
+    DockerBuild,
+    DockerImage,
+    DotnetTool,
+    Git,
+    LocalDirectory,
 }

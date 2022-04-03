@@ -1,7 +1,6 @@
-namespace Safir.Cli.Services.Sources
+namespace Safir.Cli.Services.Sources;
+
+internal interface IGitSource : IServiceSource
 {
-    internal interface IGitSource : IServiceSource
-    {
-        string CloneUrl { get; }
-    }
+    string CloneUrl { get; }
 }

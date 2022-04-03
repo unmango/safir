@@ -1,17 +1,16 @@
 using FluentValidation;
 
-namespace Safir.Cli.Services.Configuration.Validation
+namespace Safir.Cli.Services.Configuration.Validation;
+
+internal class DockerBuildValidator : AbstractValidator<ServiceSource>
 {
-    internal class DockerBuildValidator : AbstractValidator<ServiceSource>
+    public DockerBuildValidator()
     {
-        public DockerBuildValidator()
-        {
-            RuleFor(x => x.Type).Equal(SourceType.DockerBuild);
-            RuleFor(x => x.BuildContext).NotNull().NotEmpty();
+        RuleFor(x => x.Type).Equal(SourceType.DockerBuild);
+        RuleFor(x => x.BuildContext).NotNull().NotEmpty();
             
-            RuleSet("Optional", () => {
-                RuleFor(x => x.Tag).NotEmpty().WithSeverity(Severity.Info);
-            });
-        }
+        RuleSet("Optional", () => {
+            RuleFor(x => x.Tag).NotEmpty().WithSeverity(Severity.Info);
+        });
     }
 }

@@ -1,7 +1,6 @@
-namespace Safir.Cli.Internal.Wrappers.Git
+namespace Safir.Cli.Internal.Wrappers.Git;
+
+public interface IRemoteFunctions
 {
-    public interface IRemoteFunctions
-    {
-        bool IsValidName(string name);
-    }
+    bool IsValidName(string name);
 }

@@ -1,12 +1,11 @@
-namespace Safir.Agent.Domain
-{
-    using File = System.IO.File;
+namespace Safir.Agent.Domain;
 
-    internal sealed class SystemFileWrapper : IFile
+using File = System.IO.File;
+
+internal sealed class SystemFileWrapper : IFile
+{
+    public bool Exists(string? path)
     {
-        public bool Exists(string? path)
-        {
-            return File.Exists(path);
-        }
+        return File.Exists(path);
     }
 }

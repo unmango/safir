@@ -2,22 +2,21 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
-namespace Safir.Cli.Commands.Service
+namespace Safir.Cli.Commands.Service;
+
+internal sealed class StatusCommand : Command
 {
-    internal sealed class StatusCommand : Command
+    public StatusCommand() : base("status", "Get the status of the selected service(s)")
     {
-        public StatusCommand() : base("status", "Get the status of the selected service(s)")
-        {
-            AddOption(new ServiceOption());
-        }
+        AddOption(new ServiceOption());
+    }
         
-        // ReSharper disable once ClassNeverInstantiated.Global
-        public sealed class StatusHandler : ICommandHandler
+    // ReSharper disable once ClassNeverInstantiated.Global
+    public sealed class StatusHandler : ICommandHandler
+    {
+        public Task<int> InvokeAsync(InvocationContext context)
         {
-            public Task<int> InvokeAsync(InvocationContext context)
-            {
-                throw new System.NotImplementedException();
-            }
+            throw new System.NotImplementedException();
         }
     }
 }

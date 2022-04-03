@@ -1,10 +1,9 @@
 using System;
 
-namespace Safir.Messaging.Tests.Fakes
+namespace Safir.Messaging.Tests.Fakes;
+
+public class MockEvent : IEvent
 {
-    public class MockEvent : IEvent
-    {
-        // ReSharper disable once UnassignedGetOnlyAutoProperty
-        public DateTime Occurred { get; }
-    }
+    // ReSharper disable once UnassignedGetOnlyAutoProperty
+    public DateTime Occurred { get; }
 }

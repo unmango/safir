@@ -5,30 +5,29 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Safir.Cli.Internal.Pipeline;
 
-namespace Safir.Cli.Services.Installation
+namespace Safir.Cli.Services.Installation;
+
+internal class DefaultInstallationPipeline : IInstallationPipeline
 {
-    internal class DefaultInstallationPipeline : IInstallationPipeline
+    private readonly IEnumerable<IInstallationMiddleware> _installers;
+    private readonly ILogger<DefaultInstallationPipeline> _logger;
+
+    public DefaultInstallationPipeline(
+        IEnumerable<IInstallationMiddleware> installers,
+        ILogger<DefaultInstallationPipeline> logger)
     {
-        private readonly IEnumerable<IInstallationMiddleware> _installers;
-        private readonly ILogger<DefaultInstallationPipeline> _logger;
+        _installers = installers;
+        _logger = logger;
+    }
 
-        public DefaultInstallationPipeline(
-            IEnumerable<IInstallationMiddleware> installers,
-            ILogger<DefaultInstallationPipeline> logger)
-        {
-            _installers = installers;
-            _logger = logger;
-        }
+    public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
+    {
+        _logger.InitialInstallers(_installers);
+        var applicable = _installers.AllApplicable(context).ToList();
+        _logger.ApplicableInstallers(applicable);
 
-        public ValueTask InstallAsync(InstallationContext context, CancellationToken cancellationToken = default)
-        {
-            _logger.InitialInstallers(_installers);
-            var applicable = _installers.AllApplicable(context).ToList();
-            _logger.ApplicableInstallers(applicable);
-
-            return applicable.Count > 0
-                ? applicable.InvokePipelineAsync(context, cancellationToken)
-                : ValueTask.CompletedTask;
-        }
+        return applicable.Count > 0
+            ? applicable.InvokePipelineAsync(context, cancellationToken)
+            : ValueTask.CompletedTask;
     }
 }

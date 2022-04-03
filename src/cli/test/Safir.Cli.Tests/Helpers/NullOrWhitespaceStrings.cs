@@ -1,16 +1,15 @@
 using Xunit;
 
-namespace Safir.Cli.Tests.Helpers
+namespace Safir.Cli.Tests.Helpers;
+
+public class NullOrWhitespaceStrings : TheoryData<string?>
 {
-    public class NullOrWhitespaceStrings : TheoryData<string?>
+    public NullOrWhitespaceStrings()
     {
-        public NullOrWhitespaceStrings()
-        {
-            Add(null);
-            Add("");
-            Add(" ");
-            Add("\t");
-            Add("\n");
-        }
+        Add(null);
+        Add("");
+        Add(" ");
+        Add("\t");
+        Add("\n");
     }
 }

@@ -5,29 +5,28 @@ using Safir.Cli.Services;
 using Safir.Cli.Services.Sources;
 using Xunit;
 
-namespace Safir.Cli.Tests.Helpers
-{
-    public class ServiceSources : TheoryData<IServiceSource>
-    {
-        private static readonly List<IServiceSource> _sources = new(5) {
-            new DockerBuildSource("Name", "context"),
-            new DockerImageSource("Name", "image"),
-            new DotnetToolSource("Name", "tool"),
-            new GitSource("Name", "https://example.com/repo.git"),
-            new LocalDirectorySource("Name", "directory/that/does/not/exist"),
-        };
-        
-        public ServiceSources(IEnumerable<IServiceSource>? sources = null)
-        {
-            foreach (var source in sources ?? _sources)
-            {
-                Add(source);
-            }
-        }
+namespace Safir.Cli.Tests.Helpers;
 
-        public static ServiceSources Except(Type type)
+public class ServiceSources : TheoryData<IServiceSource>
+{
+    private static readonly List<IServiceSource> _sources = new(5) {
+        new DockerBuildSource("Name", "context"),
+        new DockerImageSource("Name", "image"),
+        new DotnetToolSource("Name", "tool"),
+        new GitSource("Name", "https://example.com/repo.git"),
+        new LocalDirectorySource("Name", "directory/that/does/not/exist"),
+    };
+        
+    public ServiceSources(IEnumerable<IServiceSource>? sources = null)
+    {
+        foreach (var source in sources ?? _sources)
         {
-            return new(_sources.Where(x => x.GetType() != type));
+            Add(source);
         }
+    }
+
+    public static ServiceSources Except(Type type)
+    {
+        return new(_sources.Where(x => x.GetType() != type));
     }
 }

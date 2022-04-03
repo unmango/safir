@@ -1,7 +1,6 @@
-namespace Safir.Redis.Configuration
+namespace Safir.Redis.Configuration;
+
+public class RedisOptions
 {
-    public class RedisOptions
-    {
-        public string Configuration { get; set; } = string.Empty;
-    }
+    public string Configuration { get; set; } = string.Empty;
 }

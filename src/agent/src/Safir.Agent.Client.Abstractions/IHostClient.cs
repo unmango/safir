@@ -3,13 +3,12 @@ using Grpc.Core;
 using JetBrains.Annotations;
 using Safir.Protos;
 
-namespace Safir.Agent.Client
+namespace Safir.Agent.Client;
+
+[PublicAPI]
+public interface IHostClient
 {
-    [PublicAPI]
-    public interface IHostClient
-    {
-        HostInfo GetInfo(CancellationToken cancellationToken = default);
+    HostInfo GetInfo(CancellationToken cancellationToken = default);
         
-        AsyncUnaryCall<HostInfo> GetInfoAsync(CancellationToken cancellationToken = default);
-    }
+    AsyncUnaryCall<HostInfo> GetInfoAsync(CancellationToken cancellationToken = default);
 }

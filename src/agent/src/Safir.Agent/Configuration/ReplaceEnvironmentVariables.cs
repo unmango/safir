@@ -1,16 +1,15 @@
 using System;
 using Microsoft.Extensions.Options;
 
-namespace Safir.Agent.Configuration
+namespace Safir.Agent.Configuration;
+
+internal sealed class ReplaceEnvironmentVariables : IPostConfigureOptions<AgentOptions>
 {
-    internal sealed class ReplaceEnvironmentVariables : IPostConfigureOptions<AgentOptions>
+    public void PostConfigure(string name, AgentOptions options)
     {
-        public void PostConfigure(string name, AgentOptions options)
+        if (!string.IsNullOrWhiteSpace(options.DataDirectory))
         {
-            if (!string.IsNullOrWhiteSpace(options.DataDirectory))
-            {
-                options.DataDirectory = Environment.ExpandEnvironmentVariables(options.DataDirectory);
-            }
+            options.DataDirectory = Environment.ExpandEnvironmentVariables(options.DataDirectory);
         }
     }
 }

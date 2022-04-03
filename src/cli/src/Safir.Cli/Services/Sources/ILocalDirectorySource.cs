@@ -1,7 +1,6 @@
-namespace Safir.Cli.Services.Sources
+namespace Safir.Cli.Services.Sources;
+
+internal interface ILocalDirectorySource : IServiceSource
 {
-    internal interface ILocalDirectorySource : IServiceSource
-    {
-        string SourceDirectory { get; }
-    }
+    string SourceDirectory { get; }
 }

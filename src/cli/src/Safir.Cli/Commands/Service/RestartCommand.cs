@@ -2,23 +2,22 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
-namespace Safir.Cli.Commands.Service
+namespace Safir.Cli.Commands.Service;
+
+internal sealed class RestartCommand : Command
 {
-    internal sealed class RestartCommand : Command
+    public RestartCommand() : base("restart", "Restart the selected service(s)")
     {
-        public RestartCommand() : base("restart", "Restart the selected service(s)")
-        {
-            AddAlias("r");
-            AddOption(new ServiceOption());
-        }
+        AddAlias("r");
+        AddOption(new ServiceOption());
+    }
         
-        // ReSharper disable once ClassNeverInstantiated.Global
-        public sealed class RestartHandler : ICommandHandler
+    // ReSharper disable once ClassNeverInstantiated.Global
+    public sealed class RestartHandler : ICommandHandler
+    {
+        public Task<int> InvokeAsync(InvocationContext context)
         {
-            public Task<int> InvokeAsync(InvocationContext context)
-            {
-                throw new System.NotImplementedException();
-            }
+            throw new System.NotImplementedException();
         }
     }
 }

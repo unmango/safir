@@ -1,9 +1,8 @@
-namespace Safir.Cli.Internal.Pipeline
-{
-    internal delegate bool AppliesTo<in T>(T context);
+namespace Safir.Cli.Internal.Pipeline;
 
-    internal interface IAppliesTo<in T>
-    {
-        bool AppliesTo(T context);
-    }
+internal delegate bool AppliesTo<in T>(T context);
+
+internal interface IAppliesTo<in T>
+{
+    bool AppliesTo(T context);
 }

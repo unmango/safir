@@ -6,34 +6,33 @@ using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
 using System.Linq;
 
-namespace Safir.Cli.Middleware
+namespace Safir.Cli.Middleware;
+
+internal static class HelpMiddleware
 {
-    internal static class HelpMiddleware
-    {
-        public static CommandLineBuilder UseHelpForEmptyCommands(this CommandLineBuilder builder) =>
-            builder.UseMiddleware((context, next) => {
-                var globalOptions = ((Command)context.ParseResult.RootCommandResult.Command).GlobalOptions;
-                var commandResult = context.ParseResult.CommandResult;
+    public static CommandLineBuilder UseHelpForEmptyCommands(this CommandLineBuilder builder) =>
+        builder.UseMiddleware((context, next) => {
+            var globalOptions = ((Command)context.ParseResult.RootCommandResult.Command).GlobalOptions;
+            var commandResult = context.ParseResult.CommandResult;
                 
-                if (HasChildrenDefined(commandResult.Command, globalOptions) &&
-                    !WasPassedChildren(commandResult))
-                {
-                    return CommandHandler.Create((IHelpBuilder help) => {
-                        help.Write(commandResult.Command);
-                    }).InvokeAsync(context);
-                }
+            if (HasChildrenDefined(commandResult.Command, globalOptions) &&
+                !WasPassedChildren(commandResult))
+            {
+                return CommandHandler.Create((IHelpBuilder help) => {
+                    help.Write(commandResult.Command);
+                }).InvokeAsync(context);
+            }
 
-                return next(context);
-            });
+            return next(context);
+        });
 
-        private static bool HasChildrenDefined(ISymbol command, IEnumerable<IOption> globalOptions)
-        {
-            return command.Children.Except(globalOptions).Any();
-        }
+    private static bool HasChildrenDefined(ISymbol command, IEnumerable<IOption> globalOptions)
+    {
+        return command.Children.Except(globalOptions).Any();
+    }
 
-        private static bool WasPassedChildren(SymbolResult result)
-        {
-            return result.Children.Count > 0;
-        }
+    private static bool WasPassedChildren(SymbolResult result)
+    {
+        return result.Children.Count > 0;
     }
 }

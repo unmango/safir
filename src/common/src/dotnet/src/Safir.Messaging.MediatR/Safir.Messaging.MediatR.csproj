@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Update="IsExternalInit" Version="1.0.2" />
     <PackageReference Update="JetBrains.Annotations" Version="2021.3.0" />
   </ItemGroup>

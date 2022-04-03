@@ -5,8 +5,8 @@
     </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Condition=" $(TargetFramework) == 'netstandard2.0' " Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" />
     <PackageReference Update="JetBrains.Annotations" Version="2021.3.0" />
+    <PackageReference Condition=" $(TargetFramework) == 'netstandard2.0' " Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

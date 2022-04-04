@@ -36,7 +36,7 @@
     <AgentSrc>$(AgentRoot)\src</AgentSrc>
     <CliRoot>$(SourceRoot)\cli</CliRoot>
     <CliSrc>$(CliRoot)\src</CliSrc>
-    <CommonRoot>$(SourceRoot)\common\src\dotnet</CommonRoot>
+    <CommonRoot>$(SourceRoot)\common\dotnet</CommonRoot>
     <CommonSrc>$(CommonRoot)\src</CommonSrc>
     <ManagerRoot>$(SourceRoot)\manager</ManagerRoot>
     <ManagerSrc>$(ManagerRoot)\src</ManagerSrc>

@@ -18,7 +18,7 @@ public class DbContextSnapshotStore<TContext> : ISnapshotStore
     public DbContextSnapshotStore(TContext context, ILogger<DbContextSnapshotStore<TContext>> logger)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
-        _logger = logger ?? throw new ArgumentNullException(nameof(context));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     public async Task AddAsync<TAggregate, TId>(TAggregate aggregate, CancellationToken cancellationToken = default)
@@ -33,7 +33,7 @@ public class DbContextSnapshotStore<TContext> : ISnapshotStore
         _logger.LogTrace("Saved context changes");
     }
 
-    public Task<TAggregate> FindAsync<TAggregate, TId>(
+    public Task<TAggregate?> FindAsync<TAggregate, TId>(
         TId id,
         int maxVersion = int.MaxValue,
         CancellationToken cancellationToken = default)

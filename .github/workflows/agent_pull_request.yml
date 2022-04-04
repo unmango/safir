@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
     - src/agent/**
+    - src/common/dotnet/**
 env:
   DOTNET_NOLOGO: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true

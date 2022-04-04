@@ -65,8 +65,6 @@ public class DbContextEventStore<TContext> : IEventStore
 
     public Task<IEvent> GetAsync<TAggregateId>(Guid id, CancellationToken cancellationToken = default)
     {
-        if (id == null) throw new ArgumentNullException(nameof(id));
-
         _logger.LogTrace("Getting single event with id {Id}", id);
         return GetEventSet<TAggregateId>().SingleAsync(x => id.Equals(x.Id), cancellationToken)
             .Bind(x => Deserialize(x, cancellationToken));
@@ -75,8 +73,6 @@ public class DbContextEventStore<TContext> : IEventStore
     public Task<TEvent> GetAsync<TEvent, TAggregateId>(Guid id, CancellationToken cancellationToken = default)
         where TEvent : IEvent
     {
-        if (id == null) throw new ArgumentNullException(nameof(id));
-
         _logger.LogTrace("Getting single event with id {Id}", id);
         return GetEventSet<TAggregateId>().SingleAsync(x => id.Equals(x.Id), cancellationToken)
             .Bind(x => Deserialize<TEvent, TAggregateId>(x, cancellationToken));

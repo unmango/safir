@@ -10,7 +10,7 @@ public interface ISnapshotStore
     Task AddAsync<TAggregate, TId>(TAggregate aggregate, CancellationToken cancellationToken = default)
         where TAggregate : IAggregate<TId>;
 
-    Task<TAggregate> FindAsync<TAggregate, TId>(
+    Task<TAggregate?> FindAsync<TAggregate, TId>(
         TId id,
         int maxVersion = int.MaxValue,
         CancellationToken cancellationToken = default)

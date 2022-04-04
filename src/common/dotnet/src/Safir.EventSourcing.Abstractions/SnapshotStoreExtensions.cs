@@ -8,7 +8,7 @@ namespace Safir.EventSourcing;
 [PublicAPI]
 public static class SnapshotStoreExtensions
 {
-    public static Task<TAggregate> FindAsync<TAggregate, TId>(
+    public static Task<TAggregate?> FindAsync<TAggregate, TId>(
         this ISnapshotStore store,
         TId id,
         CancellationToken cancellationToken)
@@ -16,8 +16,8 @@ public static class SnapshotStoreExtensions
     {
         return store.FindAsync<TAggregate, TId>(id, cancellationToken: cancellationToken);
     }
-        
-    public static Task<T> FindAsync<T>(
+
+    public static Task<T?> FindAsync<T>(
         this ISnapshotStore store,
         Guid id,
         int maxVersion = int.MaxValue,
@@ -26,8 +26,8 @@ public static class SnapshotStoreExtensions
     {
         return store.FindAsync<T, Guid>(id, maxVersion, cancellationToken);
     }
-        
-    public static Task<T> FindAsync<T>(
+
+    public static Task<T?> FindAsync<T>(
         this ISnapshotStore store,
         Guid id,
         CancellationToken cancellationToken)

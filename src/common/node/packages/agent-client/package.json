@@ -1,0 +1,36 @@
+{
+  "name": "@unmango/safir-agent-client",
+  "version": "0.0.0",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unmango/safir-common.git",
+    "directory": "src/common/src/node/packages/agent-client"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepack": "yarn build",
+    "publish:broken": "yarn version $(minver -t v) && yarn npm publish --tag latest --access public",
+    "publish": "npm version $(minver -t v) && yarn npm publish --tag latest --access public"
+  },
+  "dependencies": {
+    "@unmango/safir-protos": "workspace:packages/protos",
+    "google-protobuf": "^3.17.3",
+    "grpc-web": "^1.3.1",
+    "rxjs": "^7.3.0"
+  },
+  "devDependencies": {
+    "@types/google-protobuf": "^3.15.5",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.6.1",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.3.5"
+  }
+}

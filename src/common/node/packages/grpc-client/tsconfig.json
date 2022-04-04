@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "target": "ES6",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "declaration": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "paths": {
+      "@unmango/safir-grpc-client": ["./src/index"],
+      "@unmango/safir-grpc-client/agent": ["./src/agent/index"],
+      "@unmango/safir-grpc-client/manager": ["./src/manager/index"]
+    }
+  }
+}

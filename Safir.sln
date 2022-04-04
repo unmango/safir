@@ -82,6 +82,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Messaging.MediatR.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Messaging.Tests", "src\common\dotnet\test\Safir.Messaging.Tests\Safir.Messaging.Tests.csproj", "{6B1CD7E1-8E35-4108-8425-09991E0B2B23}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{B4688F14-99D2-4A0F-972D-80D67544488E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{9F4C9816-498A-476B-9221-910D74EE0D05}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\agent_pull_request.yml = .github\workflows\agent_pull_request.yml
+		.github\workflows\cli_pull_request.yml = .github\workflows\cli_pull_request.yml
+		.github\workflows\common_dotnet_pr.yml = .github\workflows\common_dotnet_pr.yml
+		.github\workflows\common_node_pr.yml = .github\workflows\common_node_pr.yml
+		.github\workflows\manager_pull_request.yml = .github\workflows\manager_pull_request.yml
+		.github\workflows\ui_pull_request.yml = .github\workflows\ui_pull_request.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -122,6 +134,7 @@ Global
 		{67187146-632E-447E-B922-F9DF0339EB27} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
 		{25951FB0-408A-4238-BE27-02A52188DAD8} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
 		{6B1CD7E1-8E35-4108-8425-09991E0B2B23} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
+		{9F4C9816-498A-476B-9221-910D74EE0D05} = {B4688F14-99D2-4A0F-972D-80D67544488E}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9E7CBC93-7265-4DB8-B1FD-5E6216BB42B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

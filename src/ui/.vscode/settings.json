@@ -4,14 +4,11 @@
     "source.fixAll.eslint": true
   },
   "eslint.alwaysShowStatus": true,
-  "eslint.nodePath": ".yarn/sdks",
   "npm.packageManager": "yarn",
-  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "search.exclude": {
     "**/.yarn": true,
     "**/.pnp.*": true
   },
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "[javascript]": {
     "editor.formatOnSave": true

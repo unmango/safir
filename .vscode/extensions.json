@@ -3,7 +3,8 @@
     "arcanis.vscode-zipfs",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "firefox-devtools.vscode-firefox-debug",
-    "msjsdiag.debugger-for-chrome"
+    "ms-dotnettools.csharp",
+    "ms-azuretools.vscode-docker",
+    "EditorConfig.EditorConfig"
   ]
 }

@@ -40,7 +40,7 @@
     <CommonSrc>$(CommonRoot)\src</CommonSrc>
     <ManagerRoot>$(SourceRoot)\manager</ManagerRoot>
     <ManagerSrc>$(ManagerRoot)\src</ManagerSrc>
-    <ProtoRoot>$(RepositoryRoot)\protos</ProtoRoot>
+    <ProtoRoot>$(SourceRoot)\protos</ProtoRoot>
   </PropertyGroup>
 
   <PropertyGroup>

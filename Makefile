@@ -1,12 +1,12 @@
 SHELL       := /bin/bash
 
-ensure:: prepare_protos
-
 common_dotnet_docker::
-	cd src && docker build . -f common/dotnet/Dockerfile
+	cd src && docker build . \
+		-f common/dotnet/Dockerfile \
+		-t safir-common-dotnet
 
-agent:: ensure
+agent::
 	dotnet build src/agent
 
-agent_docker:: ensure
-	docker build src -f src/agent/Dockerfile
+agent_docker:: common_dotnet_docker
+	cd src && docker build . -f agent/Dockerfile

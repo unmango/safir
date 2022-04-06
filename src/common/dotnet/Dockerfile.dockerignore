@@ -24,4 +24,4 @@ Dockerfile*
 **/*.cmd
 **/*.sh
 
-Directory.Build.props
+**/Directory.Build.props

@@ -1,16 +1,26 @@
+FROM safir-common-dotnet AS common
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+ARG COMMON_DIR=/common
 
 ENV DOTNET_NOLOGO true
 ENV DOTNET_CLI_TELEMETRY_OPTOUT true
 
 WORKDIR /build
-COPY src/Safir.Agent/*.csproj ./Safir.Agent/
-COPY src/Safir.Agent.Abstractions/*.csproj ./Safir.Agent.Abstractions/
+
+ENV CommonSrc ${COMMON_DIR}
+ENV AgentSrc /build
+
+COPY --from=common /common ${COMMON_DIR}
+COPY agent/src/Safir.Agent/*.csproj ./Safir.Agent/
+COPY agent/src/Safir.Agent.Abstractions/*.csproj ./Safir.Agent.Abstractions/
+
 RUN dotnet restore Safir.Agent
 
-COPY src/Safir.Agent ./Safir.Agent/
-COPY src/Safir.Agent.Abstractions ./Safir.Agent.Abstractions/
-COPY Directory.Build.props .
+COPY agent/src/Safir.Agent ./Safir.Agent/
+COPY agent/src/Safir.Agent.Abstractions ./Safir.Agent.Abstractions/
+# COPY Directory.Build.props .
+
 RUN dotnet publish Safir.Agent --no-restore --configuration Release --output /out
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0

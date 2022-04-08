@@ -43,6 +43,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A21FBA48
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{1087D1B9-57FF-4354-AA12-71F1F9084F5A}"
+	ProjectSection(SolutionItems) = preProject
+		src\common\dotnet\Directory.Build.props = src\common\dotnet\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Common", "src\common\dotnet\src\Safir.Common\Safir.Common.csproj", "{DB03753D-D766-46B8-ADA7-D33265457A2C}"
 EndProject

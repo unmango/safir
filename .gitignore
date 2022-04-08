@@ -6,6 +6,7 @@
 # User Specific Files
 *.user
 *.code-workspace
+*.env*
 
 # yarn v2
 .yarn/cache

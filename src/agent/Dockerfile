@@ -19,11 +19,13 @@ RUN dotnet restore Safir.Agent
 
 COPY agent/src/Safir.Agent ./Safir.Agent/
 COPY agent/src/Safir.Agent.Abstractions ./Safir.Agent.Abstractions/
-# COPY Directory.Build.props .
+COPY Directory.Build.props .
 
-RUN dotnet publish Safir.Agent --no-restore --configuration Release --output /out
+RUN ls -lah /common
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
-WORKDIR /app
-COPY --from=build /out .
-ENTRYPOINT [ "dotnet", "Safir.Agent.dll" ]
+# RUN dotnet publish Safir.Agent --configuration Release --output /out
+
+# FROM mcr.microsoft.com/dotnet/aspnet:6.0
+# WORKDIR /app
+# COPY --from=build /out .
+# ENTRYPOINT [ "dotnet", "Safir.Agent.dll" ]

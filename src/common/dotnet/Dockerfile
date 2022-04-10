@@ -16,7 +16,10 @@ ENV ProtoRoot ${SOURCE_ROOT}/protos
 
 RUN find */*.csproj | xargs -n1 dotnet restore
 
-COPY protos .
-COPY common/dotnet/src/* ./
+COPY protos ${ProtoRoot}
+COPY common/dotnet/src/ ./
+COPY Directory.Build.props .
 
 RUN find */*.csproj | xargs -n1 dotnet build --no-restore
+
+RUN ls -lh

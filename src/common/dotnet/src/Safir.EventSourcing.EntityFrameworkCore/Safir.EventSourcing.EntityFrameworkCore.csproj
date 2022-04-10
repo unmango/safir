@@ -4,6 +4,7 @@
     <Product>Safir.EventSourcing.EntityFrameworkCore</Product>
     <Description>Abstractions for Safir.EventSourcing.</Description>
     <TargetFramework>net6.0</TargetFramework>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

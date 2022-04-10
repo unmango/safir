@@ -4,6 +4,7 @@
     <Product>Safir.Protos</Product>
     <Description>Generated protocol buffer types for the Safir project.</Description>
     <TargetFrameworks>netstandard2.1;net5.0;net6.0</TargetFrameworks>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

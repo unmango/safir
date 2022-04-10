@@ -5,6 +5,7 @@
     <Description>Abstractions for Safir.Messaging.</Description>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Safir.Messaging</RootNamespace>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

@@ -5,6 +5,7 @@
     <Description>Abstractions for Safir.EventSourcing.</Description>
     <TargetFrameworks>netstandard2.1;net5.0;net6.0</TargetFrameworks>
     <RootNamespace>Safir.EventSourcing</RootNamespace>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

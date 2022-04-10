@@ -5,6 +5,7 @@
     <Description>Abstractions for Safir.Common.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Safir.Common</RootNamespace>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

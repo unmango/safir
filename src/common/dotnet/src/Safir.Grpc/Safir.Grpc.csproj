@@ -4,6 +4,7 @@
     <Product>Safir.Grpc</Product>
     <Description>Safir gRPC utilities.</Description>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

@@ -4,6 +4,7 @@
     <Product>Safir.EventSourcing</Product>
     <Description>Safir event sourcing implementation.</Description>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

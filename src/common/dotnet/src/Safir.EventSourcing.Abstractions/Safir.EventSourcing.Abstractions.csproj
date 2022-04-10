@@ -5,10 +5,18 @@
     <Description>Abstractions for Safir.EventSourcing.</Description>
     <TargetFrameworks>netstandard2.1;net5.0;net6.0</TargetFrameworks>
     <RootNamespace>Safir.EventSourcing</RootNamespace>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="$(CommonSrc)\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IsExternalInit" Version="1.0.2" PrivateAssets="all" />
+    <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" />
+    <PackageReference Include="MinVer" Version="3.1.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

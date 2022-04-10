@@ -5,6 +5,13 @@
     <Description>Abstractions for Safir.Messaging.</Description>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Safir.Messaging</RootNamespace>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" />
+    <PackageReference Include="MinVer" Version="3.1.0" PrivateAssets="all" />
+  </ItemGroup>
 
 </Project>

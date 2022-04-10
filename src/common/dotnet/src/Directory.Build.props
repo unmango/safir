@@ -4,8 +4,4 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MinVer" Version="3.1.0" PrivateAssets="all"/>
-  </ItemGroup>
 </Project>

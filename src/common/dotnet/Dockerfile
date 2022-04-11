@@ -13,6 +13,7 @@ RUN find *.csproj | sed -e 's/.csproj//g' | xargs mkdir && \
 
 ENV CommonSrc ${SOURCE_ROOT}
 ENV ProtoRoot ${SOURCE_ROOT}/protos
+ENV MinVerSkip true
 
 RUN find */*.csproj | xargs -n1 dotnet restore
 

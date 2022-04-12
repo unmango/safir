@@ -1,0 +1,17 @@
+version: v1
+plugins:
+  - remote: buf.build/protocolbuffers/plugins/csharp
+    out: gen/dotnet
+  - remote: buf.build/grpc/plugins/csharp
+    out: gen/dotnet
+  - remote: buf.build/protocolbuffers/plugins/js
+    out: gen/node
+    opt:
+      - import_style=commonjs
+  # - remote: buf.build/grpc/plugins/node
+  #   out: gen/node
+  - name: grpc-web
+    out: gen/node
+    opt:
+      - import_style=typescript
+      - mode=grpcwebtext

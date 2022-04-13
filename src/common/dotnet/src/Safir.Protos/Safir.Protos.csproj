@@ -34,12 +34,12 @@
     <Protobuf Include="$(ProtoRoot)/manager/*.proto" ProtoRoot="$(ProtoRoot)" AdditionalImportDirs="$(ProtoCache)">
       <Link>Manager\$(FileName).proto</Link>
     </Protobuf>
-    <!-- The dotnet-grpc tool does not seem to resolve MSBuild properties, so we are forced to hardcode the path here -->
+    <!-- The dotnet-grpc tool does not seem to resolve MSBuild properties, so we are forced to hardcode the path in the `Include` -->
     <Protobuf Include=".cache/google/api/annotations.proto" GrpcServices="None" ProtoRoot="$(ProtoCache)" CompileOutputs="false">
       <SourceUrl>https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/annotations.proto</SourceUrl>
       <Link>google\api\annotations.proto</Link>
     </Protobuf>
-    <!-- The dotnet-grpc tool does not seem to resolve MSBuild properties, so we are forced to hardcode the path here -->
+    <!-- The dotnet-grpc tool does not seem to resolve MSBuild properties, so we are forced to hardcode the path in the `Include` -->
     <Protobuf Include=".cache/google/api/http.proto" GrpcServices="None" ProtoRoot="$(ProtoCache)" CompileOutputs="false">
       <SourceUrl>https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/http.proto</SourceUrl>
       <Link>google\api\http.proto</Link>

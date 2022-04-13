@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Product>Safir.Protos</Product>
     <Description>Generated protocol buffer types for the Safir project.</Description>
-    <TargetFrameworks>netstandard2.1;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
@@ -18,6 +18,10 @@
   <ItemGroup>
     <ProjectReference Include="$(CommonSrc)\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
   </ItemGroup>
+
+  <Target Name="RefreshProtos" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet grpc refresh" />
+  </Target>
 
   <PropertyGroup>
     <ProtoCache>.cache</ProtoCache>

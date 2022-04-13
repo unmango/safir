@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <Target Name="RefreshProtos" BeforeTargets="BeforeBuild">
-    <Exec Command="dotnet tool restore" />
     <Exec Command="dotnet grpc refresh" />
   </Target>
 

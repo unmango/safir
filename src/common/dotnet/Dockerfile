@@ -5,6 +5,9 @@ ARG SOURCE_ROOT=/common
 ENV DOTNET_NOLOGO true
 ENV DOTNET_CLI_TELEMETRY_OPTOUT true
 
+ENV PATH="${PATH}:/root/.dotnet/tools"
+RUN dotnet tool install -g dotnet-grpc
+
 WORKDIR ${SOURCE_ROOT}
 
 COPY common/dotnet/src/*/*.csproj ./
@@ -14,7 +17,6 @@ RUN find *.csproj | sed -e 's/.csproj//g' | xargs mkdir && \
 ENV CommonSrc ${SOURCE_ROOT}
 ENV ProtoRoot /protos
 ENV MinVerSkip true
-ENV PATH="${PATH}:/root/.dotnet/tools"
 
 RUN find */*.csproj | xargs -n1 dotnet restore
 
@@ -22,5 +24,4 @@ COPY protos ${ProtoRoot}
 COPY common/dotnet/src/ ./
 COPY Directory.Build.props .
 
-RUN dotnet tool install -g dotnet-grpc
 RUN find */*.csproj | xargs -n1 dotnet build --no-restore

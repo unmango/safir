@@ -16,4 +16,10 @@
       </module>
     </libraries>
   </component>
+  <component name="ProtobufSettings">
+    <roots>
+      <entry common="false" path="file://$PROJECT_DIR$/src/protos" />
+      <entry common="false" path="file://$PROJECT_DIR$/src/common/dotnet/src/Safir.Protos/.cache" />
+    </roots>
+  </component>
 </project>

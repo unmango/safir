@@ -2,7 +2,7 @@ ARG CommonImage=safir-common-dotnet
 
 FROM ${CommonImage} AS build
 
-ENV AgentSrc /build
+ENV AgentSrc=/build
 
 WORKDIR /build
 

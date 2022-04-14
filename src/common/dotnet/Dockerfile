@@ -1,10 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
-ENV DOTNET_NOLOGO true
-ENV DOTNET_CLI_TELEMETRY_OPTOUT true
-ENV MinVerSkip true
-ENV CommonSrc /build
-ENV ProtoRoot /protos
+ENV DOTNET_NOLOGO=true
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
+ENV MinVerSkip=true
+ENV CommonSrc=/build
+ENV ProtoRoot=/protos
 
 ENV PATH="${PATH}:/root/.dotnet/tools"
 RUN dotnet tool install -g dotnet-grpc

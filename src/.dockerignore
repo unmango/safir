@@ -8,6 +8,7 @@
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+
 build
 
 **/bin/
@@ -18,8 +19,14 @@ Dockerfile*
 .dockerignore
 .editorconfig
 .gitignore
+
 **/*.trx
 **/*.md
 **/*.ps1
 **/*.cmd
 **/*.sh
+
+**/Directory.Build.props
+!Directory.Build.props
+
+protos/google

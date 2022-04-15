@@ -3,6 +3,7 @@
 import * as fs from 'fs/promises';
 import * as fsSync from 'fs';
 import * as path from 'path';
+import * as protos from 'google-proto-files';
 import * as util from './util';
 
 const { execAsync, globAsync, write } = util;
@@ -44,6 +45,12 @@ const { execAsync, globAsync, write } = util;
   ].join(',') + ':' + gendir;
   write('grpcWebOutOptions: ' + grpcWebOutOptions);
 
+  const test = protos.getProtoPath();
+  const annotations = protos.getProtoPath('annotations');
+
+  console.log(`test: ${test}`);
+  console.log(`annotations: ${annotations}`);
+
   write('Collecting input files');
   const globbedProtoPath = path.join(indir, '**/*.proto');
   const files = await globAsync(globbedProtoPath, { follow: false });
@@ -52,6 +59,7 @@ const { execAsync, globAsync, write } = util;
   const protocCommand = [
     'protoc',
     '-I=' + indir,
+    '-I=' + `../${protos.getProtoPath()}`,
     ...files,
     '--js_out=' + jsOutOptions,
     '--grpc-web_out=' + grpcWebOutOptions

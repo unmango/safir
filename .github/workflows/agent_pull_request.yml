@@ -41,5 +41,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Base Image Build
+      run: docker build . \
+             --file common/dotnet/Dockerfile \
+             --tag safir-common-dotnet
+
     - name: Docker build
-      run: docker build . -f agent/Dockerfile
+      run: docker build . \
+             --file agent/Dockerfile \
+             --build-arg CommonImage=safir-common-dotnet

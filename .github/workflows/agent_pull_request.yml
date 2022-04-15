@@ -33,18 +33,13 @@ jobs:
       run: dotnet test --no-build --verbosity normal --nologo
 
   docker_build:
-    if: ${{ false }} # TODO
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/agent
+        working-directory: src
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Docker build
-      run: |
-        docker build . --file Dockerfile \
-          --build-arg GithubUsername=${{ github.actor }} \
-          --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }} \
-          --tag safir-agent:$(date +%s)
+      run: docker build . -f agent/Dockerfile

@@ -29,3 +29,15 @@ jobs:
 
     - name: Run tests
       run: dotnet test --no-build --verbosity normal
+
+  docker_build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Docker build
+      run: docker build . -f common/dotnet/Dockerfile

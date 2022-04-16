@@ -24,7 +24,7 @@ internal static class Program
     private const string ConfigDirectoryKey = "config:directory";
     private const string ConfigFileKey = "config:file";
     private const string ConfigExistsKey = "config:exists";
-        
+
     private static readonly Option<bool> _debugOption = new(
         new[] { "--debug", "-d" },
         "Write debug information to the console");
@@ -35,6 +35,7 @@ internal static class Program
             .AddServiceCommand()
             .ConfigureHostConfiguration(configuration => {
                 configuration.AddStaticConfiguration();
+                configuration.AddEnvironmentVariables("SAFIR_");
             })
             .ConfigureAppConfiguration((context, configuration) => {
                 configuration.AddEnvironmentVariables("SAFIR_");
@@ -90,6 +91,7 @@ internal static class Program
             GetFolderPath(SpecialFolder.UserProfile),
             ".safir");
 
+        // TODO: Side effect = bad
         if (!Directory.Exists(configDir))
             Directory.CreateDirectory(configDir);
 

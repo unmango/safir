@@ -23,6 +23,9 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
 
+    - name: Restore tools
+      run: dotnet tool restore
+
     - name: Restore dependencies
       run: dotnet restore --nologo
 
@@ -33,18 +36,22 @@ jobs:
       run: dotnet test --no-build --verbosity normal --nologo
 
   docker_build:
-    if: ${{ false }} # TODO
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/manager
+        working-directory: src
 
     steps:
     - uses: actions/checkout@v2
 
+    - name: Base Image Build
+      run: |
+        docker build . \
+          --file common/dotnet/Dockerfile \
+          --tag safir-common-dotnet
+
     - name: Docker build
       run: |
-        docker build . --file Dockerfile \
-          --build-arg GithubUsername=${{ github.actor }} \
-          --build-arg GithubPassword=${{ secrets.GITHUB_TOKEN }} \
-          --tag safir-manager:$(date +%s)
+        docker build . \
+          --file manager/Dockerfile \
+          --build-arg CommonImage=safir-common-dotnet

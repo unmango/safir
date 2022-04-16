@@ -1,19 +1,26 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+ARG CommonImage=safir-common-dotnet
 
-ENV DOTNET_NOLOGO true
-ENV DOTNET_CLI_TELEMETRY_OPTOUT true
+FROM ${CommonImage} AS build
+
+ENV AgentSrc=/build
 
 WORKDIR /build
-COPY src/Safir.Agent/*.csproj ./Safir.Agent/
-COPY src/Safir.Agent.Abstractions/*.csproj ./Safir.Agent.Abstractions/
+
+COPY agent/src/Safir.Agent/*.csproj ./Safir.Agent/
+COPY agent/src/Safir.Agent.Abstractions/*.csproj ./Safir.Agent.Abstractions/
+
 RUN dotnet restore Safir.Agent
 
-COPY src/Safir.Agent ./Safir.Agent/
-COPY src/Safir.Agent.Abstractions ./Safir.Agent.Abstractions/
-COPY Directory.Build.props .
-RUN dotnet publish Safir.Agent --no-restore --configuration Release --output /out
+COPY agent/src/Safir.Agent ./Safir.Agent/
+COPY agent/src/Safir.Agent.Abstractions ./Safir.Agent.Abstractions/
+
+RUN dotnet publish Safir.Agent \
+        --no-restore \
+        --configuration Release \
+        --output /out
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build /out .
+EXPOSE 80
 ENTRYPOINT [ "dotnet", "Safir.Agent.dll" ]

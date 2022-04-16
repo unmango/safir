@@ -31,16 +31,16 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <SourceRoot>$(MSBuildThisFileDirectory)</SourceRoot>
-    <AgentRoot>$(SourceRoot)\agent</AgentRoot>
-    <AgentSrc>$(AgentRoot)\src</AgentSrc>
-    <CliRoot>$(SourceRoot)\cli</CliRoot>
-    <CliSrc>$(CliRoot)\src</CliSrc>
-    <CommonRoot>$(SourceRoot)\common\dotnet</CommonRoot>
-    <CommonSrc>$(CommonRoot)\src</CommonSrc>
-    <ManagerRoot>$(SourceRoot)\manager</ManagerRoot>
-    <ManagerSrc>$(ManagerRoot)\src</ManagerSrc>
-    <ProtoRoot>$(RepositoryRoot)\protos</ProtoRoot>
+    <SourceRoot Condition="'$(SourceRoot)' == ''">$(MSBuildThisFileDirectory)</SourceRoot>
+    <AgentRoot Condition="'$(AgentRoot)' == ''">$(SourceRoot)\agent</AgentRoot>
+    <AgentSrc Condition="'$(AgentSrc)' == ''">$(AgentRoot)\src</AgentSrc>
+    <CliRoot Condition="'$(CliRoot)' == ''">$(SourceRoot)\cli</CliRoot>
+    <CliSrc Condition="'$(CliSrc)' == ''">$(CliRoot)\src</CliSrc>
+    <CommonRoot Condition="'$(CommonRoot)' == ''">$(SourceRoot)\common\dotnet</CommonRoot>
+    <CommonSrc Condition="'$(CommonSrc)' == ''">$(CommonRoot)\src</CommonSrc>
+    <ManagerRoot Condition="'$(ManagerRoot)' == ''">$(SourceRoot)\manager</ManagerRoot>
+    <ManagerSrc Condition="'$(ManagerSrc)' == ''">$(ManagerRoot)\src</ManagerSrc>
+    <ProtoRoot Condition="'$(ProtoRoot)' == ''">$(SourceRoot)\protos</ProtoRoot>
   </PropertyGroup>
 
   <PropertyGroup>

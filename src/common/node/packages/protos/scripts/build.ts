@@ -3,6 +3,7 @@
 import * as fs from 'fs/promises';
 import * as fsSync from 'fs';
 import * as path from 'path';
+import * as googleapis from 'google-proto-files';
 import * as util from './util';
 
 const { execAsync, globAsync, write } = util;
@@ -12,14 +13,23 @@ const { execAsync, globAsync, write } = util;
   write('cwd: ' + cwd);
 
   const gitRoot = await util.gitRootAsync();
-  const indir = path.join(gitRoot, 'protos');
+  const indir = path.join(gitRoot, 'src', 'protos');
   write('indir: ' + indir);
+
+  const cachedir = path.join(cwd, '.cache');
+  write('cachedir: ' + cachedir);
 
   const gendir = path.join(cwd, 'generated');
   write('gendir: ' + gendir);
 
   const outdir = path.join(cwd, 'dist');
   write('outdir: ' + outdir);
+
+  write('Checking if cachedir exists');
+  if (fsSync.existsSync(cachedir)) {
+    write('Removing cachedir');
+    await fs.rm(cachedir, { recursive: true });
+  }
 
   write('Checking if gendir exists');
   if (fsSync.existsSync(gendir)) {
@@ -33,6 +43,18 @@ const { execAsync, globAsync, write } = util;
     await fs.rm(outdir, { recursive: true });
   }
 
+  write('Collecting vendored protos');
+  const googleapiPath = path.join(cachedir, 'google', 'api');
+  await fs.mkdir(googleapiPath, { recursive: true });
+
+  write('Copying annotations proto');
+  const annotationsPath = googleapis.getProtoPath('api', 'annotations.proto');
+  await fs.copyFile(annotationsPath, path.join(googleapiPath, 'annotations.proto'));
+
+  write('Copying http proto');
+  const httpPath = googleapis.getProtoPath('api', 'http.proto');
+  await fs.copyFile(httpPath, path.join(googleapiPath, 'http.proto'));
+
   const jsOutOptions = [
     'import_style=commonjs',
   ].join(',') + ':' + gendir;
@@ -44,18 +66,21 @@ const { execAsync, globAsync, write } = util;
   ].join(',') + ':' + gendir;
   write('grpcWebOutOptions: ' + grpcWebOutOptions);
 
+  var annoTest = await googleapis.load('')
+
   write('Collecting input files');
   const globbedProtoPath = path.join(indir, '**/*.proto');
-  const files = await globAsync(globbedProtoPath, { follow: false });
-  files.push(...[
-    'annotations.proto',
-    'http.proto',
-  ].map(f => path.join(indir, 'google/api', f)));
+  const srcFiles = await globAsync(globbedProtoPath, { follow: false });
+  // TODO: Find the supposed package w/ pre-generated code for googleapis
+  const globbedCachePath = path.join(cachedir, '**/*.proto');
+  const cacheFiles = await globAsync(globbedCachePath, { follow: false });
+  const files = [...srcFiles, ...cacheFiles];
   write('Files:\n  ' + files.join('\n  '));
 
   const protocCommand = [
     'protoc',
     '-I=' + indir,
+    '-I=' + cachedir,
     ...files,
     '--js_out=' + jsOutOptions,
     '--grpc-web_out=' + grpcWebOutOptions

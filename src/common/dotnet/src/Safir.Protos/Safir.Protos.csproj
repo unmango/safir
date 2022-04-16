@@ -1,9 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <Product>Safir.Protos</Product>
     <Description>Generated protocol buffer types for the Safir project.</Description>
-    <TargetFrameworks>netstandard2.1;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
@@ -13,7 +12,6 @@
     <PackageReference Include="Grpc.Core.Api" Version="2.45.0" />
     <PackageReference Include="Grpc.Tools" Version="2.45.0" PrivateAssets="All" />
     <PackageReference Include="IsExternalInit" Version="1.0.2" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" />
     <PackageReference Include="MinVer" Version="3.1.0" PrivateAssets="all" />
   </ItemGroup>
 
@@ -21,16 +19,34 @@
     <ProjectReference Include="$(CommonSrc)\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
   </ItemGroup>
 
+  <Target Name="RefreshProtos" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet grpc refresh" />
+  </Target>
+
+  <PropertyGroup>
+    <ProtoCache>.cache</ProtoCache>
+  </PropertyGroup>
+
+  <!-- https://github.com/grpc/grpc/blob/master/src/csharp/BUILD-INTEGRATION.md -->
   <ItemGroup>
-    <Protobuf Include="$(ProtoRoot)/*.proto" ProtoRoot="$(ProtoRoot)">
+    <Protobuf Include="$(ProtoRoot)/*.proto" ProtoRoot="$(ProtoRoot)" AdditionalImportDirs="$(ProtoCache)">
       <Link>$(FileName).proto</Link>
     </Protobuf>
-    <Protobuf Include="$(ProtoRoot)/agent/*.proto" ProtoRoot="$(ProtoRoot)">
+    <Protobuf Include="$(ProtoRoot)/agent/*.proto" ProtoRoot="$(ProtoRoot)" AdditionalImportDirs="$(ProtoCache)">
       <Link>Agent\$(FileName).proto</Link>
     </Protobuf>
-    <Protobuf Include="$(ProtoRoot)/manager/*.proto" ProtoRoot="$(ProtoRoot)">
+    <Protobuf Include="$(ProtoRoot)/manager/*.proto" ProtoRoot="$(ProtoRoot)" AdditionalImportDirs="$(ProtoCache)">
       <Link>Manager\$(FileName).proto</Link>
     </Protobuf>
+    <!-- The dotnet-grpc tool does not seem to resolve MSBuild properties, so we are forced to hardcode the path in the `Include` -->
+    <Protobuf Include=".cache/google/api/annotations.proto" GrpcServices="None" ProtoRoot="$(ProtoCache)" CompileOutputs="false">
+      <SourceUrl>https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/annotations.proto</SourceUrl>
+      <Link>google\api\annotations.proto</Link>
+    </Protobuf>
+    <!-- The dotnet-grpc tool does not seem to resolve MSBuild properties, so we are forced to hardcode the path in the `Include` -->
+    <Protobuf Include=".cache/google/api/http.proto" GrpcServices="None" ProtoRoot="$(ProtoCache)" CompileOutputs="false">
+      <SourceUrl>https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/http.proto</SourceUrl>
+      <Link>google\api\http.proto</Link>
+    </Protobuf>
   </ItemGroup>
-
 </Project>

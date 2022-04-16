@@ -18,6 +18,9 @@ indent_size = 2
 [*.{xml,props,targets,Config,*proj}]
 indent_size = 2
 
+[Makefile]
+indent_style = tab
+
 [*.cs]
 indent_size = 4
 dotnet_sort_system_directives_first = true

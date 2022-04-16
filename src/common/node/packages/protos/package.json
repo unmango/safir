@@ -19,6 +19,7 @@
     "publish": "npm version $(minver -t v) && yarn npm publish --tag latest --access public"
   },
   "dependencies": {
+    "google-proto-files": "^2.5.0",
     "google-protobuf": "^3.17.3",
     "grpc-web": "^1.3.1"
   },

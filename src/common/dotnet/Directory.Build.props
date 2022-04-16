@@ -4,4 +4,9 @@
   <PropertyGroup>
     <Product>Safir.Common</Product>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Condition="!$(AssemblyName.EndsWith('Tests'))"
+                      Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all"/>
+  </ItemGroup>
 </Project>

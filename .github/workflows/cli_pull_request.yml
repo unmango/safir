@@ -32,16 +32,22 @@ jobs:
       run: dotnet test --no-build --verbosity normal --nologo
 
   docker_build:
-    if: ${{ false }} # TODO
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/cli
+        working-directory: src
 
     steps:
     - uses: actions/checkout@v2
 
+    - name: Base Image Build
+      run: |
+        docker build . \
+          --file common/dotnet/Dockerfile \
+          --tag safir-common-dotnet
+
     - name: Docker build
       run: |
-        docker build . --file Dockerfile \
-          --tag safirctl:$(date +%s)
+        docker build . \
+          --file cli/Dockerfile \
+          --build-arg CommonImage=safir-common-dotnet

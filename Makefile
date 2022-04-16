@@ -1,6 +1,7 @@
 SHELL       := /bin/bash
 
 AGENT_TAG			:= safir-agent
+CLI_TAG				:= safir-cli
 MANAGER_TAG			:= safir-manager
 COMMON_DOTNET_TAG	:= safir-common-dotnet
 
@@ -51,7 +52,13 @@ start_agent_docker:: agent_docker docker_mounts
 		${AGENT_TAG}
 
 cli::
-	dotnet build src/cli
+	dotnet build src/cli --nologo
+
+cli_docker::
+	cd src && docker build . \
+		-f cli/Dockerfile \
+		--build-arg CommonImage=${COMMON_DOTNET_TAG} \
+		-t ${CLI_TAG}
 
 manager::
 	dotnet build src/manager

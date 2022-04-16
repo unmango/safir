@@ -3,6 +3,9 @@
 # Common artifact directories
 **/.bin/
 
+# Sandbox workspace directory
+work/
+
 # User Specific Files
 *.user
 *.code-workspace

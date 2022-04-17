@@ -41,8 +41,7 @@ common_node:: restore_common_node
 common_node_docker::
 	docker build . \
 		-f src/common/node/Dockerfile \
-		-t ${COMMON_NODE_TAG} \
-		--progress=plain
+		-t ${COMMON_NODE_TAG}
 
 agent::
 	dotnet build src/agent

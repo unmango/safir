@@ -1,12 +1,15 @@
-FROM node:17.1.0 AS build
+FROM node:16 AS build
 
 ENV CI=true
-WORKDIR /app
-COPY .yarn/ .yarn/
-COPY package.json .yarnrc.yml yarn.lock ./
-RUN yarn install --immutable --check-cache
 
-COPY . .
+WORKDIR /app
+
+COPY ["package.json", ".yarnrc.yml", "yarn.lock", "./"]
+COPY .yarn .yarn
+
+RUN yarn install --immutable
+
+COPY src/ui .
 RUN yarn build
 
 FROM nginx

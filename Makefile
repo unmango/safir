@@ -5,6 +5,7 @@ CLI_TAG				:= safir-cli
 MANAGER_TAG			:= safir-manager
 COMMON_DOTNET_TAG	:= safir-common-dotnet
 COMMON_NODE_TAG		:= safir-common-node
+UI_TAG				:= safir-ui
 
 GIT_ROOT	?= $(shell pwd)
 WORK_DIR	:= ${GIT_ROOT}/work
@@ -84,6 +85,11 @@ restore_ui::
 
 ui:: restore_ui
 	cd src/ui && yarn build
+
+ui_docker::
+	docker build . \
+		-f src/ui/Dockerfile \
+		-t ${UI_TAG}
 
 docker_mounts::
 	mkdir -p ${WORK_DIR}/agent/{data,}

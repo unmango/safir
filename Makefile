@@ -4,6 +4,7 @@ AGENT_TAG			:= safir-agent
 CLI_TAG				:= safir-cli
 MANAGER_TAG			:= safir-manager
 COMMON_DOTNET_TAG	:= safir-common-dotnet
+COMMON_NODE_TAG		:= safir-common-node
 
 GIT_ROOT	?= $(shell pwd)
 WORK_DIR	:= ${GIT_ROOT}/work
@@ -35,6 +36,12 @@ restore_common_node::
 
 common_node:: restore_common_node
 	cd src/common/node && yarn build
+
+common_node_docker::
+	docker build . \
+		-f src/common/node/Dockerfile \
+		-t ${COMMON_NODE_TAG} \
+		--progress=plain
 
 agent::
 	dotnet build src/agent

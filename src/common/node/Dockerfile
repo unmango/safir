@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:16 AS setup
 
 ENV COMMON_ROOT=src/common/node
 ENV UI_DIR=src/ui
@@ -27,7 +27,7 @@ RUN DEBIAN_FRONTEND="noninteractive" \
     chmod +x "/usr/local/bin/protoc-gen-grpc-web"
 
 WORKDIR /build
-COPY --from=0 /build .
+COPY --from=setup /build .
 
 RUN yarn install --immutable
 

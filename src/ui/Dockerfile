@@ -1,16 +1,13 @@
-FROM node:16 AS build
+ARG BaseImage=safir-common-node
+
+FROM ${BaseImage} AS build
 
 ENV CI=true
 
-WORKDIR /app
-
-COPY ["package.json", ".yarnrc.yml", "yarn.lock", "./"]
-COPY .yarn .yarn
-
-RUN yarn install --immutable
-
-COPY src/ui .
-RUN yarn build
+COPY src/ui src/ui
+RUN cd src/ui && yarn build
 
 FROM nginx
-COPY --from=build /app/build/ /usr/share/nginx/html
+COPY --from=build /build/src/ui/build/ /usr/share/nginx/html
+EXPOSE 80
+RUN ls -la /usr/share/nginx/html

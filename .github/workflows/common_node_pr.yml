@@ -2,8 +2,8 @@ name: Common Node PR
 on:
   pull_request:
     paths:
-    - protos/**
     - src/common/node/**
+    - src/protos/**
 env:
   CI: true
 jobs:

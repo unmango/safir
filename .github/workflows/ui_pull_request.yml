@@ -2,6 +2,8 @@ name: UI PR
 on:
   pull_request:
     paths:
+      - src/common/node/**
+      - src/protos/**
       - src/ui/**
 env:
   CI: true
@@ -30,14 +32,15 @@ jobs:
         run: yarn build
 
   docker_build:
-    if: ${{ false }} # TODO
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: src/ui
-
     steps:
       - uses: actions/checkout@v2
 
+      - name: Base Image Build
+        run: |
+          docker build . \
+            --file src/common/node/Dockerfile \
+            --tag safir-common-node
+
       - name: Docker build
-        run: docker build . --file Dockerfile
+        run: docker build . --file src/ui/Dockerfile

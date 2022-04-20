@@ -12,7 +12,13 @@ const { execAsync, globAsync, write } = util;
   const cwd = process.cwd();
   write('cwd: ' + cwd);
 
-  const gitRoot = await util.gitRootAsync();
+  let gitRoot: string;
+  if (process.env.GIT_ROOT) {
+    gitRoot = process.env.GIT_ROOT;
+  } else {
+    gitRoot = await util.gitRootAsync();
+  }
+
   const indir = path.join(gitRoot, 'src', 'protos');
   write('indir: ' + indir);
 

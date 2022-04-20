@@ -2,8 +2,8 @@ name: Common .NET PR
 on:
   pull_request:
     paths:
-    - protos/**
     - src/common/dotnet/**
+    - src/protos/**
 env:
   CI: true
 jobs:

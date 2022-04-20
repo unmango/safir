@@ -1,13 +1,13 @@
-FROM node:17.1.0 AS build
+ARG BaseImage=safir-common-node
 
-ENV CI=true
-WORKDIR /app
-COPY .yarn/ .yarn/
-COPY package.json .yarnrc.yml yarn.lock ./
-RUN yarn install --immutable --check-cache
+FROM ${BaseImage} AS build
 
-COPY . .
-RUN yarn build
+COPY src/ui src/ui
+
+ENV CI=true \
+    BUILD_PATH=/out
+RUN cd src/ui && yarn build
 
 FROM nginx
-COPY --from=build /app/build/ /usr/share/nginx/html
+COPY --from=build /out /usr/share/nginx/html
+EXPOSE 80

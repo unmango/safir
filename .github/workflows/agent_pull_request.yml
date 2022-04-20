@@ -4,6 +4,7 @@ on:
     paths:
     - src/agent/**
     - src/common/dotnet/**
+    - src/protos/**
 env:
   DOTNET_NOLOGO: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true

@@ -90,5 +90,8 @@ ui_docker::
 		-f src/ui/Dockerfile \
 		-t ${UI_TAG}
 
+start_ui_docker:: ui_docker
+	docker run -it --rm -p 8080:80 ${UI_TAG}
+
 docker_mounts::
 	mkdir -p ${WORK_DIR}/agent/{data,}

@@ -36,5 +36,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Base Image Build
+        run: |
+          docker build . \
+            --file src/common/node/Dockerfile \
+            --tag safir-common-node
+
       - name: Docker build
         run: docker build . --file src/ui/Dockerfile

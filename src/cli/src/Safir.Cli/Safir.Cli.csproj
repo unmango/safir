@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <RuntimeIdentifiers>linux-x64;win-x64</RuntimeIdentifiers>
+    <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,8 +25,9 @@
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
-  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Safir.Cli.Tests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
 
 </Project>

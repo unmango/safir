@@ -117,7 +117,7 @@ restore_ui::
 ui:: restore_ui
 	cd src/ui && yarn build
 
-ui_docker::
+ui_docker:: common_node_docker
 	docker build . \
 		-f src/ui/Dockerfile \
 		-t ${UI_TAG} \

@@ -6,11 +6,6 @@
     "type": "git",
     "url": "https://github.com/unmango/safir.git"
   },
-  "scripts": {
-    "build": "yarn workspaces foreach -vpt run build",
-    "publish": "yarn workspaces foreach -vpt run publish",
-    "test": "yarn workspaces foreach run test"
-  },
   "workspaces": [
     "src/common/node",
     "src/ui"

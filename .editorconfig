@@ -29,3 +29,6 @@ dotnet_sort_system_directives_first = true
 csharp_indent_braces = false
 csharp_new_line_before_open_brace = accessors,control_blocks,events,indexers,local_functions,methods,properties,types
 csharp_wrap_before_arrow_with_expressions = true
+
+# ReSharper properties
+resharper_csharp_other_braces = end_of_line

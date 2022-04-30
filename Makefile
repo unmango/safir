@@ -26,9 +26,28 @@ build:: restore
 	dotnet build
 	yarn build
 
-clean::
+clean:: clean_dotnet clean_node clean_work compose_down
+
+docker:: agent_docker manager_docker ui_docker cli_docker
+
+compose:: docker_mounts
+	docker-compose pull && docker-compose build
+
+compose_up:: compose
+	-docker-compose up
+
+compose_down::
+	docker-compose down
+
+clean_dotnet::
 	dotnet clean
-	rm -rf ${WORK_DIR}
+
+# TODO
+clean_node::
+	-rm -rf src/ui/build
+
+clean_work::
+	-rm -rf ${WORK_DIR}
 
 common_dotnet::
 	dotnet build src/common/dotnet

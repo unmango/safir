@@ -39,6 +39,8 @@ jobs:
 
   docker_build:
     runs-on: ubuntu-latest
+    env:
+      BASE_IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/safir-common-dotnet
     steps:
     - name: Setup Docker Buildx
       uses: docker/setup-buildx-action@v1
@@ -49,7 +51,7 @@ jobs:
         context: "{{defaultContext}}:src"
         file: ./common/dotnet/Dockerfile
         load: true
-        tags: safir-common-dotnet
+        tags: ${{ env.BASE_IMAGE }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
@@ -58,6 +60,6 @@ jobs:
       with:
         context: "{{defaultContext}}:src"
         file: ./cli/Dockerfile
-        build-args: CommonImage=safir-common-dotnet
+        build-args: CommonImage=${{ env.BASE_IMAGE }}
         cache-from: type=gha
         cache-to: type=gha,mode=max

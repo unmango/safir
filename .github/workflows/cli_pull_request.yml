@@ -16,8 +16,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        submodules: recursive
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
@@ -40,14 +38,33 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Base Image Build
-      run: |
-        docker build . \
-          --file common/dotnet/Dockerfile \
-          --tag safir-common-dotnet
+    - name: Login to Dockerhub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+    - name: Setup Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Build base image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./common/dotnet/Dockerfile
+        tags: safir-common-dotnet
+        cache-from: type=registry,ref=${{ env.REPOSITORY }}:buildcache
+        cache-to: type=registry,ref=${{ env.REPOSITORY }}:buildcache,mode=max
+      env:
+        REPOSITORY: ${{ secrets.DOCKER_HUB_USERNAME }}/safir-common-dotnet
 
     - name: Docker build
-      run: |
-        docker build . \
-          --file cli/Dockerfile \
-          --build-arg CommonImage=safir-common-dotnet
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./cli/Dockerfile
+        build-args: CommonImage=safir-common-dotnet
+        cache-from: type=registry,ref=${{ env.REPOSITORY }}:buildcache
+        cache-to: type=registry,ref=${{ env.REPOSITORY }}:buildcache,mode=max
+      env:
+        REPOSITORY: ${{ secrets.DOCKER_HUB_USERNAME }}/safir-cli

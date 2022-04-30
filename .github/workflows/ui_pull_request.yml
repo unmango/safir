@@ -36,11 +36,33 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Base Image Build
-        run: |
-          docker build . \
-            --file src/common/node/Dockerfile \
-            --tag safir-common-node
+      - name: Login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build base image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./src/common/node/Dockerfile
+          tags: safir-common-node
+          cache-from: type=registry,ref=${{ env.REPOSITORY }}:buildcache
+          cache-to: type=registry,ref=${{ env.REPOSITORY }}:buildcache,mode=max
+        env:
+          REPOSITORY: ${{ secrets.DOCKER_HUB_USERNAME }}/safir-common-node
 
       - name: Docker build
-        run: docker build . --file src/ui/Dockerfile
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./src/ui/Dockerfile
+          build-args: BaseImage=safir-common-node
+          cache-from: type=registry,ref=${{ env.REPOSITORY }}:buildcache
+          cache-to: type=registry,ref=${{ env.REPOSITORY }}:buildcache,mode=max
+        env:
+          REPOSITORY: ${{ secrets.DOCKER_HUB_USERNAME }}/safir-ui

@@ -35,8 +35,6 @@ jobs:
   docker_build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
       - name: Login to Dockerhub
         uses: docker/login-action@v1
         with:
@@ -49,7 +47,6 @@ jobs:
       - name: Build base image
         uses: docker/build-push-action@v2
         with:
-          context: .
           file: ./src/common/node/Dockerfile
           tags: safir-common-node
           cache-from: type=registry,ref=${{ env.REPOSITORY }}:buildcache
@@ -60,7 +57,6 @@ jobs:
       - name: Docker build
         uses: docker/build-push-action@v2
         with:
-          context: .
           file: ./src/ui/Dockerfile
           build-args: BaseImage=safir-common-node
           cache-from: type=registry,ref=${{ env.REPOSITORY }}:buildcache

@@ -1,7 +1,8 @@
 services:
   ui:
     build:
-      context: .
+      context: ../../
+      dockerfile: src/ui/Dockerfile
     ports:
       - 8080:80
     depends_on:
@@ -9,21 +10,27 @@ services:
       - agent
 
   manager:
-    image: unstoppablemango/safir-manager
+    build:
+      context: ../
+      dockerfile: manager/Dockerfile
     ports:
       - 6970:80
+    environment:
+      REDIS: redis:6379
     depends_on:
       - agent
       - db
 
   agent:
-    image: unstoppablemango/safir-agent
+    build:
+      context: ../
+      dockerfile: agent/Dockerfile
     ports:
       - 6969:80
     environment:
       REDIS: redis:6379
     volumes:
-      - ~/Music:/data
+      - ../../work/agent/data:/data
     depends_on:
       - redis
 
@@ -41,8 +48,8 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-  #      POSTGRES_PASSWORD_FILE: /run/secrets/postgres-passwd
-  #      PGDATA: /var/lib/postgresql/data
+      # POSTGRES_PASSWORD_FILE: /run/secrets/postgres-passwd
+      # PGDATA: /var/lib/postgresql/data
 
   # pgadmin:
   #   image: dpage/pgadmin4

@@ -10,6 +10,8 @@ UI_TAG				:= safir-ui
 GIT_ROOT	?= $(shell pwd)
 WORK_DIR	:= ${GIT_ROOT}/work
 
+DOTNET_ARGS = --nologo
+
 DOCKER_ARGS =
 
 ifeq ($(DOCKER_DEBUG), true)
@@ -50,7 +52,7 @@ clean_work::
 	-rm -rf ${WORK_DIR}
 
 common_dotnet::
-	dotnet build src/common/dotnet
+	dotnet build src/common/dotnet ${DOTNET_ARGS}
 
 common_dotnet_docker::
 	cd src && docker build . \
@@ -71,7 +73,7 @@ common_node_docker::
 		${DOCKER_ARGS}
 
 agent::
-	dotnet build src/agent
+	dotnet build src/agent ${DOTNET_ARGS}
 
 agent_docker:: common_dotnet_docker
 	cd src && docker build . \
@@ -87,7 +89,7 @@ start_agent_docker:: agent_docker docker_mounts
 		${AGENT_TAG}
 
 cli::
-	dotnet build src/cli --nologo
+	dotnet build src/cli ${DOTNET_ARGS}
 
 cli_docker::
 	cd src && docker build . \
@@ -97,7 +99,7 @@ cli_docker::
 		${DOCKER_ARGS}
 
 manager::
-	dotnet build src/manager
+	dotnet build src/manager ${DOTNET_ARGS}
 
 manager_docker:: common_dotnet_docker
 	cd src && docker build . \

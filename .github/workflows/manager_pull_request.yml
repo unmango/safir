@@ -65,6 +65,6 @@ jobs:
       with:
         context: "{{defaultContext}}:src"
         file: ./manager/Dockerfile
-        build-args: CommonImage==${{ env.BASE_IMAGE }}
+        build-args: CommonImage=${{ env.BASE_IMAGE }}
         cache-from: type=gha
         cache-to: type=gha,mode=max

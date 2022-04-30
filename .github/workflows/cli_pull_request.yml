@@ -48,6 +48,7 @@ jobs:
       with:
         context: "{{defaultContext}}:src"
         file: ./common/dotnet/Dockerfile
+        load: true
         tags: safir-common-dotnet
         cache-from: type=gha
         cache-to: type=gha,mode=max

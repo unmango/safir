@@ -170,7 +170,7 @@
       "System.Runtime.CompilerServices.Unsafe": {
         "type": "Transitive",
         "resolved": "6.0.0",
-        "contentHash": "JwupA+fGYPj8YQd4ub4WY+YWzJI+Ru5Aw17Mo0q8xpODUpU2dPye4QhngPImSRI7XeiANpbJxYuprNWUW1+pcA=="
+        "contentHash": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg=="
       },
       "safir.manager.client.abstractions": {
         "type": "Project"
@@ -332,7 +332,7 @@
       "System.Runtime.CompilerServices.Unsafe": {
         "type": "Transitive",
         "resolved": "6.0.0",
-        "contentHash": "JwupA+fGYPj8YQd4ub4WY+YWzJI+Ru5Aw17Mo0q8xpODUpU2dPye4QhngPImSRI7XeiANpbJxYuprNWUW1+pcA=="
+        "contentHash": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg=="
       },
       "safir.manager.client.abstractions": {
         "type": "Project"
@@ -485,7 +485,7 @@
       "System.Runtime.CompilerServices.Unsafe": {
         "type": "Transitive",
         "resolved": "6.0.0",
-        "contentHash": "JwupA+fGYPj8YQd4ub4WY+YWzJI+Ru5Aw17Mo0q8xpODUpU2dPye4QhngPImSRI7XeiANpbJxYuprNWUW1+pcA=="
+        "contentHash": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg=="
       },
       "safir.manager.client.abstractions": {
         "type": "Project"

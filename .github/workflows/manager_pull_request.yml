@@ -48,8 +48,7 @@ jobs:
     - name: Setup Docker Buildx
       uses: docker/setup-buildx-action@v1
 
-    - id: base-build
-      name: Build base image
+    - name: Build base image
       uses: docker/build-push-action@v2
       with:
         context: "{{defaultContext}}:src"
@@ -64,6 +63,6 @@ jobs:
       with:
         context: "{{defaultContext}}:src"
         file: ./manager/Dockerfile
-        build-args: CommonImage=safir-common-dotnet@${{ steps.base-build.outputs.digest }}
+        build-args: CommonImage=safir-common-dotnet
         cache-from: type=gha
         cache-to: type=gha,mode=max

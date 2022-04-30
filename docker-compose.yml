@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  redis:
+    image: redis
+    cap_add:
+    - SYS_RESOURCE
+
+  agent:
+    build:
+      context: ./src
+      dockerfile: agent/Dockerfile
+    environment:
+      REDIS: redis:6379
+    volumes:
+      - ./work/agent/data:/data
+    depends_on:
+      - redis
+
+  manager:
+    build:
+      context: ./src
+      dockerfile: manager/Dockerfile
+    environment:
+      REDIS: redis:6379
+    depends_on:
+      - redis
+      - agent
+
+  ui:
+    build:
+      context: .
+      dockerfile: src/ui/Dockerfile
+    ports:
+      - 8080:80
+    depends_on:
+      - manager

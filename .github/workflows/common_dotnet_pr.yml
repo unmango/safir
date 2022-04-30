@@ -23,13 +23,13 @@ jobs:
       run: dotnet tool restore
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore --locked-mode --nologo
 
     - name: Build solution
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --nologo
 
     - name: Run tests
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --nologo
 
   docker_build:
     runs-on: ubuntu-latest

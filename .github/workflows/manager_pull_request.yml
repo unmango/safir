@@ -26,7 +26,7 @@ jobs:
       run: dotnet tool restore
 
     - name: Restore dependencies
-      run: dotnet restore --nologo
+      run: dotnet restore --locked-mode --nologo
 
     - name: Build solution
       run: dotnet build --no-restore --nologo

@@ -61,7 +61,7 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
-    - run: docker image ls
+    - run: docker image ls --digests
 
     - name: Docker build
       uses: docker/build-push-action@v2

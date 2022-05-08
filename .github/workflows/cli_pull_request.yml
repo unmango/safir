@@ -40,7 +40,7 @@ jobs:
   docker_build:
     runs-on: ubuntu-latest
     env:
-      BASE_IMAGE: safir-common-dotnet:cli-base
+      BASE_IMAGE: cli-base
     steps:
     - name: Setup Docker Buildx
       uses: docker/setup-buildx-action@v1
@@ -61,6 +61,6 @@ jobs:
       with:
         context: "{{defaultContext}}:src"
         file: ./cli/Dockerfile
-        build-args: CommonImage=${{ env.BASE_IMAGE }}@${{ steps.base-build.outputs.digest }}
+        build-args: CommonImage=${{ env.BASE_IMAGE }}
         cache-from: type=gha
         cache-to: type=gha,mode=max

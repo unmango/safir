@@ -21,6 +21,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
+          cache: yarn
 
       - name: Restore dependencies
         run: yarn install --immutable --check-cache
@@ -34,13 +35,22 @@ jobs:
   docker_build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-      - name: Base Image Build
-        run: |
-          docker build . \
-            --file src/common/node/Dockerfile \
-            --tag safir-common-node
+      - name: Build base image
+        uses: docker/build-push-action@v2
+        with:
+          file: ./src/common/node/Dockerfile
+          load: true
+          tags: safir-common-node
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Docker build
-        run: docker build . --file src/ui/Dockerfile
+        uses: docker/build-push-action@v2
+        with:
+          file: ./src/ui/Dockerfile
+          build-args: BaseImage=safir-common-node
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

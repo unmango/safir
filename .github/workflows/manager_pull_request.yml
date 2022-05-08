@@ -18,8 +18,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        submodules: recursive
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
@@ -27,8 +25,16 @@ jobs:
     - name: Restore tools
       run: dotnet tool restore
 
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
     - name: Restore dependencies
-      run: dotnet restore --nologo
+      run: dotnet restore --locked-mode --nologo
 
     - name: Build solution
       run: dotnet build --no-restore --nologo
@@ -38,21 +44,35 @@ jobs:
 
   docker_build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: src
-
+    env:
+      BASE_IMAGE: localhost:5000/safir/manager-base
+    services:
+      registry:
+        image: registry:2
+        ports:
+        - 5000:5000
     steps:
-    - uses: actions/checkout@v2
+    - name: Setup Docker Buildx
+      uses: docker/setup-buildx-action@v1
+      with:
+        driver-opts: network=host
 
-    - name: Base Image Build
-      run: |
-        docker build . \
-          --file common/dotnet/Dockerfile \
-          --tag safir-common-dotnet
+    - name: Build base image
+      id: base-build
+      uses: docker/build-push-action@v2
+      with:
+        context: "{{defaultContext}}:src"
+        file: ./common/dotnet/Dockerfile
+        push: true
+        tags: ${{ env.BASE_IMAGE }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
 
     - name: Docker build
-      run: |
-        docker build . \
-          --file manager/Dockerfile \
-          --build-arg CommonImage=safir-common-dotnet
+      uses: docker/build-push-action@v2
+      with:
+        context: "{{defaultContext}}:src"
+        file: ./manager/Dockerfile
+        build-args: CommonImage=${{ env.BASE_IMAGE }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max

@@ -61,6 +61,8 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
+    - run: docker image inspect ${{ env.BASE_IMAGE }}
+
     - name: Docker build
       uses: docker/build-push-action@v2
       with:

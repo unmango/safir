@@ -7,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Safir.Agent.Configuration;
-using Safir.Agent.Domain;
 
 namespace Safir.Agent.Services;
 

@@ -41,7 +41,7 @@ public class BufferWriterStream<T> : Stream
         {
             throw new ObjectDisposedException("source", "The current stream has already been disposed");
         }
-            
+
         if (offset < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(offset), "Offset can't be negative.");
@@ -52,7 +52,7 @@ public class BufferWriterStream<T> : Stream
             throw new ArgumentOutOfRangeException(nameof(count), "Count can't be negative.");
         }
 
-        if (offset + count > buffer!.Length)
+        if (offset + count > buffer.Length)
         {
             throw new ArgumentException(
                 "The sum of offset and count can't be larger than the buffer length.",
@@ -73,7 +73,7 @@ public class BufferWriterStream<T> : Stream
     public override bool CanRead => false;
 
     public override bool CanSeek => false;
-        
+
     public override bool CanWrite
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -30,25 +30,19 @@ internal static class ServiceOptionsValidation
                 : ValidateOptionsResult.Success;
         }
 
-        private static ValidateOptionsResult Validate(ServiceSource source)
-        {
-            if (source == null) return ValidateOptionsResult.Skip;
-
-            return source.Type switch {
-                SourceType.Git => ValidateGit(source),
-                SourceType.DotnetTool => ValidateDotnetTool(source),
-                SourceType.LocalDirectory => ValidateLocalDirectory(source),
-                null => ValidateOptionsResult.Fail("Source type not configured"),
-                _ => ValidateOptionsResult.Fail("Invalid source type")
-            };
-        }
+        private static ValidateOptionsResult Validate(ServiceSource source) => source.Type switch {
+            SourceType.Git => ValidateGit(source),
+            SourceType.DotnetTool => ValidateDotnetTool(source),
+            SourceType.LocalDirectory => ValidateLocalDirectory(source),
+            null => ValidateOptionsResult.Fail("Source type not configured"),
+            _ => ValidateOptionsResult.Fail("Invalid source type")
+        };
 
         private static ValidateOptionsResult ValidateGit(ServiceSource source)
             => Errors(
                 (!string.IsNullOrWhiteSpace(source.CloneUrl), "GitCloneUrl is required"),
                 (
-                    source.Command != null &&
-                    SupportedCommands(source.Type!.Value).Contains(source.Command.Value),
+                    source.Command != null && SupportedCommands(source.Type!.Value).Contains(source.Command.Value),
                     "Command is required"
                 ));
 
@@ -73,18 +67,17 @@ internal static class ServiceOptionsValidation
                 : ValidateOptionsResult.Success;
         }
 
-        private static IEnumerable<CommandType> SupportedCommands(SourceType sourceType)
-            => sourceType switch {
-                SourceType.Git => new[] {
-                    CommandType.DockerRun,
-                    CommandType.DotnetRun
-                },
-                SourceType.DotnetTool => new[] { CommandType.DotnetTool },
-                SourceType.LocalDirectory => new[] {
-                    CommandType.DockerRun,
-                    CommandType.DotnetRun,
-                },
-                _ => Array.Empty<CommandType>()
-            };
+        private static IEnumerable<CommandType> SupportedCommands(SourceType sourceType) => sourceType switch {
+            SourceType.Git => new[] {
+                CommandType.DockerRun,
+                CommandType.DotnetRun
+            },
+            SourceType.DotnetTool => new[] { CommandType.DotnetTool },
+            SourceType.LocalDirectory => new[] {
+                CommandType.DockerRun,
+                CommandType.DotnetRun,
+            },
+            _ => Array.Empty<CommandType>()
+        };
     }
 }

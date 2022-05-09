@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Moq;
 using Moq.AutoMock;
-using Safir.Agent.Domain;
 using Safir.Agent.Queries;
 using Xunit;
 
@@ -93,7 +92,7 @@ public class ListFilesTests
         var request = new ListFilesRequest(dir);
 
         var result = await _handler.Handle(request, default);
-            
+
         Assert.NotNull(result);
         Assert.NotEmpty(result.Files);
         var paths = result.Files.Select(x => x.Path).ToList();

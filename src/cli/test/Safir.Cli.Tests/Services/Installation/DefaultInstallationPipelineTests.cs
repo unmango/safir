@@ -51,14 +51,6 @@ public class DefaultInstallationPipelineTests
     [Fact]
     public async Task InvokesAllApplicableInstallers()
     {
-        // Setup "next" call
-        _installer1.Setup(x => x.InvokeAsync(
-                _context,
-                It.IsAny<Func<InstallationContext, ValueTask>>(),
-                It.IsAny<CancellationToken>()))
-            .Callback<InstallationContext, Func<InstallationContext, ValueTask>, CancellationToken>(
-                async (context, next, _) => await next(context));
-            
         _installer1.Setup(x => x.AppliesTo(_context)).Returns(true);
         _installer2.Setup(x => x.AppliesTo(_context)).Returns(true);
 

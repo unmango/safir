@@ -13,10 +13,10 @@ internal sealed class DefaultTypedEventBus<T> : IEventBus<T>
 
     public DefaultTypedEventBus(IEventBus eventBus, ILogger<DefaultTypedEventBus<T>> logger)
     {
-        _eventBus = eventBus ?? throw new ArgumentNullException(nameof(DefaultTypedEventBus<T>));
+        _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         _logger = logger;
     }
-        
+
     public IDisposable Subscribe(IObserver<T> observer)
     {
         _logger.LogDebug("Delegating subscription to generic event bus");

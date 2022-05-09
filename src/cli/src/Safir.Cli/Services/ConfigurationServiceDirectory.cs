@@ -22,7 +22,8 @@ internal class ConfigurationServiceDirectory : IServiceDirectory
 
     public string GetInstallationDirectory(IEnumerable<string>? extraPaths = null)
     {
-        List<string> extraDirs = new();
+        // I had some reason for keeping track of these when I initially wrote this
+        // List<string> extraDirs = new();
         List<string> extraParts = new();
 
         if (extraPaths != null)
@@ -31,11 +32,11 @@ internal class ConfigurationServiceDirectory : IServiceDirectory
             var filtered = extraPaths.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
             var rooted = filtered.Where(RootedAndExists).ToList();
 
-            // If passed a valid rooted path, return the first that exists 
+            // If passed a valid rooted path, return the first that exists
             if (rooted.Count >= 1) return rooted.First();
 
             var relativeDirs = filtered.ToLookup(x => x.Contains(Path.DirectorySeparatorChar));
-            extraDirs.AddRange(relativeDirs[true]);
+            // extraDirs.AddRange(relativeDirs[true]);
             extraParts.AddRange(relativeDirs[false]);
         }
 

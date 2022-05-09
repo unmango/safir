@@ -42,7 +42,7 @@ public class AsyncEnumerableExtensionsTests
         IAsyncEnumerable<TSource> expected)
     {
         var result = source.DistinctBy(keySelector, comparer);
-            
+
         Assert.True(await expected.SequenceEqualAsync(result));
     }
 
@@ -55,7 +55,7 @@ public class AsyncEnumerableExtensionsTests
         IAsyncEnumerable<TSource> expected)
     {
         var result = source.RunOnce().DistinctBy(keySelector, comparer);
-            
+
         Assert.True(await expected.SequenceEqualAsync(result));
     }
 
@@ -69,9 +69,9 @@ public class AsyncEnumerableExtensionsTests
 
         yield return WrapArgs(
             source: AsyncEnumerable.Range(5, 10),
-            keySelector: x => true,
+            keySelector: _ => true,
             comparer: null,
-            expected: new int[] { 5 }.ToAsyncEnumerable());
+            expected: new[] { 5 }.ToAsyncEnumerable());
 
         yield return WrapArgs(
             source: AsyncEnumerable.Range(0, 20),
@@ -86,16 +86,16 @@ public class AsyncEnumerableExtensionsTests
             expected: AsyncEnumerable.Repeat(5, 1));
 
         yield return WrapArgs(
-            source: new string[] { "Bob", "bob", "tim", "Bob", "Tim" }.ToAsyncEnumerable(),
+            source: new[] { "Bob", "bob", "tim", "Bob", "Tim" }.ToAsyncEnumerable(),
             keySelector: x => x,
             null,
-            expected: new string[] { "Bob", "bob", "tim", "Tim" }.ToAsyncEnumerable());
+            expected: new[] { "Bob", "bob", "tim", "Tim" }.ToAsyncEnumerable());
 
         yield return WrapArgs(
-            source: new string[] { "Bob", "bob", "tim", "Bob", "Tim" }.ToAsyncEnumerable(),
+            source: new[] { "Bob", "bob", "tim", "Bob", "Tim" }.ToAsyncEnumerable(),
             keySelector: x => x,
             StringComparer.OrdinalIgnoreCase,
-            expected: new string[] { "Bob", "tim" }.ToAsyncEnumerable());
+            expected: new[] { "Bob", "tim" }.ToAsyncEnumerable());
 
         yield return WrapArgs(
             source: new (string Name, int Age)[] { ("Tom", 20), ("Dick", 30), ("Harry", 40) }.ToAsyncEnumerable(),
@@ -136,29 +136,20 @@ public class AsyncEnumerableExtensionsTests
             if (ReferenceEquals(x, y)) return true;
             if (x == null | y == null) return false;
 
-            int length = x.Length;
+            var length = x.Length;
             if (length != y.Length) return false;
 
-            using (var en = x.OrderBy(i => i).GetEnumerator())
+            using var en = x.OrderBy(i => i).GetEnumerator();
+
+            foreach (var c in y.OrderBy(i => i))
             {
-                foreach (char c in y.OrderBy(i => i))
-                {
-                    en.MoveNext();
-                    if (c != en.Current) return false;
-                }
+                en.MoveNext();
+                if (c != en.Current) return false;
             }
 
             return true;
         }
 
-        public int GetHashCode(string obj)
-        {
-            if (obj == null) return 0;
-
-            int hash = obj.Length;
-            foreach (char c in obj)
-                hash ^= c;
-            return hash;
-        }
+        public int GetHashCode(string obj) => obj.Aggregate(obj.Length, (current, c) => current ^ c);
     }
 }

@@ -19,7 +19,7 @@ namespace Safir.Messaging.Tests.DependencyInjection;
 public class ServiceCollectionExtensionsTests
 {
     private readonly ServiceCollection _services = new();
-        
+
     [Fact]
     public void AddEventHandler_AddsSubscriptionManager()
     {
@@ -27,7 +27,7 @@ public class ServiceCollectionExtensionsTests
             .BuildServiceProvider();
 
         var hostedServices = services.GetService<IEnumerable<IHostedService>>()?.ToList();
-            
+
         Assert.NotNull(hostedServices);
         Assert.Single(hostedServices!.OfType<SubscriptionManager<FileCreated>>());
         Assert.Single(hostedServices!.OfType<SubscriptionManager<FileChanged>>());
@@ -42,7 +42,7 @@ public class ServiceCollectionExtensionsTests
             .BuildServiceProvider();
 
         var handlers = services.GetService<IEnumerable<IEventHandler>>();
-            
+
         Assert.NotNull(handlers);
         Assert.Single(handlers!);
     }
@@ -56,7 +56,7 @@ public class ServiceCollectionExtensionsTests
             .BuildServiceProvider();
 
         var handlers = services.GetService<IEnumerable<IEventHandler>>();
-            
+
         Assert.NotNull(handlers);
         Assert.Equal(2, handlers!.Count());
     }
@@ -70,11 +70,11 @@ public class ServiceCollectionExtensionsTests
             .BuildServiceProvider();
 
         var handlers = services.GetService<IEnumerable<IEventHandler>>()?.ToList();
-            
+
         Assert.NotNull(handlers);
         Assert.Equal(2, handlers!.Count);
-        Assert.Single(handlers!.OfType<MockEventHandler>());
-        Assert.Single(handlers!.OfType<DifferentEventHandler>());
+        Assert.Single(handlers.OfType<MockEventHandler>());
+        Assert.Single(handlers.OfType<DifferentEventHandler>());
     }
 
     [Fact]
@@ -84,7 +84,7 @@ public class ServiceCollectionExtensionsTests
             .BuildServiceProvider();
 
         var options = services.GetService<IOptions<MessagingOptions>>();
-            
+
         Assert.NotNull(options);
     }
 
@@ -95,7 +95,7 @@ public class ServiceCollectionExtensionsTests
             .BuildServiceProvider();
 
         var bus = services.GetService<IEventBus>();
-            
+
         Assert.NotNull(bus);
         Assert.IsType<RedisEventBus>(bus);
     }
@@ -107,7 +107,7 @@ public class ServiceCollectionExtensionsTests
             .BuildServiceProvider();
 
         var bus = services.GetService<IEventBus<MockEvent>>();
-            
+
         Assert.NotNull(bus);
         Assert.IsType<DefaultTypedEventBus<MockEvent>>(bus);
     }
@@ -119,7 +119,7 @@ public class ServiceCollectionExtensionsTests
             .BuildServiceProvider();
 
         var configureOptions = services.GetService<IConfigureOptions<RedisOptions>>();
-            
+
         Assert.NotNull(configureOptions);
     }
 
@@ -131,7 +131,7 @@ public class ServiceCollectionExtensionsTests
             return Task.CompletedTask;
         }
     }
-        
+
     // ReSharper disable once ClassNeverInstantiated.Local
     private class DifferentEvent : IEvent
     {

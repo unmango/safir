@@ -46,7 +46,7 @@ internal class AgentManager : IAgents, IDisposable
 
         foreach (var config in options.Agents)
         {
-            _logger.LogDebug($"Creating agent proxy for {config.Name}");
+            _logger.LogDebug("Creating agent proxy for {Name}", config.Name);
             agents[config.Name] = _agentFactory.Create(config.Name);
         }
 

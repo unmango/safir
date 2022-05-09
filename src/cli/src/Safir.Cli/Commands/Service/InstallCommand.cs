@@ -33,12 +33,12 @@ internal class InstallCommand : Command
     {
         private readonly IServiceRegistry _registry;
         private readonly IInstallationService _installer;
-        private readonly ILogger<InstallCommand> _logger;
+        private readonly ILogger<InstallHandler> _logger;
 
         public InstallHandler(
             IServiceRegistry registry,
             IInstallationService installer,
-            ILogger<InstallCommand> logger)
+            ILogger<InstallHandler> logger)
         {
             _registry = registry;
             _installer = installer;
@@ -54,11 +54,11 @@ internal class InstallCommand : Command
 
             _logger.BoolOption(nameof(concurrent), concurrent);
             _logger.Option(nameof(directory), directory!);
-            _logger.Option(nameof(services), services!);
+            _logger.Option(nameof(services), services);
 
             var toInstall = _registry
                 .Join(
-                    services!,
+                    services,
                     x => x.Key,
                     x => x,
                     (pair, _) => (Name: pair.Key, Service: pair.Value),

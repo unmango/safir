@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Safir.Agent.Protos;
 using Safir.Grpc;
 using Safir.Manager.Agents;
 using Safir.Manager.Protos;

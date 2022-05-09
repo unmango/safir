@@ -26,7 +26,7 @@ public class ProcessServiceTests
 
         _processFactory.Setup(x => x.Create(It.IsAny<ProcessArguments>()))
             .Returns(_process.Object);
-            
+
         _service = new ProcessService(
             _processFactory.Object,
             _options.Object,
@@ -47,21 +47,10 @@ public class ProcessServiceTests
     }
 
     [Fact]
-    public void CtorThrowsWhenOptionsIsNull()
-    {
-        Assert.Throws<ArgumentNullException>(() => new ProcessService(
-            _processFactory.Object,
-            null!,
-            _logger.Object,
-            string.Empty,
-            Array.Empty<string>()));
-    }
-
-    [Fact]
     public async Task StartSetsFileName()
     {
         await _service.StartAsync();
-            
+
         _processFactory.Verify(x => x.Create(It.Is<ProcessArguments>(
             args => args.StartInfo != null && args.StartInfo.FileName == FileName)));
     }
@@ -70,9 +59,9 @@ public class ProcessServiceTests
     public async Task StartSetsArguments()
     {
         const string expected = "arg1 arg2";
-            
+
         await _service.StartAsync();
-            
+
         _processFactory.Verify(x => x.Create(It.Is<ProcessArguments>(
             args => args.StartInfo != null && args.StartInfo.Arguments == expected)));
     }
@@ -81,7 +70,7 @@ public class ProcessServiceTests
     public async Task StartStartsProcess()
     {
         await _service.StartAsync();
-            
+
         _process.Verify(x => x.Start());
     }
 
@@ -91,7 +80,7 @@ public class ProcessServiceTests
     public async Task StartConvertsResult(bool returns, int expected)
     {
         _process.Setup(x => x.Start()).Returns(returns);
-            
+
         var task = _service.StartAsync();
 
         var result = await Assert.IsType<Task<int>>(task);
@@ -102,7 +91,7 @@ public class ProcessServiceTests
     public async Task StartSetsStartedProcessId()
     {
         await _service.StartAsync();
-            
+
         // TODO: How am I even gonna set it
     }
 }

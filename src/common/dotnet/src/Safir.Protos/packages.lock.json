@@ -13,9 +13,9 @@
       },
       "Google.Protobuf": {
         "type": "Direct",
-        "requested": "[3.20.0, )",
-        "resolved": "3.20.0",
-        "contentHash": "dZkpScgy6Lg6mjj+zqQkAZR49Jyoag5zloUw/gnQZvClbAW5lKPkXOoIRoM+3vwS9UNNBDwqiAJ+2KW2ZXOkCQ==",
+        "requested": "[3.20.1, )",
+        "resolved": "3.20.1",
+        "contentHash": "+DhU0ijnnAdaYR+4yFMwOZ4jNv29cFb4OxT/qeU0t9OOxZCBjEcl22kgrYwqVDZ6/BUegG7EE7ghyuaAvsXXUQ==",
         "dependencies": {
           "System.Memory": "4.5.3",
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
@@ -60,8 +60,8 @@
       },
       "JetBrains.Annotations": {
         "type": "Transitive",
-        "resolved": "2021.3.0",
-        "contentHash": "Ddxjs5RRjf+c8m9m++WvhW1lz1bqNhsTjWvCLbQN9bvKbkJeR9MhtfNwKgBRRdG2yLHcXFr5Lf7fsvvkiPaDRg=="
+        "resolved": "2022.1.0",
+        "contentHash": "ASfpoFJxiRsC9Xc4TWuPM41Zb/gl64xwfMOhnOZ3RnVWGYIZchjpWQV5zshJgoc/ZxVtgjaF7b577lURj7E6ig=="
       },
       "Microsoft.Build.Tasks.Git": {
         "type": "Transitive",
@@ -101,7 +101,7 @@
       "safir.messaging.abstractions": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "2021.3.0"
+          "JetBrains.Annotations": "2022.1.0"
         }
       }
     }

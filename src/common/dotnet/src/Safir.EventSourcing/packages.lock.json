@@ -45,9 +45,9 @@
       },
       "System.Text.Json": {
         "type": "Direct",
-        "requested": "[6.0.2, )",
-        "resolved": "6.0.2",
-        "contentHash": "0nE2gwXLn3PTBOPwORLqwuYvWB+Beomt9ZBX+6LmogMNKUvfD1SoDb/ycB1vBntT94rGaB/SvxEyeLu14H6aEg==",
+        "requested": "[6.0.3, )",
+        "resolved": "6.0.3",
+        "contentHash": "1Bi8pSdTTVNVKcGFiU1o9Iq6FwFyGQmgBgGHxy9pPvZANXc1cT6D72j+r/H/NsyVnWxKIxOgI3o7DrAwC3zcaA==",
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
           "System.Buffers": "4.5.1",
@@ -60,8 +60,8 @@
       },
       "JetBrains.Annotations": {
         "type": "Transitive",
-        "resolved": "2021.3.0",
-        "contentHash": "Ddxjs5RRjf+c8m9m++WvhW1lz1bqNhsTjWvCLbQN9bvKbkJeR9MhtfNwKgBRRdG2yLHcXFr5Lf7fsvvkiPaDRg=="
+        "resolved": "2022.1.0",
+        "contentHash": "ASfpoFJxiRsC9Xc4TWuPM41Zb/gl64xwfMOhnOZ3RnVWGYIZchjpWQV5zshJgoc/ZxVtgjaF7b577lURj7E6ig=="
       },
       "Microsoft.Bcl.AsyncInterfaces": {
         "type": "Transitive",
@@ -169,7 +169,7 @@
       "safir.common": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "2021.3.0",
+          "JetBrains.Annotations": "2022.1.0",
           "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
           "Microsoft.Extensions.Logging": "6.0.0",
@@ -180,7 +180,7 @@
       "safir.common.abstractions": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "2021.3.0",
+          "JetBrains.Annotations": "2022.1.0",
           "System.Memory": "4.5.4",
           "System.Threading.Tasks.Extensions": "4.5.4"
         }
@@ -188,14 +188,14 @@
       "safir.eventsourcing.abstractions": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "2021.3.0",
+          "JetBrains.Annotations": "2022.1.0",
           "Safir.Messaging.Abstractions": "1.0.0"
         }
       },
       "safir.messaging.abstractions": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "2021.3.0"
+          "JetBrains.Annotations": "2022.1.0"
         }
       }
     }

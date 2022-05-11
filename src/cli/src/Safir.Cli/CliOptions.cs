@@ -1,15 +1,10 @@
-// ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-
-using Safir.Cli.Services.Configuration;
 
 namespace Safir.Cli;
 
 internal record CliOptions
 {
     public ConfigOptions Config { get; init; } = new();
-
-    public ServiceOptions Services { get; init; } = new();
 }
 
 internal record ConfigOptions

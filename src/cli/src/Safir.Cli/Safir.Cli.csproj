@@ -4,11 +4,11 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <RuntimeIdentifiers>linux-x64;win-x64</RuntimeIdentifiers>
+    <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.0.1" />
-    <PackageReference Include="LibGit2Sharp" Version="0.27.0-preview-0116" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
     <PackageReference Include="MinVer" Version="3.1.0" PrivateAssets="All" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
@@ -16,16 +16,15 @@
     <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <PackageReference Include="SimpleExec" Version="10.0.0" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20574.7" />
-    <PackageReference Include="System.CommandLine.Hosting" Version="0.3.0-alpha.20574.7" />
     <PackageReference Include="System.CommandLine.Rendering" Version="0.3.0-alpha.20574.7" />
     <PackageReference Include="System.Linq.Async" Version="6.0.1" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
-  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Safir.Cli.Tests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
 
 </Project>

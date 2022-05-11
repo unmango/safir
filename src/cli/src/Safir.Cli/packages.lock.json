@@ -75,21 +75,18 @@
       },
       "System.CommandLine": {
         "type": "Direct",
-        "requested": "[2.0.0-beta1.20574.7, )",
-        "resolved": "2.0.0-beta1.20574.7",
-        "contentHash": "fGqXtGd0UWyVTYRz5hU0fyjR1w7VlrdjmkdADreE9JXMzhWYgYJNxaHWVum40qJjtAT3RLlI0dBf37jmRBh43Q==",
-        "dependencies": {
-          "Microsoft.CSharp": "4.4.1",
-          "system.memory": "4.5.4"
-        }
+        "requested": "[2.0.0-beta3.22114.1, )",
+        "resolved": "2.0.0-beta3.22114.1",
+        "contentHash": "QMzk1jj+PzdGbwuVsxII7FcQaCelnK+TcRcAqOGVoPovLBCSQPdikKiEzb56vAidvum5t4LSdDZ34O4j7+ALgw=="
       },
       "System.CommandLine.Rendering": {
         "type": "Direct",
-        "requested": "[0.3.0-alpha.20574.7, )",
-        "resolved": "0.3.0-alpha.20574.7",
-        "contentHash": "pOWfH0p+2+R+ZLDauxt8iCuqKZRTXc+70+qIJ/L7w402dKfwUOKwwy8BP6bAkOflHvT+5F9uownB8X7TN6OYVw==",
+        "requested": "[0.4.0-alpha.22114.1, )",
+        "resolved": "0.4.0-alpha.22114.1",
+        "contentHash": "VR0xk6MeMzUtEdlTeg3pLJA56lSSPNhjIkUREGhXdWQemIeD3YuOrCtfzZVl+0/CIpE0QqeGBEAaXrLBrbttEQ==",
         "dependencies": {
-          "System.CommandLine": "2.0.0-beta1.20574.7"
+          "Microsoft.CSharp": "4.7.0",
+          "System.CommandLine": "2.0.0-beta3.22114.1"
         }
       },
       "System.Linq.Async": {
@@ -114,8 +111,8 @@
       },
       "Microsoft.CSharp": {
         "type": "Transitive",
-        "resolved": "4.4.1",
-        "contentHash": "A5hI3gk6WpcBI0QGZY6/d5CCaYUxJgi7iENn1uYEng+Olo8RfI5ReGVkjXjeu3VR3srLvVYREATXa2M0X7FYJA=="
+        "resolved": "4.7.0",
+        "contentHash": "pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA=="
       },
       "Microsoft.Extensions.Configuration.Abstractions": {
         "type": "Transitive",
@@ -174,11 +171,6 @@
         "type": "Transitive",
         "resolved": "2.10.0",
         "contentHash": "+QX0hmf37a0/OZLxM3wL7V6/ADvC1XihXN4Kq/p6d8lCPfgkRdiuhbWlMaFjR9Av0dy5F0+MBeDmDdRZN/YwQA=="
-      },
-      "System.Memory": {
-        "type": "Transitive",
-        "resolved": "4.5.4",
-        "contentHash": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw=="
       },
       "System.Runtime.CompilerServices.Unsafe": {
         "type": "Transitive",

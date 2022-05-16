@@ -7,7 +7,7 @@ const string description = "CLI for interacting with Safir services";
 
 var command = new RootCommand(description);
 
-command.AddCommand(ConfigCommand.Create());
+command.AddCommand(ConfigCommand.Value);
 
 return await new CommandLineBuilder(command)
     .UseDefaults()

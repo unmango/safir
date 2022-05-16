@@ -5,7 +5,9 @@ namespace Safir.Cli.Commands;
 
 internal static class ConfigCommand
 {
-    public static Command Create()
+    public static readonly Command Value = Create();
+
+    private static Command Create()
     {
         var command = new Command("config", "Read or modify local configuration");
 

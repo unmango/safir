@@ -11,7 +11,7 @@ internal static class ConfigCommand
     {
         var command = new Command("config", "Read or modify local configuration");
 
-        command.AddCommand(AddCommand.Create());
+        command.AddCommand(AddCommand.Value);
 
         return command;
     }

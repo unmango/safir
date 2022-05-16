@@ -1,24 +1,49 @@
 using System.CommandLine;
+using System.CommandLine.Parsing;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+using JetBrains.Annotations;
 using Safir.Cli.DependencyInjection;
 
 namespace Safir.Cli.Commands.Config;
 
 internal static class AddCommand
 {
-    private static readonly IBinderFactory _services = new ServiceCollection()
-        .AddSafirCliCore()
-        .BuildBinderFactory();
+    private static readonly CommandBuilder _builder = CommandBuilder.Create()
+        .ConfigureServices(services => {
+            services.AddSafirCliCore();
+        });
 
-    public static Command Create()
+    public static readonly Argument<string> ServiceArgument = new("service", "The service to add");
+
+    public static readonly Command Value = Create();
+
+    private static Command Create()
     {
-        var command = new Command("add", "Add a Safir service to be used with the CLI");
+        var command = new Command("add", "Add a Safir service to be used with the CLI") {
+            ServiceArgument,
+        };
 
-        command.SetHandler<IConsole>(Handle);
+        _builder.SetHandler<AddCommandHandler>(
+            command,
+            (handler, result) => handler.Execute(result));
 
         return command;
     }
 
-    internal static async Task Handle(IConsole console) { }
+    [UsedImplicitly]
+    private class AddCommandHandler
+    {
+        private readonly IConsole _console;
+
+        public AddCommandHandler(IConsole console)
+        {
+            _console = console;
+        }
+
+        public Task Execute(ParseResult parseResult)
+        {
+            _console.WriteLine("TODO");
+            return Task.CompletedTask;
+        }
+    }
 }

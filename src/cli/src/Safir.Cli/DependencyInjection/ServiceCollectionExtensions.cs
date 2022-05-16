@@ -1,3 +1,4 @@
+using System;
 using System.CommandLine;
 using System.CommandLine.Binding;
 using System.CommandLine.IO;
@@ -10,7 +11,6 @@ internal static class ServiceCollectionExtensions
     public static IServiceCollection AddSafirCliCore(this IServiceCollection services)
     {
         services.AddSingleton<IConsole, SystemConsole>();
-        // services.Configure<GlobalOptions>(Application.Configuration);
         services.AddLogging();
 
         return services;
@@ -23,16 +23,16 @@ internal static class ServiceCollectionExtensions
     private sealed class ServiceProviderBinder<T> : BinderBase<T>
         where T : notnull
     {
-        private readonly IServiceCollection _services;
+        private readonly Lazy<IServiceProvider> _services;
 
         public ServiceProviderBinder(IServiceCollection services)
         {
-            _services = services;
+            _services = new(services.BuildServiceProvider);
         }
 
         protected override T GetBoundValue(BindingContext bindingContext)
         {
-            return _services.BuildServiceProvider().GetRequiredService<T>();
+            return _services.Value.GetRequiredService<T>();
         }
     }
 }

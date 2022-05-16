@@ -1,15 +1,15 @@
-﻿using System.CommandLine.Builder;
+﻿using System.CommandLine;
+using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
-using System.Threading.Tasks;
+using Safir.Cli.Commands;
 
-namespace Safir.Cli;
+const string description = "CLI for interacting with Safir services";
 
-internal static class Program
-{
-    private static async Task<int> Main(string[] args) => await CreateBuilder()
-        .Build()
-        .InvokeAsync(args);
+var command = new RootCommand(description);
 
-    private static CommandLineBuilder CreateBuilder() => new CommandLineBuilder()
-        .UseDefaults();
-}
+command.AddCommand(ConfigCommand.Value);
+
+return await new CommandLineBuilder(command)
+    .UseDefaults()
+    .Build()
+    .InvokeAsync(args);

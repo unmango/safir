@@ -20,9 +20,6 @@ internal static class ServiceCollectionExtensions
         where T : notnull
         => new ServiceProviderBinder<T>(services);
 
-    public static IBinderFactory BuildBinderFactory(this IServiceCollection services)
-        => new ServiceProviderBinderFactory(services);
-
     private sealed class ServiceProviderBinder<T> : BinderBase<T>
         where T : notnull
     {

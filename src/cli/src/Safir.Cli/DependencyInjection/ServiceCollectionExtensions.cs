@@ -2,6 +2,7 @@ using System;
 using System.CommandLine;
 using System.CommandLine.Binding;
 using System.CommandLine.IO;
+using System.IO.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Safir.Cli.DependencyInjection;
@@ -12,6 +13,16 @@ internal static class ServiceCollectionExtensions
     {
         services.AddSingleton<IConsole, SystemConsole>();
         services.AddLogging();
+
+        return services;
+    }
+
+    public static IServiceCollection AddIoAbstractions(this IServiceCollection services)
+    {
+        services.AddSingleton<IFileSystem, FileSystem>();
+        services.AddSingleton<IFile>(s => s.GetRequiredService<IFileSystem>().File);
+        services.AddSingleton<IDirectory>(s => s.GetRequiredService<IFileSystem>().Directory);
+        services.AddSingleton<IPath>(s => s.GetRequiredService<IFileSystem>().Path);
 
         return services;
     }

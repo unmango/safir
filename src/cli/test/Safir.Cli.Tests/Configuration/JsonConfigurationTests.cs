@@ -219,7 +219,9 @@ public class JsonConfigurationTests
         var result = Encoding.UTF8.GetString(stream.ToArray());
 
         _file.Verify();
-        Assert.Equal($"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}", result);
+        Assert.Equal(
+            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}",
+            result);
     }
 
     [Fact]
@@ -244,6 +246,8 @@ public class JsonConfigurationTests
         var result = Encoding.UTF8.GetString(writeStream.ToArray());
 
         _file.Verify();
-        Assert.Equal($"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}", result);
+        Assert.Equal(
+            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}",
+            result);
     }
 }

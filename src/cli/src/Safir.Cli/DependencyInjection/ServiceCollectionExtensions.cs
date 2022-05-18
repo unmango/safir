@@ -3,29 +3,33 @@ using System.CommandLine;
 using System.CommandLine.Binding;
 using System.CommandLine.IO;
 using System.IO.Abstractions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Safir.Cli.Configuration;
 
 namespace Safir.Cli.DependencyInjection;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddSafirCliCore(this IServiceCollection services)
-    {
-        services.AddSingleton<IConsole, SystemConsole>();
-        services.AddLogging();
+    public static IServiceCollection AddSafirCliCore(this IServiceCollection services) => services
+        .AddSingleton<IConsole, SystemConsole>()
+        .AddLogging();
 
-        return services;
-    }
+    public static IServiceCollection AddIoAbstractions(this IServiceCollection services) => services
+        .AddSingleton<IFileSystem, FileSystem>()
+        .AddSingleton<IFile>(s => s.GetRequiredService<IFileSystem>().File)
+        .AddSingleton<IDirectory>(s => s.GetRequiredService<IFileSystem>().Directory)
+        .AddSingleton<IPath>(s => s.GetRequiredService<IFileSystem>().Path);
 
-    public static IServiceCollection AddIoAbstractions(this IServiceCollection services)
-    {
-        services.AddSingleton<IFileSystem, FileSystem>();
-        services.AddSingleton<IFile>(s => s.GetRequiredService<IFileSystem>().File);
-        services.AddSingleton<IDirectory>(s => s.GetRequiredService<IFileSystem>().Directory);
-        services.AddSingleton<IPath>(s => s.GetRequiredService<IFileSystem>().Path);
+    public static IServiceCollection AddLocalConfiguration(this IServiceCollection services) => services
+        .AddLogging()
+        .AddIoAbstractions()
+        .AddSafirOptions()
+        .AddSingleton<ILocalConfiguration<SafirOptions>, JsonConfiguration<SafirOptions>>();
 
-        return services;
-    }
+    public static IServiceCollection AddSafirOptions(this IServiceCollection services) => services
+        .AddOptions<SafirOptions>().BindConfiguration(configSectionPath: string.Empty)
+        .Services;
 
     public static BinderBase<T> CreateBinder<T>(this IServiceCollection services)
         where T : notnull

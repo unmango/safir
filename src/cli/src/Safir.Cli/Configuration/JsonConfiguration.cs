@@ -15,7 +15,12 @@ internal sealed class JsonConfiguration<T> : ILocalConfiguration<T>
     private readonly IDirectory _directory;
     private readonly IFile _file;
     private readonly ILogger<JsonConfiguration<T>> _logger;
-    private readonly JsonSerializerOptions _serializerOptions = new();
+    private readonly JsonSerializerOptions _serializerOptions = new() {
+        PropertyNameCaseInsensitive = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        ReadCommentHandling = JsonCommentHandling.Skip,
+        WriteIndented = true,
+    };
 
     public JsonConfiguration(
         IOptionsMonitor<SafirOptions> optionsMonitor,
@@ -35,25 +40,29 @@ internal sealed class JsonConfiguration<T> : ILocalConfiguration<T>
 
         if (!_directory.Exists(options.Directory)) {
             _directory.CreateDirectory(options.Directory);
+            _logger.LogTrace("Creating configuration directory {Directory}", options.Directory);
         }
 
-        T? configuration = null;
+        T configuration;
         if (_file.Exists(options.File)) {
+            _logger.LogTrace("Reading existing configuration file {File}", options.File);
             await using var readStream = _file.OpenRead(options.File);
-            configuration = await JsonSerializer.DeserializeAsync<T>(
+            var onDisk = await JsonSerializer.DeserializeAsync<T>(
                 readStream,
                 _serializerOptions,
                 cancellationToken);
 
-            if (configuration is null) {
-                _logger.LogError("Unable to deserialize configuration");
-                return;
-            }
+            configuration = onDisk ?? new();
+        }
+        else {
+            _logger.LogTrace("Creating new configuration object");
+            configuration = new();
         }
 
-        configuration ??= new();
+        _logger.LogTrace("Performing configuration update");
         update(configuration);
 
+        _logger.LogTrace("Writing updated configuration file {File}", options.File);
         await using var writeStream = _file.OpenWrite(options.File);
         await JsonSerializer.SerializeAsync(
             writeStream,

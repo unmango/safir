@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO.Abstractions;
 using System.Text.Json;
 using System.Threading;
@@ -15,6 +16,7 @@ internal sealed class JsonConfiguration : ILocalConfiguration
     private readonly IDirectory _directory;
     private readonly IFile _file;
     private readonly ILogger<JsonConfiguration> _logger;
+
     private readonly JsonSerializerOptions _serializerOptions = new() {
         PropertyNameCaseInsensitive = true,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -34,7 +36,9 @@ internal sealed class JsonConfiguration : ILocalConfiguration
         _logger = logger;
     }
 
-    public async ValueTask UpdateAsync(Action<LocalConfiguration> update, CancellationToken cancellationToken = default)
+    public async ValueTask UpdateAsync(
+        Func<LocalConfiguration, LocalConfiguration> update,
+        CancellationToken cancellationToken = default)
     {
         var options = _optionsMonitor.CurrentValue.Config;
 
@@ -52,21 +56,21 @@ internal sealed class JsonConfiguration : ILocalConfiguration
                 _serializerOptions,
                 cancellationToken);
 
-            configuration = onDisk ?? new(new List<AgentOptions>());
+            configuration = onDisk ?? new(ImmutableList<AgentOptions>.Empty);
         }
         else {
             _logger.LogTrace("Creating new configuration object");
-            configuration = new(new List<AgentOptions>());
+            configuration = new(ImmutableList<AgentOptions>.Empty);
         }
 
         _logger.LogTrace("Performing configuration update");
-        update(configuration);
+        var updated = update(configuration);
 
         _logger.LogTrace("Writing updated configuration file {File}", options.File);
         await using var writeStream = _file.OpenWrite(options.File);
         await JsonSerializer.SerializeAsync(
             writeStream,
-            configuration,
+            updated,
             _serializerOptions,
             cancellationToken);
     }

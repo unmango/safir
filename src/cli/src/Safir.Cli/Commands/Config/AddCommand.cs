@@ -1,3 +1,4 @@
+using System;
 using System.CommandLine;
 using System.CommandLine.Parsing;
 using System.IO;
@@ -67,7 +68,10 @@ internal static class AddCommand
             var optionsJson = await new StreamReader(optionsStream).ReadToEndAsync();
             _console.WriteLine(optionsJson);
 
-            await _configuration.UpdateAsync(x => x.Agents.Add(new() { Name = service }), CancellationToken.None);
+            await _configuration.UpdateAsync(
+                // ReSharper disable once WithExpressionModifiesAllMembers
+                x => x with { Agents = x.Agents.Add(new(service, string.Empty)) }, // TODO
+                CancellationToken.None);
 
             await using var optionsStream2 = new MemoryStream();
             await JsonSerializer.SerializeAsync(optionsStream2, _options.CurrentValue);

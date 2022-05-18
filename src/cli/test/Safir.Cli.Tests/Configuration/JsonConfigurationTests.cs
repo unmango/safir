@@ -43,7 +43,7 @@ public class JsonConfigurationTests
             .Returns(false)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => x);
+        await _configuration.UpdateAsync(_ => { });
 
         _directory.Verify(x => x.CreateDirectory(_defaultOptions.Config.Directory));
         _directory.Verify();
@@ -56,7 +56,7 @@ public class JsonConfigurationTests
             .Returns(true)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => x);
+        await _configuration.UpdateAsync(_ => { });
 
         _directory.Verify(x => x.CreateDirectory(It.IsAny<string>()), Times.Never);
         _directory.Verify();
@@ -75,7 +75,7 @@ public class JsonConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => x);
+        await _configuration.UpdateAsync(_ => { });
 
         _file.Verify();
     }
@@ -95,10 +95,7 @@ public class JsonConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => {
-            result = x.Agents[0].Name;
-            return x;
-        });
+        await _configuration.UpdateAsync(x => result = x.Agents[0].Name);
 
         Assert.Equal(expectedValue, result);
         _file.Verify();
@@ -119,10 +116,7 @@ public class JsonConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => {
-            result = x.Agents[0].Name;
-            return x;
-        });
+        await _configuration.UpdateAsync(x => result = x.Agents[0].Name);
 
         Assert.Equal(expectedValue, result);
         _file.Verify();
@@ -143,10 +137,7 @@ public class JsonConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => {
-            result = x.Agents[0].Name;
-            return x;
-        });
+        await _configuration.UpdateAsync(x => result = x.Agents[0].Name);
 
         Assert.Equal(expectedValue, result);
         _file.Verify();
@@ -179,7 +170,7 @@ public class JsonConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => x);
+        await _configuration.UpdateAsync(_ => { });
         var result = Encoding.UTF8.GetString(stream.ToArray());
 
         _file.Verify();
@@ -204,7 +195,7 @@ public class JsonConfigurationTests
             .Returns(writeStream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => x);
+        await _configuration.UpdateAsync(_ => { });
         var result = Encoding.UTF8.GetString(writeStream.ToArray());
 
         _file.Verify();
@@ -224,14 +215,11 @@ public class JsonConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        // ReSharper disable once WithExpressionModifiesAllMembers
-        await _configuration.UpdateAsync(x => x with { Agents = x.Agents.Add(new(expectedName, string.Empty)) });
+        await _configuration.UpdateAsync(x => x.Agents.Add(new() { Name = expectedName }));
         var result = Encoding.UTF8.GetString(stream.ToArray());
 
         _file.Verify();
-        Assert.Equal(
-            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}",
-            result);
+        Assert.Equal($"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}", result);
     }
 
     [Fact]
@@ -252,13 +240,10 @@ public class JsonConfigurationTests
             .Returns(writeStream)
             .Verifiable();
 
-        // ReSharper disable once WithExpressionModifiesAllMembers
-        await _configuration.UpdateAsync(x => x with { Agents = x.Agents.Add(new(expectedName, string.Empty)) });
+        await _configuration.UpdateAsync(x => x.Agents.Add(new() { Name = expectedName }));
         var result = Encoding.UTF8.GetString(writeStream.ToArray());
 
         _file.Verify();
-        Assert.Equal(
-            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}",
-            result);
+        Assert.Equal($"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}", result);
     }
 }

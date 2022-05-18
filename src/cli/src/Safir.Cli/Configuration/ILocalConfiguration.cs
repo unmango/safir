@@ -6,5 +6,5 @@ namespace Safir.Cli.Configuration;
 
 internal interface ILocalConfiguration
 {
-    ValueTask UpdateAsync(Func<LocalConfiguration, LocalConfiguration> update, CancellationToken cancellationToken);
+    ValueTask UpdateAsync(Action<LocalConfiguration> update, CancellationToken cancellationToken);
 }

@@ -19,7 +19,7 @@ internal static class AddCommand
         })
         .ConfigureServices(services => {
             services.AddSafirCliCore();
-            services.AddSafirOptions();
+            // services.AddSafirOptions(); // TODO: This will register a second call to bind, which for lists duplicates items
             services.AddLocalConfiguration();
         });
 
@@ -45,12 +45,12 @@ internal static class AddCommand
     {
         private readonly IConsole _console;
         private readonly IOptionsMonitor<SafirOptions> _options;
-        private readonly ILocalConfiguration<SafirOptions> _configuration;
+        private readonly ILocalConfiguration _configuration;
 
         public AddCommandHandler(
             IConsole console,
             IOptionsMonitor<SafirOptions> options,
-            ILocalConfiguration<SafirOptions> configuration)
+            ILocalConfiguration configuration)
         {
             _console = console;
             _options = options;

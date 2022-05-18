@@ -15,7 +15,7 @@ public class JsonConfigurationTests
     private readonly Mock<IOptionsMonitor<SafirOptions>> _optionsMonitor = new();
     private readonly Mock<IDirectory> _directory = new();
     private readonly Mock<IFile> _file = new();
-    private readonly JsonConfiguration<FakeOptions> _configuration;
+    private readonly JsonConfiguration _configuration;
 
     private readonly SafirOptions _defaultOptions = new() {
         Config = new() {
@@ -33,7 +33,7 @@ public class JsonConfigurationTests
             _optionsMonitor.Object,
             _directory.Object,
             _file.Object,
-            Mock.Of<ILogger<JsonConfiguration<FakeOptions>>>());
+            Mock.Of<ILogger<JsonConfiguration>>());
     }
 
     [Fact]
@@ -84,7 +84,7 @@ public class JsonConfigurationTests
     public async Task DeserializesExistingConfigurationWhenExists()
     {
         const string expectedValue = "test";
-        var json = Encoding.UTF8.GetBytes($"{{\"Property\":\"{expectedValue}\"}}");
+        var json = Encoding.UTF8.GetBytes($"{{\"Agents\":[{{\"Name\":\"{expectedValue}\"}}]}}");
         await using var stream = new MemoryStream(json);
         var result = string.Empty;
 
@@ -95,7 +95,7 @@ public class JsonConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => result = x.Property);
+        await _configuration.UpdateAsync(x => result = x.Agents[0].Name);
 
         Assert.Equal(expectedValue, result);
         _file.Verify();
@@ -105,7 +105,7 @@ public class JsonConfigurationTests
     public async Task DeserializesCaseInsensitive()
     {
         const string expectedValue = "test";
-        var json = Encoding.UTF8.GetBytes($"{{\"property\":\"{expectedValue}\"}}");
+        var json = Encoding.UTF8.GetBytes($"{{\"agents\":[{{\"name\":\"{expectedValue}\"}}]}}");
         await using var stream = new MemoryStream(json);
         var result = string.Empty;
 
@@ -116,7 +116,7 @@ public class JsonConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => result = x.Property);
+        await _configuration.UpdateAsync(x => result = x.Agents[0].Name);
 
         Assert.Equal(expectedValue, result);
         _file.Verify();
@@ -126,7 +126,7 @@ public class JsonConfigurationTests
     public async Task DeserializesWithComments()
     {
         const string expectedValue = "test";
-        var json = Encoding.UTF8.GetBytes($"// A comment\n{{\"property\":\"{expectedValue}\"}}");
+        var json = Encoding.UTF8.GetBytes($"{{// A comment\n\"Agents\":[{{\"Name\":\"{expectedValue}\"}}]}}");
         await using var stream = new MemoryStream(json);
         var result = string.Empty;
 
@@ -137,7 +137,7 @@ public class JsonConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => result = x.Property);
+        await _configuration.UpdateAsync(x => result = x.Agents[0].Name);
 
         Assert.Equal(expectedValue, result);
         _file.Verify();
@@ -146,15 +146,15 @@ public class JsonConfigurationTests
     [Fact]
     public async Task CreatesNewConfigurationWhenFileDoesntExist()
     {
-        FakeOptions? options = null;
+        LocalConfiguration? config = null;
 
         _file.Setup(x => x.Exists(_defaultOptions.Config.File))
             .Returns(false)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => options = x);
+        await _configuration.UpdateAsync(x => config = x);
 
-        Assert.NotNull(options);
+        Assert.NotNull(config);
         _file.Verify();
     }
 
@@ -174,13 +174,13 @@ public class JsonConfigurationTests
         var result = Encoding.UTF8.GetString(stream.ToArray());
 
         _file.Verify();
-        Assert.Equal("{\n  \"property\": null\n}", result);
+        Assert.Equal("{\n  \"agents\": []\n}", result);
     }
 
     [Fact]
     public async Task WritesConfigurationWhenFileExists()
     {
-        const string expectedJson = "{\n  \"property\": null\n}";
+        const string expectedJson = "{\n  \"agents\": []\n}";
         var json = Encoding.UTF8.GetBytes(expectedJson);
         await using var readStream = new MemoryStream(json);
         await using var writeStream = new MemoryStream();
@@ -206,7 +206,7 @@ public class JsonConfigurationTests
     public async Task WritesUpdatedConfigurationWhenFileDoesntExist()
     {
         await using var stream = new MemoryStream();
-        const string expectedPropertyValue = "test";
+        const string expectedName = "test";
 
         _file.Setup(x => x.Exists(_defaultOptions.Config.File))
             .Returns(false)
@@ -215,18 +215,18 @@ public class JsonConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => x.Property = expectedPropertyValue);
+        await _configuration.UpdateAsync(x => x.Agents.Add(new() { Name = expectedName }));
         var result = Encoding.UTF8.GetString(stream.ToArray());
 
         _file.Verify();
-        Assert.Equal($"{{\n  \"property\": \"{expectedPropertyValue}\"\n}}", result);
+        Assert.Equal($"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}", result);
     }
 
     [Fact]
     public async Task WritesUpdatedConfigurationWhenFileExists()
     {
-        const string expectedPropertyValue = "test";
-        var json = Encoding.UTF8.GetBytes("{\"Property\":null}");
+        const string expectedName = "test";
+        var json = Encoding.UTF8.GetBytes("{\"Agents\":[]}");
         await using var readStream = new MemoryStream(json);
         await using var writeStream = new MemoryStream();
 
@@ -240,15 +240,10 @@ public class JsonConfigurationTests
             .Returns(writeStream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => x.Property = expectedPropertyValue);
+        await _configuration.UpdateAsync(x => x.Agents.Add(new() { Name = expectedName }));
         var result = Encoding.UTF8.GetString(writeStream.ToArray());
 
         _file.Verify();
-        Assert.Equal($"{{\n  \"property\": \"{expectedPropertyValue}\"\n}}", result);
-    }
-
-    public class FakeOptions
-    {
-        public string? Property { get; set; }
+        Assert.Equal($"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}", result);
     }
 }

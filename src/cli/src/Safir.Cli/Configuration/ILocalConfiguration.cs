@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 
 namespace Safir.Cli.Configuration;
 
-internal interface ILocalConfiguration<out T>
-    where T : class, new()
+internal interface ILocalConfiguration
 {
-    ValueTask UpdateAsync(Action<T> update, CancellationToken cancellationToken);
+    ValueTask UpdateAsync(Action<LocalConfiguration> update, CancellationToken cancellationToken);
 }

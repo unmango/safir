@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Text.Json;
 using System.Threading;
@@ -8,13 +9,12 @@ using Microsoft.Extensions.Options;
 
 namespace Safir.Cli.Configuration;
 
-internal sealed class JsonConfiguration<T> : ILocalConfiguration<T>
-    where T : class, new()
+internal sealed class JsonConfiguration : ILocalConfiguration
 {
     private readonly IOptionsMonitor<SafirOptions> _optionsMonitor;
     private readonly IDirectory _directory;
     private readonly IFile _file;
-    private readonly ILogger<JsonConfiguration<T>> _logger;
+    private readonly ILogger<JsonConfiguration> _logger;
     private readonly JsonSerializerOptions _serializerOptions = new() {
         PropertyNameCaseInsensitive = true,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -26,7 +26,7 @@ internal sealed class JsonConfiguration<T> : ILocalConfiguration<T>
         IOptionsMonitor<SafirOptions> optionsMonitor,
         IDirectory directory,
         IFile file,
-        ILogger<JsonConfiguration<T>> logger)
+        ILogger<JsonConfiguration> logger)
     {
         _optionsMonitor = optionsMonitor;
         _directory = directory;
@@ -34,7 +34,7 @@ internal sealed class JsonConfiguration<T> : ILocalConfiguration<T>
         _logger = logger;
     }
 
-    public async ValueTask UpdateAsync(Action<T> update, CancellationToken cancellationToken = default)
+    public async ValueTask UpdateAsync(Action<LocalConfiguration> update, CancellationToken cancellationToken = default)
     {
         var options = _optionsMonitor.CurrentValue.Config;
 
@@ -43,20 +43,20 @@ internal sealed class JsonConfiguration<T> : ILocalConfiguration<T>
             _logger.LogTrace("Creating configuration directory {Directory}", options.Directory);
         }
 
-        T configuration;
+        LocalConfiguration configuration;
         if (_file.Exists(options.File)) {
             _logger.LogTrace("Reading existing configuration file {File}", options.File);
             await using var readStream = _file.OpenRead(options.File);
-            var onDisk = await JsonSerializer.DeserializeAsync<T>(
+            var onDisk = await JsonSerializer.DeserializeAsync<LocalConfiguration>(
                 readStream,
                 _serializerOptions,
                 cancellationToken);
 
-            configuration = onDisk ?? new();
+            configuration = onDisk ?? new(new List<AgentOptions>());
         }
         else {
             _logger.LogTrace("Creating new configuration object");
-            configuration = new();
+            configuration = new(new List<AgentOptions>());
         }
 
         _logger.LogTrace("Performing configuration update");

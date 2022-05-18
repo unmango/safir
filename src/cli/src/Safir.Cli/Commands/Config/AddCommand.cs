@@ -1,7 +1,12 @@
 using System.CommandLine;
 using System.CommandLine.Parsing;
+using System.IO;
+using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Microsoft.Extensions.Options;
+using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
 
 namespace Safir.Cli.Commands.Config;
@@ -9,8 +14,13 @@ namespace Safir.Cli.Commands.Config;
 internal static class AddCommand
 {
     private static readonly CommandBuilder _builder = CommandBuilder.Create()
+        .Configure(builder => {
+            builder.AddSafirCliDefault();
+        })
         .ConfigureServices(services => {
             services.AddSafirCliCore();
+            services.AddSafirOptions();
+            services.AddLocalConfiguration();
         });
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to add");
@@ -34,16 +44,36 @@ internal static class AddCommand
     private class AddCommandHandler
     {
         private readonly IConsole _console;
+        private readonly IOptionsMonitor<SafirOptions> _options;
+        private readonly ILocalConfiguration<SafirOptions> _configuration;
 
-        public AddCommandHandler(IConsole console)
+        public AddCommandHandler(
+            IConsole console,
+            IOptionsMonitor<SafirOptions> options,
+            ILocalConfiguration<SafirOptions> configuration)
         {
             _console = console;
+            _options = options;
+            _configuration = configuration;
         }
 
-        public Task Execute(ParseResult parseResult)
+        public async Task Execute(ParseResult parseResult)
         {
-            _console.WriteLine("TODO");
-            return Task.CompletedTask;
+            var service = parseResult.GetValueForArgument(ServiceArgument);
+
+            await using var optionsStream = new MemoryStream();
+            await JsonSerializer.SerializeAsync(optionsStream, _options.CurrentValue);
+            optionsStream.Position = 0;
+            var optionsJson = await new StreamReader(optionsStream).ReadToEndAsync();
+            _console.WriteLine(optionsJson);
+
+            await _configuration.UpdateAsync(x => x.Agents.Add(new() { Name = service }), CancellationToken.None);
+
+            await using var optionsStream2 = new MemoryStream();
+            await JsonSerializer.SerializeAsync(optionsStream2, _options.CurrentValue);
+            optionsStream2.Position = 0;
+            var optionsJson2 = await new StreamReader(optionsStream2).ReadToEndAsync();
+            _console.WriteLine(optionsJson2);
         }
     }
 }

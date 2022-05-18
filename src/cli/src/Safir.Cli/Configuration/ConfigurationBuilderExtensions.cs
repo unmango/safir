@@ -9,7 +9,8 @@ internal static class ConfigurationBuilderExtensions
 {
     public static IConfigurationBuilder AddDefaultUserProfileDirectory(this IConfigurationBuilder builder)
     {
-        var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var root = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var directory = Path.Combine(root, "safir");
 
         return builder.AddInMemoryCollection(new Dictionary<string, string> {
             [SafirDefaults.ConfigDirectoryKey] = directory,

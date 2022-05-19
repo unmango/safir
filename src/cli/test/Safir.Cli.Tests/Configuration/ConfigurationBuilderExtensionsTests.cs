@@ -13,7 +13,7 @@ public class ConfigurationBuilderExtensionsTests
     [Fact]
     public void AddDefaultUserProfileDirectory_AddsDirectoryEndingInSafir()
     {
-        var configuration = _builder.AddDefaultUserProfileDirectory().Build();
+        var configuration = _builder.AddDefaultUserConfigurationPaths().Build();
 
         var result = configuration[SafirDefaults.ConfigDirectoryKey];
 

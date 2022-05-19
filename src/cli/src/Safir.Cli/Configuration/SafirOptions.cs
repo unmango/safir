@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.IO;
-
 namespace Safir.Cli.Configuration;
 
 internal record SafirOptions
@@ -12,5 +9,5 @@ internal record ConfigOptions
 {
     public string Directory { get; init; } = string.Empty;
 
-    public string File => Path.Join(Directory, SafirDefaults.ConfigFile);
+    public string File { get; init; } = string.Empty;
 }

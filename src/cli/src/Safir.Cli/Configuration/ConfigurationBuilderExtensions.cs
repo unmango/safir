@@ -7,30 +7,31 @@ namespace Safir.Cli.Configuration;
 
 internal static class ConfigurationBuilderExtensions
 {
-    public static IConfigurationBuilder AddDefaultUserProfileDirectory(this IConfigurationBuilder builder)
+    public static IConfigurationBuilder AddDefaultUserConfigurationPaths(this IConfigurationBuilder builder)
     {
         var root = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         var directory = Path.Combine(root, "safir");
+        var file = Path.Combine(directory, SafirDefaults.ConfigFileName);
 
         return builder.AddInMemoryCollection(new Dictionary<string, string> {
             [SafirDefaults.ConfigDirectoryKey] = directory,
+            [SafirDefaults.ConfigFileKey] = file,
         });
     }
 
     public static IConfigurationBuilder AddSafirCliDefault(this IConfigurationBuilder builder)
     {
         var configuration = new ConfigurationBuilder()
-            .AddDefaultUserProfileDirectory()
+            .AddDefaultUserConfigurationPaths()
             .AddEnvironmentVariables()
             .Build();
 
-        // Potentially inefficient, but allows sharing the config file logic
-        var options = new SafirOptions();
-        configuration.Bind(options);
-        var file = options.Config.File;
+        // Add first to allow config file to overwrite
+        builder.AddConfiguration(configuration);
 
+        var file = configuration.GetValue<string>(SafirDefaults.ConfigFileKey);
         builder.AddJsonFile(file, optional: true, reloadOnChange: true);
 
-        return builder.AddConfiguration(configuration);
+        return builder;
     }
 }

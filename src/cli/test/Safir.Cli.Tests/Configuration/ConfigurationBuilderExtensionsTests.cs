@@ -42,7 +42,7 @@ public class ConfigurationBuilderExtensionsTests
 
         var source = Assert.Single(builder.Sources, x => x.GetType() == typeof(JsonConfigurationSource));
         var jsonSource = Assert.IsType<JsonConfigurationSource>(source);
-        Assert.EndsWith("safir/config.json", jsonSource.Path);
+        Assert.EndsWith("config.json", jsonSource.Path);
         Assert.True(jsonSource.ReloadOnChange);
         Assert.True(jsonSource.Optional);
     }

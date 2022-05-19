@@ -1,3 +1,4 @@
+using System;
 using System.CommandLine;
 using System.CommandLine.Parsing;
 using System.IO;
@@ -61,19 +62,7 @@ internal static class AddCommand
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);
 
-            await using var optionsStream = new MemoryStream();
-            await JsonSerializer.SerializeAsync(optionsStream, _options.CurrentValue);
-            optionsStream.Position = 0;
-            var optionsJson = await new StreamReader(optionsStream).ReadToEndAsync();
-            _console.WriteLine(optionsJson);
-
-            await _configuration.UpdateAsync(x => x.Agents.Add(new() { Name = service }), CancellationToken.None);
-
-            await using var optionsStream2 = new MemoryStream();
-            await JsonSerializer.SerializeAsync(optionsStream2, _options.CurrentValue);
-            optionsStream2.Position = 0;
-            var optionsJson2 = await new StreamReader(optionsStream2).ReadToEndAsync();
-            _console.WriteLine(optionsJson2);
+            await _configuration.UpdateAsync(x => x.Agents.Add(new(service, string.Empty)), CancellationToken.None);
         }
     }
 }

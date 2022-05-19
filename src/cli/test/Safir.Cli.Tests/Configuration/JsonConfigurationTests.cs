@@ -215,7 +215,7 @@ public class JsonConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => x.Agents.Add(new() { Name = expectedName }));
+        await _configuration.UpdateAsync(x => x.Agents.Add(new(expectedName, string.Empty)));
         var result = Encoding.UTF8.GetString(stream.ToArray());
 
         _file.Verify();
@@ -242,7 +242,7 @@ public class JsonConfigurationTests
             .Returns(writeStream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => x.Agents.Add(new() { Name = expectedName }));
+        await _configuration.UpdateAsync(x => x.Agents.Add(new(expectedName, string.Empty)));
         var result = Encoding.UTF8.GetString(writeStream.ToArray());
 
         _file.Verify();

@@ -46,12 +46,12 @@ internal static class AddCommand
     {
         private readonly IConsole _console;
         private readonly IOptionsMonitor<SafirOptions> _options;
-        private readonly ILocalConfiguration _configuration;
+        private readonly IUserConfiguration _configuration;
 
         public AddCommandHandler(
             IConsole console,
             IOptionsMonitor<SafirOptions> options,
-            ILocalConfiguration configuration)
+            IUserConfiguration configuration)
         {
             _console = console;
             _options = options;

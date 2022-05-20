@@ -9,12 +9,12 @@ using Microsoft.Extensions.Options;
 
 namespace Safir.Cli.Configuration;
 
-internal sealed class JsonConfiguration : ILocalConfiguration
+internal sealed class JsonUserConfiguration : IUserConfiguration
 {
     private readonly IOptionsMonitor<SafirOptions> _optionsMonitor;
     private readonly IDirectory _directory;
     private readonly IFile _file;
-    private readonly ILogger<JsonConfiguration> _logger;
+    private readonly ILogger<JsonUserConfiguration> _logger;
     private readonly JsonSerializerOptions _serializerOptions = new() {
         PropertyNameCaseInsensitive = true,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -22,11 +22,11 @@ internal sealed class JsonConfiguration : ILocalConfiguration
         WriteIndented = true,
     };
 
-    public JsonConfiguration(
+    public JsonUserConfiguration(
         IOptionsMonitor<SafirOptions> optionsMonitor,
         IDirectory directory,
         IFile file,
-        ILogger<JsonConfiguration> logger)
+        ILogger<JsonUserConfiguration> logger)
     {
         _optionsMonitor = optionsMonitor;
         _directory = directory;

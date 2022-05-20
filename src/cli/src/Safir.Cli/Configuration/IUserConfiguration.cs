@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Safir.Cli.Configuration;
 
-internal interface ILocalConfiguration
+internal interface IUserConfiguration
 {
     ValueTask UpdateAsync(Action<LocalConfiguration> update, CancellationToken cancellationToken);
 }

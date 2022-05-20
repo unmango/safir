@@ -15,7 +15,7 @@ public class JsonConfigurationTests
     private readonly Mock<IOptionsMonitor<SafirOptions>> _optionsMonitor = new();
     private readonly Mock<IDirectory> _directory = new();
     private readonly Mock<IFile> _file = new();
-    private readonly JsonConfiguration _configuration;
+    private readonly JsonUserConfiguration _configuration;
 
     private readonly SafirOptions _defaultOptions = new() {
         Config = new() {
@@ -33,7 +33,7 @@ public class JsonConfigurationTests
             _optionsMonitor.Object,
             _directory.Object,
             _file.Object,
-            Mock.Of<ILogger<JsonConfiguration>>());
+            Mock.Of<ILogger<JsonUserConfiguration>>());
     }
 
     [Fact]

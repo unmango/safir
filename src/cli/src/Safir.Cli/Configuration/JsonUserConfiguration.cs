@@ -38,6 +38,7 @@ internal sealed class JsonUserConfiguration : IUserConfiguration
     {
         var options = _optionsMonitor.CurrentValue.Config;
 
+        // TODO: The config file won't necessarily always exist in this directory
         if (!_directory.Exists(options.Directory)) {
             _directory.CreateDirectory(options.Directory);
             _logger.LogTrace("Creating configuration directory {Directory}", options.Directory);

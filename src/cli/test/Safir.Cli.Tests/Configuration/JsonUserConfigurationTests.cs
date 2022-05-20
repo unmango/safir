@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Safir.Cli.Tests.Configuration;
 
-public class JsonConfigurationTests
+public class JsonUserConfigurationTests
 {
     private readonly Mock<IOptionsMonitor<SafirOptions>> _optionsMonitor = new();
     private readonly Mock<IDirectory> _directory = new();
@@ -23,7 +23,7 @@ public class JsonConfigurationTests
         },
     };
 
-    public JsonConfigurationTests()
+    public JsonUserConfigurationTests()
     {
         _optionsMonitor.SetupGet(x => x.CurrentValue).Returns(_defaultOptions);
         _file.Setup(x => x.OpenRead(It.IsAny<string>())).Returns(new MemoryStream());

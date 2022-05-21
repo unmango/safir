@@ -20,19 +20,41 @@ public class ConfigurationBuilderExtensionsTests
         Assert.EndsWith("safir", result);
     }
 
+    [Fact]
+    public void AddDefaultUserProfileDirectory_AddsConfigFileBasedOnDirectory()
+    {
+        var configuration = _builder.AddDefaultUserConfigurationPaths().Build();
+
+        var result = configuration["config:file"];
+
+        Assert.EndsWith("config.json", result);
+        var directory = configuration["config:directory"];
+        Assert.StartsWith(directory, result);
+    }
+
     // This test is context dependant due to usage of the static Environment class
     // and AddJsonFile(). If a valid json file exists in the user's ApplicationData
     // directory with keys that overlap SafirDefaults.ConfigDirectoryKey then this
     // test may fail. This should probably be fixed in the future, but it's a niche
     // edge case that can probably be ignored for now.
     [Fact]
-    public void AddSafirCliDefault_AddsDirectoryEndingInSafir()
+    public void AddSafirCliDefault_AddsUserProfileDirectory()
     {
         var configuration = _builder.AddSafirCliDefault().Build();
 
         var result = configuration["config:directory"];
 
-        Assert.EndsWith("safir", result);
+        Assert.NotEmpty(result);
+    }
+
+    [Fact]
+    public void AddSafirCliDefault_AddsUserProfileConfigFile()
+    {
+        var configuration = _builder.AddSafirCliDefault().Build();
+
+        var result = configuration["config:file"];
+
+        Assert.NotEmpty(result);
     }
 
     [Fact]

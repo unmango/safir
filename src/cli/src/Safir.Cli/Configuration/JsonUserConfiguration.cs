@@ -34,6 +34,8 @@ internal sealed class JsonUserConfiguration : IUserConfiguration
         _logger = logger;
     }
 
+    // TODO: Would be nice to preserve comments after an update
+    // TODO: Consider abstracting apart the file management and serialization logic
     public async ValueTask UpdateAsync(Action<LocalConfiguration> update, CancellationToken cancellationToken = default)
     {
         var options = _optionsMonitor.CurrentValue.Config;

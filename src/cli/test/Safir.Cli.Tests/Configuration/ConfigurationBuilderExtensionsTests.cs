@@ -15,7 +15,7 @@ public class ConfigurationBuilderExtensionsTests
     {
         var configuration = _builder.AddDefaultUserConfigurationPaths().Build();
 
-        var result = configuration[SafirDefaults.ConfigDirectoryKey];
+        var result = configuration["config:directory"];
 
         Assert.EndsWith("safir", result);
     }
@@ -30,7 +30,7 @@ public class ConfigurationBuilderExtensionsTests
     {
         var configuration = _builder.AddSafirCliDefault().Build();
 
-        var result = configuration[SafirDefaults.ConfigDirectoryKey];
+        var result = configuration["config:directory"];
 
         Assert.EndsWith("safir", result);
     }

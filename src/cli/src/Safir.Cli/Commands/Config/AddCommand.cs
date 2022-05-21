@@ -20,7 +20,7 @@ internal static class AddCommand
         })
         .ConfigureServices(services => {
             services.AddSafirCliCore();
-            // services.AddSafirOptions(); // TODO: This will register a second call to bind, which for lists duplicates items
+            services.AddSafirOptions();
             services.AddLocalConfiguration();
         });
 

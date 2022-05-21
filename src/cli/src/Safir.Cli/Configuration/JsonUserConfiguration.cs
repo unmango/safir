@@ -72,5 +72,7 @@ internal sealed class JsonUserConfiguration : IUserConfiguration
             configuration,
             _serializerOptions,
             cancellationToken);
+
+        await writeStream.WriteAsync(new [] { (byte)'\n' }, cancellationToken);
     }
 }

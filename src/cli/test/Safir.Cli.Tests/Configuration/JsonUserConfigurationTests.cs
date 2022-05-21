@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.IO.Abstractions;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Safir.Cli.Tests.Configuration;
 
 public class JsonUserConfigurationTests
 {
+    private static readonly Uri _testUri = new Uri("https://example.com");
     private readonly Mock<IOptionsMonitor<SafirOptions>> _optionsMonitor = new();
     private readonly Mock<IDirectory> _directory = new();
     private readonly Mock<IFile> _file = new();
@@ -215,12 +217,12 @@ public class JsonUserConfigurationTests
             .Returns(stream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => x.Agents.Add(new(expectedName, string.Empty)));
+        await _configuration.UpdateAsync(x => x.Agents.Add(new(expectedName, _testUri)));
         var result = Encoding.UTF8.GetString(stream.ToArray());
 
         _file.Verify();
         Assert.Equal(
-            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}\n",
+            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"{_testUri.OriginalString}\"\n    }}\n  ]\n}}\n",
             result);
     }
 
@@ -242,12 +244,12 @@ public class JsonUserConfigurationTests
             .Returns(writeStream)
             .Verifiable();
 
-        await _configuration.UpdateAsync(x => x.Agents.Add(new(expectedName, string.Empty)));
+        await _configuration.UpdateAsync(x => x.Agents.Add(new(expectedName, _testUri)));
         var result = Encoding.UTF8.GetString(writeStream.ToArray());
 
         _file.Verify();
         Assert.Equal(
-            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"\"\n    }}\n  ]\n}}\n",
+            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"{_testUri.OriginalString}\"\n    }}\n  ]\n}}\n",
             result);
     }
 }

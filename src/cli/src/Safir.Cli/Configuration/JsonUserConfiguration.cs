@@ -55,11 +55,11 @@ internal sealed class JsonUserConfiguration : IUserConfiguration
                 _serializerOptions,
                 cancellationToken);
 
-            configuration = onDisk ?? new(new List<AgentOptions>());
+            configuration = onDisk ?? new();
         }
         else {
             _logger.LogTrace("Creating new configuration object");
-            configuration = new(new List<AgentOptions>());
+            configuration = new();
         }
 
         _logger.LogTrace("Performing configuration update");

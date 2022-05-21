@@ -2,6 +2,7 @@ using System;
 using System.CommandLine;
 using System.CommandLine.Parsing;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,13 +26,14 @@ internal static class AddCommand
         });
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to add");
-
+    public static readonly Argument<Uri> UriArgument = new("uri", "The URI of the service");
     public static readonly Command Value = Create();
 
     private static Command Create()
     {
         var command = new Command("add", "Add a Safir service to be used with the CLI") {
             ServiceArgument,
+            UriArgument,
         };
 
         _builder.SetHandler<AddCommandHandler>(
@@ -62,7 +64,18 @@ internal static class AddCommand
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);
 
-            await _configuration.UpdateAsync(x => x.Agents.Add(new(service, string.Empty)), CancellationToken.None);
+            if (_options.CurrentValue.Agents.Any(x => x.Name.Equals(service, StringComparison.OrdinalIgnoreCase))) {
+                _console.WriteLine($"Agent with name \"{service}\" is already configured");
+                return;
+            }
+
+            var uri = parseResult.GetValueForArgument(UriArgument);
+
+            await _configuration.UpdateAsync(
+                x => x.Agents.Add(new(service, uri)),
+                CancellationToken.None);
+
+            _console.WriteLine($"Added agent \"{service}\"");
         }
     }
 }

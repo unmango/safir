@@ -30,8 +30,6 @@ internal static class ConfigurationBuilderExtensions
         builder.AddConfiguration(configuration);
 
         var file = configuration.GetValue<string>(SafirDefaults.ConfigFileKey);
-        builder.AddJsonFile(file, optional: true, reloadOnChange: true);
-
-        return builder;
+        return builder.AddJsonFile(file, optional: true, reloadOnChange: true);
     }
 }

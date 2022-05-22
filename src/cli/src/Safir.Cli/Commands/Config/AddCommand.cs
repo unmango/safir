@@ -1,9 +1,7 @@
 using System;
 using System.CommandLine;
 using System.CommandLine.Parsing;
-using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -44,7 +42,7 @@ internal static class AddCommand
     }
 
     [UsedImplicitly]
-    private class AddCommandHandler
+    internal class AddCommandHandler
     {
         private readonly IConsole _console;
         private readonly IOptionsMonitor<SafirOptions> _options;

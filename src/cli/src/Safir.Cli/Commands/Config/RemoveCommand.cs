@@ -81,5 +81,5 @@ internal static class RemoveCommand
     }
 
     private static bool NameEquals(string first, string second)
-        => first.Equals(second, StringComparison.CurrentCultureIgnoreCase);
+        => first.Equals(second, StringComparison.OrdinalIgnoreCase);
 }

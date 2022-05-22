@@ -55,7 +55,6 @@ internal static class AddCommand
         }
     }
 
-    [UsedImplicitly]
     internal class AddCommandHandler
     {
         private readonly IConsole _console;

@@ -75,7 +75,7 @@ internal static class AddCommand
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);
 
-            if (_options.CurrentValue.Agents.Any(x => x.Name.Equals(service, StringComparison.OrdinalIgnoreCase))) {
+            if (_options.CurrentValue.Agents?.Any(x => NameEquals(x.Name, service)) ?? false) {
                 _console.WriteLine($"Agent with name \"{service}\" is already configured");
                 return;
             }
@@ -88,5 +88,8 @@ internal static class AddCommand
 
             _console.WriteLine($"Added agent \"{service}\"");
         }
+
+        private static bool NameEquals(string first, string second)
+            => first.Equals(second, StringComparison.CurrentCultureIgnoreCase);
     }
 }

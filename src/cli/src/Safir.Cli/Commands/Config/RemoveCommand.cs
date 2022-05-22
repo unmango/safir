@@ -62,7 +62,7 @@ internal static class RemoveCommand
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);
 
-            if (_options.CurrentValue.Agents.All(x => !NameEquals(x.Name, service))) {
+            if (_options.CurrentValue.Agents?.All(x => !NameEquals(x.Name, service)) ?? true) {
                 _console.WriteLine($"No service named \"{service}\" configured");
                 return;
             }

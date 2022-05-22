@@ -6,8 +6,8 @@ namespace Safir.Cli.Configuration;
 [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 internal record SafirOptions
 {
-    // TODO: Binder pukes when value is an empty array
-    public IEnumerable<AgentOptions> Agents { get; init; } = null!; // Initialized via binder
+    // TODO: Binder hates enumerables
+    public IEnumerable<AgentOptions>? Agents { get; init; }
 
     public ConfigOptions Config { get; init; } = new();
 }

@@ -29,7 +29,7 @@ public class JsonUserConfigurationTests
     {
         _optionsMonitor.SetupGet(x => x.CurrentValue).Returns(_defaultOptions);
         _file.Setup(x => x.OpenRead(It.IsAny<string>())).Returns(new MemoryStream());
-        _file.Setup(x => x.OpenWrite(It.IsAny<string>())).Returns(new MemoryStream());
+        _file.Setup(x => x.Create(It.IsAny<string>())).Returns(new MemoryStream());
 
         _configuration = new(
             _optionsMonitor.Object,
@@ -168,7 +168,7 @@ public class JsonUserConfigurationTests
         _file.Setup(x => x.Exists(_defaultOptions.Config.File))
             .Returns(false)
             .Verifiable();
-        _file.Setup(x => x.OpenWrite(_defaultOptions.Config.File))
+        _file.Setup(x => x.Create(_defaultOptions.Config.File))
             .Returns(stream)
             .Verifiable();
 
@@ -193,7 +193,7 @@ public class JsonUserConfigurationTests
         _file.Setup(x => x.OpenRead(_defaultOptions.Config.File))
             .Returns(readStream)
             .Verifiable();
-        _file.Setup(x => x.OpenWrite(_defaultOptions.Config.File))
+        _file.Setup(x => x.Create(_defaultOptions.Config.File))
             .Returns(writeStream)
             .Verifiable();
 
@@ -213,7 +213,7 @@ public class JsonUserConfigurationTests
         _file.Setup(x => x.Exists(_defaultOptions.Config.File))
             .Returns(false)
             .Verifiable();
-        _file.Setup(x => x.OpenWrite(_defaultOptions.Config.File))
+        _file.Setup(x => x.Create(_defaultOptions.Config.File))
             .Returns(stream)
             .Verifiable();
 
@@ -240,7 +240,7 @@ public class JsonUserConfigurationTests
         _file.Setup(x => x.OpenRead(_defaultOptions.Config.File))
             .Returns(readStream)
             .Verifiable();
-        _file.Setup(x => x.OpenWrite(_defaultOptions.Config.File))
+        _file.Setup(x => x.Create(_defaultOptions.Config.File))
             .Returns(writeStream)
             .Verifiable();
 

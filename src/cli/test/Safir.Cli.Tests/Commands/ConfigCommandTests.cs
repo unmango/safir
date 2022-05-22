@@ -12,4 +12,12 @@ public class ConfigCommandTests
 
         Assert.Contains(command.Subcommands, x => x.Name == "add");
     }
+
+    [Fact]
+    public void Value_UsesRemoveSubcommand()
+    {
+        var command = ConfigCommand.Value;
+
+        Assert.Contains(command.Subcommands, x => x.Name == "remove");
+    }
 }

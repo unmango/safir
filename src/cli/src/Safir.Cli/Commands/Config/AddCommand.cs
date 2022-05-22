@@ -24,7 +24,10 @@ internal static class AddCommand
         });
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to add");
-    public static readonly Argument<Uri> UriArgument = new("uri", "The URI of the service");
+
+    public static readonly Argument<Uri> UriArgument = new Argument<Uri>("uri", "The URI of the service")
+        .WithValidator(ValidateUri);
+
     public static readonly Command Value = Create();
 
     private static Command Create()
@@ -39,6 +42,17 @@ internal static class AddCommand
             (handler, result) => handler.Execute(result));
 
         return command;
+    }
+
+    private static void ValidateUri(ArgumentResult result)
+    {
+        try {
+            var uri = result.GetValueForArgument(UriArgument);
+            _ = new Uri(uri.OriginalString);
+        }
+        catch (UriFormatException e) {
+            result.ErrorMessage = e.Message;
+        }
     }
 
     [UsedImplicitly]

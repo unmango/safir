@@ -49,6 +49,17 @@ public class AddCommandTests
     }
 
     [Fact]
+    public void Value_ValidatesUriArgument()
+    {
+        var command = AddCommand.Value;
+
+        var result = command.Parse("test not-a-uri");
+
+        Assert.NotEmpty(result.Errors);
+        Assert.Contains(result.Errors, x => x.Message.StartsWith("Invalid URI"));
+    }
+
+    [Fact]
     public void Value_SetsHandler()
     {
         var command = AddCommand.Value;

@@ -1,7 +1,14 @@
+using System;
 using System.CommandLine;
 using System.CommandLine.Parsing;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Microsoft.Extensions.Options;
+using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
 
 namespace Safir.Cli.Commands.Config;
@@ -9,18 +16,24 @@ namespace Safir.Cli.Commands.Config;
 internal static class AddCommand
 {
     private static readonly CommandBuilder _builder = CommandBuilder.Create()
+        .Configure(builder => {
+            builder.AddSafirCliDefault();
+        })
         .ConfigureServices(services => {
             services.AddSafirCliCore();
+            services.AddSafirOptions();
+            services.AddLocalConfiguration();
         });
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to add");
-
+    public static readonly Argument<Uri> UriArgument = new("uri", "The URI of the service");
     public static readonly Command Value = Create();
 
     private static Command Create()
     {
         var command = new Command("add", "Add a Safir service to be used with the CLI") {
             ServiceArgument,
+            UriArgument,
         };
 
         _builder.SetHandler<AddCommandHandler>(
@@ -34,16 +47,35 @@ internal static class AddCommand
     private class AddCommandHandler
     {
         private readonly IConsole _console;
+        private readonly IOptionsMonitor<SafirOptions> _options;
+        private readonly IUserConfiguration _configuration;
 
-        public AddCommandHandler(IConsole console)
+        public AddCommandHandler(
+            IConsole console,
+            IOptionsMonitor<SafirOptions> options,
+            IUserConfiguration configuration)
         {
             _console = console;
+            _options = options;
+            _configuration = configuration;
         }
 
-        public Task Execute(ParseResult parseResult)
+        public async Task Execute(ParseResult parseResult)
         {
-            _console.WriteLine("TODO");
-            return Task.CompletedTask;
+            var service = parseResult.GetValueForArgument(ServiceArgument);
+
+            if (_options.CurrentValue.Agents.Any(x => x.Name.Equals(service, StringComparison.OrdinalIgnoreCase))) {
+                _console.WriteLine($"Agent with name \"{service}\" is already configured");
+                return;
+            }
+
+            var uri = parseResult.GetValueForArgument(UriArgument);
+
+            await _configuration.UpdateAsync(
+                x => x.Agents.Add(new(service, uri)),
+                CancellationToken.None);
+
+            _console.WriteLine($"Added agent \"{service}\"");
         }
     }
 }

@@ -76,9 +76,7 @@ internal static class RemoveCommand
     }
 
     private static void Remove(this ICollection<AgentConfiguration> agents, string service)
-    {
-        agents.Remove(agents.First(x => NameEquals(x.Name, service)));
-    }
+        => agents.Remove(agents.First(x => NameEquals(x.Name, service)));
 
     private static bool NameEquals(string first, string second)
         => first.Equals(second, StringComparison.OrdinalIgnoreCase);

@@ -66,7 +66,7 @@ internal sealed class JsonUserConfiguration : IUserConfiguration
         update(configuration);
 
         _logger.LogTrace("Writing updated configuration file {File}", options.File);
-        await using var writeStream = _file.OpenWrite(options.File);
+        await using var writeStream = _file.Create(options.File);
         await JsonSerializer.SerializeAsync(
             writeStream,
             configuration,

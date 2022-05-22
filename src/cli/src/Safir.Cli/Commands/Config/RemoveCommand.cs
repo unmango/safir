@@ -1,17 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Parsing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using Microsoft.Extensions.Options;
 using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
 
 namespace Safir.Cli.Commands.Config;
 
-internal static class AddCommand
+internal static class RemoveCommand
 {
     private static readonly CommandBuilder _builder = CommandBuilder.Create()
         .Configure(builder => {
@@ -23,45 +23,32 @@ internal static class AddCommand
             services.AddLocalConfiguration();
         });
 
-    public static readonly Argument<string> ServiceArgument = new("service", "The service to add");
-
-    public static readonly Argument<Uri> UriArgument = new Argument<Uri>("uri", "The URI of the service")
-        .WithValidator(ValidateUri);
+    public static readonly Argument<string> ServiceArgument = new("service", "The service to remove");
 
     public static readonly Command Value = Create();
 
     private static Command Create()
     {
-        var command = new Command("add", "Add a Safir service to be used with the CLI") {
+        var command = new Command("remove", "Remove a service from usage with the CLI") {
             ServiceArgument,
-            UriArgument,
         };
 
-        _builder.SetHandler<AddCommandHandler>(
+        command.AddAlias("rm");
+
+        _builder.SetHandler<RemoveCommandHandler>(
             command,
             (handler, result) => handler.Execute(result));
 
         return command;
     }
 
-    private static void ValidateUri(ArgumentResult result)
-    {
-        try {
-            var uri = result.GetValueForArgument(UriArgument);
-            _ = new Uri(uri.OriginalString);
-        }
-        catch (UriFormatException e) {
-            result.ErrorMessage = e.Message;
-        }
-    }
-
-    internal class AddCommandHandler
+    internal class RemoveCommandHandler
     {
         private readonly IConsole _console;
         private readonly IOptionsMonitor<SafirOptions> _options;
         private readonly IUserConfiguration _configuration;
 
-        public AddCommandHandler(
+        public RemoveCommandHandler(
             IConsole console,
             IOptionsMonitor<SafirOptions> options,
             IUserConfiguration configuration)
@@ -75,21 +62,22 @@ internal static class AddCommand
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);
 
-            if (_options.CurrentValue.Agents?.Any(x => NameEquals(x.Name, service)) ?? false) {
-                _console.WriteLine($"Agent with name \"{service}\" is already configured");
+            if (_options.CurrentValue.Agents?.All(x => !NameEquals(x.Name, service)) ?? true) {
+                _console.WriteLine($"No service named \"{service}\" configured");
                 return;
             }
 
-            var uri = parseResult.GetValueForArgument(UriArgument);
-
             await _configuration.UpdateAsync(
-                x => x.Agents.Add(new(service, uri)),
+                x => x.Agents.Remove(service),
                 CancellationToken.None);
 
-            _console.WriteLine($"Added agent \"{service}\"");
+            _console.WriteLine($"Removed service \"{service}\"");
         }
-
-        private static bool NameEquals(string first, string second)
-            => first.Equals(second, StringComparison.OrdinalIgnoreCase);
     }
+
+    private static void Remove(this ICollection<AgentConfiguration> agents, string service)
+        => agents.Remove(agents.First(x => NameEquals(x.Name, service)));
+
+    private static bool NameEquals(string first, string second)
+        => first.Equals(second, StringComparison.OrdinalIgnoreCase);
 }

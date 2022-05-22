@@ -7,6 +7,12 @@ using Safir.Cli.DependencyInjection;
 
 namespace Safir.Cli.Commands;
 
+// TODO: Calling build to get a binder for the `SetHandler` methods will build configuration
+// This is bad because it couples the CLI configuration with the outside world
+// For example it can trickle down to unit tests and an invalid config file in the user's
+// directory can cause unit test failures across the app
+// We need to defer the call to build or come up with another solution so configuration won't
+// be built until a command's handler is executing.
 internal static class CommandBuilderExtensions
 {
     public static CommandBuilder ConfigureServices(this CommandBuilder builder, Action<IServiceCollection> configure)

@@ -6,7 +6,8 @@ namespace Safir.Cli.Configuration;
 [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 internal record SafirOptions
 {
-    public IEnumerable<AgentOptions> Agents { get; init; } = null!; // Initialized via binder
+    // TODO: Binder hates enumerables
+    public IEnumerable<AgentOptions>? Agents { get; init; }
 
     public ConfigOptions Config { get; init; } = new();
 }

@@ -283,6 +283,15 @@
           "System.Runtime.CompilerServices.Unsafe": "6.0.0",
           "System.Text.Encodings.Web": "6.0.0"
         }
+      },
+      "safir.commandline": {
+        "type": "Project",
+        "dependencies": {
+          "JetBrains.Annotations": "2022.1.0",
+          "Microsoft.Extensions.Configuration": "6.0.1",
+          "Microsoft.Extensions.DependencyInjection": "6.0.0",
+          "System.CommandLine": "2.0.0-beta3.22114.1"
+        }
       }
     },
     "net6.0/linux-x64": {

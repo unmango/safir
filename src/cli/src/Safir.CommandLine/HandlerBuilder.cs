@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.CommandLine.Invocation;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,65 +8,69 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Safir.CommandLine;
 
 [PublicAPI]
-public sealed class HandlerBuilder : IHandlerBuilder<HandlerBuilder>
+public static class HandlerBuilder
 {
-    private readonly List<Action<InvocationContext, IConfigurationBuilder>> _configureHostConfigActions = new();
-    private readonly List<Action<HandlerBuilderContext, IConfigurationBuilder>> _configureAppConfigActions = new();
-    private readonly List<Action<HandlerBuilderContext, IServiceCollection>> _configureServicesActions = new();
+    public static IIntermediateHandlerBuilder Create() => new DefaultHandlerBuilder();
 
-    public HandlerBuilder ConfigureHostConfiguration(Action<InvocationContext, IConfigurationBuilder> configureDelegate)
-    {
-        _configureHostConfigActions.Add(configureDelegate);
-        return this;
-    }
+    public static T ConfigureAppConfiguration<T>(this IHandlerBuilder<T> builder, Action<IConfigurationBuilder> configureDelegate)
+        where T : IHandlerBuilder<T>
+        => builder.ConfigureAppConfiguration((_, b) => configureDelegate(b));
 
-    public HandlerBuilder ConfigureAppConfiguration(Action<HandlerBuilderContext, IConfigurationBuilder> configureDelegate)
-    {
-        _configureAppConfigActions.Add(configureDelegate);
-        return this;
-    }
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder<T> builder,
+        Func<InvocationContext, IServiceProvider, Task<int>> handle)
+        where T : IHandlerBuilder<T>
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
-    public HandlerBuilder ConfigureServices(Action<HandlerBuilderContext, IServiceCollection> configureDelegate)
-    {
-        _configureServicesActions.Add(configureDelegate);
-        return this;
-    }
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder<T> builder,
+        Func<IServiceProvider, Task<int>> handle)
+        where T : IHandlerBuilder<T>
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
-    public ConfiguredHandlerBuilder ConfigureHandler(CommandHandler handler) => new(this, handler);
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder<T> builder,
+        Func<InvocationContext, IServiceProvider, Task> handle)
+        where T : IHandlerBuilder<T>
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
-    internal IServiceProvider BuildServiceProvider(InvocationContext invocationContext)
-    {
-        var hostConfigBuilder = new ConfigurationBuilder()
-            .AddInMemoryCollection();
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder<T> builder,
+        Func<IServiceProvider, Task> handle)
+        where T : IHandlerBuilder<T>
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
-        foreach (var configure in _configureHostConfigActions)
-            configure(invocationContext, hostConfigBuilder);
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder<T> builder,
+        Func<InvocationContext, IServiceProvider, int> handle)
+        where T : IHandlerBuilder<T>
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
-        var hostConfiguration = hostConfigBuilder.Build();
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder<T> builder,
+        Func<IServiceProvider, int> handle)
+        where T : IHandlerBuilder<T>
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
-        var context = new HandlerBuilderContext(hostConfiguration, invocationContext);
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder<T> builder,
+        Action<InvocationContext, IServiceProvider> handle)
+        where T : IHandlerBuilder<T>
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
-        var appConfigBuilder = new ConfigurationBuilder()
-            .AddConfiguration(hostConfiguration, shouldDisposeConfiguration: true);
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder<T> builder,
+        Action<IServiceProvider> handle)
+        where T : IHandlerBuilder<T>
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
-        foreach (var configure in _configureAppConfigActions) {
-            configure(context, appConfigBuilder);
-        }
+    public static T ConfigureHostConfiguration<T>(
+        this IHandlerBuilder<T> builder,
+        Action<IConfigurationBuilder> configureDelegate)
+        where T : IHandlerBuilder<T>
+        => builder.ConfigureHostConfiguration((_, b) => configureDelegate(b));
 
-        var appConfiguration = appConfigBuilder.Build();
-        context.Configuration = appConfiguration;
-
-        var services = new ServiceCollection()
-            .AddSingleton(context)
-            .AddSingleton(_ => appConfiguration)
-            .AddSingleton(invocationContext)
-            .AddSingleton(invocationContext.BindingContext)
-            .AddSingleton(invocationContext.Console)
-            .AddTransient(_ => invocationContext.ParseResult);
-
-        foreach (var configure in _configureServicesActions)
-            configure(context, services);
-
-        return services.BuildServiceProvider();
-    }
+    public static T ConfigureServices<T>(this IHandlerBuilder<T> builder, Action<IServiceCollection> configureDelegate)
+        where T : IHandlerBuilder<T>
+        => builder.ConfigureServices((_, s) => configureDelegate(s));
 }

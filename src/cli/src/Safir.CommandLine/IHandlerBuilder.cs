@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 namespace Safir.CommandLine;
 
 [PublicAPI]
-public interface IHandlerBuilder : IHandlerBuilder<ConfiguredHandlerBuilder>
+public interface IHandlerBuilder : IHandlerBuilder<IHandlerBuilder>
 {
     ICommandHandler Build();
 }

@@ -4,24 +4,25 @@ using System.CommandLine.Parsing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using Microsoft.Extensions.Options;
 using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
+using Safir.CommandLine;
 
 namespace Safir.Cli.Commands.Config;
 
 internal static class AddCommand
 {
-    private static readonly CommandBuilder _builder = CommandBuilder.Create()
-        .Configure(builder => {
+    private static readonly IHandlerBuilder _builder = new HandlerBuilder()
+        .ConfigureAppConfiguration(builder => {
             builder.AddSafirCliDefault();
         })
         .ConfigureServices(services => {
             services.AddSafirCliCore();
             services.AddSafirOptions();
             services.AddLocalConfiguration();
-        });
+        })
+        .ConfigureHandler();
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to add");
 

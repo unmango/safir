@@ -14,28 +14,27 @@ internal sealed class DefaultHandlerBuilder : IIntermediateHandlerBuilder, IHand
     private readonly List<Action<HandlerBuilderContext, IServiceCollection>> _configureServicesActions = new();
     private CommandHandler? _handler;
 
-    IIntermediateHandlerBuilder IHandlerBuilder<IIntermediateHandlerBuilder>.ConfigureHostConfiguration(
+    IIntermediateHandlerBuilder IIntermediateHandlerBuilder.ConfigureHostConfiguration(
         Action<InvocationContext, IConfigurationBuilder> configureDelegate)
     {
         _configureHostConfigActions.Add(configureDelegate);
         return this;
     }
 
-    IHandlerBuilder IHandlerBuilder<IHandlerBuilder>.ConfigureHostConfiguration(
-        Action<InvocationContext, IConfigurationBuilder> configureDelegate)
+    IHandlerBuilder IHandlerBuilder.ConfigureHostConfiguration(Action<InvocationContext, IConfigurationBuilder> configureDelegate)
     {
         _configureHostConfigActions.Add(configureDelegate);
         return this;
     }
 
-    IHandlerBuilder IHandlerBuilder<IHandlerBuilder>.ConfigureAppConfiguration(
+    IHandlerBuilder IHandlerBuilder.ConfigureAppConfiguration(
         Action<HandlerBuilderContext, IConfigurationBuilder> configureDelegate)
     {
         _configureAppConfigActions.Add(configureDelegate);
         return this;
     }
 
-    IIntermediateHandlerBuilder IHandlerBuilder<IIntermediateHandlerBuilder>.ConfigureAppConfiguration(
+    IIntermediateHandlerBuilder IIntermediateHandlerBuilder.ConfigureAppConfiguration(
         Action<HandlerBuilderContext, IConfigurationBuilder> configureDelegate)
     {
         _configureAppConfigActions.Add(configureDelegate);
@@ -48,14 +47,13 @@ internal sealed class DefaultHandlerBuilder : IIntermediateHandlerBuilder, IHand
         return this;
     }
 
-    IHandlerBuilder IHandlerBuilder<IHandlerBuilder>.ConfigureServices(
-        Action<HandlerBuilderContext, IServiceCollection> configureDelegate)
+    IHandlerBuilder IHandlerBuilder.ConfigureServices(Action<HandlerBuilderContext, IServiceCollection> configureDelegate)
     {
         _configureServicesActions.Add(configureDelegate);
         return this;
     }
 
-    IIntermediateHandlerBuilder IHandlerBuilder<IIntermediateHandlerBuilder>.ConfigureServices(
+    IIntermediateHandlerBuilder IIntermediateHandlerBuilder.ConfigureServices(
         Action<HandlerBuilderContext, IServiceCollection> configureDelegate)
     {
         _configureServicesActions.Add(configureDelegate);

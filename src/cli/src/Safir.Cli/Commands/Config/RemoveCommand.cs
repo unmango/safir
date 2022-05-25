@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
+using Safir.CommandLine;
 
 namespace Safir.Cli.Commands.Config;
 
 internal static class RemoveCommand
 {
-    private static readonly CommandBuilder _builder = CommandBuilder.Create()
-        .Configure(builder => {
+    private static readonly IHandlerBuilder _builder = HandlerBuilder.Create()
+        .ConfigureAppConfiguration(builder => {
             builder.AddSafirCliDefault();
         })
         .ConfigureServices(services => {
@@ -22,6 +23,7 @@ internal static class RemoveCommand
             services.AddSafirOptions();
             services.AddLocalConfiguration();
         });
+        // .ConfigureHandler<RemoveCommandHandler>((handler, context) => handler);
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to remove");
 
@@ -35,9 +37,9 @@ internal static class RemoveCommand
 
         command.AddAlias("rm");
 
-        _builder.SetHandler<RemoveCommandHandler>(
-            command,
-            (handler, result) => handler.Execute(result));
+        // _builder.SetHandler<RemoveCommandHandler>(
+        //     command,
+        //     (handler, result) => handler.Execute(result));
 
         return command;
     }

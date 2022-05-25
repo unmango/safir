@@ -21,8 +21,8 @@ internal static class AddCommand
             services.AddSafirCliCore();
             services.AddSafirOptions();
             services.AddLocalConfiguration();
-        })
-        .ConfigureHandler();
+        });
+        // .ConfigureHandler();
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to add");
 
@@ -38,9 +38,9 @@ internal static class AddCommand
             UriArgument,
         };
 
-        _builder.SetHandler<AddCommandHandler>(
-            command,
-            (handler, result) => handler.Execute(result));
+        // _builder.SetHandler<AddCommandHandler>(
+        //     command,
+        //     (handler, result) => handler.Execute(result));
 
         return command;
     }

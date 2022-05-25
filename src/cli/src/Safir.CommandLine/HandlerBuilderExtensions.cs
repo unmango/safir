@@ -20,9 +20,21 @@ public static class HandlerBuilderExtensions
         Func<InvocationContext, IServiceProvider, Task<int>> handle)
         => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder builder,
+        Func<T, InvocationContext, Task<int>> handle)
+        where T : notnull
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
+
     public static IHandlerBuilder ConfigureHandler(
         this IHandlerBuilder builder,
         Func<IServiceProvider, Task<int>> handle)
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
+
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder builder,
+        Func<T, Task<int>> handle)
+        where T : notnull
         => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
     public static IHandlerBuilder ConfigureHandler(
@@ -30,9 +42,21 @@ public static class HandlerBuilderExtensions
         Func<InvocationContext, IServiceProvider, Task> handle)
         => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder builder,
+        Func<T, InvocationContext, Task> handle)
+        where T : notnull
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
+
     public static IHandlerBuilder ConfigureHandler(
         this IHandlerBuilder builder,
         Func<IServiceProvider, Task> handle)
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
+
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder builder,
+        Func<T, Task> handle)
+        where T : notnull
         => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
     public static IHandlerBuilder ConfigureHandler(
@@ -40,14 +64,32 @@ public static class HandlerBuilderExtensions
         Func<InvocationContext, IServiceProvider, int> handle)
         => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder builder,
+        Func<T, InvocationContext, int> handle)
+        where T : notnull
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
+
     public static IHandlerBuilder ConfigureHandler(
         this IHandlerBuilder builder,
         Func<IServiceProvider, int> handle)
         => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder builder,
+        Func<T, int> handle)
+        where T : notnull
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
+
     public static IHandlerBuilder ConfigureHandler(
         this IHandlerBuilder builder,
         Action<InvocationContext, IServiceProvider> handle)
+        => builder.ConfigureHandler(HandlerDelegate.Create(handle));
+
+    public static IHandlerBuilder ConfigureHandler<T>(
+        this IHandlerBuilder builder,
+        Action<T, InvocationContext> handle)
+        where T : notnull
         => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
     public static IHandlerBuilder ConfigureHandler(this IHandlerBuilder builder, Action<IServiceProvider> handle)

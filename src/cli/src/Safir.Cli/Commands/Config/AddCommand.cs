@@ -22,7 +22,7 @@ internal static class AddCommand
             services.AddSafirOptions();
             services.AddLocalConfiguration();
         })
-        .ConfigureHandler<AddCommandHandler>((handler, context) => handler.Execute(context.ParseResult));
+        .ConfigureHandler<AddCommandHandler>((context, handler) => handler.Execute(context.ParseResult));
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to add");
 

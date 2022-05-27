@@ -22,7 +22,7 @@ public static class HandlerBuilderExtensions
 
     public static IHandlerBuilder ConfigureHandler<T>(
         this IHandlerBuilder builder,
-        Func<T, InvocationContext, Task<int>> handle)
+        Func<InvocationContext, T, Task<int>> handle)
         where T : notnull
         => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
@@ -44,7 +44,7 @@ public static class HandlerBuilderExtensions
 
     public static IHandlerBuilder ConfigureHandler<T>(
         this IHandlerBuilder builder,
-        Func<T, InvocationContext, Task> handle)
+        Func<InvocationContext, T, Task> handle)
         where T : notnull
         => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
@@ -66,7 +66,7 @@ public static class HandlerBuilderExtensions
 
     public static IHandlerBuilder ConfigureHandler<T>(
         this IHandlerBuilder builder,
-        Func<T, InvocationContext, int> handle)
+        Func<InvocationContext, T, int> handle)
         where T : notnull
         => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 
@@ -88,7 +88,7 @@ public static class HandlerBuilderExtensions
 
     public static IHandlerBuilder ConfigureHandler<T>(
         this IHandlerBuilder builder,
-        Action<T, InvocationContext> handle)
+        Action<InvocationContext, T> handle)
         where T : notnull
         => builder.ConfigureHandler(HandlerDelegate.Create(handle));
 

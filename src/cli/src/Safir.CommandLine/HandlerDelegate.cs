@@ -10,9 +10,9 @@ internal static class HandlerDelegate
     public static CommandHandler Create(Func<InvocationContext, IServiceProvider, Task<int>> handler)
         => (context, services) => new(handler(context, services));
 
-    public static CommandHandler Create<T>(Func<T, InvocationContext, Task<int>> handler)
+    public static CommandHandler Create<T>(Func<InvocationContext, T, Task<int>> handler)
         where T : notnull
-        => (context, services) => new(handler(services.GetRequiredService<T>(), context));
+        => (context, services) => new(handler(context, services.GetRequiredService<T>()));
 
     public static CommandHandler Create(Func<IServiceProvider, Task<int>> handler)
         => (_, services) => new(handler(services));
@@ -27,10 +27,10 @@ internal static class HandlerDelegate
             return context.ExitCode;
         };
 
-    public static CommandHandler Create<T>(Func<T, InvocationContext, Task> handler)
+    public static CommandHandler Create<T>(Func<InvocationContext, T, Task> handler)
         where T : notnull
         => async (context, services) => {
-            await handler(services.GetRequiredService<T>(), context);
+            await handler(context, services.GetRequiredService<T>());
             return context.ExitCode;
         };
 
@@ -50,9 +50,9 @@ internal static class HandlerDelegate
     public static CommandHandler Create(Func<InvocationContext, IServiceProvider, int> handler)
         => (context, services) => new(handler(context, services));
 
-    public static CommandHandler Create<T>(Func<T, InvocationContext, int> handler)
+    public static CommandHandler Create<T>(Func<InvocationContext, T, int> handler)
         where T : notnull
-        => (context, services) => new(handler(services.GetRequiredService<T>(), context));
+        => (context, services) => new(handler(context, services.GetRequiredService<T>()));
 
     public static CommandHandler Create(Func<IServiceProvider, int> handler)
         => (_, services) => new(handler(services));
@@ -67,10 +67,10 @@ internal static class HandlerDelegate
             return new(context.ExitCode);
         };
 
-    public static CommandHandler Create<T>(Action<T, InvocationContext> handler)
+    public static CommandHandler Create<T>(Action<InvocationContext, T> handler)
         where T : notnull
         => (context, services) => {
-            handler(services.GetRequiredService<T>(), context);
+            handler(context, services.GetRequiredService<T>());
             return new(context.ExitCode);
         };
 

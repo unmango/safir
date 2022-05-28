@@ -103,7 +103,8 @@ public sealed class HandlerBuilder : IHandlerBuilder
             _invoked = true;
 
             var services = _builder.BuildServiceProvider(context);
-            return await _handler(context, services);
+            var configuration = services.GetRequiredService<IConfiguration>();
+            return await _handler(new(configuration, context, services));
         }
     }
 }

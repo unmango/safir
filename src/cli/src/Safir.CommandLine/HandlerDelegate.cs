@@ -7,9 +7,6 @@ namespace Safir.CommandLine;
 
 internal static class HandlerDelegate
 {
-    public static CommandHandler Create(Func<InvocationContext, IServiceProvider, Task<int>> handler)
-        => (context, services) => new(handler(context, services));
-
     public static CommandHandler Create<T>(Func<InvocationContext, T, Task<int>> handler)
         where T : notnull
         => (context, services) => new(handler(context, services.GetRequiredService<T>()));

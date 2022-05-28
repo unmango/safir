@@ -1,7 +1,5 @@
-using System;
-using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
 namespace Safir.CommandLine;
 
-public delegate ValueTask<int> CommandHandler(InvocationContext context, IServiceProvider services);
+public delegate ValueTask<int> CommandHandler(HandlerContext context);

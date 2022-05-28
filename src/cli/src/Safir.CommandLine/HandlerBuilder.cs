@@ -16,6 +16,9 @@ public sealed class HandlerBuilder : IHandlerBuilder
     private readonly List<Action<HandlerBuilderContext, IServiceCollection>> _configureServicesActions = new();
     private CommandHandler? _handler;
 
+    public ICommandHandler Build()
+        => new DelegateHandler(this, _handler ?? throw new InvalidOperationException("No handler configured"));
+
     public IHandlerBuilder ConfigureHostConfiguration(Action<InvocationContext, IConfigurationBuilder> configureDelegate)
     {
         _configureHostConfigActions.Add(configureDelegate);
@@ -40,12 +43,9 @@ public sealed class HandlerBuilder : IHandlerBuilder
         return this;
     }
 
-    public ICommandHandler Build()
-        => new DelegateHandler(this, _handler ?? throw new InvalidOperationException("No handler configured"));
-
     public static IHandlerBuilder Create() => new HandlerBuilder();
 
-    private IServiceProvider BuildServiceProvider(InvocationContext invocationContext)
+    private HandlerContext BuildHandlerContext(InvocationContext invocationContext)
     {
         var hostConfigBuilder = new ConfigurationBuilder()
             .AddInMemoryCollection();
@@ -79,7 +79,7 @@ public sealed class HandlerBuilder : IHandlerBuilder
         foreach (var configure in _configureServicesActions)
             configure(context, services);
 
-        return services.BuildServiceProvider();
+        return new(appConfiguration, invocationContext, services.BuildServiceProvider());
     }
 
     private class DelegateHandler : ICommandHandler
@@ -102,9 +102,8 @@ public sealed class HandlerBuilder : IHandlerBuilder
 
             _invoked = true;
 
-            var services = _builder.BuildServiceProvider(context);
-            var configuration = services.GetRequiredService<IConfiguration>();
-            return await _handler(new(configuration, context, services));
+            var handlerContext = _builder.BuildHandlerContext(context);
+            return await _handler(handlerContext);
         }
     }
 }

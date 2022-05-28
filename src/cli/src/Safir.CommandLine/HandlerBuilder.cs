@@ -17,12 +17,11 @@ public sealed class HandlerBuilder : IHandlerBuilder
     private CommandHandler? _handler;
 
     public ICommandHandler Build()
-        => new DelegateHandler(this, _handler ?? throw new InvalidOperationException("No handler configured"));
-
-    public IHandlerBuilder ConfigureHostConfiguration(Action<InvocationContext, IConfigurationBuilder> configureDelegate)
     {
-        _configureHostConfigActions.Add(configureDelegate);
-        return this;
+        if (_handler is null)
+            throw new InvalidOperationException("No handler configured");
+
+        return new DelegateHandler(this, _handler);
     }
 
     public IHandlerBuilder ConfigureAppConfiguration(Action<HandlerBuilderContext, IConfigurationBuilder> configureDelegate)
@@ -37,6 +36,12 @@ public sealed class HandlerBuilder : IHandlerBuilder
         return this;
     }
 
+    public IHandlerBuilder ConfigureHostConfiguration(Action<InvocationContext, IConfigurationBuilder> configureDelegate)
+    {
+        _configureHostConfigActions.Add(configureDelegate);
+        return this;
+    }
+
     public IHandlerBuilder ConfigureServices(Action<HandlerBuilderContext, IServiceCollection> configureDelegate)
     {
         _configureServicesActions.Add(configureDelegate);
@@ -45,41 +50,40 @@ public sealed class HandlerBuilder : IHandlerBuilder
 
     public static IHandlerBuilder Create() => new HandlerBuilder();
 
-    private HandlerContext BuildHandlerContext(InvocationContext invocationContext)
+    private HandlerContext BuildHandlerContext(InvocationContext context)
     {
         var hostConfigBuilder = new ConfigurationBuilder()
             .AddInMemoryCollection();
 
         foreach (var configure in _configureHostConfigActions)
-            configure(invocationContext, hostConfigBuilder);
+            configure(context, hostConfigBuilder);
 
         var hostConfiguration = hostConfigBuilder.Build();
 
-        var context = new HandlerBuilderContext(hostConfiguration, invocationContext);
+        var builderContext = new HandlerBuilderContext(hostConfiguration, context);
 
         var appConfigBuilder = new ConfigurationBuilder()
             .AddConfiguration(hostConfiguration, shouldDisposeConfiguration: true);
 
-        foreach (var configure in _configureAppConfigActions) {
-            configure(context, appConfigBuilder);
-        }
+        foreach (var configure in _configureAppConfigActions)
+            configure(builderContext, appConfigBuilder);
 
         var appConfiguration = appConfigBuilder.Build();
-        context.Configuration = appConfiguration;
+        builderContext.Configuration = appConfiguration;
 
         // Stolen from HostBuilder and host middleware implementations
         var services = new ServiceCollection()
+            .AddSingleton(builderContext)
+            .AddSingleton<IConfiguration>(_ => appConfiguration)
             .AddSingleton(context)
-            .AddSingleton(_ => appConfiguration)
-            .AddSingleton(invocationContext)
-            .AddSingleton(invocationContext.BindingContext)
-            .AddSingleton(invocationContext.Console)
-            .AddTransient(_ => invocationContext.ParseResult);
+            .AddSingleton(context.BindingContext)
+            .AddSingleton(context.Console)
+            .AddTransient(_ => context.ParseResult);
 
         foreach (var configure in _configureServicesActions)
-            configure(context, services);
+            configure(builderContext, services);
 
-        return new(appConfiguration, invocationContext, services.BuildServiceProvider());
+        return new(appConfiguration, context, services.BuildServiceProvider());
     }
 
     private class DelegateHandler : ICommandHandler

@@ -1,7 +1,6 @@
 using System;
-using System.CommandLine.Invocation;
+using System.CommandLine.Parsing;
 using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,16 +9,10 @@ namespace Safir.CommandLine;
 [PublicAPI]
 public static class HandlerContextExtensions
 {
-    public static Task<int> ExecuteAsync<T>(this HandlerContext context)
-        where T : ICommandHandler
-        => context.GetRequiredService<T>().InvokeAsync(context.InvocationContext);
-
-    public static Task<int> ExecuteAsync<T>(this HandlerContext context, Func<T, CancellationToken, Task<int>> handler)
-        where T : notnull
-        => handler(context.GetRequiredService<T>(), context.GetCancellationToken());
-
     public static CancellationToken GetCancellationToken(this HandlerContext context)
         => context.InvocationContext.GetCancellationToken();
+
+    public static ParseResult GetParseResult(this HandlerContext context) => context.InvocationContext.ParseResult;
 
     public static T GetRequiredService<T>(this HandlerContext context)
         where T : notnull

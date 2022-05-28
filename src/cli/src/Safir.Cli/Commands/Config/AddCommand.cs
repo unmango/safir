@@ -22,7 +22,8 @@ internal static class AddCommand
             services.AddSafirOptions();
             services.AddLocalConfiguration();
         })
-        .ConfigureHandler<AddCommandHandler>((context, handler) => handler.Execute(context.ParseResult));
+        .ConfigureHandler<AddCommandHandler>((handler, parseResult, cancellationToken)
+            => handler.Execute(parseResult, cancellationToken));
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to add");
 
@@ -38,9 +39,7 @@ internal static class AddCommand
             UriArgument,
         };
 
-        // _builder.SetHandler<AddCommandHandler>(
-        //     command,
-        //     (handler, result) => handler.Execute(result));
+        command.SetHandler(_builder);
 
         return command;
     }
@@ -62,17 +61,10 @@ internal static class AddCommand
         private readonly IOptionsMonitor<SafirOptions> _options;
         private readonly IUserConfiguration _configuration;
 
-        public AddCommandHandler(
-            IConsole console,
-            IOptionsMonitor<SafirOptions> options,
-            IUserConfiguration configuration)
-        {
-            _console = console;
-            _options = options;
-            _configuration = configuration;
-        }
+        public AddCommandHandler(IConsole console, IOptionsMonitor<SafirOptions> options, IUserConfiguration configuration)
+            => (_console, _options, _configuration) = (console, options, configuration);
 
-        public async Task Execute(ParseResult parseResult)
+        public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken = default)
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);
 
@@ -83,9 +75,7 @@ internal static class AddCommand
 
             var uri = parseResult.GetValueForArgument(UriArgument);
 
-            await _configuration.UpdateAsync(
-                x => x.Agents.Add(new(service, uri)),
-                CancellationToken.None);
+            await _configuration.UpdateAsync(x => x.Agents.Add(new(service, uri)), cancellationToken);
 
             _console.WriteLine($"Added agent \"{service}\"");
         }

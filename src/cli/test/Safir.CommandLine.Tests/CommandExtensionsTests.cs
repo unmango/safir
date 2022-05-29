@@ -1,5 +1,4 @@
 using System.CommandLine;
-using Moq;
 
 namespace Safir.CommandLine.Tests;
 

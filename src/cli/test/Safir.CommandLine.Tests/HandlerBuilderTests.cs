@@ -4,7 +4,6 @@ using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 
 namespace Safir.CommandLine.Tests;
 

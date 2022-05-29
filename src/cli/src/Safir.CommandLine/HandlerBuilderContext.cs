@@ -13,7 +13,7 @@ public class HandlerBuilderContext
         InvocationContext = invocationContext;
     }
 
-    public IConfiguration Configuration { get; internal set; }
+    public IConfiguration Configuration { get; set; }
 
     public InvocationContext InvocationContext { get; }
 }

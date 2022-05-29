@@ -64,6 +64,7 @@ internal static class AddCommand
         public AddCommandHandler(IConsole console, IOptionsMonitor<SafirOptions> options, IUserConfiguration configuration)
             => (_console, _options, _configuration) = (console, options, configuration);
 
+        [CommandHandler]
         public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken = default)
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);

@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(CliSrc)\Safir.CommandLine\Safir.CommandLine.csproj" />
+    <ProjectReference Include="$(CliSrc)\Safir.CommandLine\Safir.CommandLine.csproj" OutputItemType="Analyzer" />
   </ItemGroup>
 
   <ItemGroup>

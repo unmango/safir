@@ -22,8 +22,9 @@ internal static class RemoveCommand
             services.AddSafirCliCore();
             services.AddSafirOptions();
             services.AddLocalConfiguration();
-        });
-        // .ConfigureHandler<RemoveCommandHandler>((handler, context) => handler);
+        })
+        .ConfigureHandler<RemoveCommandHandler>((handler, parseResult, cancellationToken)
+            => handler.Execute(parseResult, cancellationToken));
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to remove");
 
@@ -36,10 +37,7 @@ internal static class RemoveCommand
         };
 
         command.AddAlias("rm");
-
-        // _builder.SetHandler<RemoveCommandHandler>(
-        //     command,
-        //     (handler, result) => handler.Execute(result));
+        command.SetHandler(_builder);
 
         return command;
     }
@@ -60,7 +58,7 @@ internal static class RemoveCommand
             _configuration = configuration;
         }
 
-        public async Task Execute(ParseResult parseResult)
+        public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken = default)
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);
 
@@ -69,9 +67,7 @@ internal static class RemoveCommand
                 return;
             }
 
-            await _configuration.UpdateAsync(
-                x => x.Agents.Remove(service),
-                CancellationToken.None);
+            await _configuration.UpdateAsync(x => x.Agents.Remove(service), cancellationToken);
 
             _console.WriteLine($"Removed service \"{service}\"");
         }

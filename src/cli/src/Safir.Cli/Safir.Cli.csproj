@@ -29,6 +29,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="$(CliSrc)\Safir.CommandLine\Safir.CommandLine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(CliRoot)\Dockerfile" Link="Dockerfile" />
+  </ItemGroup>
+
+  <ItemGroup>
     <InternalsVisibleTo Include="Safir.Cli.Tests" />
     <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>

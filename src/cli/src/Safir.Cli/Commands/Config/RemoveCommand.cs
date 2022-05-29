@@ -8,20 +8,23 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
+using Safir.CommandLine;
 
 namespace Safir.Cli.Commands.Config;
 
 internal static class RemoveCommand
 {
-    private static readonly CommandBuilder _builder = CommandBuilder.Create()
-        .Configure(builder => {
+    private static readonly IHandlerBuilder _builder = HandlerBuilder.Create()
+        .ConfigureAppConfiguration(builder => {
             builder.AddSafirCliDefault();
         })
         .ConfigureServices(services => {
             services.AddSafirCliCore();
             services.AddSafirOptions();
             services.AddLocalConfiguration();
-        });
+        })
+        .ConfigureHandler<RemoveCommandHandler>((handler, parseResult, cancellationToken)
+            => handler.Execute(parseResult, cancellationToken));
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to remove");
 
@@ -34,10 +37,7 @@ internal static class RemoveCommand
         };
 
         command.AddAlias("rm");
-
-        _builder.SetHandler<RemoveCommandHandler>(
-            command,
-            (handler, result) => handler.Execute(result));
+        command.SetHandler(_builder);
 
         return command;
     }
@@ -58,7 +58,7 @@ internal static class RemoveCommand
             _configuration = configuration;
         }
 
-        public async Task Execute(ParseResult parseResult)
+        public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken = default)
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);
 
@@ -67,9 +67,7 @@ internal static class RemoveCommand
                 return;
             }
 
-            await _configuration.UpdateAsync(
-                x => x.Agents.Remove(service),
-                CancellationToken.None);
+            await _configuration.UpdateAsync(x => x.Agents.Remove(service), cancellationToken);
 
             _console.WriteLine($"Removed service \"{service}\"");
         }

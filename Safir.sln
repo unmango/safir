@@ -105,6 +105,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.CommandLine", "src\cli\src\Safir.CommandLine\Safir.CommandLine.csproj", "{B90583CA-A298-4BBA-A0B6-7FBCD074BD4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.CommandLine.Tests", "src\cli\test\Safir.CommandLine.Tests\Safir.CommandLine.Tests.csproj", "{71B76A1B-00EB-40A1-99D7-D1632CFC8C55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -146,6 +150,8 @@ Global
 		{25951FB0-408A-4238-BE27-02A52188DAD8} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
 		{6B1CD7E1-8E35-4108-8425-09991E0B2B23} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
 		{9F4C9816-498A-476B-9221-910D74EE0D05} = {B4688F14-99D2-4A0F-972D-80D67544488E}
+		{B90583CA-A298-4BBA-A0B6-7FBCD074BD4D} = {207E32FA-DBA0-4B7E-B91E-1028EC81D452}
+		{71B76A1B-00EB-40A1-99D7-D1632CFC8C55} = {207E32FA-DBA0-4B7E-B91E-1028EC81D452}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9E7CBC93-7265-4DB8-B1FD-5E6216BB42B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -272,5 +278,13 @@ Global
 		{6B1CD7E1-8E35-4108-8425-09991E0B2B23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B1CD7E1-8E35-4108-8425-09991E0B2B23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B1CD7E1-8E35-4108-8425-09991E0B2B23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B90583CA-A298-4BBA-A0B6-7FBCD074BD4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B90583CA-A298-4BBA-A0B6-7FBCD074BD4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B90583CA-A298-4BBA-A0B6-7FBCD074BD4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B90583CA-A298-4BBA-A0B6-7FBCD074BD4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71B76A1B-00EB-40A1-99D7-D1632CFC8C55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71B76A1B-00EB-40A1-99D7-D1632CFC8C55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71B76A1B-00EB-40A1-99D7-D1632CFC8C55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71B76A1B-00EB-40A1-99D7-D1632CFC8C55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

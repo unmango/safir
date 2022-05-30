@@ -58,6 +58,7 @@ internal static class RemoveCommand
             _configuration = configuration;
         }
 
+        [CommandHandler]
         public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken = default)
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);

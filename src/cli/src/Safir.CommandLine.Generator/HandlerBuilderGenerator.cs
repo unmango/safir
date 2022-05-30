@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Safir.CommandLine;
 
 [Generator]
-internal class HandlerBuilderExtensionGenerator : ISourceGenerator
+internal class HandlerBuilderGenerator : ISourceGenerator
 {
     public void Initialize(GeneratorInitializationContext context)
     {
@@ -17,10 +17,7 @@ internal class HandlerBuilderExtensionGenerator : ISourceGenerator
     {
         var receiver = (AttributeReceiver)context.SyntaxReceiver!;
 
-        var i = 0;
-        foreach (var methodDeclaration in receiver.HandlerMethods) {
-            context.AddSource($"found{i++}.g.cs", "ERROR");
-        }
+        if (receiver.HandlerMethods.Count <= 0) return;
     }
 
     private class AttributeReceiver : ISyntaxReceiver
@@ -29,12 +26,11 @@ internal class HandlerBuilderExtensionGenerator : ISourceGenerator
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
-            // if (syntaxNode is not MethodDeclarationSyntax methodDeclaration)
-            //     return;
+            if (syntaxNode is not MethodDeclarationSyntax methodDeclaration)
+                return;
 
-            // if (methodDeclaration.AttributeLists.Any(x => x.Attributes.Any(MatchesName))) {
-                HandlerMethods.Add(null!);
-            // }
+            if (methodDeclaration.AttributeLists.Any(x => x.Attributes.Any(MatchesName)))
+                HandlerMethods.Add(methodDeclaration);
         }
 
         private static bool MatchesName(AttributeSyntax attribute)

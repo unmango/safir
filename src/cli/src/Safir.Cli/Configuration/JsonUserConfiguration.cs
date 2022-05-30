@@ -46,9 +46,9 @@ internal sealed class JsonUserConfiguration : IUserConfiguration
         if (_file.Exists(options.File)) {
             _logger.LogTrace("Reading existing configuration file {File}", options.File);
             await using var readStream = _file.OpenRead(options.File);
-            var onDisk = await JsonSerializer.DeserializeAsync<LocalConfiguration>(
+            var onDisk = await JsonSerializer.DeserializeAsync(
                 readStream,
-                _serializerOptions,
+                JsonGeneratorContext.Default.LocalConfiguration,
                 cancellationToken);
 
             configuration = onDisk ?? new();
@@ -66,7 +66,7 @@ internal sealed class JsonUserConfiguration : IUserConfiguration
         await JsonSerializer.SerializeAsync(
             writeStream,
             configuration,
-            _serializerOptions,
+            JsonGeneratorContext.Default.LocalConfiguration,
             cancellationToken);
 
         await writeStream.WriteAsync(new [] { (byte)'\n' }, cancellationToken);

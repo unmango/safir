@@ -71,7 +71,7 @@ namespace {0}
 
             var allClassNames = classes.Select(x => x.Identifier.Text).ToList();
             var displayClassName = string.Join(string.Empty, allClassNames);
-            var className = string.Join('.', allClassNames);
+            var className = string.Join(".", allClassNames);
             var methodName = methodDeclaration.Identifier.Text;
 
             var returnType = methodDeclaration.ReturnType.ToString();

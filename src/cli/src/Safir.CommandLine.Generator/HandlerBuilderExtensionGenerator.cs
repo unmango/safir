@@ -1,40 +1,28 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Safir.CommandLine;
 
-// [Generator]
+[Generator]
 internal class HandlerBuilderExtensionGenerator : ISourceGenerator
 {
-    private const string UsingFormat = @"using {0};";
-
-    private const string HeaderFormat = @"// Auto-generated code
+    private const string HandlerExtensionFormat = @"// Auto-generated code
 
 using Safir.CommandLine;
-{0}
 
-namespace Safir.CommandLine
+namespace {0}
 {{
-    internal static class GeneratedHandlerBuilderExtensions
-    {{";
-
-    private const string MethodFormat = @"
-        public static IHandlerBuilder ConfigureHandler<T>(this IHandlerBuilder builder)
-            {0}
+    internal static class Generated{1}HandlerBuilderExtensions
+    {{
+        public static IHandlerBuilder Use{2}(this IHandlerBuilder builder)
         {{
-            builder.ConfigureHandler<T>({1});
+            builder.ConfigureHandler<{3}>({4});
             return builder;
-        }}";
-
-    private const string Footer = @"
-    }
-}";
-
-    private const string ConstraintFormat = "where T : {0}";
+        }}
+    }}
+}}";
 
     private const string AsyncDelegateFormat =
         "(handler, parseResult, cancellationToken) => handler.{0}(parseResult, cancellationToken)";
@@ -53,60 +41,50 @@ namespace Safir.CommandLine
 
         if (receiver.HandlerMethods.Count <= 0) return;
 
-        var methodSources = new List<string>();
-        var usingSources = new HashSet<string>();
-        var asyncConstraints = new HashSet<string>();
-        var syncConstraints = new HashSet<string>();
-
         foreach (var methodDeclaration in receiver.HandlerMethods) {
-            var classes = methodDeclaration.Ancestors()
+            var ancestors = methodDeclaration.Ancestors().ToList();
+            var classes = ancestors
                 .OfType<ClassDeclarationSyntax>()
                 .Reverse()
                 .ToList();
 
             if (classes.Count <= 0) continue;
 
-            var namespaceName = methodDeclaration.Ancestors()
-                .OfType<NamespaceDeclarationSyntax>()
+            var namespaceName = ancestors
+                .OfType<BaseNamespaceDeclarationSyntax>()
                 .Select(x => x.Name.ToString())
                 .FirstOrDefault();
 
             if (namespaceName is null) continue;
 
-            var className = string.Join('.', classes.Select(x => x.Identifier.Text));
+            var allClassNames = classes.Select(x => x.Identifier.Text).ToList();
+            var displayClassName = string.Join(string.Empty, allClassNames);
+            var className = string.Join('.', allClassNames);
             var methodName = methodDeclaration.Identifier.Text;
 
             var returnType = methodDeclaration.ReturnType.ToString();
-            string? delegateFormat = null;
-            switch (returnType) {
-                case "Task<int>":
-                case "Task":
-                    delegateFormat = AsyncDelegateFormat;
-                    asyncConstraints.Add(string.Format(ConstraintFormat, className));
-                    break;
-                case "int":
-                case "void":
-                    delegateFormat = SyncDelegateFormat;
-                    syncConstraints.Add(string.Format(ConstraintFormat, className));
-                    break;
-            }
+            var delegateFormat = returnType switch {
+                "Task<int>" => AsyncDelegateFormat,
+                "Task" => AsyncDelegateFormat,
+                "int" => SyncDelegateFormat,
+                "void" => SyncDelegateFormat,
+                _ => null,
+            };
 
             if (delegateFormat is null) continue;
 
             var delegateSource = string.Format(delegateFormat, methodName);
-            var methodSource = string.Format(MethodFormat, className, delegateSource);
 
-            usingSources.Add(string.Format(UsingFormat, namespaceName));
-            methodSources.Add(methodSource);
+            var source = string.Format(
+                HandlerExtensionFormat,
+                namespaceName,
+                displayClassName,
+                displayClassName,
+                className,
+                delegateSource);
+
+            context.AddSource($"{displayClassName}HandlerBuilderExtensions.g.cs", source);
         }
-
-        var usings = string.Join('\n', usingSources);
-        var header = string.Format(HeaderFormat, usings);
-        var source = new StringBuilder(header);
-        source.Append(string.Join('\n', methodSources));
-        source.Append(Footer);
-
-        context.AddSource("HandlerBuilderExtensions.g.cs", source.ToString());
     }
 
     private class AttributeReceiver : ISyntaxReceiver

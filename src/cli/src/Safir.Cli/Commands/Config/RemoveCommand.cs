@@ -23,8 +23,7 @@ internal static class RemoveCommand
             services.AddSafirOptions();
             services.AddLocalConfiguration();
         })
-        .ConfigureHandler<RemoveCommandHandler>((handler, parseResult, cancellationToken)
-            => handler.Execute(parseResult, cancellationToken));
+        .UseRemoveCommandRemoveCommandHandler();
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to remove");
 

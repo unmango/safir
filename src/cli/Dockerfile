@@ -7,11 +7,13 @@ ENV CliSrc=/build
 WORKDIR /build
 
 COPY cli/src/Safir.CommandLine/*.csproj ./Safir.CommandLine/
+COPY cli/src/Safir.CommandLine.Generator/*.csproj ./Safir.CommandLine.Generator/
 COPY cli/src/Safir.Cli/*.csproj ./Safir.Cli/
 
 RUN dotnet restore Safir.Cli
 
 COPY cli/src/Safir.CommandLine ./Safir.CommandLine
+COPY cli/src/Safir.CommandLine.Generator ./Safir.CommandLine.Generator
 COPY cli/src/Safir.Cli ./Safir.Cli/
 
 RUN dotnet publish Safir.Cli \

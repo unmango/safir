@@ -19,6 +19,8 @@ COPY cli/src/Safir.Cli ./Safir.Cli/
 RUN dotnet publish Safir.Cli \
         --no-restore \
         --configuration Release \
+        --runtime linux-x64 \
+        --no-self-contained \
         --output /out
 
 FROM mcr.microsoft.com/dotnet/runtime:6.0

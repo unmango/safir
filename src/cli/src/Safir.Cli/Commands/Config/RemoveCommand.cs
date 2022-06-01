@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
 using Safir.CommandLine;
+using Safir.CommandLine.Generator;
 
 namespace Safir.Cli.Commands.Config;
 
@@ -23,8 +24,7 @@ internal static class RemoveCommand
             services.AddSafirOptions();
             services.AddLocalConfiguration();
         })
-        .ConfigureHandler<RemoveCommandHandler>((handler, parseResult, cancellationToken)
-            => handler.Execute(parseResult, cancellationToken));
+        .UseRemoveCommandRemoveCommandHandler();
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to remove");
 
@@ -58,6 +58,7 @@ internal static class RemoveCommand
             _configuration = configuration;
         }
 
+        [CommandHandler]
         public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken = default)
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);

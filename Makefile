@@ -18,6 +18,10 @@ ifeq ($(DOCKER_DEBUG), true)
 DOCKER_ARGS += --progress=plain
 endif
 
+ifeq ($(DOCKER_NOCACHE), true)
+DOCKER_ARGS += --no-cache
+endif
+
 all:: build
 
 restore::
@@ -91,7 +95,7 @@ start_agent_docker:: agent_docker docker_mounts
 cli::
 	dotnet build src/cli ${DOTNET_ARGS}
 
-cli_docker::
+cli_docker:: common_dotnet_docker
 	cd src && docker build . \
 		-f cli/Dockerfile \
 		--build-arg CommonImage=${COMMON_DOTNET_TAG} \

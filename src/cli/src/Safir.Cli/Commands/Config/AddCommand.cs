@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
 using Safir.CommandLine;
+using Safir.CommandLine.Generator;
 
 namespace Safir.Cli.Commands.Config;
 
@@ -22,8 +23,7 @@ internal static class AddCommand
             services.AddSafirOptions();
             services.AddLocalConfiguration();
         })
-        .ConfigureHandler<AddCommandHandler>((handler, parseResult, cancellationToken)
-            => handler.Execute(parseResult, cancellationToken));
+        .UseAddCommandAddCommandHandler();
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to add");
 
@@ -64,6 +64,7 @@ internal static class AddCommand
         public AddCommandHandler(IConsole console, IOptionsMonitor<SafirOptions> options, IUserConfiguration configuration)
             => (_console, _options, _configuration) = (console, options, configuration);
 
+        [CommandHandler]
         public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken = default)
         {
             var service = parseResult.GetValueForArgument(ServiceArgument);

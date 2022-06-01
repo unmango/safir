@@ -51,11 +51,11 @@ internal sealed class JsonUserConfiguration : IUserConfiguration
                 JsonGeneratorContext.Default.LocalConfiguration,
                 cancellationToken);
 
-            configuration = onDisk ?? new();
+            configuration = onDisk ?? LocalConfiguration.Empty();
         }
         else {
             _logger.LogTrace("Creating new configuration object");
-            configuration = new();
+            configuration = LocalConfiguration.Empty();
         }
 
         _logger.LogTrace("Performing configuration update");

@@ -1,7 +1,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Safir.CommandLine;
+namespace Safir.CommandLine.Generator;
 
 [PublicAPI]
 [AttributeUsage(AttributeTargets.Method)]

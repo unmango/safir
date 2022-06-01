@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
 using Safir.CommandLine;
+using Safir.CommandLine.Generator;
 
 namespace Safir.Cli.Commands.Config;
 

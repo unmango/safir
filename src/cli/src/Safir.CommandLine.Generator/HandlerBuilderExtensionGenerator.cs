@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
-namespace Safir.CommandLine;
+namespace Safir.CommandLine.Generator;
 
 [Generator]
 internal class HandlerBuilderExtensionGenerator : ISourceGenerator

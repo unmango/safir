@@ -5,16 +5,25 @@ services:
     build:
       context: ../
       dockerfile: agent/Dockerfile
+    ports:
+      - '6980:80'
+      - '6969:443'
     environment:
+      ASPNETCORE_HTTPS_PORT: 6969
+      ASPNETCORE_Kestrel__Certificates__Default__Password: DevPassword
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/aspnetapp.pfx
+      EnableGrpcReflection: true
+      EnableSwagger: true
       REDIS: redis:6379
     volumes:
       - ../../work/agent/data:/data
+      - ~/.aspnet/https:/https/
     depends_on:
       - redis
 
   redis:
     image: redis
     ports:
-      - 6379:6379
+      - '6379:6379'
     cap_add:
       - SYS_RESOURCE

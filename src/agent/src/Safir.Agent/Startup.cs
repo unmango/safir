@@ -65,7 +65,7 @@ public class Startup
         }
 
         app.UseSerilogRequestLogging();
-        // app.UseHttpsRedirection();
+        app.UseHttpsRedirection();
 
         var options = app.ApplicationServices
             .GetRequiredService<IOptions<AgentOptions>>()

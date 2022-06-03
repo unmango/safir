@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(AgentSrc)\Safir.Agent\Safir.Agent.csproj" />
+    <ProjectReference Include="..\..\src\Safir.Agent.Backup\Safir.Agent.Backup.csproj" />
   </ItemGroup>
 
 </Project>

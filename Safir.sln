@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "agent", "agent", "{89CA5AAD
 		src\agent\Directory.Build.props = src\agent\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent", "src\agent\src\Safir.Agent\Safir.Agent.csproj", "{9E7CBC93-7265-4DB8-B1FD-5E6216BB42B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent.Backup", "src\agent\src\Safir.Agent.Backup\Safir.Agent.Backup.csproj", "{9E7CBC93-7265-4DB8-B1FD-5E6216BB42B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent.Abstractions", "src\agent\src\Safir.Agent.Abstractions\Safir.Agent.Abstractions.csproj", "{23789940-D27D-4DC7-9C1B-B7BC94EDF4B5}"
 EndProject

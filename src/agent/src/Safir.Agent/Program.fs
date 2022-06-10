@@ -13,18 +13,26 @@ open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
+open Microsoft.Extensions.Options
+open Safir.Agent.Configuration
 
 module Program =
     let exitCode = 0
 
     [<EntryPoint>]
     let main args =
-
         let builder = WebApplication.CreateBuilder(args)
+
+        builder.Services.AddGrpc()
+        builder.Services.AddGrpcReflection()
 
         builder.Services.AddControllers()
 
         let app = builder.Build()
+
+        if app.Environment.IsDevelopment() then
+            app.UseDeveloperExceptionPage()
+            ()
 
         app.UseHttpsRedirection()
 

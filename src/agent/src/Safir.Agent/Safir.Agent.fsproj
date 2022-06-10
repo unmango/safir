@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Configuration/AgentOptions.fs" />
     <Compile Include="WeatherForecast.fs" />
+    <Compile Include="Services\FileSystemService.fs" />
     <Compile Include="Controllers/WeatherForecastController.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
@@ -29,5 +31,4 @@
     <ProjectReference Include="$(AgentSrc)\Safir.Agent.Abstractions\Safir.Agent.Abstractions.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
   </ItemGroup>
-
 </Project>

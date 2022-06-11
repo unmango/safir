@@ -5,6 +5,7 @@
     "esbenp.prettier-vscode",
     "ms-dotnettools.csharp",
     "ms-azuretools.vscode-docker",
-    "EditorConfig.EditorConfig"
+    "editorconfig.editorconfig",
+    "Ionide.Ionide-fsharp"
   ]
 }

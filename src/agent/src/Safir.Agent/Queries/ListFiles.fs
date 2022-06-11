@@ -8,7 +8,7 @@ open Safir.Agent.Protos
 type Response =
     { Files: seq<FileSystemEntry> }
 
-let public listFiles (options: IOptions<AgentOptions>) (logger: ILogger) =
+let listFiles (options: IOptions<AgentOptions>) (logger: ILogger) =
     async {
         logger.LogInformation("Executing")
         return { Files = [

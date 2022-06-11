@@ -15,6 +15,8 @@ type FileSystemService(options: IOptions<AgentOptions>, logger: ILogger<FileSyst
         task {
             let! files = strategy options logger
 
+            logger.LogTrace "Writing to response stream"
+
             return
                 files.Files
                 |> Seq.map (fun f -> (f, context.CancellationToken))

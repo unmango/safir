@@ -10,5 +10,9 @@ type Response =
 
 let public listFiles (options: IOptions<AgentOptions>) (logger: ILogger) =
     async {
-        return { Files = [] }
+        logger.LogInformation("Executing")
+        return { Files = [
+            FileSystemEntry(Path = "Test")
+            FileSystemEntry(Path = "Test2")
+        ] }
     }

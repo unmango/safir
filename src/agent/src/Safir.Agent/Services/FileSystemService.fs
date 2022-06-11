@@ -7,12 +7,13 @@ open Safir.Agent.Configuration
 open Safir.Agent.Protos
 open Safir.Agent.Queries.ListFiles
 
-type FileSystemService(options: IOptions<AgentOptions>, logger: ILogger<FileSystemService>) =
+type FileSystemService(options: IOptions<AgentOptions>, logger: ILogger<FileSystemService>, ?strategy) =
     inherit FileSystem.FileSystemBase()
+    let strategy = defaultArg strategy listFiles
 
     override this.ListFiles(_, responseStream, context) =
         task {
-            let! files = listFiles options logger
+            let! files = strategy options logger
 
             return
                 files.Files

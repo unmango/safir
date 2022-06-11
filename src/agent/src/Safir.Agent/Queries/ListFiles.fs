@@ -1,18 +1,21 @@
 module Safir.Agent.Queries.ListFiles
 
-open Microsoft.Extensions.Logging
-open Microsoft.Extensions.Options
+open System
 open Safir.Agent.Configuration
 open Safir.Agent.Protos
 
 type Response =
-    { Files: seq<FileSystemEntry> }
+    | Files of seq<FileSystemEntry>
+    | DataDirectoryNotConfigured
+    | DataDirectoryDoesNotExist
 
-let listFiles (options: IOptions<AgentOptions>) (logger: ILogger) =
-    async {
-        logger.LogInformation("Executing")
-        return { Files = [
-            FileSystemEntry(Path = "Test")
-            FileSystemEntry(Path = "Test2")
-        ] }
-    }
+let listFiles (dataDirectory: DataDirectory) enumerateFileSystemEntries getRelativePath =
+    match dataDirectory with
+    | Some root when directory.exists root ->
+        enumerateFileSystemEntries root
+        |> Seq.map (getRelativePath root)
+        |> Seq.map (fun f -> FileSystemEntry(Path = f))
+        |> Files
+    | Some x when String.IsNullOrWhiteSpace x -> DataDirectoryNotConfigured
+    | None -> DataDirectoryNotConfigured
+    | _ -> DataDirectoryDoesNotExist

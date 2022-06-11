@@ -1,5 +1,6 @@
 namespace Safir.Agent.Services
 
+open System.IO
 open System.Threading.Tasks
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
@@ -13,13 +14,24 @@ type FileSystemService(options: IOptions<AgentOptions>, logger: ILogger<FileSyst
 
     override this.ListFiles(_, responseStream, context) =
         task {
-            let! files = strategy options logger
-
-            logger.LogTrace "Writing to response stream"
+            let response =
+                strategy
+                    options.Value
+                    { exists = Directory.Exists
+                      enumerateFileSystemEntries = Directory.EnumerateFileSystemEntries }
+                    (fun x y -> Path.GetRelativePath(x, y))
 
             return
-                files.Files
-                |> Seq.map (fun f -> (f, context.CancellationToken))
-                |> Seq.map responseStream.WriteAsync
-                |> Task.WhenAll
+                match response with
+                | Files f ->
+                    f
+                    |> Seq.map (fun f -> (f, context.CancellationToken))
+                    |> Seq.map responseStream.WriteAsync
+                    |> Task.WhenAll
+                | DataDirectoryNotConfigured ->
+                    logger.LogInformation "No data directory configured"
+                    Task.CompletedTask
+                | DataDirectoryDoesNotExist ->
+                    logger.LogInformation "Data directory does not exist"
+                    Task.CompletedTask
         }

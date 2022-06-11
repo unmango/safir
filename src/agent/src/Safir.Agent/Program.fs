@@ -15,6 +15,7 @@ open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
 open Safir.Agent.Configuration
+open Safir.Agent.Services
 
 module Program =
     let exitCode = 0
@@ -26,7 +27,9 @@ module Program =
         builder.Services.AddGrpc()
         builder.Services.AddGrpcReflection()
 
-        builder.Services.AddControllers()
+//        builder.Services.AddControllers()
+
+        builder.Services
 
         let app = builder.Build()
 
@@ -36,8 +39,10 @@ module Program =
 
         app.UseHttpsRedirection()
 
-        app.UseAuthorization()
-        app.MapControllers()
+//        app.UseAuthorization()
+//        app.MapControllers()
+        app.MapGrpcService<FileSystemService>()
+        app.MapGrpcReflectionService()
 
         app.Run()
 

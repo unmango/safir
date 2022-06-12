@@ -1,6 +1,5 @@
 module Safir.Agent.Queries.ListFiles
 
-open System
 open Safir.Agent.Configuration
 open Safir.Agent.Protos
 

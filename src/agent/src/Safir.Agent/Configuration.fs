@@ -3,7 +3,7 @@ namespace Safir.Agent.Configuration
 module ConfigurationTypes =
 
     type AgentOptions() =
-        member val DataDirectory: string option = None with get, set
+        member val DataDirectory: string = null with get, set
         member val EnableGrpcReflection = false with get, set
         member val EnableSwagger = false with get, set
         member val MaxDepth = 0 with get, set
@@ -11,12 +11,14 @@ module ConfigurationTypes =
     type DataDirectory = string
 
 module DataDirectory =
+    open System
     open System.IO
     open ConfigurationTypes
 
-    let parse' exists (value: string option) =
+    let parse' exists (value: string) =
         match value with
-        | Some x when exists x -> Some(DataDirectory x)
-        | _ -> None
+        | x when String.IsNullOrWhiteSpace(x) -> Error "No data directory configured"
+        | x when exists x -> Ok(DataDirectory x)
+        | _ -> Error "Data directory does not exist"
 
     let parse = parse' Directory.Exists

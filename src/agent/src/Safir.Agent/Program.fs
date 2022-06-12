@@ -36,8 +36,7 @@ module Program =
         let app = builder.Build()
 
         if app.Environment.IsDevelopment() then
-            app.UseDeveloperExceptionPage()
-            ()
+            do app.UseDeveloperExceptionPage()
 
         app.UseHttpsRedirection()
 

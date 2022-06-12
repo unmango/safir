@@ -1,5 +1,6 @@
 module Safir.IO.FSharp.Path
 
 open System.IO
+open Safir.Common
 
-let getRelativePath = Path.GetRelativePath
+let getRelativePath = curry Path.GetRelativePath

@@ -10,4 +10,8 @@
     <Compile Include="Path.fs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Safir.Common.FSharp\Safir.Common.FSharp.fsproj" />
+  </ItemGroup>
+
 </Project>

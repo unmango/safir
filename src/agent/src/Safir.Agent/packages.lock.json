@@ -289,6 +289,19 @@
           "JetBrains.Annotations": "2022.1.0"
         }
       },
+      "safir.common.fsharp": {
+        "type": "Project",
+        "dependencies": {
+          "FSharp.Core": "6.0.4"
+        }
+      },
+      "safir.io.fsharp": {
+        "type": "Project",
+        "dependencies": {
+          "FSharp.Core": "6.0.4",
+          "Safir.Common.FSharp": "1.0.0"
+        }
+      },
       "safir.messaging.abstractions": {
         "type": "Project",
         "dependencies": {

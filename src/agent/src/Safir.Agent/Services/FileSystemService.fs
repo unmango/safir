@@ -15,22 +15,13 @@ type FileSystemService internal (options: IOptions<AgentOptions>, logger: ILogge
     new(options, logger) = FileSystemService(options, logger, listFiles)
 
     override this.ListFiles(_, responseStream, context) =
-        task {
-            let dataDirectory =
-                options.Value.DataDirectory |> DataDirectory.parse
-
-            let response =
-                match dataDirectory with
-                | Some x -> strategy x Directory.EnumerateFileSystemEntries (fun y z -> Path.GetRelativePath(y, z))
-                | None ->
-                    logger.LogInformation("No data directory configured")
-                    Files []
-
-            return
-                match response with
-                | Files f ->
-                    f
-                    |> Seq.map (fun f -> (f, context.CancellationToken))
-                    |> Seq.map responseStream.WriteAsync
-                    |> Task.WhenAll
-        }
+        options.Value.DataDirectory
+        |> DataDirectory.parse
+        |> function
+            | Ok x -> strategy x Directory.EnumerateFileSystemEntries
+            | Error x ->
+                logger.LogInformation(x)
+                []
+        |> Seq.map (fun f -> (f, context.CancellationToken))
+        |> Seq.map responseStream.WriteAsync
+        |> Task.WhenAll

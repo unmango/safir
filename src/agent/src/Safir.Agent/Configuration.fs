@@ -1,18 +1,22 @@
-module Safir.Agent.Configuration
+namespace Safir.Agent.Configuration
 
-open System.IO
+module ConfigurationTypes =
 
-type AgentOptions() =
-    member val DataDirectory: string option = None with get, set
-    member val EnableGrpcReflection = false with get, set
-    member val EnableSwagger = false with get, set
-    member val MaxDepth = 0 with get, set
+    type AgentOptions() =
+        member val DataDirectory: string option = None with get, set
+        member val EnableGrpcReflection = false with get, set
+        member val EnableSwagger = false with get, set
+        member val MaxDepth = 0 with get, set
 
-type DataDirectory = string
+    type DataDirectory = string
 
-let getDataDirectory' exists (value: string option) =
-    match value with
-    | Some x when exists x -> Some (DataDirectory x)
-    | _ -> None
+module DataDirectory =
+    open System.IO
+    open ConfigurationTypes
 
-let getDataDirectory = getDataDirectory' Directory.Exists
+    let parse' exists (value: string option) =
+        match value with
+        | Some x when exists x -> Some(DataDirectory x)
+        | _ -> None
+
+    let parse = parse' Directory.Exists

@@ -15,6 +15,7 @@ open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
 open Safir.Agent.Configuration
+open Safir.Agent.Configuration.ConfigurationTypes
 open Safir.Agent.Services
 
 module Program =
@@ -29,7 +30,8 @@ module Program =
 
 //        builder.Services.AddControllers()
 
-        builder.Services
+        builder.Services.AddOptions<AgentOptions>()
+            .BindConfiguration(String.Empty)
 
         let app = builder.Build()
 

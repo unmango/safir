@@ -5,21 +5,26 @@ open System.Threading.Tasks
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
 open Safir.Agent.Configuration
+open Safir.Agent.Configuration.ConfigurationTypes
 open Safir.Agent.Protos
 open Safir.Agent.Queries.ListFiles
 
-type FileSystemService(options: IOptions<AgentOptions>, logger: ILogger<FileSystemService>, ?strategy) =
+type FileSystemService internal (options: IOptions<AgentOptions>, logger: ILogger<FileSystemService>, strategy) =
     inherit FileSystem.FileSystemBase()
-    let strategy = defaultArg strategy listFiles
+
+    new(options, logger) = FileSystemService(options, logger, listFiles)
 
     override this.ListFiles(_, responseStream, context) =
         task {
+            let dataDirectory =
+                options.Value.DataDirectory |> DataDirectory.parse
+
             let response =
-                strategy
-                    options.Value
-                    { exists = Directory.Exists
-                      enumerateFileSystemEntries = Directory.EnumerateFileSystemEntries }
-                    (fun x y -> Path.GetRelativePath(x, y))
+                match dataDirectory with
+                | Some x -> strategy x Directory.EnumerateFileSystemEntries (fun y z -> Path.GetRelativePath(y, z))
+                | None ->
+                    logger.LogInformation("No data directory configured")
+                    Files []
 
             return
                 match response with
@@ -28,10 +33,4 @@ type FileSystemService(options: IOptions<AgentOptions>, logger: ILogger<FileSyst
                     |> Seq.map (fun f -> (f, context.CancellationToken))
                     |> Seq.map responseStream.WriteAsync
                     |> Task.WhenAll
-                | DataDirectoryNotConfigured ->
-                    logger.LogInformation "No data directory configured"
-                    Task.CompletedTask
-                | DataDirectoryDoesNotExist ->
-                    logger.LogInformation "Data directory does not exist"
-                    Task.CompletedTask
         }

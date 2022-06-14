@@ -10,6 +10,8 @@ module ConfigurationTypes =
 
     type DataDirectory = string
 
+    type MaxDepth = int
+
 module DataDirectory =
     open System
     open System.IO

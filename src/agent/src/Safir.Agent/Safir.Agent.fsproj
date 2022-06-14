@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="$(AgentSrc)\Safir.Agent.Abstractions\Safir.Agent.Abstractions.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.IO.FSharp\Safir.IO.FSharp.fsproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
-    <ProjectReference Include="..\..\..\common\dotnet\src\Safir.IO.FSharp\Safir.IO.FSharp.fsproj" />
   </ItemGroup>
 </Project>

@@ -273,6 +273,11 @@
           "Serilog": "2.10.0"
         }
       },
+      "System.IO.Abstractions": {
+        "type": "Transitive",
+        "resolved": "17.0.18",
+        "contentHash": "x0iIMdP+PCLIkz8h13xHCecaiysFgHPe9mM3FdyfSmkl5+MtMCmgFFIe38Aibkzd0UAY/OMoXMKGR2RK10rebQ=="
+      },
       "System.Memory": {
         "type": "Transitive",
         "resolved": "4.5.3",
@@ -299,7 +304,8 @@
         "type": "Project",
         "dependencies": {
           "FSharp.Core": "6.0.4",
-          "Safir.Common.FSharp": "1.0.0"
+          "Safir.Common.FSharp": "1.0.0",
+          "System.IO.Abstractions": "17.0.18"
         }
       },
       "safir.messaging.abstractions": {

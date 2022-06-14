@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Safir.Common.FSharp\Safir.Common.FSharp.fsproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.IO.Abstractions" Version="17.0.18" />
+  </ItemGroup>
+
 </Project>

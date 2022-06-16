@@ -1,21 +1,19 @@
 namespace Safir.Agent.Configuration
 
-module ConfigurationTypes =
+open System.IO.Abstractions
 
-    type AgentOptions() =
-        member val DataDirectory: string = null with get, set
-        member val EnableGrpcReflection = false with get, set
-        member val EnableSwagger = false with get, set
-        member val MaxDepth = 0 with get, set
+type AgentOptions() =
+    member val DataDirectory: string = null with get, set
+    member val EnableGrpcReflection = false with get, set
+    member val EnableSwagger = false with get, set
+    member val MaxDepth = 0 with get, set
 
-    type DataDirectory = string
-
-    type MaxDepth = int
+type DataDirectory = DataDirectory of string
 
 module DataDirectory =
     open System
     open System.IO
-    open ConfigurationTypes
+    open Safir.Common.Reader
 
     let parse' exists (value: string) =
         match value with
@@ -24,3 +22,8 @@ module DataDirectory =
         | _ -> Error "Data directory does not exist"
 
     let parse = parse' Directory.Exists
+
+    let get = reader {
+        let! (directory: IDirectory) = ask
+        return parse' directory.Exists
+    }

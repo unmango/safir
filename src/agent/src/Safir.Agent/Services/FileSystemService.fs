@@ -1,26 +1,19 @@
 namespace Safir.Agent.Services
 
-open System.IO
 open System.Threading.Tasks
 open Microsoft.Extensions.Logging
-open Microsoft.Extensions.Options
-open Safir.Agent.Configuration
-open Safir.Agent.Configuration.ConfigurationTypes
 open Safir.Agent.Protos
 open Safir.Agent.Queries.ListFiles
 
-type FileSystemService internal (options: IOptions<AgentOptions>, logger: ILogger<FileSystemService>, strategy) =
+type FileSystemService(logger: ILogger<FileSystemService>, strategy: ListFilesWrapper) =
     inherit FileSystem.FileSystemBase()
 
-    new(options, logger) = FileSystemService(options, logger, listFiles)
-
     override this.ListFiles(_, responseStream, context) =
-        options.Value.DataDirectory
-        |> DataDirectory.parse
+        strategy.run
         |> function
-            | Ok x -> strategy x Directory.EnumerateFileSystemEntries
-            | Error x ->
-                logger.LogInformation(x)
+            | Ok x -> x
+            | Error e ->
+                do logger.LogInformation e
                 []
         |> Seq.map (fun f -> (f, context.CancellationToken))
         |> Seq.map responseStream.WriteAsync

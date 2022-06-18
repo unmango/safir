@@ -46,7 +46,20 @@ module Program =
             .AddTransient<IFile, FileWrapper>()
             .AddTransient<IPath, PathWrapper>()
 
-        builder.Services.AddSingleton(ListFiles.ListFilesWrapper)
+        builder.Services.AddTransient<FileSystemService>(fun s ->
+            let options = s.GetRequiredService<IOptions<AgentOptions>>().Value
+            let directory = s.GetRequiredService<IDirectory>()
+            let path = s.GetRequiredService<IPath>()
+
+            let dataDirectory = DataDirectory.parse directory.Exists
+            let listFiles = ListFiles.listFiles directory.EnumerateFileSystemEntries path.GetRelativePath
+            
+            let temp2 = Result.map listFiles
+
+            let temp = dataDirectory >> (Result.map listFiles)
+
+            let logger = s.GetRequiredService<ILogger<FileSystemService>>()
+            FileSystemService(logger, fun () -> Error ""))
 
         let app = builder.Build()
 

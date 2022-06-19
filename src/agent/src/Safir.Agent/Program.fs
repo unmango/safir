@@ -27,15 +27,11 @@ module Program =
 
     [<EntryPoint>]
     let main args =
-        let builder = WebApplication.CreateBuilder(args)
+        let builder =
+            WebApplication.CreateBuilder(args)
 
         builder.Services.AddGrpc()
         builder.Services.AddGrpcReflection()
-
-        builder
-            .Services
-            .AddOptions<AgentOptions>()
-            .BindConfiguration(String.Empty)
 
         builder
             .Services
@@ -43,6 +39,11 @@ module Program =
             .AddTransient<IDirectory, DirectoryWrapper>()
             .AddTransient<IFile, FileWrapper>()
             .AddTransient<IPath, PathWrapper>()
+
+        builder
+            .Services
+            .AddOptions<AgentOptions>()
+            .BindConfiguration(String.Empty)
 
         builder.Services.AddTransient<ListFiles>()
 

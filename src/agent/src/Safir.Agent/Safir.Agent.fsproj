@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Validation.fs" />
     <Compile Include="Configuration.fs" />
     <Compile Include="WeatherForecast.fs" />
     <Compile Include="Queries/ListFiles.fs" />
@@ -29,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(AgentSrc)\Safir.Agent.Abstractions\Safir.Agent.Abstractions.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.IO.FSharp\Safir.IO.FSharp.fsproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
   </ItemGroup>

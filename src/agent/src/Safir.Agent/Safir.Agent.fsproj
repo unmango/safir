@@ -10,7 +10,9 @@
     <Compile Include="Configuration.fs" />
     <Compile Include="WeatherForecast.fs" />
     <Compile Include="Queries/ListFiles.fs" />
-    <Compile Include="Services/FileSystemService.fs" />
+    <Compile Include="Services\FileWatcher.fs" />
+    <Compile Include="Services/DataDirectoryWatcher.fs" />
+    <Compile Include="GrpcServices/FileSystemService.fs" />
     <Compile Include="Controllers/WeatherForecastController.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

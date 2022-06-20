@@ -18,9 +18,9 @@ open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
 open Safir.Agent.Configuration
+open Safir.Agent.GrpcServices
 open Safir.Agent.Queries
 open Safir.Agent.Queries.ListFiles
-open Safir.Agent.Services
 
 module Program =
     let exitCode = 0

@@ -1,4 +1,4 @@
-namespace Safir.Agent.Services
+namespace Safir.Agent.GrpcServices
 
 open System.Threading.Tasks
 open Safir.Agent.Protos

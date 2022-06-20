@@ -14,3 +14,9 @@ let onError f =
         f e
         Error e
     | x -> x
+
+type ResultBuilder() =
+    member this.Bind(v, f) = Result.bind f v
+    member this.Return v = Ok v
+
+let result = ResultBuilder()

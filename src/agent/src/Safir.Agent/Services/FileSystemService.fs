@@ -8,7 +8,7 @@ type FileSystemService(query: ListFiles) =
     inherit FileSystem.FileSystemBase()
 
     override this.ListFiles(_, responseStream, context) =
-        query.Execute
+        query.Execute()
         |> Seq.map (fun f -> (f, context.CancellationToken))
         |> Seq.map responseStream.WriteAsync
         |> Task.WhenAll

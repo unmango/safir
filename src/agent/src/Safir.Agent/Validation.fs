@@ -17,3 +17,9 @@ let dataDirectory exists =
     | x when String.IsNullOrWhiteSpace(x) -> Error DataDirectoryNotConfigured
     | x when exists x -> Ok x
     | _ -> Error DataDirectoryDoesNotExist
+
+let dataDirectory2 d exists =
+    match d with
+    | x when String.IsNullOrWhiteSpace(x) -> Error DataDirectoryNotConfigured
+    | x when exists x -> Ok x
+    | _ -> Error DataDirectoryDoesNotExist

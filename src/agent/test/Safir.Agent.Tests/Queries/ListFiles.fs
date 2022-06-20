@@ -100,16 +100,40 @@ let ``listFiles maps relative paths`` () =
 
     test <@ expected = actual[0].Path @>
 
-let options = Mock<IOptions<AgentOptions>>()
-let directory = Mock<IDirectory>()
-let path = Mock<IPath>()
-let logger = Mock<ILogger<ListFiles>>()
+type Env =
+    { Options: Mock<IOptions<AgentOptions>>
+      Directory: Mock<IDirectory>
+      Path: Mock<IPath>
+      Logger: Mock<ILogger<ListFiles>> }
 
-let underTest =
-    ListFiles(options.Object, directory.Object, path.Object, logger.Object)
+let setup () =
+    let e =
+        { Options = Mock<IOptions<AgentOptions>>()
+          Directory = Mock<IDirectory>()
+          Path = Mock<IPath>()
+          Logger = Mock<ILogger<ListFiles>>() }
+
+    let underTest =
+        ListFiles(e.Options.Object, e.Directory.Object, e.Path.Object, e.Logger.Object)
+
+    (underTest, e)
+
+let setupOptions (options: Mock<IOptions<AgentOptions>>) (o: AgentOptions) =
+    options.SetupGet(fun x -> x.Value).Returns(o)
+    |> ignore
 
 [<Fact>]
-let ``Execute returns empty on validation error`` () =
-    let actual = underTest.Execute
+let ``Execute2 enumerates files in data directory`` () =
+    let (underTest,
+         { Options = options
+           Directory = directory }) =
+        setup ()
 
-    test <@ true = Seq.isEmpty actual @>
+    let expected = "dataDirectory"
+
+    do setupOptions options (AgentOptions(DataDirectory = expected))
+
+    underTest.Execute2() |> ignore
+
+    directory.Verify (fun x ->
+        x.EnumerateFileSystemEntries(expected, It.IsAny<string>(), It.IsAny<EnumerationOptions>()))

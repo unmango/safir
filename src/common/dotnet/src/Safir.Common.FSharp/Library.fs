@@ -15,6 +15,12 @@ let onError f =
         Error e
     | x -> x
 
+// https://github.com/dotnet/fsharp/pull/13326
+let defaultValue value result =
+    match result with
+    | Error _ -> value
+    | Ok v -> v
+
 type ResultBuilder() =
     member this.Bind(v, f) = Result.bind f v
     member this.Return v = Ok v

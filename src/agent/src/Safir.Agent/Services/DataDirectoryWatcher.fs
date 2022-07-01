@@ -3,6 +3,7 @@ namespace Safir.Agent.Services
 open System.IO
 open System.IO.Abstractions
 open System.Threading.Tasks
+open FSharp.Core
 open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.Options
@@ -21,9 +22,6 @@ type DataDirectoryWatcher(options: IOptions<AgentOptions>, directory: IDirectory
         member this.Error = watcher.Error
         member this.Renamed = watcher.Renamed
 
-    member this.createObservablesFromEvents() =
-        ()
-
     interface IHostedService with
         member this.StartAsync _ =
             result {
@@ -36,10 +34,17 @@ type DataDirectoryWatcher(options: IOptions<AgentOptions>, directory: IDirectory
 
                 return Task.CompletedTask
             }
-            |> function
-                | Ok x -> x
-                | Error e ->
-                    logger.LogInformation(Validation.getMessage e)
-                    Task.CompletedTask
+            |> onError (fun e -> logger.LogInformation(Validation.getMessage e))
+            |> defaultValue Task.CompletedTask
 
-        member this.StopAsync(cancellationToken) = failwith "todo"
+        member this.StopAsync _ =
+            do logger.LogInformation("Stopping data directory watcher")
+
+            if watcher = null then
+                do logger.LogTrace("No file watcher to dispose")
+            else
+                do logger.LogTrace("Disposing file watcher")
+                do watcher.Dispose()
+
+            do logger.LogTrace("Finishing data directory watcher cleanup")
+            Task.CompletedTask

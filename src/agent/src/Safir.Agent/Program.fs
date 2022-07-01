@@ -21,6 +21,7 @@ open Safir.Agent.Configuration
 open Safir.Agent.GrpcServices
 open Safir.Agent.Queries
 open Safir.Agent.Queries.ListFiles
+open Safir.Agent.Services
 
 module Program =
     let exitCode = 0
@@ -45,7 +46,11 @@ module Program =
             .AddOptions<AgentOptions>()
             .BindConfiguration(String.Empty)
 
-        builder.Services.AddTransient<ListFiles>()
+        builder
+            .Services
+            .AddHostedService<DataDirectoryWatcher>()
+            .AddSingleton<IFileWatcher>(fun s -> s.GetRequiredService<DataDirectoryWatcher>() :> IFileWatcher)
+            .AddTransient<ListFiles>()
 
         let app = builder.Build()
 

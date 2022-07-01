@@ -2,7 +2,6 @@ namespace Safir.Agent.Services
 
 open System.IO
 open System.IO.Abstractions
-open System.Reactive.Linq
 open System.Threading.Tasks
 open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
@@ -16,26 +15,17 @@ type DataDirectoryWatcher(options: IOptions<AgentOptions>, directory: IDirectory
         null
 
     interface IFileWatcher with
-        member this.Changed =
-            Observable.Empty<FileSystemEventArgs>()
-
-        member this.Created =
-            Observable.Empty<FileSystemEventArgs>()
-
-        member this.Deleted =
-            Observable.Empty<FileSystemEventArgs>()
-
-        member this.Error =
-            Observable.Empty<ErrorEventArgs>()
-
-        member this.Renamed =
-            Observable.Empty<RenamedEventArgs>()
+        member this.Changed = watcher.Changed
+        member this.Created = watcher.Created
+        member this.Deleted = watcher.Deleted
+        member this.Error = watcher.Error
+        member this.Renamed = watcher.Renamed
 
     member this.createObservablesFromEvents() =
         ()
 
     interface IHostedService with
-        member this.StartAsync(cancellationToken) =
+        member this.StartAsync _ =
             result {
                 let! root =
                     options.Value.DataDirectory

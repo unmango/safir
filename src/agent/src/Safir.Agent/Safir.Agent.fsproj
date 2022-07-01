@@ -12,6 +12,7 @@
     <Compile Include="Queries/ListFiles.fs" />
     <Compile Include="Services/IFileWatcher.fs" />
     <Compile Include="Services/DataDirectoryWatcher.fs" />
+    <Compile Include="Services/FileEventPublisher.fs" />
     <Compile Include="GrpcServices/FileSystemService.fs" />
     <Compile Include="Controllers/WeatherForecastController.fs" />
     <Compile Include="Program.fs" />

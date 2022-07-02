@@ -10,6 +10,12 @@ open Safir.Agent.Services
 open System.Reactive.Linq
 open Safir.Messaging
 
+type private Events =
+    | Changed of FileChanged
+    | Created of FileCreated
+    | Deleted of FileDeleted
+    | Renamed of FileRenamed
+
 type FileEventPublisher(watcher: IFileWatcher, bus: IEventBus, logger: ILogger<FileEventPublisher>) =
     let mutable subscriptions: seq<IDisposable> =
         Seq.empty
@@ -23,10 +29,10 @@ type FileEventPublisher(watcher: IFileWatcher, bus: IEventBus, logger: ILogger<F
 
     let logPublishing =
         function
-        | (_: FileChanged) -> "changed"
-        | (_: FileCreated) -> "created"
-        | (_: FileDeleted) -> "deleted"
-        | (_: FileRenamed) -> "renamed"
+        | Changed _ -> "changed"
+        | Created _ -> "created"
+        | Deleted _ -> "deleted"
+        | Renamed _ -> "renamed"
 
     let tryPublish e cancellationToken =
         task {

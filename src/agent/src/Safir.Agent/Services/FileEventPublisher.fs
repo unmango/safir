@@ -26,14 +26,14 @@ type FileEventPublisher(watcher: IFileWatcher, bus: IEventBus, logger: ILogger<F
             do logger.LogInformation("Starting file event publisher")
 
             subscriptions <-
-                [| watcher.Changed
-                   |> Observable.map (fun e -> (FileEvent.mapChanged e) :> IEvent)
-                   watcher.Created
-                   |> Observable.map (fun e -> (FileEvent.mapCreated e) :> IEvent)
-                   watcher.Deleted
-                   |> Observable.map (fun e -> (FileEvent.mapDeleted e) :> IEvent)
-                   watcher.Renamed
-                   |> Observable.map (fun e -> (FileEvent.mapRenamed e) :> IEvent) |]
+                [ watcher.Changed
+                  |> Observable.map (fun e -> (FileEvent.mapChanged e) :> IEvent)
+                  watcher.Created
+                  |> Observable.map (fun e -> (FileEvent.mapCreated e) :> IEvent)
+                  watcher.Deleted
+                  |> Observable.map (fun e -> (FileEvent.mapDeleted e) :> IEvent)
+                  watcher.Renamed
+                  |> Observable.map (fun e -> (FileEvent.mapRenamed e) :> IEvent) ]
                 |> Seq.map (fun o -> o.SelectMany(tryPublish))
                 |> Seq.map (fun o -> o.Subscribe())
 

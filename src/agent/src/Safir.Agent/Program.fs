@@ -48,7 +48,8 @@ module Program =
 
         builder
             .Services
-            .AddHostedService<DataDirectoryWatcher>()
+            .AddSingleton<DataDirectoryWatcher>()
+            .AddHostedService(fun s -> s.GetRequiredService<DataDirectoryWatcher>())
             .AddSingleton<IFileWatcher>(fun s -> s.GetRequiredService<DataDirectoryWatcher>() :> IFileWatcher)
             .AddTransient<ListFiles>()
 

@@ -8,6 +8,7 @@
   <ItemGroup>
     <Compile Include="Validation.fs" />
     <Compile Include="Configuration.fs" />
+    <Compile Include="FileEvent.fs" />
     <Compile Include="WeatherForecast.fs" />
     <Compile Include="Queries/ListFiles.fs" />
     <Compile Include="Services/IFileWatcher.fs" />

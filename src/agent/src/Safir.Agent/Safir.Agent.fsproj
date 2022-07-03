@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="$(CommonSrc)\Safir.IO.FSharp\Safir.IO.FSharp.fsproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Messaging\Safir.Messaging.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
   </ItemGroup>
 </Project>

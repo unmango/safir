@@ -22,6 +22,7 @@ open Safir.Agent.GrpcServices
 open Safir.Agent.Queries
 open Safir.Agent.Queries.ListFiles
 open Safir.Agent.Services
+open Safir.Messaging.DependencyInjection
 
 module Program =
     let exitCode = 0
@@ -33,6 +34,7 @@ module Program =
 
         builder.Services.AddGrpc()
         builder.Services.AddGrpcReflection()
+        builder.Services.AddSafirMessaging()
 
         builder
             .Services
@@ -40,6 +42,8 @@ module Program =
             .AddTransient<IDirectory, DirectoryWrapper>()
             .AddTransient<IFile, FileWrapper>()
             .AddTransient<IPath, PathWrapper>()
+
+        builder.Services.Configure<SafirMessaging>()
 
         builder
             .Services
@@ -58,8 +62,31 @@ module Program =
         if app.Environment.IsDevelopment() then
             do app.UseDeveloperExceptionPage()
 
-        app.MapGrpcService<FileSystemService>()
-        app.MapGrpcReflectionService()
+        let options =
+            app
+                .Services
+                .GetRequiredService<IOptions<AgentOptions>>()
+                .Value
+
+//        if app.Environment.IsDevelopment() || options.EnableSwagger then
+//            do app.UseSwagger()
+//            do app.UseSwaggerUI()
+
+        app.UseCors (fun b ->
+            b
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding")
+            |> ignore)
+
+        app
+            .MapGrpcService<FileSystemService>()
+            .RequireCors("AllowAll")
+
+        if app.Environment.IsDevelopment()
+           || options.EnableGrpcReflection then
+            do app.MapGrpcReflectionService()
 
         app.Run()
 

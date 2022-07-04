@@ -79,7 +79,7 @@ common_node_docker::
 agent::
 	dotnet build src/agent ${DOTNET_ARGS}
 
-agent_docker:: common_dotnet_docker
+agent_docker::
 	cd src && docker build . \
 		-f agent/Dockerfile \
 		--build-arg CommonImage=${COMMON_DOTNET_TAG} \

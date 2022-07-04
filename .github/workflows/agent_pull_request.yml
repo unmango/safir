@@ -44,35 +44,14 @@ jobs:
 
   docker_build:
     runs-on: ubuntu-latest
-    env:
-      BASE_IMAGE: localhost:5000/safir/agent-base
-    services:
-      registry:
-        image: registry:2
-        ports:
-        - 5000:5000
     steps:
     - name: Setup Docker Buildx
       uses: docker/setup-buildx-action@v1
-      with:
-        driver-opts: network=host
-
-    - name: Build base image
-      id: base-build
-      uses: docker/build-push-action@v2
-      with:
-        context: "{{defaultContext}}:src"
-        file: ./common/dotnet/Dockerfile
-        push: true
-        tags: ${{ env.BASE_IMAGE }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
 
     - name: Docker build
       uses: docker/build-push-action@v2
       with:
         context: "{{defaultContext}}:src"
         file: ./agent/Dockerfile
-        build-args: CommonImage=${{ env.BASE_IMAGE }}
         cache-from: type=gha
         cache-to: type=gha,mode=max

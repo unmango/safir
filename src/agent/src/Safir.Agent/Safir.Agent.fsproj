@@ -19,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include=".dockerignore" />
-    <None Include="$(AgentRoot)\docker-compose.yml" Link="docker-compose.yml" />
-    <Content Include="Dockerfile" />
+    <Content Include="$(AgentRoot)/../.dockerignore" />
+    <Content Include="$(AgentRoot)/Dockerfile" />
+    <None Include="$(AgentRoot)/docker-compose.yml" Link="docker-compose.yml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -46,6 +46,7 @@ module Program =
         builder.Services.AddGrpc()
         builder.Services.AddGrpcHttpApi()
         builder.Services.AddGrpcReflection()
+        builder.Services.AddCors()
 
         builder
             .Services

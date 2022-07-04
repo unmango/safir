@@ -2,6 +2,7 @@ namespace Safir.Agent.Services
 
 open System.IO
 open System.IO.Abstractions
+open System.Reactive.Linq
 open System.Threading.Tasks
 open FSharp.Core
 open Microsoft.Extensions.Hosting
@@ -12,15 +13,34 @@ open Safir.Agent.Configuration
 open Safir.FSharp.Common
 
 type DataDirectoryWatcher(options: IOptions<AgentOptions>, directory: IDirectory, logger: ILogger<DataDirectoryWatcher>) =
-    let mutable watcher: FileSystemWatcher =
-        null
+    let mutable watcher: FileSystemWatcher option =
+        None
 
     interface IFileWatcher with
-        member this.Changed = watcher.Changed
-        member this.Created = watcher.Created
-        member this.Deleted = watcher.Deleted
-        member this.Error = watcher.Error
-        member this.Renamed = watcher.Renamed
+        member this.Changed =
+            match watcher with
+            | None -> Observable.Empty<FileSystemEventArgs>()
+            | Some w -> w.Changed
+
+        member this.Created =
+            match watcher with
+            | None -> Observable.Empty<FileSystemEventArgs>()
+            | Some w -> w.Created
+
+        member this.Deleted =
+            match watcher with
+            | None -> Observable.Empty<FileSystemEventArgs>()
+            | Some w -> w.Deleted
+
+        member this.Error =
+            match watcher with
+            | None -> Observable.Empty<ErrorEventArgs>()
+            | Some w -> w.Error
+
+        member this.Renamed =
+            match watcher with
+            | None -> Observable.Empty<RenamedEventArgs>()
+            | Some w -> w.Renamed
 
     interface IHostedService with
         member this.StartAsync _ =
@@ -30,7 +50,7 @@ type DataDirectoryWatcher(options: IOptions<AgentOptions>, directory: IDirectory
                     |> Validation.dataDirectory directory.Exists
 
                 logger.LogTrace("Creating filesystem watcher")
-                watcher <- new FileSystemWatcher(root, EnableRaisingEvents = true, IncludeSubdirectories = true)
+                watcher <- Some(new FileSystemWatcher(root, EnableRaisingEvents = true, IncludeSubdirectories = true))
 
                 return Task.CompletedTask
             }
@@ -40,11 +60,11 @@ type DataDirectoryWatcher(options: IOptions<AgentOptions>, directory: IDirectory
         member this.StopAsync _ =
             do logger.LogInformation("Stopping data directory watcher")
 
-            if watcher = null then
-                do logger.LogTrace("No file watcher to dispose")
-            else
+            match watcher with
+            | None -> do logger.LogTrace("No file watcher to dispose")
+            | Some w ->
                 do logger.LogTrace("Disposing file watcher")
-                do watcher.Dispose()
+                do w.Dispose()
 
             do logger.LogTrace("Finishing data directory watcher cleanup")
             Task.CompletedTask

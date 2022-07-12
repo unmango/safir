@@ -44,9 +44,12 @@ module Program =
             |> ignore)
 
         builder.Services.AddGrpc()
-        builder.Services.AddGrpcHttpApi()
+//        builder.Services.AddGrpcHttpApi()
         builder.Services.AddGrpcReflection()
         builder.Services.AddCors()
+
+//        builder.Services.AddGrpcSwagger()
+//        builder.Services.AddSwaggerGen()
 
         builder
             .Services
@@ -86,11 +89,11 @@ module Program =
                 .GetRequiredService<IOptions<AgentOptions>>()
                 .Value
 
-        if app.Environment.IsDevelopment() || options.EnableSwagger then
-            do app.UseSwagger()
-            do app.UseSwaggerUI()
+//        if app.Environment.IsDevelopment() || options.EnableSwagger then
+//            do app.UseSwagger()
+//            do app.UseSwaggerUI()
 
-        app.UseGrpcWeb(GrpcWebOptions(DefaultEnabled = true))
+//        app.UseGrpcWeb(GrpcWebOptions(DefaultEnabled = true))
 
         app.UseCors (fun builder ->
             builder
@@ -105,6 +108,7 @@ module Program =
         |> Seq.iter (fun s -> s.RequireCors("AllowAll") |> ignore)
 
         if app.Environment.IsDevelopment() || options.EnableGrpcReflection then
+            do Log.Information("Enabling reflection")
             do app.MapGrpcReflectionService()
 
         app.MapGet("/config", fun context -> context.Response.WriteAsJsonAsync(options))

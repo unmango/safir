@@ -82,14 +82,17 @@ agent::
 agent_docker::
 	cd src && docker build . \
 		-f agent/Dockerfile \
-		--build-arg CommonImage=${COMMON_DOTNET_TAG} \
 		-t ${AGENT_TAG} \
 		${DOCKER_ARGS}
 
 start_agent_docker:: agent_docker docker_mounts
 	docker run -it --rm \
 		--name safir-agent \
+		-p 8080:80 \
 		-v ${WORK_DIR}/agent/data:/data \
+		-e DATADIRECTORY=/data \
+		-e ENABLEGRPCREFLECTION=true \
+		-e ENABLESWAGGER=true \
 		${AGENT_TAG}
 
 cli::

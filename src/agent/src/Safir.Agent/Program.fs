@@ -46,7 +46,9 @@ module Program =
         builder.Services.AddGrpc()
         builder.Services.AddGrpcHttpApi()
         builder.Services.AddGrpcReflection()
+        builder.Services.AddGrpcSwagger()
         builder.Services.AddCors()
+        builder.Services.AddSwaggerGen()
 
         builder
             .Services

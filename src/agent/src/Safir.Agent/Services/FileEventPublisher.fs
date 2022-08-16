@@ -16,6 +16,7 @@ type FileEventPublisher(watcher: IFileWatcher, bus: IEventBus, logger: ILogger<F
     let tryPublish e cancellationToken =
         task {
             try
+                logger.LogTrace("Publishing event to bus")
                 do! bus.PublishAsync(e, cancellationToken)
             with
             | e -> logger.LogError(e, "Unable to publish event to bus")
@@ -23,7 +24,7 @@ type FileEventPublisher(watcher: IFileWatcher, bus: IEventBus, logger: ILogger<F
 
     interface IHostedService with
         member this.StartAsync _ =
-            do logger.LogInformation("Starting file event publisher")
+            do logger.LogTrace("Starting file event publisher")
 
             subscriptions <-
                 [ watcher.Changed
@@ -37,9 +38,10 @@ type FileEventPublisher(watcher: IFileWatcher, bus: IEventBus, logger: ILogger<F
                 |> Seq.map (fun o -> o.SelectMany(tryPublish))
                 |> Seq.map (fun o -> o.Subscribe())
 
+            do logger.LogInformation("Type is {Type}", subscriptions |> Seq.head |> fun x -> x.GetType())
             Task.CompletedTask
 
         member this.StopAsync _ =
-            do logger.LogInformation("Stopping file event publisher")
+            do logger.LogTrace("Stopping file event publisher")
             do subscriptions |> Seq.iter (fun d -> d.Dispose())
             Task.CompletedTask

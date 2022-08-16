@@ -88,7 +88,8 @@ agent_docker::
 start_agent_docker:: agent_docker docker_mounts
 	docker run -it --rm \
 		--name safir-agent \
-		-p 8080:80 \
+		-p 8080:5000 \
+		-p 8081:5001 \
 		-v ${WORK_DIR}/agent/data:/data \
 		-e DATADIRECTORY=/data \
 		-e ENABLEGRPCREFLECTION=true \

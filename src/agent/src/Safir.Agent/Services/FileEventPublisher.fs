@@ -37,8 +37,8 @@ type FileEventPublisher(watcher: IFileWatcher, bus: IEventBus, logger: ILogger<F
                   |> Observable.map (fun e -> (FileEvent.mapRenamed e) :> IEvent) ]
                 |> Seq.map (fun o -> o.SelectMany(tryPublish))
                 |> Seq.map (fun o -> o.Subscribe())
+                |> Seq.toList
 
-            do logger.LogInformation("Type is {Type}", subscriptions |> Seq.head |> fun x -> x.GetType())
             Task.CompletedTask
 
         member this.StopAsync _ =

@@ -5,9 +5,10 @@ using Safir.Cli.Commands;
 
 const string description = "CLI for interacting with Safir services";
 
-var command = new RootCommand(description);
-
-command.AddCommand(ConfigCommand.Value);
+var command = new RootCommand(description) {
+    ConfigCommand.Value,
+    FilesCommand.Value,
+};
 
 return await new CommandLineBuilder(command)
     .UseDefaults()

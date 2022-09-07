@@ -1,6 +1,8 @@
+using Safir.Agent.Client;
+
 namespace Safir.Cli.Services;
 
-public interface IAgents : IAgent
+public interface IAgents
 {
-    IAgent GetAgent(string name);
+    IAgentClient GetAgent(string name);
 }

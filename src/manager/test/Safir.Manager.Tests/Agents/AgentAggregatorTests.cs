@@ -12,7 +12,7 @@ public class AgentAggregatorTests
 {
     private readonly AutoMocker _mocker = new();
     private readonly Mock<IAgent> _agent;
-    private readonly Mock<IFileSystemClient> _fileSystem;
+    private readonly Mock<FileSystem.FileSystemClient> _fileSystem;
     private readonly AgentAggregator _aggregator;
 
     public AgentAggregatorTests()
@@ -20,7 +20,7 @@ public class AgentAggregatorTests
         _agent = _mocker.GetMock<IAgent>();
         _agent.SetupGet(x => x.Name).Returns("test-name");
         _mocker.Use(typeof(IEnumerable<IAgent>), new[] { _agent.Object });
-        _fileSystem = _mocker.GetMock<IFileSystemClient>();
+        _fileSystem = _mocker.GetMock<FileSystem.FileSystemClient>();
         _agent.SetupGet(x => x.FileSystem).Returns(_fileSystem.Object);
         _aggregator = _mocker.CreateInstance<AgentAggregator>();
     }
@@ -58,7 +58,7 @@ public class AgentAggregatorTests
     public async Task List_AggregatesHosts()
     {
         // TODO: Consider refactor because of this garbage
-        var fs2 = new Mock<IFileSystemClient>();
+        var fs2 = new Mock<FileSystem.FileSystemClient>();
         var agent2 = new Mock<IAgent>();
         agent2.SetupGet(x => x.FileSystem).Returns(fs2.Object);
         _mocker.Use(typeof(IEnumerable<IAgent>), new[] { _agent.Object, agent2.Object });

@@ -23,6 +23,12 @@
           "Microsoft.Extensions.Http": "3.0.3"
         }
       },
+      "IsExternalInit": {
+        "type": "Direct",
+        "requested": "[1.0.3, )",
+        "resolved": "1.0.3",
+        "contentHash": "jcdN7vpDwjnV7U9KGCv/oNIWHJ/RIbyrpVsLQL2qbj6Cbi5U3iafKsaMn1rP+qCbkLbkB0v6oAwbVEkqrUnlyg=="
+      },
       "Microsoft.Extensions.DependencyInjection.Abstractions": {
         "type": "Direct",
         "requested": "[6.0.0, )",
@@ -242,6 +248,12 @@
           "Microsoft.Extensions.Http": "3.0.3"
         }
       },
+      "IsExternalInit": {
+        "type": "Direct",
+        "requested": "[1.0.3, )",
+        "resolved": "1.0.3",
+        "contentHash": "jcdN7vpDwjnV7U9KGCv/oNIWHJ/RIbyrpVsLQL2qbj6Cbi5U3iafKsaMn1rP+qCbkLbkB0v6oAwbVEkqrUnlyg=="
+      },
       "Microsoft.Extensions.DependencyInjection.Abstractions": {
         "type": "Direct",
         "requested": "[6.0.0, )",
@@ -444,6 +456,12 @@
           "Grpc.Net.Client": "2.49.0",
           "Microsoft.Extensions.Http": "3.0.3"
         }
+      },
+      "IsExternalInit": {
+        "type": "Direct",
+        "requested": "[1.0.3, )",
+        "resolved": "1.0.3",
+        "contentHash": "jcdN7vpDwjnV7U9KGCv/oNIWHJ/RIbyrpVsLQL2qbj6Cbi5U3iafKsaMn1rP+qCbkLbkB0v6oAwbVEkqrUnlyg=="
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions": {
         "type": "Direct",

@@ -4,11 +4,7 @@ using Safir.Agent.Client;
 namespace Safir.Manager.Agents;
 
 [PublicAPI]
-public interface IAgent
+public interface IAgent : IAgentClient
 {
-    IFileSystemClient FileSystem { get; }
-        
-    IHostClient Host { get; }
-        
     string Name { get; }
 }

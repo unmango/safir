@@ -1,19 +1,22 @@
 using Safir.Agent.Client;
+using Safir.Agent.Protos;
+using Safir.Protos;
 
 namespace Safir.Manager.Agents;
 
 internal class AgentClient : IAgent
 {
-    public AgentClient(string name, IFileSystemClient fileSystem, IHostClient host)
+    private readonly IAgentClient _client;
+
+    public AgentClient(string name, IAgentClient client)
     {
-        FileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
-        Host = host ?? throw new ArgumentNullException(nameof(host));
+        _client = client ?? throw new ArgumentNullException(nameof(client));
         Name = name ?? throw new ArgumentNullException(nameof(name));
     }
 
-    public IFileSystemClient FileSystem { get; }
+    public FileSystem.FileSystemClient FileSystem => _client.FileSystem;
 
-    public IHostClient Host { get; }
+    public Host.HostClient Host => _client.Host;
 
     public string Name { get; }
 }

@@ -12,14 +12,14 @@ public static class FileSystemClientExtensions
         this FileSystem.FileSystemClient client,
         CancellationToken cancellationToken = default)
     {
-        return client.ListFiles(new Empty(), Metadata.Empty, null, cancellationToken);
+        return client.ListFiles(new Empty(), cancellationToken: cancellationToken);
     }
 
     public static IAsyncEnumerable<FileSystemEntry> ListFilesAsync(
         this FileSystem.FileSystemClient client,
         CancellationToken cancellationToken = default)
     {
-        var streamingCall = client.ListFiles(new Empty(), Metadata.Empty, null, cancellationToken);
+        var streamingCall = client.ListFiles(new Empty(), cancellationToken: cancellationToken);
         return streamingCall.ResponseStream.ReadAllAsync(cancellationToken);
     }
 }

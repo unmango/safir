@@ -12,7 +12,6 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSafirAgentClient(this IServiceCollection services)
     {
-        services.AddWrappers();
         services.AddGrpcClient<FileSystem.FileSystemClient>();
         services.AddGrpcClient<Host.HostClient>();
 
@@ -23,7 +22,6 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         Action<GrpcClientFactoryOptions> configureClient)
     {
-        services.AddWrappers();
         services.AddGrpcClient<FileSystem.FileSystemClient>(configureClient);
         services.AddGrpcClient<Host.HostClient>(configureClient);
 
@@ -34,7 +32,6 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         Action<IServiceProvider, GrpcClientFactoryOptions> configureClient)
     {
-        services.AddWrappers();
         services.AddGrpcClient<FileSystem.FileSystemClient>(configureClient);
         services.AddGrpcClient<Host.HostClient>(configureClient);
 
@@ -43,7 +40,6 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddSafirAgentClient(this IServiceCollection services, string name)
     {
-        services.AddWrappers();
         services.AddGrpcClient<FileSystem.FileSystemClient>(ClientName.FileSystem(name));
         services.AddGrpcClient<Host.HostClient>(ClientName.Host(name));
 
@@ -55,16 +51,9 @@ public static class ServiceCollectionExtensions
         string name,
         Action<GrpcClientFactoryOptions> configureClient)
     {
-        services.AddWrappers();
         services.AddGrpcClient<FileSystem.FileSystemClient>(ClientName.FileSystem(name), configureClient);
         services.AddGrpcClient<Host.HostClient>(ClientName.Host(name), configureClient);
 
         return services;
-    }
-
-    private static void AddWrappers(this IServiceCollection services)
-    {
-        services.AddTransient<IFileSystemClient, FileSystemClientWrapper>();
-        services.AddTransient<IHostClient, HostClientWrapper>();
     }
 }

@@ -6,20 +6,32 @@ using Safir.Protos;
 
 namespace Safir.Agent.Client;
 
+// TODO: This name templating is going to bite me in the ass
+//       one day, but ADHD needs me to commit things
+
 [PublicAPI]
 public static class GrpcClientFactoryExtensions
 {
-    public static IFileSystemClient CreateFileSystemClient(this GrpcClientFactory factory, string name)
+    public static IAgentClient CreateAgentClient(this GrpcClientFactory clientFactory, string name)
     {
-        var clientName = ClientName.FileSystem(name);
-        var client = factory.CreateClient<FileSystem.FileSystemClient>(clientName);
-        return new FileSystemClientWrapper(client);
+        return new AgentClient(
+            clientFactory.CreateFileSystemClient(name),
+            clientFactory.CreateHostClient(name));
     }
 
-    public static IHostClient CreateHostClient(this GrpcClientFactory factory, string name)
+    public static FileSystem.FileSystemClient CreateFileSystemClient(this GrpcClientFactory factory, string name)
+    {
+        var clientName = ClientName.FileSystem(name);
+        return factory.CreateClient<FileSystem.FileSystemClient>(clientName);
+    }
+
+    public static Host.HostClient CreateHostClient(this GrpcClientFactory factory, string name)
     {
         var clientName = ClientName.Host(name);
-        var client = factory.CreateClient<Host.HostClient>(clientName);
-        return new HostClientWrapper(client);
+        return factory.CreateClient<Host.HostClient>(clientName);
     }
+
+    private record AgentClient(
+        FileSystem.FileSystemClient FileSystem,
+        Host.HostClient Host) : IAgentClient;
 }

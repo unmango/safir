@@ -1,7 +1,6 @@
 using System.Collections;
 using Grpc.Core;
 using Microsoft.Extensions.Options;
-using Safir.Agent.Client;
 using Safir.Agent.Protos;
 using Safir.Manager.Configuration;
 using Safir.Protos;
@@ -17,9 +16,9 @@ public class AgentProxy : IAgents, IAgent
         Host = new HostProxy(requestProxy);
     }
 
-    public IFileSystemClient FileSystem { get; }
+    public FileSystem.FileSystemClient FileSystem { get; }
 
-    public IHostClient Host { get; }
+    public Host.HostClient Host { get; }
 
     public string Name => "Proxy";
 
@@ -32,7 +31,7 @@ public class AgentProxy : IAgents, IAgent
 
     public IAgent this[string name] => this;
 
-    private class FileSystemProxy : IFileSystemClient
+    private class FileSystemProxy : FileSystem.FileSystemClient
     {
         private readonly JsonFileRequestProxy _requestProxy;
 
@@ -41,21 +40,35 @@ public class AgentProxy : IAgents, IAgent
             _requestProxy = requestProxy ?? throw new ArgumentNullException(nameof(requestProxy));
         }
 
-        public AsyncServerStreamingCall<FileSystemEntry> ListFiles(CancellationToken cancellationToken = default)
-        {
-            return ListFilesAsync(cancellationToken).AsAsyncServerStreamingCall();
-        }
-
-        public IAsyncEnumerable<FileSystemEntry> ListFilesAsync(CancellationToken cancellationToken = default)
+        public override AsyncServerStreamingCall<FileSystemEntry> ListFiles(
+            Empty request,
+            Metadata headers = null!, // Base implementation
+            DateTime? deadline = null,
+            CancellationToken cancellationToken = default)
         {
             return _requestProxy.RequestAsyncEnumerable<FileSystemEntry>(
-                "FileSystem/ListFiles",
-                new(),
-                cancellationToken);
+                    "FileSystem/ListFiles",
+                    new(),
+                    cancellationToken)
+                .AsAsyncServerStreamingCall();
+        }
+
+        public override AsyncServerStreamingCall<FileSystemEntry> ListFiles(Empty request, CallOptions options)
+        {
+            return _requestProxy.RequestAsyncEnumerable<FileSystemEntry>(
+                    "FileSystem/ListFiles",
+                    new(),
+                    options.CancellationToken)
+                .AsAsyncServerStreamingCall();
+        }
+
+        protected override FileSystem.FileSystemClient NewInstance(ClientBaseConfiguration configuration)
+        {
+            return new FileSystemProxy(_requestProxy);
         }
     }
 
-    private class HostProxy : IHostClient
+    private class HostProxy : Host.HostClient
     {
         private readonly JsonFileRequestProxy _requestProxy;
 
@@ -87,6 +100,59 @@ public class AgentProxy : IAgents, IAgent
 
                 return result ?? new HostInfo();
             }
+        }
+
+        public override HostInfo GetInfo(
+            Empty request,
+            Metadata headers = null!, // Base implementation
+            DateTime? deadline = null,
+            CancellationToken cancellationToken = default)
+        {
+            return GetInfoProxy(cancellationToken).GetAwaiter().GetResult();
+        }
+
+        public override HostInfo GetInfo(Empty request, CallOptions options)
+        {
+            return GetInfoProxy(options.CancellationToken).GetAwaiter().GetResult();
+        }
+
+        public override AsyncUnaryCall<HostInfo> GetInfoAsync(
+            Empty request,
+            Metadata headers = null!,
+            DateTime? deadline = null,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return new(
+                GetInfoProxy(cancellationToken),
+                Task.FromResult(Metadata.Empty),
+                () => Status.DefaultSuccess,
+                () => Metadata.Empty,
+                () => { });
+        }
+
+        public override AsyncUnaryCall<HostInfo> GetInfoAsync(Empty request, CallOptions options)
+        {
+            return new(
+                GetInfoProxy(options.CancellationToken),
+                Task.FromResult(Metadata.Empty),
+                () => Status.DefaultSuccess,
+                () => Metadata.Empty,
+                () => { });
+        }
+
+        protected override Host.HostClient NewInstance(ClientBaseConfiguration configuration)
+        {
+            return new HostProxy(_requestProxy);
+        }
+
+        private async Task<HostInfo> GetInfoProxy(CancellationToken cancellationToken)
+        {
+            var result = await _requestProxy.RequestAsync<HostInfo>(
+                "Host/GetInfo",
+                null,
+                cancellationToken);
+
+            return result ?? new HostInfo();
         }
     }
 }

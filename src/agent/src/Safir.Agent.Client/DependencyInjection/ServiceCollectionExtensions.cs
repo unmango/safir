@@ -14,6 +14,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddGrpcClient<FileSystem.FileSystemClient>();
         services.AddGrpcClient<Host.HostClient>();
+        services.AddTransient<IAgentClient, DefaultAgentClient>();
 
         return services;
     }
@@ -24,6 +25,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddGrpcClient<FileSystem.FileSystemClient>(configureClient);
         services.AddGrpcClient<Host.HostClient>(configureClient);
+        services.AddTransient<IAgentClient, DefaultAgentClient>();
 
         return services;
     }
@@ -34,6 +36,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddGrpcClient<FileSystem.FileSystemClient>(configureClient);
         services.AddGrpcClient<Host.HostClient>(configureClient);
+        services.AddTransient<IAgentClient, DefaultAgentClient>();
 
         return services;
     }
@@ -42,6 +45,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddGrpcClient<FileSystem.FileSystemClient>(ClientName.FileSystem(name));
         services.AddGrpcClient<Host.HostClient>(ClientName.Host(name));
+        services.AddTransient<IAgentClient, DefaultAgentClient>();
 
         return services;
     }
@@ -53,6 +57,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddGrpcClient<FileSystem.FileSystemClient>(ClientName.FileSystem(name), configureClient);
         services.AddGrpcClient<Host.HostClient>(ClientName.Host(name), configureClient);
+        services.AddTransient<IAgentClient, DefaultAgentClient>();
 
         return services;
     }

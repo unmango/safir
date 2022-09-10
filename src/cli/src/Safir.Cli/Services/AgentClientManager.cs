@@ -1,3 +1,4 @@
+using Grpc.Net.ClientFactory;
 using Microsoft.Extensions.Options;
 using Safir.Agent.Client;
 using Safir.Agent.Protos;
@@ -8,15 +9,14 @@ namespace Safir.Cli.Services;
 
 internal sealed class AgentClientManager : IAgents
 {
-    private readonly SafirOptions _options;
+    private readonly IOptionsMonitor<SafirOptions> _options;
+    private readonly GrpcClientFactory _clientFactory;
 
-    public AgentClientManager(IOptions<SafirOptions> options)
+    public AgentClientManager(IOptionsMonitor<SafirOptions> options, GrpcClientFactory clientFactory)
     {
-        _options = options.Value;
+        _options = options;
+        _clientFactory = clientFactory;
     }
 
-    public IAgentClient GetAgent(string name)
-    {
-        throw new System.NotImplementedException();
-    }
+    public IAgentClient GetAgent(string name) => _clientFactory.CreateAgentClient(name);
 }

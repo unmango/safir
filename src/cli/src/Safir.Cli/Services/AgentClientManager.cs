@@ -1,3 +1,4 @@
+using System.Linq;
 using Grpc.Net.ClientFactory;
 using Microsoft.Extensions.Options;
 using Safir.Agent.Client;
@@ -18,5 +19,12 @@ internal sealed class AgentClientManager : IAgents
         _clientFactory = clientFactory;
     }
 
+    public bool ShouldStartManagedAgent => !_options.CurrentValue.Agents?.Any() ?? true;
+
     public IAgentClient GetAgent(string name) => _clientFactory.CreateAgentClient(name);
+
+    public ManagedAgent CreateManagedAgent()
+    {
+        return new DevelopmentAgent();
+    }
 }

@@ -1,9 +1,11 @@
+using System;
 using System.CommandLine;
 using System.CommandLine.Parsing;
 using System.Threading;
 using System.Threading.Tasks;
-using Safir.Agent.Client.DependencyInjection;
-using Safir.Cli.Configuration;
+using JetBrains.Annotations;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Safir.Cli.DependencyInjection;
 using Safir.Cli.Services;
 using Safir.CommandLine;
@@ -16,6 +18,9 @@ internal static class ListCommand
     private static readonly IHandlerBuilder _builder = new HandlerBuilder()
         .UseSafirDefaults()
         .AddConfiguredAgents()
+        .ConfigureServices(services => {
+            services.AddSingleton<IAgents, AgentClientManager>();
+        })
         .UseListCommandHandler();
 
     public static readonly Command Value = Create();
@@ -29,20 +34,35 @@ internal static class ListCommand
         return command;
     }
 
+    [UsedImplicitly]
     internal class Handler
     {
         private readonly IAgents _agents;
         private readonly IConsole _console;
+        private readonly ILogger<Handler> _logger;
+        private ManagedAgent? _agent;
 
-        public Handler(IAgents agents, IConsole console)
+        public Handler(IAgents agents, IConsole console, ILogger<Handler> logger)
         {
             _agents = agents;
             _console = console;
+            _logger = logger;
         }
 
         [CommandHandler]
         public async Task HandleAsync(ParseResult parseResult, CancellationToken cancellationToken)
         {
+            if (_agents.ShouldStartManagedAgent) {
+                _agent = _agents.CreateManagedAgent();
+                _agent.OnOutput((_, args) => _console.WriteLine(args.Data ?? string.Empty));
+                await _agent.StartAsync();
+            }
+
+
+
+            if (_agent is not null) {
+                await _agent.StopAsync();
+            }
         }
     }
 }

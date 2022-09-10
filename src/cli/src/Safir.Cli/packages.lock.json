@@ -130,12 +130,12 @@
       },
       "System.CommandLine.Rendering": {
         "type": "Direct",
-        "requested": "[0.4.0-alpha.22114.1, )",
-        "resolved": "0.4.0-alpha.22114.1",
-        "contentHash": "VR0xk6MeMzUtEdlTeg3pLJA56lSSPNhjIkUREGhXdWQemIeD3YuOrCtfzZVl+0/CIpE0QqeGBEAaXrLBrbttEQ==",
+        "requested": "[0.4.0-alpha.22272.1, )",
+        "resolved": "0.4.0-alpha.22272.1",
+        "contentHash": "PQd7HStYn6RYjc5zuerR41sALm3qFDutzDHISB5DYbExSgll6s8zghfyYFdLioLPWpFxVyMj3L9Ki69jqqum/g==",
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
-          "System.CommandLine": "2.0.0-beta3.22114.1"
+          "System.CommandLine": "2.0.0-beta4.22272.1"
         }
       },
       "System.IO.Abstractions": {

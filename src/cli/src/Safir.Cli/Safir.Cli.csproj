@@ -31,7 +31,6 @@
   <ItemGroup>
     <ProjectReference Include="$(CliSrc)\Safir.CommandLine\Safir.CommandLine.csproj" />
     <ProjectReference Include="$(CliSrc)\Safir.CommandLine.Generator\Safir.CommandLine.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="$(AgentSrc)\Safir.Agent.Client\Safir.Agent.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>

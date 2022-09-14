@@ -1,6 +1,7 @@
 using System;
 using System.CommandLine;
 using System.CommandLine.Parsing;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -52,17 +53,19 @@ internal static class ListCommand
         [CommandHandler]
         public async Task HandleAsync(ParseResult parseResult, CancellationToken cancellationToken)
         {
-            if (_agents.ShouldStartManagedAgent) {
-                _agent = _agents.CreateManagedAgent();
-                _agent.OnOutput((_, args) => _console.WriteLine(args.Data ?? string.Empty));
-                await _agent.StartAsync();
-            }
+            // if (_agents.ShouldStartManagedAgent) {
+            //     _agent = _agents.CreateManagedAgent();
+            //     _agent.OnOutput((_, args) => _console.WriteLine(args.Data ?? string.Empty));
+            //     await _agent.StartAsync();
+            // }
 
+            var gitRoot = await Git.GetRootAsync();
+            var projectPath = Path.Combine(gitRoot, "src", "agent", "src", "Safir.Agent");
+            await Dotnet.Build(projectPath, "Release", x => _console.WriteLine(x), cancellationToken);
 
-
-            if (_agent is not null) {
-                await _agent.StopAsync();
-            }
+            // if (_agent is not null) {
+            //     await _agent.StopAsync();
+            // }
         }
     }
 }

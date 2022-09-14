@@ -1,18 +1,24 @@
 using System;
 using System.Diagnostics;
+using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Safir.Cli.Services;
 
 public abstract class ManagedAgent
 {
-    public Uri? Uri { get; protected set; }
+    public async Task<Uri> StartAsync(
+        Action<string>? onOutput = null,
+        Action<string>? onError = null,
+        CancellationToken cancellationToken = default)
+    {
+        var assemblyPath = await GetAssemblyPathAsync(cancellationToken);
+        var entryAssembly = Assembly.LoadFrom(assemblyPath);
+        entryAssembly.CreateInstance();
+    }
 
-    public abstract IDisposable OnError(Action<Process, DataReceivedEventArgs> callback);
+    public Task StopAsync(CancellationToken cancellationToken) { }
 
-    public abstract IDisposable OnOutput(Action<Process, DataReceivedEventArgs> callback);
-
-    public abstract Task StartAsync();
-
-    public abstract Task StopAsync();
+    protected abstract Task<string> GetAssemblyPathAsync(CancellationToken cancellationToken);
 }

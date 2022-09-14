@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Safir.Cli.Services;
 
-internal sealed class DevelopmentAgent : ManagedAgent
+internal sealed class DotnetCliDevelopmentAgent : ManagedAgent
 {
     private readonly IList<DataReceivedEventHandler> _errorHandlers = new List<DataReceivedEventHandler>();
     private readonly IList<DataReceivedEventHandler> _outputHandlers = new List<DataReceivedEventHandler>();
@@ -122,10 +122,10 @@ internal sealed class DevelopmentAgent : ManagedAgent
 
     private class ProcessDataCallback : IDisposable
     {
-        private readonly DevelopmentAgent _agent;
+        private readonly DotnetCliDevelopmentAgent _agent;
         private readonly DataReceivedEventHandler _handler;
 
-        public ProcessDataCallback(DevelopmentAgent agent, DataReceivedEventHandler handler)
+        public ProcessDataCallback(DotnetCliDevelopmentAgent agent, DataReceivedEventHandler handler)
         {
             _agent = agent;
             _handler = handler;

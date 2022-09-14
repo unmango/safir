@@ -25,6 +25,6 @@ internal sealed class AgentClientManager : IAgents
 
     public ManagedAgent CreateManagedAgent()
     {
-        return new DevelopmentAgent();
+        return new DotnetCliDevelopmentAgent();
     }
 }

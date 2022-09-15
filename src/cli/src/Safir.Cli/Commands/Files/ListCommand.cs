@@ -59,9 +59,9 @@ internal static class ListCommand
             //     await _agent.StartAsync();
             // }
 
-            var gitRoot = await Git.GetRootAsync();
-            var projectPath = Path.Combine(gitRoot, "src", "agent", "src", "Safir.Agent");
-            await Dotnet.Build(projectPath, "Release", x => _console.WriteLine(x), cancellationToken);
+            _agent = new DevelopmentAgent();
+            await _agent.StartAsync(cancellationToken: cancellationToken);
+            await _agent.StopAsync(cancellationToken);
 
             // if (_agent is not null) {
             //     await _agent.StopAsync();

@@ -25,7 +25,8 @@ public static class Program
         }
     }
 
-    private static IHostBuilder CreateHostBuilder(string[] args) =>
+    [PublicAPI]
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
             .UseSerilog((context, services, configuration) => ConfigureSerilog(configuration)
                 .ReadFrom.Configuration(context.Configuration)

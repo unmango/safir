@@ -34,6 +34,7 @@
         "resolved": "1.1.1",
         "contentHash": "WMcGpWKrmJmzrNeuaEb23bEMnbtR/vLmvZtkAP5qWu7vQsY59GqfRJd65sFpBszbd2k/bQ8cs8eWawQKAabkVg=="
       }
-    }
+    },
+    ".NETStandard,Version=v2.1/arch-x64": {}
   }
 }

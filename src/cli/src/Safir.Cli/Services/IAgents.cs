@@ -1,4 +1,5 @@
 using Safir.Agent.Client;
+using Safir.Cli.Services.Managed;
 
 namespace Safir.Cli.Services;
 
@@ -8,5 +9,5 @@ public interface IAgents
 
     IAgentClient? GetAgent(string name);
 
-    ManagedAgent CreateManagedAgent();
+    IManagedAgent CreateManagedAgent();
 }

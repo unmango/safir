@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Safir.Cli.DependencyInjection;
 using Safir.Cli.Services;
+using Safir.Cli.Services.Managed;
 using Safir.CommandLine;
 using Safir.CommandLine.Generator;
 
@@ -41,7 +42,7 @@ internal static class ListCommand
         private readonly IAgents _agents;
         private readonly IConsole _console;
         private readonly ILogger<Handler> _logger;
-        private ManagedAgent? _agent;
+        private AssemblyLoadAgent? _agent;
 
         public Handler(IAgents agents, IConsole console, ILogger<Handler> logger)
         {
@@ -59,8 +60,8 @@ internal static class ListCommand
             //     await _agent.StartAsync();
             // }
 
-            _agent = new DevelopmentAgent();
-            await _agent.StartAsync(cancellationToken: cancellationToken);
+            _agent = new DevelopmentAssemblyLoadAgent();
+            await _agent.StartAsync(_console.WriteLine, _console.WriteLine, cancellationToken);
             await _agent.StopAsync(cancellationToken);
 
             // if (_agent is not null) {

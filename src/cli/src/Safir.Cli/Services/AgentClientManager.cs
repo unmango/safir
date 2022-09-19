@@ -1,9 +1,11 @@
+using System;
 using System.Linq;
 using Grpc.Net.ClientFactory;
 using Microsoft.Extensions.Options;
 using Safir.Agent.Client;
 using Safir.Agent.Protos;
 using Safir.Cli.Configuration;
+using Safir.Cli.Services.Managed;
 using Safir.Protos;
 
 namespace Safir.Cli.Services;
@@ -23,8 +25,8 @@ internal sealed class AgentClientManager : IAgents
 
     public IAgentClient GetAgent(string name) => _clientFactory.CreateAgentClient(name);
 
-    public ManagedAgent CreateManagedAgent()
+    public IManagedAgent CreateManagedAgent()
     {
-        return new DevelopmentAgent();
+        throw new NotImplementedException();
     }
 }

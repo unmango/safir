@@ -14,8 +14,7 @@ internal sealed class DevelopmentAssemblyLoadAgent : AssemblyLoadAgent
         CancellationToken cancellationToken)
     {
         const string configuration = "Release";
-        var gitRoot = await Git.GetRootAsync();
-        var projectPath = Path.Combine(gitRoot, "src", "agent", "src", "Safir.Agent");
+        var projectPath = await AgentUtil.GetProjectPathAsync();
 
         var rid = RuntimeInformation.RuntimeIdentifier;
 

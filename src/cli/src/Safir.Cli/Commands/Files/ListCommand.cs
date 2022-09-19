@@ -42,7 +42,7 @@ internal static class ListCommand
         private readonly IAgents _agents;
         private readonly IConsole _console;
         private readonly ILogger<Handler> _logger;
-        private AssemblyLoadAgent? _agent;
+        private IManagedAgent? _agent;
 
         public Handler(IAgents agents, IConsole console, ILogger<Handler> logger)
         {
@@ -60,8 +60,9 @@ internal static class ListCommand
             //     await _agent.StartAsync();
             // }
 
-            _agent = new DevelopmentAssemblyLoadAgent();
+            _agent = new DevelopmentManagedProcessAgent();
             await _agent.StartAsync(_console.WriteLine, _console.WriteLine, cancellationToken);
+            await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
             await _agent.StopAsync(cancellationToken);
 
             // if (_agent is not null) {

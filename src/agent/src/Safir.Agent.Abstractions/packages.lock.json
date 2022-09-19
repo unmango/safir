@@ -15,7 +15,6 @@
         "contentHash": "Po4tv+sri1jsaebQ8F6+yD5ru9Gas5mR111F6HR2ULqwflvjjZXMstpeOc1GHMJeQa3g4E3b8MX8K2cShkuUAg=="
       }
     },
-    ".NETStandard,Version=v2.1/arch-x64": {},
     ".NETCoreApp,Version=v5.0": {
       "JetBrains.Annotations": {
         "type": "Direct",
@@ -30,7 +29,6 @@
         "contentHash": "Po4tv+sri1jsaebQ8F6+yD5ru9Gas5mR111F6HR2ULqwflvjjZXMstpeOc1GHMJeQa3g4E3b8MX8K2cShkuUAg=="
       }
     },
-    ".NETCoreApp,Version=v5.0/arch-x64": {},
     "net6.0": {
       "JetBrains.Annotations": {
         "type": "Direct",
@@ -44,7 +42,6 @@
         "resolved": "4.2.0",
         "contentHash": "Po4tv+sri1jsaebQ8F6+yD5ru9Gas5mR111F6HR2ULqwflvjjZXMstpeOc1GHMJeQa3g4E3b8MX8K2cShkuUAg=="
       }
-    },
-    "net6.0/arch-x64": {}
+    }
   }
 }

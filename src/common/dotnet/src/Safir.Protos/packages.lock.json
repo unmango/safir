@@ -104,7 +104,6 @@
           "JetBrains.Annotations": "[2022.1.0, )"
         }
       }
-    },
-    ".NETStandard,Version=v2.1/arch-x64": {}
+    }
   }
 }

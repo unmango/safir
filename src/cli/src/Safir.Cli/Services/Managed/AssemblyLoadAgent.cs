@@ -32,7 +32,7 @@ internal abstract class AssemblyLoadAgent : IManagedAgent
         var grpcPort = NetUtil.NextFreePort();
         var uri = new Uri($"http://127.0.0.1:{grpcPort}");
 
-        var startupArgs = new[] { "--urls", Quote(uri.AbsoluteUri) };
+        var startupArgs = AgentUtil.CreateStartupArgs(uri.AbsoluteUri);
         var invokeResult = createHostBuilderMethod.Invoke(null, new object?[] { startupArgs });
 
         // Not currently working because two different versions of the abstractions assembly get loaded
@@ -55,6 +55,4 @@ internal abstract class AssemblyLoadAgent : IManagedAgent
         Action<string> onOutput,
         Action<string> onError,
         CancellationToken cancellationToken);
-
-    private static string Quote(string value) => $"\"{value}\"";
 }

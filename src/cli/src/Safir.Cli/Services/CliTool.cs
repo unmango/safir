@@ -54,20 +54,36 @@ internal static class CliTool
         Action<string>? onError = null,
         CancellationToken cancellationToken = default)
     {
+        var process = Start(filename, args, workingDirectory, onOutput, onError);
+
+        return process.WaitForExitAsync(cancellationToken);
+    }
+
+    public static Process Start(
+        string filename,
+        string args,
+        string workingDirectory = "",
+        Action<string>? onOutput = null,
+        Action<string>? onError = null,
+        bool redirectStandardInput = false)
+    {
         var process = new Process {
             StartInfo = new(filename, args) {
                 WorkingDirectory = workingDirectory,
                 UseShellExecute = false,
                 RedirectStandardError = onError is not null,
-                RedirectStandardOutput = true,
+                RedirectStandardOutput = onOutput is not null,
+                RedirectStandardInput = redirectStandardInput,
             },
             EnableRaisingEvents = true,
         };
 
-        process.OutputDataReceived += (_, e) => {
-            if (!string.IsNullOrWhiteSpace(e.Data))
-                onOutput(e.Data);
-        };
+        if (onOutput is not null) {
+            process.OutputDataReceived += (_, e) => {
+                if (!string.IsNullOrWhiteSpace(e.Data))
+                    onOutput(e.Data);
+            };
+        }
 
         if (onError is not null) {
             process.ErrorDataReceived += (_, e) => {
@@ -78,11 +94,12 @@ internal static class CliTool
 
         _ = process.Start();
 
-        process.BeginOutputReadLine();
+        if (onOutput is not null)
+            process.BeginOutputReadLine();
 
         if (onError is not null)
             process.BeginErrorReadLine();
 
-        return process.WaitForExitAsync(cancellationToken);
+        return process;
     }
 }

@@ -83,7 +83,6 @@
         "resolved": "4.5.3",
         "contentHash": "3TIsJhD1EiiT0w2CcDMN/iSSwnNnsrnbzeVHSKkaEgV85txMprmuO+Yq2AdSbeVGcg28pdNDTPK87tJhX7VFHw=="
       }
-    },
-    ".NETStandard,Version=v2.0/arch-x64": {}
+    }
   }
 }

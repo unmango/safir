@@ -24,17 +24,44 @@ internal static class Dotnet
         CancellationToken cancellationToken = default)
         => CliTool.RunAsync(
             "dotnet",
-            string.Join(' ', new[] {
+            CreateArgs(new[] {
                 "build", project,
                 "--configuration", configuration,
-            }.Concat(extraArgs)),
+            }, extraArgs),
             onOutput ?? (_ => { }),
             cancellationToken);
 
     public static Process Run(
         string project,
         string configuration,
-        IEnumerable<string> extraArgs,
-        CancellationToken cancellationToken = default)
-        => throw new NotImplementedException("Don't let your dreams be memes");
+        IEnumerable<string>? dotnetArgs = null,
+        IEnumerable<string>? processArgs = null,
+        Action<string>? onOutput = null,
+        Action<string>? onError = null)
+        => CliTool.Start(
+            "dotnet",
+            CreateArgs(new[] {
+                "run",
+                "--project", project,
+                "--configuration", configuration,
+            }, dotnetArgs, processArgs),
+            onOutput: onOutput,
+            onError: onError,
+            redirectStandardInput: true);
+
+    private static string CreateArgs(
+        IEnumerable<string> args,
+        IEnumerable<string>? dotnetArgs,
+        IEnumerable<string>? processArgs = null)
+    {
+        var toJoin = args;
+
+        if (dotnetArgs is not null)
+            toJoin = toJoin.Concat(dotnetArgs);
+
+        if (processArgs is not null)
+            toJoin = toJoin.Concat(processArgs.Prepend("--"));
+
+        return string.Join(' ', toJoin);
+    }
 }

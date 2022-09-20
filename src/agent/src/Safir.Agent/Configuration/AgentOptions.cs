@@ -14,5 +14,7 @@ internal class AgentOptions
 
     public int MaxDepth { get; [UsedImplicitly] set; }
 
+    public string? PipeHandle { get; set; }
+
     public string Redis { get; set; } = string.Empty;
 }

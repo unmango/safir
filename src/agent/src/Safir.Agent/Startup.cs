@@ -48,6 +48,10 @@ public class Startup
         services.AddSingleton<IFileWatcher>(s => s.GetRequiredService<DataDirectoryWatcher>());
 
         services.AddHostedService<FileEventPublisher>();
+
+        if (!string.IsNullOrWhiteSpace(Configuration.GetValue<string?>("PipeHandle"))) {
+            services.AddSingleton<IHostLifetime, AnonymousPipeLifetime>();
+        }
     }
 
     public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)

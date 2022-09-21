@@ -62,7 +62,7 @@ internal static class ListCommand
 
             _agent = new DevelopmentManagedProcessAgent();
             await _agent.StartAsync(_console.WriteLine, _console.WriteLine, cancellationToken);
-            await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
+            await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
             await _agent.StopAsync(cancellationToken);
 
             // if (_agent is not null) {

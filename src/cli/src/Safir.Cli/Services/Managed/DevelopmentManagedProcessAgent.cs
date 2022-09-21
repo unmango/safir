@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,18 +9,19 @@ namespace Safir.Cli.Services.Managed;
 internal sealed class DevelopmentManagedProcessAgent : ManagedProcessAgent
 {
     protected override async Task<Process> StartProcessAsync(
-        string url,
+        IEnumerable<string> args,
         Action<string> onOutput,
         Action<string> onError,
         CancellationToken cancellationToken)
     {
         var appStarted = new TaskCompletionSource();
-
         var projectPath = await AgentUtil.GetProjectPathAsync();
+
         var process = Dotnet.Run(
             projectPath,
-            "Release",
-            processArgs: AgentUtil.CreateStartupArgs(url),
+            // "Release",
+            "Debug",
+            processArgs: args,
             onOutput: data => {
                 if (data.Contains("Now listening")) {
                     appStarted.SetResult();
@@ -30,7 +32,7 @@ internal sealed class DevelopmentManagedProcessAgent : ManagedProcessAgent
             onError: onError);
 
         var winner = await Task.WhenAny(
-            Task.Delay(TimeSpan.FromSeconds(30), cancellationToken),
+            Task.Delay(TimeSpan.FromSeconds(10), cancellationToken),
             appStarted.Task);
 
         if (winner != appStarted.Task)

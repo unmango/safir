@@ -49,7 +49,8 @@ public class Startup
 
         services.AddHostedService<FileEventPublisher>();
 
-        if (!string.IsNullOrWhiteSpace(Configuration.GetValue<string?>("PipeHandle"))) {
+        var options = Configuration.Get<AgentOptions>();
+        if (options.UsePipeLifetime) {
             services.AddSingleton<IHostLifetime, AnonymousPipeLifetime>();
         }
     }

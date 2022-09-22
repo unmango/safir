@@ -1,20 +1,17 @@
-using System;
-using System.IO;
 using System.IO.Pipes;
-using System.Threading;
-using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Safir.Agent.Configuration;
 
-namespace Safir.Agent.Services;
+namespace Safir.Rpc.Hosting;
 
-internal sealed class AnonymousPipeLifetime : BackgroundService, IHostLifetime
+[PublicAPI]
+public sealed class AnonymousPipeLifetime : BackgroundService, IHostLifetime
 {
     private readonly IHostApplicationLifetime _applicationLifetime;
-    private readonly IOptions<AgentOptions> _options;
+    private readonly IOptions<AnonymousPipeLifetimeOptions> _options;
 
-    public AnonymousPipeLifetime(IHostApplicationLifetime applicationLifetime, IOptions<AgentOptions> options)
+    public AnonymousPipeLifetime(IHostApplicationLifetime applicationLifetime, IOptions<AnonymousPipeLifetimeOptions> options)
     {
         _applicationLifetime = applicationLifetime;
         _options = options;
@@ -27,7 +24,7 @@ internal sealed class AnonymousPipeLifetime : BackgroundService, IHostLifetime
             throw new InvalidOperationException("Pipe handle is required for anonymous pipe lifetime");
 
         var stopRequested = false;
-        await using PipeStream pipeStream = new AnonymousPipeClientStream(PipeDirection.In, pipeHandle);
+        using PipeStream pipeStream = new AnonymousPipeClientStream(PipeDirection.In, pipeHandle);
         using var reader = new StreamReader(pipeStream);
 
         while (!stopRequested && !stoppingToken.IsCancellationRequested) {

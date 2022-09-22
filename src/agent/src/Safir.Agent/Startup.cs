@@ -50,9 +50,6 @@ public class Startup
         services.AddHostedService<FileEventPublisher>();
 
         var options = Configuration.Get<AgentOptions>();
-        if (options.UsePipeLifetime) {
-            services.AddSingleton<IHostLifetime, AnonymousPipeLifetime>();
-        }
     }
 
     public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)

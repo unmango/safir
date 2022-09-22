@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using Moq;
 using Moq.AutoMock;
 using Safir.Messaging.MediatR.Tests.Fakes;
@@ -27,7 +25,7 @@ public class EventBusNotificationPublisherTests
         var notification = new Notification<FakeEvent>(@event);
 
         await _publisher.Handle(notification, _cancellationToken);
-            
+
         _bus.Verify(x => x.PublishAsync(@event, _cancellationToken));
     }
 }

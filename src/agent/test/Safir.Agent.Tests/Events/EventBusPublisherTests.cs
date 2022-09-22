@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Moq;
 using Moq.AutoMock;
 using Safir.Agent.Events;
@@ -30,7 +27,7 @@ public class EventBusPublisherTests
         var notification = CreateNotification<FileCreated>();
 
         await _publisher.Handle(notification, _cancellationToken);
-            
+
         _eventBus.Verify(x => x.PublishAsync(notification.Value, It.IsAny<CancellationToken>()));
     }
 
@@ -51,7 +48,7 @@ public class EventBusPublisherTests
         var notification = CreateNotification<FileChanged>();
 
         await _publisher.Handle(notification, _cancellationToken);
-            
+
         _eventBus.Verify(x => x.PublishAsync(notification.Value, It.IsAny<CancellationToken>()));
     }
 
@@ -72,7 +69,7 @@ public class EventBusPublisherTests
         var notification = CreateNotification<FileDeleted>();
 
         await _publisher.Handle(notification, _cancellationToken);
-            
+
         _eventBus.Verify(x => x.PublishAsync(notification.Value, It.IsAny<CancellationToken>()));
     }
 
@@ -93,7 +90,7 @@ public class EventBusPublisherTests
         var notification = CreateNotification<FileRenamed>();
 
         await _publisher.Handle(notification, _cancellationToken);
-            
+
         _eventBus.Verify(x => x.PublishAsync(notification.Value, It.IsAny<CancellationToken>()));
     }
 

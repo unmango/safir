@@ -1,7 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Safir.Common.ConnectionPool;
 
 public class CreateConnection<T> : ICreateConnection<T>
@@ -12,12 +8,12 @@ public class CreateConnection<T> : ICreateConnection<T>
     {
         _connect = connect;
     }
-        
+
     public CreateConnection(Func<T> connect)
     {
         _connect = _ => Task.FromResult(connect());
     }
-        
+
     public Task<T> ConnectAsync(CancellationToken cancellationToken = default)
     {
         return _connect(cancellationToken);

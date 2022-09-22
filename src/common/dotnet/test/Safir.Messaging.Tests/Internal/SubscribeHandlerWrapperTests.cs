@@ -1,5 +1,3 @@
-using System;
-using System.Threading;
 using Moq;
 using Moq.AutoMock;
 using Safir.Messaging.Internal;
@@ -34,7 +32,7 @@ public class SubscribeHandlerWrapperTests
     public void Subscribe_ThrowsWhenInvalidHandlerType()
     {
         var handler = _mocker.GetMock<IEventHandler<DifferentEvent>>();
-            
+
         Assert.Throws<InvalidOperationException>(
             () => _wrapper.Subscribe(_eventBus.Object, handler.Object));
     }
@@ -46,15 +44,15 @@ public class SubscribeHandlerWrapperTests
         _eventBus.Setup(x => x.SubscribeAsync(It.IsAny<IObserver<MockEvent>>(), It.IsAny<CancellationToken>()))
             .Callback<IObserver<MockEvent>, CancellationToken>((x, _) => observer = x);
         var message = new MockEvent();
-            
+
         var subscription = _wrapper.Subscribe(_eventBus.Object, _typedHandler.Object);
-            
+
         Assert.NotNull(subscription);
         _eventBus.Verify(x => x.SubscribeAsync(It.IsAny<IObserver<MockEvent>>(), It.IsAny<CancellationToken>()));
         Assert.NotNull(observer);
 
         observer?.OnNext(message);
-            
+
         _typedHandler.Verify(x => x.HandleAsync(It.IsAny<MockEvent>(), It.IsAny<CancellationToken>()));
     }
 

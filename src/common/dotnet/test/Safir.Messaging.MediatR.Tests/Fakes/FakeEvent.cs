@@ -1,5 +1,3 @@
-using System;
-
 namespace Safir.Messaging.MediatR.Tests.Fakes;
 
 // ReSharper disable once CA1067

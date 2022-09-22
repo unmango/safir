@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace Safir.Messaging;
@@ -11,7 +9,7 @@ public abstract class SynchronousEventHandler<T> : IEventHandler<T>
     public Task HandleAsync(T message, CancellationToken cancellationToken = default)
     {
         Handle(message);
-            
+
         return Task.CompletedTask;
     }
 

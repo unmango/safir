@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Safir.Messaging;
 using Xunit;
 
@@ -42,12 +39,12 @@ public class AggregateTests
             new MockEvent()
         };
         var aggregate = new TestAggregate(events);
-            
+
         Assert.NotEmpty(aggregate.Events);
         Assert.Equal(events.Length, aggregate.Events.Count());
 
         var dequeued = aggregate.DequeueEvents().ToList();
-            
+
         Assert.NotEmpty(dequeued);
         Assert.Empty(aggregate.Events);
         Assert.Equal(events.Length, dequeued.Count);

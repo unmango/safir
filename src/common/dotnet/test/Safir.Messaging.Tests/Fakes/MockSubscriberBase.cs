@@ -1,6 +1,4 @@
-using System;
 using System.Net;
-using System.Threading.Tasks;
 using StackExchange.Redis;
 
 namespace Safir.Messaging.Tests.Fakes;

@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -17,7 +14,7 @@ internal sealed class EventBusNotificationPublisher<T> : INotificationHandler<No
         _bus = bus ?? throw new ArgumentNullException(nameof(bus));
         _logger = logger;
     }
-        
+
     public Task Handle(Notification<T> notification, CancellationToken cancellationToken)
     {
         _logger.LogDebug("Publishing notification as event to bus: {Type}", notification.Value.GetType().Name);

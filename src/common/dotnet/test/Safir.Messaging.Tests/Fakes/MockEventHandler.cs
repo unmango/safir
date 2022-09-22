@@ -1,6 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Safir.Messaging.Tests.Fakes;
 
 public class MockEventHandler : IEventHandler<MockEvent>

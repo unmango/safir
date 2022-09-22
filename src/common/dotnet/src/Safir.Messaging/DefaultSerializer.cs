@@ -1,8 +1,4 @@
-using System;
 using System.Buffers;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MessagePack;
 using MessagePack.Resolvers;
@@ -48,7 +44,7 @@ public sealed class DefaultSerializer : ISerializer
     public ValueTask SerializeAsync<T>(IBufferWriter<byte> writer, T value, CancellationToken cancellationToken = default)
     {
         MessagePackSerializer.Serialize(writer, value, _options, cancellationToken);
-            
+
         return new();
     }
 }

@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Moq;
 using Safir.Cli.Commands.Config;

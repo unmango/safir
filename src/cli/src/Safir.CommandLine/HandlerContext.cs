@@ -1,4 +1,3 @@
-using System;
 using System.CommandLine.Invocation;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;

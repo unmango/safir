@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Safir.Messaging;
 
@@ -9,7 +5,7 @@ namespace Safir.EventSourcing;
 
 [PublicAPI]
 public interface IEventStore : IEventStore<Guid> { }
-    
+
 [PublicAPI]
 public interface IEventStore<in TId>
 {

@@ -1,6 +1,4 @@
-using System;
 using System.Reactive.Subjects;
-using System.Threading.Tasks;
 using MessagePack;
 using MessagePack.Resolvers;
 using Moq;
@@ -33,7 +31,7 @@ public class SubscriberExtensionsTests
 
         subscriber.CreateObservable<MockEvent>(channel).Subscribe(_ => flag = true);
         subject.OnNext(notification);
-            
+
         Assert.True(flag);
     }
 
@@ -65,7 +63,7 @@ public class SubscriberExtensionsTests
                 var value = MessagePackSerializer.Serialize(x, ContractlessStandardResolver.Options);
                 handler(channel, value);
             });
-                
+
             return Task.CompletedTask;
         }
     }

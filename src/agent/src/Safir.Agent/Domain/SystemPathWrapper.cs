@@ -1,5 +1,3 @@
-using System.IO;
-
 namespace Safir.Agent.Domain;
 
 internal sealed class SystemPathWrapper : IPath

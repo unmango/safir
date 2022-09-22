@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -12,7 +10,7 @@ internal class Swagger :
     IConfigureOptions<SwaggerUIOptions>
 {
     private const string Title = "Safir Manager";
-        
+
     public void Configure(SwaggerGenOptions options)
     {
         options.SwaggerDoc("v1", new OpenApiInfo {

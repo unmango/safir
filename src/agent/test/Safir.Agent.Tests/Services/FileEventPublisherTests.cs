@@ -1,8 +1,5 @@
-using System.IO;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Threading;
-using System.Threading.Tasks;
 using MediatR;
 using Moq;
 using Moq.AutoMock;
@@ -35,7 +32,7 @@ public class FileEventPublisherTests
 
         await _service.StartAsync(default);
         subject.OnNext(new(WatcherChangeTypes.Created, "/dir", name));
-            
+
         publisher.Verify(x => x.Publish<INotification>(
             It.Is<Notification<FileCreated>>(e => e.Value.Path == name),
             It.IsAny<CancellationToken>()));
@@ -53,7 +50,7 @@ public class FileEventPublisherTests
 
         await _service.StartAsync(default);
         subject.OnNext(new(WatcherChangeTypes.Changed, "/dir", name));
-            
+
         publisher.Verify(x => x.Publish<INotification>(
             It.Is<Notification<FileChanged>>(e => e.Value.Path == name),
             It.IsAny<CancellationToken>()));
@@ -71,7 +68,7 @@ public class FileEventPublisherTests
 
         await _service.StartAsync(default);
         subject.OnNext(new(WatcherChangeTypes.Deleted, "/dir", name));
-            
+
         publisher.Verify(x => x.Publish<INotification>(
             It.Is<Notification<FileDeleted>>(e => e.Value.Path == name),
             It.IsAny<CancellationToken>()));
@@ -89,7 +86,7 @@ public class FileEventPublisherTests
 
         await _service.StartAsync(default);
         subject.OnNext(new(WatcherChangeTypes.Renamed, "/dir", name, oldName));
-            
+
         publisher.Verify(x => x.Publish<INotification>(
             It.Is<Notification<FileRenamed>>(e => e.Value.Path == name && e.Value.OldPath == oldName),
             It.IsAny<CancellationToken>()));
@@ -105,7 +102,7 @@ public class FileEventPublisherTests
 
         await _service.StartAsync(default);
         Assert.True(subject.HasObservers);
-            
+
         await _service.StopAsync(default);
         Assert.False(subject.HasObservers);
     }
@@ -120,7 +117,7 @@ public class FileEventPublisherTests
 
         await _service.StartAsync(default);
         Assert.True(subject.HasObservers);
-            
+
         await _service.StopAsync(default);
         Assert.False(subject.HasObservers);
     }
@@ -135,7 +132,7 @@ public class FileEventPublisherTests
 
         await _service.StartAsync(default);
         Assert.True(subject.HasObservers);
-            
+
         await _service.StopAsync(default);
         Assert.False(subject.HasObservers);
     }
@@ -150,7 +147,7 @@ public class FileEventPublisherTests
 
         await _service.StartAsync(default);
         Assert.True(subject.HasObservers);
-            
+
         await _service.StopAsync(default);
         Assert.False(subject.HasObservers);
     }

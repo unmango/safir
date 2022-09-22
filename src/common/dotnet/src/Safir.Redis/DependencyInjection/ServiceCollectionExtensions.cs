@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.DependencyInjection;
 using Safir.Common.ConnectionPool.DependencyInjection;
 using Safir.Redis.Configuration;
@@ -11,13 +10,13 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddRedisClient(this IServiceCollection services)
     {
         if (services == null) throw new ArgumentNullException(nameof(services));
-            
+
         services.AddLogging();
         services.AddOptions<RedisOptions>();
-            
+
         services.AddConnectionPool<IConnectionMultiplexer, CreateRedisConnection>();
         services.AddTransient<IRedisClient, DefaultRedisClient>();
-            
+
         return services;
     }
 

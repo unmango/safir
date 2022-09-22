@@ -1,7 +1,4 @@
-using System;
-using System.Threading.Tasks;
 using Moq.AutoMock;
-using Xunit;
 
 namespace Safir.EventSourcing.EntityFrameworkCore.Tests;
 

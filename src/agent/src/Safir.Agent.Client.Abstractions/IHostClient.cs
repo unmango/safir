@@ -1,4 +1,3 @@
-using System.Threading;
 using Grpc.Core;
 using JetBrains.Annotations;
 using Safir.Protos;
@@ -9,6 +8,6 @@ namespace Safir.Agent.Client;
 public interface IHostClient
 {
     HostInfo GetInfo(CancellationToken cancellationToken = default);
-        
+
     AsyncUnaryCall<HostInfo> GetInfoAsync(CancellationToken cancellationToken = default);
 }

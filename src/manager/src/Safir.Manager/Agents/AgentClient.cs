@@ -1,4 +1,3 @@
-using System;
 using Safir.Agent.Client;
 
 namespace Safir.Manager.Agents;

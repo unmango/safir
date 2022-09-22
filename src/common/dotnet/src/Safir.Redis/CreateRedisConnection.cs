@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -21,7 +18,7 @@ internal sealed class CreateRedisConnection : ICreateConnection<IConnectionMulti
         _options = options ?? throw new ArgumentNullException(nameof(options));
         _logger = logger;
     }
-        
+
     // TODO: Exponential backoff or something probably...
     public async Task<IConnectionMultiplexer> ConnectAsync(CancellationToken cancellationToken = default)
     {

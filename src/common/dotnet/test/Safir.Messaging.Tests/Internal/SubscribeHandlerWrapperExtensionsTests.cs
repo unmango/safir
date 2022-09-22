@@ -1,4 +1,3 @@
-using System.Linq;
 using Moq;
 using Moq.AutoMock;
 using Safir.Messaging.Internal;
@@ -27,7 +26,7 @@ public class SubscribeHandlerWrapperExtensionsTests
 
         // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
         _wrapper.Object.Subscribe(_eventBus.Object, new[] { handler1.Object, handler2.Object }).ToList();
-            
+
         _wrapper.Verify(x => x.Subscribe(_eventBus.Object, handler1.Object));
         _wrapper.Verify(x => x.Subscribe(_eventBus.Object, handler2.Object));
     }

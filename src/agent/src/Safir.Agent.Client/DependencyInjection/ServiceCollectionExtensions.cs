@@ -1,4 +1,3 @@
-using System;
 using Grpc.Net.ClientFactory;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +18,7 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
-        
+
     public static IServiceCollection AddSafirAgentClient(
         this IServiceCollection services,
         Action<GrpcClientFactoryOptions> configureClient)
@@ -30,7 +29,7 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
-        
+
     public static IServiceCollection AddSafirAgentClient(
         this IServiceCollection services,
         Action<IServiceProvider, GrpcClientFactoryOptions> configureClient)
@@ -41,7 +40,7 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
-        
+
     public static IServiceCollection AddSafirAgentClient(this IServiceCollection services, string name)
     {
         services.AddWrappers();
@@ -50,7 +49,7 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
-        
+
     public static IServiceCollection AddSafirAgentClient(
         this IServiceCollection services,
         string name,

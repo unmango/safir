@@ -1,9 +1,5 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using Safir.Agent.Protos;
 using Safir.Messaging;
 using Safir.Messaging.MediatR;

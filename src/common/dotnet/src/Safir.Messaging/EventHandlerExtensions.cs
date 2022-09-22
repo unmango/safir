@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
 using Safir.Common;
 
@@ -21,7 +18,7 @@ public static class EventHandlerExtensions
     {
         return handlers.SelectMany(GetEventTypes).Distinct();
     }
-        
+
     public static IEnumerable<IGrouping<Type, IEventHandler>> GroupByEvent(this IEnumerable<IEventHandler> handlers)
     {
         return handlers.Where(IsGenericHandler)

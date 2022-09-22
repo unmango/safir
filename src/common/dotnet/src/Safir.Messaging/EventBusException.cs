@@ -1,5 +1,3 @@
-using System;
-
 namespace Safir.Messaging;
 
 public sealed class EventBusException : Exception

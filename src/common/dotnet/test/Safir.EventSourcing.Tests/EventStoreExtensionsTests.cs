@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Moq;
 using Moq.AutoMock;
 using Safir.Messaging;
@@ -24,7 +21,7 @@ public class EventStoreExtensionsTests
         var @event = new MockEvent();
 
         var aggregate = await _store.Object.CreateAsync<MockAggregate, Guid>(@event);
-            
+
         _store.Verify(x => x.AddAsync(aggregate.Id, @event, It.IsAny<CancellationToken>()));
         Assert.Contains(@event, aggregate.Events);
     }
@@ -35,7 +32,7 @@ public class EventStoreExtensionsTests
         var events = new[] { new MockEvent(), new MockEvent() };
 
         var aggregate = await _store.Object.CreateAsync<MockAggregate, Guid>(events);
-            
+
         _store.Verify(x => x.AddAsync(aggregate.Id, events, It.IsAny<CancellationToken>()));
         Assert.Equal(events, aggregate.Events);
     }
@@ -46,7 +43,7 @@ public class EventStoreExtensionsTests
         var @event = new MockEvent();
 
         var id = await _store.Object.NewAsync(@event);
-            
+
         _store.Verify(x => x.AddAsync(id, @event, It.IsAny<CancellationToken>()));
         Assert.NotEqual(Guid.Empty, id);
     }
@@ -57,7 +54,7 @@ public class EventStoreExtensionsTests
         var events = new[] { new MockEvent(), new MockEvent() };
 
         var id = await _store.Object.NewAsync(events);
-            
+
         _store.Verify(x => x.AddAsync(id, events, It.IsAny<CancellationToken>()));
         Assert.NotEqual(Guid.Empty, id);
     }

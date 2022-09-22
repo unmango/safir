@@ -14,9 +14,8 @@ internal class AgentFactory
 
     public virtual IAgent Create(string name)
     {
-        var fileSystem = _factory.CreateFileSystemClient(name);
-        var host = _factory.CreateHostClient(name);
+        var client = _factory.CreateAgentClient(name);
 
-        return new AgentClient(name, fileSystem, host);
+        return new AgentClient(name, client);
     }
 }

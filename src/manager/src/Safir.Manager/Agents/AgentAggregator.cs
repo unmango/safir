@@ -1,3 +1,4 @@
+using Safir.Agent.Client;
 using Safir.Agent.Protos;
 using Safir.Manager.Protos;
 

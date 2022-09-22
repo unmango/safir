@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
 using Grpc.Core;
 using JetBrains.Annotations;
 using Safir.Agent.Protos;

@@ -1,4 +1,3 @@
-using System.Threading;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using JetBrains.Annotations;
@@ -13,7 +12,7 @@ public static class HostClientExtensions
     {
         return client.GetInfo(new Empty(), Metadata.Empty, null, cancellationToken);
     }
-        
+
     public static AsyncUnaryCall<HostInfo> GetInfoAsync(
         this Host.HostClient client,
         CancellationToken cancellationToken = default)

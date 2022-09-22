@@ -1,9 +1,4 @@
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -26,12 +21,12 @@ internal sealed class DefaultConnectionPool<T> : IConnectionPool<T>, IAsyncDispo
         _connectionManager = connectionManager ?? throw new ArgumentNullException(nameof(connectionManager));
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _logger = logger;
-            
+
         _selector = configuration.Value.Selector ?? DefaultSelector;
     }
 
     private int PoolSize => _configuration.Value.PoolSize;
-        
+
     public ValueTask<T> GetConnectionAsync(CancellationToken cancellationToken = default)
     {
         _logger.LogTrace("Getting connection");

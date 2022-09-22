@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
@@ -48,7 +46,7 @@ public static class ModelBuilderExtensions
     private static void ApplyAggregateConfiguration(EntityTypeBuilder builder)
     {
         builder.HasKey(nameof(IAggregate.Id));
-            
+
         builder.Property(nameof(IAggregate.Id)).IsRequired();
         builder.Property(nameof(IAggregate.Version)).IsRequired();
         builder.Property(nameof(IAggregate.Events)); // TODO: Ignore?

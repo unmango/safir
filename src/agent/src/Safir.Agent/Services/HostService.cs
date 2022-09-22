@@ -1,6 +1,4 @@
-using System;
 using System.Net;
-using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.Options;
@@ -18,7 +16,7 @@ internal class HostService : Host.HostBase
     {
         _options = options ?? throw new ArgumentNullException(nameof(options));
     }
-        
+
     public override Task<HostInfo> GetInfo(Empty request, ServerCallContext context)
     {
         return Task.FromResult(new HostInfo {

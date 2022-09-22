@@ -1,7 +1,4 @@
-using System;
 using System.Buffers;
-using System.Threading;
-using System.Threading.Tasks;
 using Moq;
 using Moq.AutoMock;
 using Safir.Common;
@@ -30,17 +27,17 @@ public class DefaultEventSerializerTests
         var id = Guid.NewGuid();
         const string type = "type";
         IEvent value = new MockEvent();
-            
+
         _metadataProvider.Setup(
                 x => x.GetTypeDiscriminatorAsync(value, It.IsAny<int>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(type);
 
         var result = await _eventSerializer.SerializeAsync(id, value);
-            
+
         _metadataProvider.Verify();
         _serializer.Verify(
             x => x.SerializeAsync(It.IsAny<IBufferWriter<byte>>(), value, It.IsAny<CancellationToken>()));
-            
+
         Assert.Equal(id, result.AggregateId);
         Assert.Equal(type, result.Type);
         Assert.Equal(value.Occurred, result.Occurred);
@@ -60,7 +57,7 @@ public class DefaultEventSerializerTests
             .ReturnsAsync(type);
 
         await _eventSerializer.DeserializeAsync(value);
-            
+
         _metadataProvider.Verify();
         _serializer.Verify(x => x.DeserializeAsync(type, value.Data, It.IsAny<CancellationToken>()));
     }

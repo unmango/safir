@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Moq;
 using Xunit;
 
@@ -16,7 +13,7 @@ public class SnapshotStoreExtensionsTests
         var id = Guid.NewGuid();
 
         await _store.Object.FindAsync<TestAggregate, Guid>(id, CancellationToken.None);
-            
+
         _store.Verify(x => x.FindAsync<TestAggregate, Guid>(id, int.MaxValue, It.IsAny<CancellationToken>()));
     }
 
@@ -26,7 +23,7 @@ public class SnapshotStoreExtensionsTests
         var id = Guid.NewGuid();
 
         await _store.Object.FindAsync<TestAggregate>(id);
-            
+
         _store.Verify(x => x.FindAsync<TestAggregate, Guid>(id, It.IsAny<int>(), It.IsAny<CancellationToken>()));
     }
 
@@ -36,7 +33,7 @@ public class SnapshotStoreExtensionsTests
         var id = Guid.NewGuid();
 
         await _store.Object.FindAsync<TestAggregate>(id, CancellationToken.None);
-            
+
         _store.Verify(x => x.FindAsync<TestAggregate, Guid>(id, int.MaxValue, It.IsAny<CancellationToken>()));
     }
 

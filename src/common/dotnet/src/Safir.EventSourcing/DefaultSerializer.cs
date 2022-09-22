@@ -1,9 +1,5 @@
-using System;
 using System.Buffers;
-using System.IO;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using Safir.Common;
 using Safir.Common.Buffers;
 
@@ -57,7 +53,7 @@ public class DefaultSerializer : ISerializer
             value,
             _options,
             cancellationToken);
-            
+
         return new ValueTask(task);
     }
 }

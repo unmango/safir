@@ -1,4 +1,3 @@
-using System;
 using Moq;
 using Safir.Messaging;
 using Xunit;
@@ -14,9 +13,9 @@ public class AggregateExtensionsTests
     {
         var event1 = new MockEvent(DateTime.Now);
         var event2 = new MockEvent(DateTime.UtcNow);
-            
+
         _aggregate.Object.Apply(new[] { event1, event2 });
-            
+
         _aggregate.Verify(x => x.Apply(event1), Times.Once);
         _aggregate.Verify(x => x.Apply(event2), Times.Once);
     }

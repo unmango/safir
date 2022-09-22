@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Moq;
 using Moq.AutoMock;
 using Safir.Common.ConnectionPool;
@@ -35,7 +32,7 @@ public class RedisEventBusTests
     public async Task SubscribeAsync_ThrowsWhenConnectionFails()
     {
         var observer = _mocker.GetMock<IObserver<MockEvent>>();
-            
+
         _connectionPool.Setup(x => x.GetConnectionAsync(It.IsAny<CancellationToken>()))
             .ThrowsAsync(new RedisException("Test exception"));
 
@@ -47,7 +44,7 @@ public class RedisEventBusTests
     public async Task SubscribeAsync_SubscribesCallback()
     {
         var observer = _mocker.GetMock<IObserver<MockEvent>>();
-            
+
         var subscription = await _eventBus.SubscribeAsync(observer.Object, _cancellationToken);
 
         Assert.NotNull(subscription);

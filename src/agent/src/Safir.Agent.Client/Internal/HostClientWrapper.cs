@@ -1,5 +1,3 @@
-using System;
-using System.Threading;
 using Grpc.Core;
 using Safir.Protos;
 

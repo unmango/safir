@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Safir.Messaging;
 
@@ -19,7 +14,7 @@ public static class EventStoreExtensions
     {
         return store.CreateAsync<T, Guid>(@event, cancellationToken);
     }
-        
+
     public static async Task<TAggregate> CreateAsync<TAggregate, TAggregateId>(
         this IEventStore store,
         IEvent @event,
@@ -31,7 +26,7 @@ public static class EventStoreExtensions
         aggregate.Apply(@event);
         return aggregate;
     }
-        
+
     public static Task<T> CreateAsync<T>(
         this IEventStore store,
         IEnumerable<IEvent> events,
@@ -40,7 +35,7 @@ public static class EventStoreExtensions
     {
         return store.CreateAsync<T, Guid>(events, cancellationToken);
     }
-        
+
     public static async Task<TAggregate> CreateAsync<TAggregate, TAggregateId>(
         this IEventStore store,
         IEnumerable<IEvent> events,

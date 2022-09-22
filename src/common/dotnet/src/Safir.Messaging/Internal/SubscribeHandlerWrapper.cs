@@ -1,5 +1,3 @@
-using System;
-
 namespace Safir.Messaging.Internal;
 
 internal sealed class SubscribeHandlerWrapper<T> : ISubscribeHandlerWrapper

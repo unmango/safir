@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -27,7 +24,7 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         Func<IServiceProvider, CancellationToken, Task<T>> connect)
         => services.AddConnectionPool(connect, _ => { });
-        
+
     public static IServiceCollection AddConnectionPool<TConnection, TCreate>(
         this IServiceCollection services,
         Action<ConnectionPoolOptions<TConnection>> configure)
@@ -48,7 +45,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddLogging();
         services.AddOptions();
-            
+
         services.TryAddSingleton(typeof(IConnectionPool<>), typeof(DefaultConnectionPool<>));
         services.TryAddTransient(typeof(IConnectionManager<>), typeof(DefaultConnectionManager<>));
         services.TryAddTransient(typeof(IDisposeConnection<>), typeof(DefaultDisposeConnection<>));

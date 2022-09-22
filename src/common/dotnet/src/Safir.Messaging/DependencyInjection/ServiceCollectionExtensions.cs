@@ -1,4 +1,3 @@
-using System;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -17,23 +16,23 @@ public static class ServiceCollectionExtensions
         where T : class, IEventHandler
     {
         if (services == null) throw new ArgumentNullException(nameof(services));
-            
+
         services.AddSafirMessaging();
-            
+
         services.AddHostedService<SubscriptionManager<FileCreated>>();
         services.AddHostedService<SubscriptionManager<FileChanged>>();
         services.AddHostedService<SubscriptionManager<FileDeleted>>();
         services.AddHostedService<SubscriptionManager<FileRenamed>>();
-            
+
         services.TryAddEnumerable(ServiceDescriptor.Scoped<IEventHandler, T>());
 
         return services;
     }
-        
+
     public static IServiceCollection AddSafirMessaging(this IServiceCollection services)
     {
         if (services == null) throw new ArgumentNullException(nameof(services));
-            
+
         services.AddLogging();
         services.AddOptions<MessagingOptions>();
 
@@ -41,7 +40,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IEventBus, RedisEventBus>();
         services.AddTransient(typeof(IEventBus<>), typeof(DefaultTypedEventBus<>));
         services.AddTransient<IConfigureOptions<RedisOptions>, ConfigureRedisOptions>();
-            
+
         return services;
     }
 

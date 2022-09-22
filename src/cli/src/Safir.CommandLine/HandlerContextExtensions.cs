@@ -1,6 +1,4 @@
-using System;
 using System.CommandLine.Parsing;
-using System.Threading;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -38,10 +35,10 @@ public class AgentManagerTests
     {
         Assert.Throws<ArgumentNullException>(
             () => new AgentManager(_optionsMonitor.Object, null!, null!));
-            
+
         Assert.Throws<ArgumentNullException>(
             () => new AgentManager(null!, _agentFactory.Object, null!));
-            
+
         Assert.Throws<ArgumentNullException>(
             () => new AgentManager(null!, null!, new Mock<ILogger<AgentManager>>().Object));
     }

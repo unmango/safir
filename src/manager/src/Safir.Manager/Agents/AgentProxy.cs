@@ -1,15 +1,10 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Options;
 using Safir.Agent.Client;
 using Safir.Agent.Protos;
 using Safir.Manager.Configuration;
 using Safir.Protos;
-using Host = Safir.Protos.Host;
 
 namespace Safir.Manager.Agents;
 

@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.DependencyInjection;
 using Safir.EventSourcing.DependencyInjection;
 using Safir.EventSourcing.EntityFrameworkCore.DependencyInjection;
@@ -9,7 +8,7 @@ namespace Safir.EventSourcing.EntityFrameworkCore.Tests.DependencyInjection;
 public class ServiceCollectionExtensionsTests
 {
     private readonly IServiceCollection _services = new ServiceCollection();
-        
+
     [Fact]
     public void AddEntityFrameworkEventSourcing_AddsLibraryServices()
     {
@@ -17,7 +16,7 @@ public class ServiceCollectionExtensionsTests
 
         Assert.Contains(_services, x => x.ServiceType == typeof(ISafirEventSourcing));
     }
-        
+
     [Fact]
     public void AddEntityFrameworkEventSourcing_AddsEventDbContext()
     {
@@ -25,7 +24,7 @@ public class ServiceCollectionExtensionsTests
 
         Assert.Contains(_services, x => x.ServiceType == typeof(EventSourcingContext));
     }
-        
+
     [Fact]
     public void AddEntityFrameworkEventSourcing_AddsDbContextEventStore()
     {
@@ -39,7 +38,7 @@ public class ServiceCollectionExtensionsTests
             x.ServiceType == typeof(IEventStore<Guid>) &&
             x.ImplementationType == typeof(DbContextEventStore<EventSourcingContext>));
     }
-        
+
     [Fact]
     public void AddEntityFrameworkEventSourcing_AddsDbContextSnapshotStore()
     {
@@ -49,7 +48,7 @@ public class ServiceCollectionExtensionsTests
             x.ServiceType == typeof(ISnapshotStore) &&
             x.ImplementationType == typeof(DbContextSnapshotStore<EventSourcingContext>));
     }
-        
+
     [Fact]
     public void AddEntityFrameworkEventSourcing_Generic_AddsLibraryServices()
     {
@@ -57,7 +56,7 @@ public class ServiceCollectionExtensionsTests
 
         Assert.Contains(_services, x => x.ServiceType == typeof(ISafirEventSourcing));
     }
-        
+
     [Fact]
     public void AddEntityFrameworkEventSourcing_Generic_AddsDbContextEventStore()
     {
@@ -71,7 +70,7 @@ public class ServiceCollectionExtensionsTests
             x.ServiceType == typeof(IEventStore<Guid>) &&
             x.ImplementationType == typeof(DbContextEventStore<TestContext>));
     }
-        
+
     [Fact]
     public void AddEntityFrameworkEventSourcing_Generic_AddsDbContextSnapshotStore()
     {
@@ -89,7 +88,7 @@ public class ServiceCollectionExtensionsTests
 
         Assert.Contains(_services, x => x.ServiceType == typeof(EventSourcingContext));
     }
-        
+
     [Fact]
     public void AddDbContextEventStore_AddsDbContextEventStore()
     {
@@ -103,7 +102,7 @@ public class ServiceCollectionExtensionsTests
             x.ServiceType == typeof(IEventStore<Guid>) &&
             x.ImplementationType == typeof(DbContextEventStore<EventSourcingContext>));
     }
-        
+
     [Fact]
     public void AddDbContextEventStore_Generic_AddsDbContextEventStore()
     {
@@ -125,7 +124,7 @@ public class ServiceCollectionExtensionsTests
 
         Assert.Contains(_services, x => x.ServiceType == typeof(EventSourcingContext));
     }
-        
+
     [Fact]
     public void AddDbContextSnapshotStore_AddsDbContextSnapshotStore()
     {
@@ -135,7 +134,7 @@ public class ServiceCollectionExtensionsTests
             x.ServiceType == typeof(ISnapshotStore) &&
             x.ImplementationType == typeof(DbContextSnapshotStore<EventSourcingContext>));
     }
-        
+
     [Fact]
     public void AddDbContextSnapshotStore_Generic_AddsDbContextSnapshotStore()
     {

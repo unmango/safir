@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.Options;
 
 namespace Safir.Agent.Configuration;

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using JetBrains.Annotations;

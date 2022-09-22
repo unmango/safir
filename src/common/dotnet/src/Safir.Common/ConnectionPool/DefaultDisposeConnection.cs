@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-
 namespace Safir.Common.ConnectionPool;
 
 internal sealed class DefaultDisposeConnection<T> : IDisposeConnection<T>
@@ -9,7 +6,7 @@ internal sealed class DefaultDisposeConnection<T> : IDisposeConnection<T>
     {
         if (connection is IAsyncDisposable asyncDisposable)
             return asyncDisposable.DisposeAsync();
-            
+
         if (connection is IDisposable disposable)
             disposable.Dispose();
 

@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Moq;
 using Moq.AutoMock;
@@ -67,7 +63,7 @@ public class AgentAggregatorTests
         agent2.SetupGet(x => x.FileSystem).Returns(fs2.Object);
         _mocker.Use(typeof(IEnumerable<IAgent>), new[] { _agent.Object, agent2.Object });
         var aggregator = _mocker.CreateInstance<AgentAggregator>();
-            
+
         _agent.SetupGet(x => x.Name).Returns("host1");
         agent2.SetupGet(x => x.Name).Returns("host2");
         _fileSystem.Setup(x => x.ListFilesAsync(It.IsAny<CancellationToken>()))
@@ -80,7 +76,7 @@ public class AgentAggregatorTests
             }, 1));
 
         var result = await aggregator.List(default).ToListAsync();
-            
+
         Assert.Collection(result,
             [AssertionMethod]
             (x) => {

@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Safir.Messaging.DependencyInjection;
 using Safir.Messaging.Internal;
@@ -15,7 +14,7 @@ public class ServiceCollectionExtensionsTests
     public void GetRegisteredEventTypes_ReturnsEmptyWhenNoRegisteredHandlers()
     {
         var result = _services.GetRegisteredEventTypes();
-            
+
         Assert.Empty(result);
     }
 
@@ -25,7 +24,7 @@ public class ServiceCollectionExtensionsTests
         _services.AddEventHandler<MockEventHandler>();
 
         var result = _services.GetRegisteredEventTypes().ToList();
-            
+
         Assert.NotEmpty(result);
         var type = Assert.Single(result);
         Assert.Equal(typeof(MockEvent), type);

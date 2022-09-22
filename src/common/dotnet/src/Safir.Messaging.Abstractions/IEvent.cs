@@ -1,4 +1,3 @@
-using System;
 using JetBrains.Annotations;
 
 namespace Safir.Messaging;
@@ -7,11 +6,11 @@ namespace Safir.Messaging;
 public interface IEvent
 {
     const int DefaultVersion = 1;
-        
+
     Guid CausationId => Guid.Empty;
-        
+
     Guid CorrelationId => Guid.Empty;
-        
+
     DateTime Occurred { get; }
 
     int Version => DefaultVersion;

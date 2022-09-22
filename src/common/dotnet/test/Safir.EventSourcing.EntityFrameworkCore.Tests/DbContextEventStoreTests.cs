@@ -1,7 +1,3 @@
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Moq;
 using Moq.AutoMock;
 using Safir.Messaging;
@@ -34,7 +30,7 @@ public class DbContextEventStoreTests : IAsyncDisposable
             .Verifiable();
 
         await _store.AddAsync(id, value);
-            
+
         _serializer.Verify();
         Assert.Contains(serialized, _context.Set<Event>());
     }
@@ -52,7 +48,7 @@ public class DbContextEventStoreTests : IAsyncDisposable
             .ReturnsAsync(serialized);
 
         await _store.AddAsync(id, events);
-            
+
         _serializer.Verify(
             x => x.SerializeAsync(id, It.IsAny<IEvent>(), It.IsAny<CancellationToken>()), Times.Exactly(count));
         Assert.Contains(serialized, _context.Set<Event>());
@@ -68,7 +64,7 @@ public class DbContextEventStoreTests : IAsyncDisposable
         await _context.SaveChangesAsync();
 
         await _store.GetAsync<Guid>(entry.Entity.Id);
-            
+
         _serializer.Verify(x => x.DeserializeAsync(entry.Entity, It.IsAny<CancellationToken>()));
     }
 
@@ -85,15 +81,15 @@ public class DbContextEventStoreTests : IAsyncDisposable
             .Returns<Event, CancellationToken>((@event, _) => new ValueTask<IEvent>(new MockEvent(@event.Position)));
 
         var stream = _store.StreamBackwardsAsync(id);
-            
+
         Assert.NotNull(stream);
         var enumerator = stream.GetAsyncEnumerator();
-            
+
         await enumerator.MoveNextAsync();
         Assert.NotNull(enumerator.Current);
         var first = Assert.IsType<MockEvent>(enumerator.Current);
         Assert.Equal(entry2.Entity.Position, first.Position);
-            
+
         await enumerator.MoveNextAsync();
         Assert.NotNull(enumerator.Current);
         var second = Assert.IsType<MockEvent>(enumerator.Current);
@@ -113,10 +109,10 @@ public class DbContextEventStoreTests : IAsyncDisposable
             .Returns<Event, CancellationToken>((@event, _) => new ValueTask<IEvent>(new MockEvent(@event.Position)));
 
         var stream = _store.StreamBackwardsAsync(id);
-            
+
         Assert.NotNull(stream);
         var enumerator = stream.GetAsyncEnumerator();
-            
+
         await enumerator.MoveNextAsync();
         Assert.NotNull(enumerator.Current);
         var first = Assert.IsType<MockEvent>(enumerator.Current);
@@ -138,10 +134,10 @@ public class DbContextEventStoreTests : IAsyncDisposable
             .Returns<Event, CancellationToken>((@event, _) => new ValueTask<IEvent>(new MockEvent(@event.Position)));
 
         var stream = _store.StreamBackwardsAsync(id, 1);
-            
+
         Assert.NotNull(stream);
         var enumerator = stream.GetAsyncEnumerator();
-            
+
         await enumerator.MoveNextAsync();
         Assert.NotNull(enumerator.Current);
         var first = Assert.IsType<MockEvent>(enumerator.Current);
@@ -169,10 +165,10 @@ public class DbContextEventStoreTests : IAsyncDisposable
             .Returns<Event, CancellationToken>((@event, _) => new ValueTask<IEvent>(new MockEvent(@event.Position)));
 
         var stream = _store.StreamAsync(id);
-            
+
         Assert.NotNull(stream);
         var enumerator = stream.GetAsyncEnumerator();
-            
+
         await enumerator.MoveNextAsync();
         Assert.NotNull(enumerator.Current);
         var first = Assert.IsType<MockEvent>(enumerator.Current);
@@ -194,10 +190,10 @@ public class DbContextEventStoreTests : IAsyncDisposable
             .Returns<Event, CancellationToken>((@event, _) => new ValueTask<IEvent>(new MockEvent(@event.Position)));
 
         var stream = _store.StreamAsync(id, entry2.Entity.Position);
-            
+
         Assert.NotNull(stream);
         var enumerator = stream.GetAsyncEnumerator();
-            
+
         await enumerator.MoveNextAsync();
         Assert.NotNull(enumerator.Current);
         var first = Assert.IsType<MockEvent>(enumerator.Current);
@@ -219,10 +215,10 @@ public class DbContextEventStoreTests : IAsyncDisposable
             .Returns<Event, CancellationToken>((@event, _) => new ValueTask<IEvent>(new MockEvent(@event.Position)));
 
         var stream = _store.StreamAsync(id, 0, entry1.Entity.Position);
-            
+
         Assert.NotNull(stream);
         var enumerator = stream.GetAsyncEnumerator();
-            
+
         await enumerator.MoveNextAsync();
         Assert.NotNull(enumerator.Current);
         var first = Assert.IsType<MockEvent>(enumerator.Current);
@@ -237,15 +233,15 @@ public class DbContextEventStoreTests : IAsyncDisposable
         {
             Position = default;
         }
-            
+
         public MockEvent(int position)
         {
             Position = position;
         }
-            
+
         // ReSharper disable once UnassignedGetOnlyAutoProperty
         public DateTime Occurred { get; }
-            
+
         public int Position { get; }
     }
 

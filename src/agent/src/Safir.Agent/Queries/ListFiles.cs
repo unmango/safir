@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using Safir.Agent.Protos;
 
 namespace Safir.Agent.Queries;

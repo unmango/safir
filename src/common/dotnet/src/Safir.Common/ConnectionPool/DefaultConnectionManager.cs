@@ -1,7 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Safir.Common.ConnectionPool;
 
 internal sealed class DefaultConnectionManager<T> : IConnectionManager<T>
@@ -14,7 +10,7 @@ internal sealed class DefaultConnectionManager<T> : IConnectionManager<T>
         _createConnection = createConnection ?? throw new ArgumentNullException(nameof(createConnection));
         _disposeConnection = disposeConnection ?? throw new ArgumentNullException(nameof(disposeConnection));
     }
-        
+
     public Task<T> ConnectAsync(CancellationToken cancellationToken = default)
     {
         return _createConnection.ConnectAsync(cancellationToken);

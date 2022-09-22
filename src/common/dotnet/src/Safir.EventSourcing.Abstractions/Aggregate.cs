@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using Safir.Messaging;
 
@@ -10,7 +8,7 @@ public abstract record Aggregate : Aggregate<Guid>, IAggregate
 {
     protected Aggregate() => Id = Guid.NewGuid();
 }
-    
+
 [PublicAPI]
 public abstract record Aggregate<T> : IAggregate<T>
 {
@@ -18,7 +16,7 @@ public abstract record Aggregate<T> : IAggregate<T>
     private readonly Queue<IEvent> _events = new();
 
     public T Id { get; protected init; } = default!; // TODO: Nullability
-        
+
     public int Version { get; protected set; }
 
     public IEnumerable<IEvent> Events => _events;

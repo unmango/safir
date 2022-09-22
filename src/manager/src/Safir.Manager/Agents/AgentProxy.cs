@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Safir.Agent.Protos;
 using Safir.Manager.Configuration;
 using Safir.Protos;
+using Host = Safir.Protos.Host;
 
 namespace Safir.Manager.Agents;
 

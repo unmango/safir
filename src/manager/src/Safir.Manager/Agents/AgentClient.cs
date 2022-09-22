@@ -1,6 +1,7 @@
 using Safir.Agent.Client;
 using Safir.Agent.Protos;
 using Safir.Protos;
+using Host = Safir.Protos.Host;
 
 namespace Safir.Manager.Agents;
 

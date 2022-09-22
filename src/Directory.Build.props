@@ -21,6 +21,7 @@
   <PropertyGroup>
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <EnableCodeStyleInBuild>true</EnableCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>

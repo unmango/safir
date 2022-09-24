@@ -1,25 +1,34 @@
-using System;
+using System.Reactive.Subjects;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.Extensions.Hosting;
+using Safir.Common;
+using Safir.Rpc.Abstractions;
 
-namespace Safir.Cli.Services.Managed;
+namespace Safir.Rpc.Hosting;
 
-internal abstract class AssemblyLoadAgent : IManagedAgent
+/// <summary>
+/// I'm pretty sure this fundamentally doesn't work due to being unable to
+/// load different frameworks, but I didn't want to throw away the code.
+/// </summary>
+[PublicAPI]
+public abstract class AssemblyLoadService : IManagedService
 {
+    private readonly Subject<string> _error = new();
+    private readonly Subject<string> _output = new();
     private string? _assemblyPath;
+    private Uri? _uri;
     private IHost? _host;
 
-    public async Task<Uri> StartAsync(
-        Action<string>? onOutput = null,
-        Action<string>? onError = null,
-        CancellationToken cancellationToken = default)
+    public IObservable<string> Error => _error;
+
+    public IObservable<string> Output => _output;
+
+    public Uri Uri => _uri ?? throw new InvalidOperationException("Service must be started first");
+
+    public async ValueTask StartAsync(IEnumerable<string>? args, CancellationToken cancellationToken = default)
     {
-        _assemblyPath = await GetAssemblyPathAsync(
-            onOutput ?? (_ => { }),
-            onError ?? (_ => { }),
-            cancellationToken);
+        _assemblyPath = await GetAssemblyPathAsync(_output.OnNext, _error.OnNext, cancellationToken);
 
         var loadContext = new ServiceAssemblyLoadContext(_assemblyPath);
         var entryAssembly = loadContext.LoadFromAssemblyPath(_assemblyPath);
@@ -30,9 +39,9 @@ internal abstract class AssemblyLoadAgent : IManagedAgent
                                       ?? throw new InvalidOperationException("Unable to find host builder method");
 
         var grpcPort = NetUtil.NextFreePort();
-        var uri = new Uri($"http://127.0.0.1:{grpcPort}");
+        _uri = new Uri($"http://127.0.0.1:{grpcPort}");
 
-        var startupArgs = AgentUtil.CreateStartupArgs(uri.AbsoluteUri);
+        var startupArgs = CreateStartupArgs(_uri.AbsoluteUri);
         var invokeResult = createHostBuilderMethod.Invoke(null, new object?[] { startupArgs });
 
         // Not currently working because two different versions of the abstractions assembly get loaded
@@ -41,18 +50,20 @@ internal abstract class AssemblyLoadAgent : IManagedAgent
             throw new InvalidOperationException("Unable create host builder");
 
         _host = builder.Build();
-
-        return uri;
     }
 
-    public async Task StopAsync(CancellationToken cancellationToken)
+    public async ValueTask StopAsync(CancellationToken cancellationToken)
     {
         if (_host is not null)
             await _host.StopAsync(cancellationToken);
     }
 
+    protected virtual IEnumerable<string> CreateStartupArgs(string url) => new[] { "--urls", Quote(url) };
+
     protected abstract Task<string> GetAssemblyPathAsync(
         Action<string> onOutput,
         Action<string> onError,
         CancellationToken cancellationToken);
+
+    private static string Quote(string value) => $"\"{value}\"";
 }

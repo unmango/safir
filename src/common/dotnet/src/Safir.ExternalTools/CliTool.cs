@@ -1,12 +1,10 @@
-using System;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
+using JetBrains.Annotations;
 
-namespace Safir.Cli.Services;
+namespace Safir.ExternalTools;
 
-internal static class CliTool
+[PublicAPI]
+public static class CliTool
 {
     public static async Task<(string stdOut, string stdErr)> RunAsync(string filename, string args, string workingDirectory)
     {

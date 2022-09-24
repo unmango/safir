@@ -1,13 +1,19 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
+using JetBrains.Annotations;
+using Safir.ExternalTools;
 
-namespace Safir.Cli.Services.Managed;
+namespace Safir.Rpc;
 
-internal sealed class DevelopmentManagedProcessAgent : ManagedProcessAgent
+[PublicAPI]
+public sealed class DevelopmentAnonymousPipeService : AnonymousPipeService
 {
+    private readonly string _relativePath;
+
+    public DevelopmentAnonymousPipeService(string relativePath)
+    {
+        _relativePath = relativePath;
+    }
+
     protected override async Task<Process> StartProcessAsync(
         IEnumerable<string> args,
         Action<string> onOutput,
@@ -15,7 +21,8 @@ internal sealed class DevelopmentManagedProcessAgent : ManagedProcessAgent
         CancellationToken cancellationToken)
     {
         var appStarted = new TaskCompletionSource();
-        var projectPath = await AgentUtil.GetProjectPathAsync();
+        var gitRoot = await Git.GetRootAsync();
+        var projectPath = Path.Combine(gitRoot, _relativePath);
 
         var process = Dotnet.Run(
             projectPath,

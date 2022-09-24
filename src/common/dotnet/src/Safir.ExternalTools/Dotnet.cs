@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using JetBrains.Annotations;
 
-namespace Safir.Cli.Services;
+namespace Safir.ExternalTools;
 
-internal static class Dotnet
+[PublicAPI]
+public static class Dotnet
 {
     public static Task Build(
         string project,

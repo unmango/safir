@@ -1,20 +1,29 @@
-using System;
-using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
+using JetBrains.Annotations;
+using Safir.ExternalTools;
 
-namespace Safir.Cli.Services.Managed;
+namespace Safir.Rpc.Hosting;
 
-internal sealed class DevelopmentAssemblyLoadAgent : AssemblyLoadAgent
+[PublicAPI]
+public sealed class DevelopmentAssemblyLoadService : AssemblyLoadService
 {
+    private readonly string _relativePath;
+    private readonly string _dll;
+
+    public DevelopmentAssemblyLoadService(string relativePath, string dll)
+    {
+        _relativePath = relativePath;
+        _dll = dll;
+    }
+
     protected override async Task<string> GetAssemblyPathAsync(
         Action<string> onOutput,
         Action<string> onError,
         CancellationToken cancellationToken)
     {
         const string configuration = "Release";
-        var projectPath = await AgentUtil.GetProjectPathAsync();
+        var gitRoot = await Git.GetRootAsync();
+        var projectPath = Path.Combine(gitRoot, _relativePath);
 
         var rid = RuntimeInformation.RuntimeIdentifier;
 
@@ -27,6 +36,6 @@ internal sealed class DevelopmentAssemblyLoadAgent : AssemblyLoadAgent
             onOutput,
             cancellationToken);
 
-        return Path.Combine(projectPath, "bin", configuration, "net6.0", rid, "Safir.Agent.dll");
+        return Path.Combine(projectPath, "bin", configuration, "net6.0", rid, _dll);
     }
 }

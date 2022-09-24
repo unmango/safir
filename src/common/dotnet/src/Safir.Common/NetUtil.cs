@@ -1,10 +1,10 @@
-using System;
-using System.Linq;
 using System.Net.NetworkInformation;
+using JetBrains.Annotations;
 
-namespace Safir.Cli.Services;
+namespace Safir.Common;
 
-internal static class NetUtil
+[PublicAPI]
+public static class NetUtil
 {
     public static bool IsFree(int port)
     {

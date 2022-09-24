@@ -1,8 +1,7 @@
-using System;
 using System.Reflection;
 using System.Runtime.Loader;
 
-namespace Safir.Cli.Services.Managed;
+namespace Safir.Rpc.Hosting;
 
 internal sealed class ServiceAssemblyLoadContext : AssemblyLoadContext
 {

@@ -1,9 +1,9 @@
-using System;
-using System.Threading.Tasks;
+using JetBrains.Annotations;
 
-namespace Safir.Cli.Services;
+namespace Safir.ExternalTools;
 
-internal static class Git
+[PublicAPI]
+public static class Git
 {
     public static async Task<string> GetRootAsync(string workingDirectory = "")
     {

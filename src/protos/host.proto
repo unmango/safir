@@ -11,6 +11,12 @@ service Host {
       get: "/v1/host/info"
     };
   }
+
+  rpc Stop(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/host/stop"
+    };
+  }
 }
 
 message HostInfo {

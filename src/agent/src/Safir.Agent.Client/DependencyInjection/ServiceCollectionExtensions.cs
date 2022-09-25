@@ -3,6 +3,8 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Safir.Agent.Client.Internal;
 using Safir.Agent.Protos;
+using Safir.Grpc.Client;
+using Safir.Grpc.Client.DependencyInjection;
 using Safir.Protos;
 
 namespace Safir.Agent.Client.DependencyInjection;
@@ -12,9 +14,8 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSafirAgentClient(this IServiceCollection services)
     {
+        services.AddSafirAgentClientCore();
         services.AddGrpcClient<FileSystem.FileSystemClient>();
-        services.AddGrpcClient<Host.HostClient>();
-        services.AddTransient<IAgentClient, DefaultAgentClient>();
 
         return services;
     }
@@ -23,9 +24,8 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         Action<GrpcClientFactoryOptions> configureClient)
     {
+        services.AddSafirAgentClientCore();
         services.AddGrpcClient<FileSystem.FileSystemClient>(configureClient);
-        services.AddGrpcClient<Host.HostClient>(configureClient);
-        services.AddTransient<IAgentClient, DefaultAgentClient>();
 
         return services;
     }
@@ -34,18 +34,16 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         Action<IServiceProvider, GrpcClientFactoryOptions> configureClient)
     {
+        services.AddSafirGrpcHostClient();
         services.AddGrpcClient<FileSystem.FileSystemClient>(configureClient);
-        services.AddGrpcClient<Host.HostClient>(configureClient);
-        services.AddTransient<IAgentClient, DefaultAgentClient>();
 
         return services;
     }
 
     public static IServiceCollection AddSafirAgentClient(this IServiceCollection services, string name)
     {
+        services.AddSafirAgentClientCore();
         services.AddGrpcClient<FileSystem.FileSystemClient>(ClientName.FileSystem(name));
-        services.AddGrpcClient<Host.HostClient>(ClientName.Host(name));
-        services.AddTransient<IAgentClient, DefaultAgentClient>();
 
         return services;
     }
@@ -55,10 +53,15 @@ public static class ServiceCollectionExtensions
         string name,
         Action<GrpcClientFactoryOptions> configureClient)
     {
+        services.AddSafirAgentClientCore();
         services.AddGrpcClient<FileSystem.FileSystemClient>(ClientName.FileSystem(name), configureClient);
-        services.AddGrpcClient<Host.HostClient>(ClientName.Host(name), configureClient);
-        services.AddTransient<IAgentClient, DefaultAgentClient>();
 
         return services;
+    }
+
+    private static void AddSafirAgentClientCore(this IServiceCollection services)
+    {
+        services.AddSafirGrpcHostClient();
+        services.AddTransient<IAgentClient, DefaultAgentClient>();
     }
 }

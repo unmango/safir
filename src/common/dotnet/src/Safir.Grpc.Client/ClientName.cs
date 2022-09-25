@@ -1,6 +1,6 @@
-namespace Safir.Agent.Client.Internal;
+namespace Safir.Grpc.Client;
 
-internal static class ClientName
+public static class ClientName
 {
     public static string FileSystem(string name) => $"{name}-filesystem";
 

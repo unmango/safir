@@ -120,6 +120,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.ExternalTools", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Rpc", "src\common\dotnet\src\Safir.Rpc\Safir.Rpc.csproj", "{BEDBDD2E-E433-45AE-ACAC-8093C376A92D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Grpc.Client", "src\common\dotnet\src\Safir.Grpc.Client\Safir.Grpc.Client.csproj", "{28F4D5DE-CCF8-4B53-86B9-736BBA390E0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Grpc.Client.Abstractions", "src\common\dotnet\src\Safir.Grpc.Client.Abstractions\Safir.Grpc.Client.Abstractions.csproj", "{9F59A12B-8EE6-4042-A80A-9AE07C765D14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -168,6 +172,8 @@ Global
 		{FD0B9378-023E-4B03-9320-61C83EA09509} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
 		{9DB083B8-8897-44EA-88AE-2B975BF7F35B} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
 		{BEDBDD2E-E433-45AE-ACAC-8093C376A92D} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
+		{28F4D5DE-CCF8-4B53-86B9-736BBA390E0A} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
+		{9F59A12B-8EE6-4042-A80A-9AE07C765D14} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9E7CBC93-7265-4DB8-B1FD-5E6216BB42B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -322,5 +328,13 @@ Global
 		{BEDBDD2E-E433-45AE-ACAC-8093C376A92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEDBDD2E-E433-45AE-ACAC-8093C376A92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEDBDD2E-E433-45AE-ACAC-8093C376A92D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28F4D5DE-CCF8-4B53-86B9-736BBA390E0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28F4D5DE-CCF8-4B53-86B9-736BBA390E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28F4D5DE-CCF8-4B53-86B9-736BBA390E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28F4D5DE-CCF8-4B53-86B9-736BBA390E0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F59A12B-8EE6-4042-A80A-9AE07C765D14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F59A12B-8EE6-4042-A80A-9AE07C765D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F59A12B-8EE6-4042-A80A-9AE07C765D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F59A12B-8EE6-4042-A80A-9AE07C765D14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

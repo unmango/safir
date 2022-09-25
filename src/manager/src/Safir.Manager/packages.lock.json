@@ -617,6 +617,23 @@
           "JetBrains.Annotations": "[2022.1.0, )"
         }
       },
+      "safir.grpc.client": {
+        "type": "Project",
+        "dependencies": {
+          "Grpc.Net.ClientFactory": "[2.48.0, )",
+          "JetBrains.Annotations": "[2022.1.0, )",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "[6.0.0, )",
+          "Safir.Grpc.Client.Abstractions": "[1.0.0, )",
+          "Safir.Protos": "[1.0.0, )"
+        }
+      },
+      "safir.grpc.client.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "JetBrains.Annotations": "[2022.1.0, )",
+          "Safir.Protos": "[1.0.0, )"
+        }
+      },
       "safir.manager.abstractions": {
         "type": "Project",
         "dependencies": {

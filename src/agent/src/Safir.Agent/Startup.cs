@@ -48,8 +48,6 @@ public class Startup
         services.AddSingleton<IFileWatcher>(s => s.GetRequiredService<DataDirectoryWatcher>());
 
         services.AddHostedService<FileEventPublisher>();
-
-        var options = Configuration.Get<AgentOptions>();
     }
 
     public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)

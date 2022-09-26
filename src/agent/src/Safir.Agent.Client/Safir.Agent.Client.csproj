@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Grpc.Net.Client" Version="2.49.0" />
     <PackageReference Include="Grpc.Net.ClientFactory" Version="2.49.0" />
+    <PackageReference Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="$(AgentSrc)\Safir.Agent.Client.Abstractions\Safir.Agent.Client.Abstractions.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Grpc.Client\Safir.Grpc.Client.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
   </ItemGroup>
 

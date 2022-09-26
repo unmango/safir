@@ -20,16 +20,16 @@
       },
       "Google.Api.CommonProtos": {
         "type": "Transitive",
-        "resolved": "2.5.0",
-        "contentHash": "E3XQotIEGsk3s6nux/oQKtAqUTZ6RK56gSxDwf16OV2QmWMlFXeITajW+Pi2COT+dqChIuPp2z3otvEnPosaqg==",
+        "resolved": "2.6.0",
+        "contentHash": "GuxkKnM6Ok9f1CV2CpQatTQ04g3RAuUUStM1McHK4O8XopJTdih0nwgI1ESrgVi9LpExxzx7OhxDXivE2Ua8Ig==",
         "dependencies": {
-          "Google.Protobuf": "[3.18.0, 4.0.0)"
+          "Google.Protobuf": "[3.21.0, 4.0.0)"
         }
       },
       "Google.Protobuf": {
         "type": "Transitive",
-        "resolved": "3.20.1",
-        "contentHash": "+DhU0ijnnAdaYR+4yFMwOZ4jNv29cFb4OxT/qeU0t9OOxZCBjEcl22kgrYwqVDZ6/BUegG7EE7ghyuaAvsXXUQ==",
+        "resolved": "3.21.6",
+        "contentHash": "HSYHFnfuTu/O4Ijy0mCW9zxLI8MJfCZJ10dk3JGPrkLaRR4LsiPKzZrrnapf2G0tP2yRMkHCl+2LKLTXqGBn2A==",
         "dependencies": {
           "System.Memory": "4.5.3",
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
@@ -37,8 +37,8 @@
       },
       "Grpc.Core.Api": {
         "type": "Transitive",
-        "resolved": "2.45.0",
-        "contentHash": "S+jn8gPFjJW0jRrm4GZpalECsIjqqU/lG5bYg5P8vrCm8648JzDI4jZe2k6Ra24oVjXztJW0tX4zNKWnJC6ipA==",
+        "resolved": "2.48.0",
+        "contentHash": "Kc9DrAVO3ao5jzI2IsItCZthJ1WCyvH8KE8N1cLRojmLvdCdOMT9R1doN47GuWPJQ1hH+dDPrxemB8Nv6Szn+w==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }
@@ -87,9 +87,9 @@
       "safir.protos": {
         "type": "Project",
         "dependencies": {
-          "Google.Api.CommonProtos": "[2.5.0, )",
-          "Google.Protobuf": "[3.20.1, )",
-          "Grpc.Core.Api": "[2.45.0, )",
+          "Google.Api.CommonProtos": "[2.6.0, )",
+          "Google.Protobuf": "[3.21.6, )",
+          "Grpc.Core.Api": "[2.48.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       }
@@ -113,21 +113,21 @@
       },
       "Google.Api.CommonProtos": {
         "type": "Transitive",
-        "resolved": "2.5.0",
-        "contentHash": "E3XQotIEGsk3s6nux/oQKtAqUTZ6RK56gSxDwf16OV2QmWMlFXeITajW+Pi2COT+dqChIuPp2z3otvEnPosaqg==",
+        "resolved": "2.6.0",
+        "contentHash": "GuxkKnM6Ok9f1CV2CpQatTQ04g3RAuUUStM1McHK4O8XopJTdih0nwgI1ESrgVi9LpExxzx7OhxDXivE2Ua8Ig==",
         "dependencies": {
-          "Google.Protobuf": "[3.18.0, 4.0.0)"
+          "Google.Protobuf": "[3.21.0, 4.0.0)"
         }
       },
       "Google.Protobuf": {
         "type": "Transitive",
-        "resolved": "3.20.1",
-        "contentHash": "+DhU0ijnnAdaYR+4yFMwOZ4jNv29cFb4OxT/qeU0t9OOxZCBjEcl22kgrYwqVDZ6/BUegG7EE7ghyuaAvsXXUQ=="
+        "resolved": "3.21.6",
+        "contentHash": "HSYHFnfuTu/O4Ijy0mCW9zxLI8MJfCZJ10dk3JGPrkLaRR4LsiPKzZrrnapf2G0tP2yRMkHCl+2LKLTXqGBn2A=="
       },
       "Grpc.Core.Api": {
         "type": "Transitive",
-        "resolved": "2.45.0",
-        "contentHash": "S+jn8gPFjJW0jRrm4GZpalECsIjqqU/lG5bYg5P8vrCm8648JzDI4jZe2k6Ra24oVjXztJW0tX4zNKWnJC6ipA==",
+        "resolved": "2.48.0",
+        "contentHash": "Kc9DrAVO3ao5jzI2IsItCZthJ1WCyvH8KE8N1cLRojmLvdCdOMT9R1doN47GuWPJQ1hH+dDPrxemB8Nv6Szn+w==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }
@@ -156,9 +156,9 @@
       "safir.protos": {
         "type": "Project",
         "dependencies": {
-          "Google.Api.CommonProtos": "[2.5.0, )",
-          "Google.Protobuf": "[3.20.1, )",
-          "Grpc.Core.Api": "[2.45.0, )",
+          "Google.Api.CommonProtos": "[2.6.0, )",
+          "Google.Protobuf": "[3.21.6, )",
+          "Grpc.Core.Api": "[2.48.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       }
@@ -182,21 +182,21 @@
       },
       "Google.Api.CommonProtos": {
         "type": "Transitive",
-        "resolved": "2.5.0",
-        "contentHash": "E3XQotIEGsk3s6nux/oQKtAqUTZ6RK56gSxDwf16OV2QmWMlFXeITajW+Pi2COT+dqChIuPp2z3otvEnPosaqg==",
+        "resolved": "2.6.0",
+        "contentHash": "GuxkKnM6Ok9f1CV2CpQatTQ04g3RAuUUStM1McHK4O8XopJTdih0nwgI1ESrgVi9LpExxzx7OhxDXivE2Ua8Ig==",
         "dependencies": {
-          "Google.Protobuf": "[3.18.0, 4.0.0)"
+          "Google.Protobuf": "[3.21.0, 4.0.0)"
         }
       },
       "Google.Protobuf": {
         "type": "Transitive",
-        "resolved": "3.20.1",
-        "contentHash": "+DhU0ijnnAdaYR+4yFMwOZ4jNv29cFb4OxT/qeU0t9OOxZCBjEcl22kgrYwqVDZ6/BUegG7EE7ghyuaAvsXXUQ=="
+        "resolved": "3.21.6",
+        "contentHash": "HSYHFnfuTu/O4Ijy0mCW9zxLI8MJfCZJ10dk3JGPrkLaRR4LsiPKzZrrnapf2G0tP2yRMkHCl+2LKLTXqGBn2A=="
       },
       "Grpc.Core.Api": {
         "type": "Transitive",
-        "resolved": "2.45.0",
-        "contentHash": "S+jn8gPFjJW0jRrm4GZpalECsIjqqU/lG5bYg5P8vrCm8648JzDI4jZe2k6Ra24oVjXztJW0tX4zNKWnJC6ipA==",
+        "resolved": "2.48.0",
+        "contentHash": "Kc9DrAVO3ao5jzI2IsItCZthJ1WCyvH8KE8N1cLRojmLvdCdOMT9R1doN47GuWPJQ1hH+dDPrxemB8Nv6Szn+w==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }
@@ -225,9 +225,9 @@
       "safir.protos": {
         "type": "Project",
         "dependencies": {
-          "Google.Api.CommonProtos": "[2.5.0, )",
-          "Google.Protobuf": "[3.20.1, )",
-          "Grpc.Core.Api": "[2.45.0, )",
+          "Google.Api.CommonProtos": "[2.6.0, )",
+          "Google.Protobuf": "[3.21.6, )",
+          "Grpc.Core.Api": "[2.48.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       }

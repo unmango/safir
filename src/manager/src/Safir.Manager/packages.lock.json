@@ -580,6 +580,7 @@
           "Microsoft.Extensions.Http": "[6.0.0, )",
           "Microsoft.Extensions.Options": "[6.0.0, )",
           "Safir.Agent.Client.Abstractions": "[1.0.0, )",
+          "Safir.Grpc.Client": "[1.0.0, )",
           "Safir.Protos": "[1.0.0, )"
         }
       },

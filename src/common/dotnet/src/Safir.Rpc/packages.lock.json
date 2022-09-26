@@ -97,8 +97,8 @@
       },
       "System.Memory": {
         "type": "Transitive",
-        "resolved": "4.5.4",
-        "contentHash": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw=="
+        "resolved": "4.5.5",
+        "contentHash": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw=="
       },
       "System.Runtime.CompilerServices.Unsafe": {
         "type": "Transitive",
@@ -125,7 +125,7 @@
         "type": "Project",
         "dependencies": {
           "JetBrains.Annotations": "[2022.1.0, )",
-          "System.Memory": "[4.5.4, )",
+          "System.Memory": "[4.5.5, )",
           "System.Threading.Tasks.Extensions": "[4.5.4, )"
         }
       },

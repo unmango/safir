@@ -42,7 +42,7 @@ internal class MockSubscriberBase : ISubscriber
         throw new NotImplementedException();
     }
 
-    public virtual Task<EndPoint> IdentifyEndpointAsync(
+    public virtual Task<EndPoint?> IdentifyEndpointAsync(
         RedisChannel channel,
         CommandFlags flags = CommandFlags.None)
     {

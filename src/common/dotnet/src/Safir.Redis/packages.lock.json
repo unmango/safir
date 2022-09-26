@@ -20,15 +20,15 @@
       },
       "MinVer": {
         "type": "Direct",
-        "requested": "[3.1.0, )",
-        "resolved": "3.1.0",
-        "contentHash": "a7e2zj145UlybI6NAt9cyTjqKJpvbQzX/Th7bAdD8yTPhvzHfuAaFBe+ZBA7Cb0hVXCyyeeJikhKPB8pAbIAzA=="
+        "requested": "[4.2.0, )",
+        "resolved": "4.2.0",
+        "contentHash": "Po4tv+sri1jsaebQ8F6+yD5ru9Gas5mR111F6HR2ULqwflvjjZXMstpeOc1GHMJeQa3g4E3b8MX8K2cShkuUAg=="
       },
       "StackExchange.Redis": {
         "type": "Direct",
-        "requested": "[2.5.61, )",
-        "resolved": "2.5.61",
-        "contentHash": "h1Gz4itrHL/PQ0GBLTEiPK8bBkOp5SFO6iaRFSSn/x1qltBWENsz/NUxPid6WHX9yf2Tiyzn9D3R7mtnksODxg==",
+        "requested": "[2.6.66, )",
+        "resolved": "2.6.66",
+        "contentHash": "owEqq2PG1TFU1qUh3UH35BqlMjrR/AB2rlR26tGbUWW9LIeu99ArGg2iCgDj/aCSE+juClFJQhwg8i1pONlVDw==",
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "5.0.0",
           "Pipelines.Sockets.Unofficial": "2.2.2",
@@ -143,8 +143,8 @@
       },
       "System.Memory": {
         "type": "Transitive",
-        "resolved": "4.5.4",
-        "contentHash": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+        "resolved": "4.5.5",
+        "contentHash": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
         "dependencies": {
           "System.Buffers": "4.5.1",
           "System.Numerics.Vectors": "4.4.0",
@@ -177,20 +177,20 @@
       "safir.common": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "2022.1.0",
-          "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
-          "Microsoft.Extensions.Logging": "6.0.0",
-          "Microsoft.Extensions.Options": "6.0.0",
-          "Safir.Common.Abstractions": "1.0.0"
+          "JetBrains.Annotations": "[2022.1.0, )",
+          "Microsoft.Bcl.AsyncInterfaces": "[6.0.0, )",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "[6.0.0, )",
+          "Microsoft.Extensions.Logging": "[6.0.0, )",
+          "Microsoft.Extensions.Options": "[6.0.0, )",
+          "Safir.Common.Abstractions": "[1.0.0, )"
         }
       },
       "safir.common.abstractions": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "2022.1.0",
-          "System.Memory": "4.5.4",
-          "System.Threading.Tasks.Extensions": "4.5.4"
+          "JetBrains.Annotations": "[2022.1.0, )",
+          "System.Memory": "[4.5.5, )",
+          "System.Threading.Tasks.Extensions": "[4.5.4, )"
         }
       }
     }

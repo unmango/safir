@@ -61,7 +61,7 @@ public static class SubscriberExtensions
 
     private static T Deserialize<T>(RedisValue value)
     {
-        return DefaultSerializer.Instance.Deserialize<T>((byte[])value);
+        return DefaultSerializer.Instance.Deserialize<T>(value);
     }
 
     private static RedisValue Serialize<T>(T message)

@@ -36,13 +36,13 @@ internal sealed class ManagedGrpcService : IManagedService
         var grpcPort = NetUtil.NextFreePort();
         _uri = new Uri($"http://127.0.0.1:{grpcPort}");
 
-        args = (args ?? Enumerable.Empty<string>())
-            .Concat(new[] {
-                "--Kestrel:Endpoints:WebApi:Protocols", "Http1",
-                "--Kestrel:Endpoints:WebApi:Url", httpUri.AbsoluteUri,
-                "--Kestrel:Endpoints:Grpc:Protocols", "Http2",
-                "--Kestrel:Endpoints:Grpc:Url", _uri.AbsoluteUri,
-            });
+        args = (args ?? Enumerable.Empty<string>()).Concat(new[] {
+            "--no-launch-profile",
+            "--Kestrel:Endpoints:WebApi:Protocols", "Http1",
+            "--Kestrel:Endpoints:WebApi:Url", httpUri.AbsoluteUri,
+            "--Kestrel:Endpoints:Grpc:Protocols", "Http2",
+            "--Kestrel:Endpoints:Grpc:Url", _uri.AbsoluteUri,
+        });
 
         _subscriptions.Add(_managedServiceProcess.Error.Subscribe(_error));
         _subscriptions.Add(_managedServiceProcess.Output.Subscribe(_output));

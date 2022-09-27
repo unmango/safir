@@ -40,7 +40,7 @@ internal sealed class DevelopmentManagedServiceProcess : IManagedServiceProcess
             onError: _error.OnNext);
 
         var winner = await Task.WhenAny(
-            Task.Delay(TimeSpan.FromSeconds(10), cancellationToken),
+            Task.Delay(TimeSpan.FromSeconds(15), cancellationToken),
             appStarted.Task);
 
         if (winner != appStarted.Task)

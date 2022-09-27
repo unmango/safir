@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Reactive.Subjects;
+using Grpc.Core;
 using Grpc.Net.Client;
 using Safir.Common;
 using Safir.Protos;
@@ -29,11 +30,19 @@ internal sealed class ManagedGrpcService : IManagedService
 
     public async ValueTask StartAsync(IEnumerable<string>? args = null, CancellationToken cancellationToken = default)
     {
+        var httpPort = NetUtil.NextFreePort();
+        var httpUri = new Uri($"http://127.0.0.1:{httpPort}");
+
         var grpcPort = NetUtil.NextFreePort();
         _uri = new Uri($"http://127.0.0.1:{grpcPort}");
 
         args = (args ?? Enumerable.Empty<string>())
-            .Concat(new[] { "--urls", $"\"{_uri.AbsoluteUri}\"" });
+            .Concat(new[] {
+                "--Kestrel:Endpoints:WebApi:Protocols", "Http1",
+                "--Kestrel:Endpoints:WebApi:Url", httpUri.AbsoluteUri,
+                "--Kestrel:Endpoints:Grpc:Protocols", "Http2",
+                "--Kestrel:Endpoints:Grpc:Url", _uri.AbsoluteUri,
+            });
 
         _subscriptions.Add(_managedServiceProcess.Error.Subscribe(_error));
         _subscriptions.Add(_managedServiceProcess.Output.Subscribe(_output));

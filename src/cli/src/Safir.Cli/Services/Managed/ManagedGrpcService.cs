@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Reactive.Subjects;
-using Grpc.Core;
 using Grpc.Net.Client;
 using Safir.Common;
 using Safir.Protos;

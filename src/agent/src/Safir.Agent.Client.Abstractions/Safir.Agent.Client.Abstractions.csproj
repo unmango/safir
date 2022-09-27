@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Grpc.Client.Abstractions\Safir.Grpc.Client.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

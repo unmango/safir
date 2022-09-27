@@ -400,6 +400,7 @@
         "dependencies": {
           "Grpc.Core": "[2.46.3, )",
           "JetBrains.Annotations": "[2022.1.0, )",
+          "Safir.Grpc.Client.Abstractions": "[1.0.0, )",
           "Safir.Protos": "[1.0.0, )"
         }
       },
@@ -467,6 +468,12 @@
           "Google.Protobuf": "[3.21.6, )",
           "Grpc.Core.Api": "[2.48.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
+        }
+      },
+      "safir.rpc.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "JetBrains.Annotations": "[2022.1.0, )"
         }
       }
     },

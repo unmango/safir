@@ -33,6 +33,7 @@
     <ProjectReference Include="$(AgentSrc)\Safir.Agent.Client\Safir.Agent.Client.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.Common\Safir.Common.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.ExternalTools\Safir.ExternalTools.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Rpc.Abstractions\Safir.Rpc.Abstractions.csproj" />
     <ProjectReference Include="$(CliSrc)\Safir.CommandLine\Safir.CommandLine.csproj" />
     <ProjectReference Include="$(CliSrc)\Safir.CommandLine.Generator\Safir.CommandLine.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>

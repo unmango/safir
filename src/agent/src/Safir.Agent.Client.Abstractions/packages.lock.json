@@ -74,6 +74,13 @@
         "resolved": "4.5.2",
         "contentHash": "wprSFgext8cwqymChhrBLu62LMg/1u92bU+VOwyfBimSPVFXtsNqEWC92Pf9ofzJFlk4IHmJA75EDJn1b2goAQ=="
       },
+      "safir.grpc.client.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "JetBrains.Annotations": "[2022.1.0, )",
+          "Safir.Protos": "[1.0.0, )"
+        }
+      },
       "safir.messaging.abstractions": {
         "type": "Project",
         "dependencies": {
@@ -139,6 +146,13 @@
         "resolved": "4.5.3",
         "contentHash": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA=="
       },
+      "safir.grpc.client.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "JetBrains.Annotations": "[2022.1.0, )",
+          "Safir.Protos": "[1.0.0, )"
+        }
+      },
       "safir.messaging.abstractions": {
         "type": "Project",
         "dependencies": {
@@ -203,6 +217,13 @@
         "type": "Transitive",
         "resolved": "4.5.3",
         "contentHash": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA=="
+      },
+      "safir.grpc.client.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "JetBrains.Annotations": "[2022.1.0, )",
+          "Safir.Protos": "[1.0.0, )"
+        }
       },
       "safir.messaging.abstractions": {
         "type": "Project",

@@ -1,13 +1,11 @@
 using JetBrains.Annotations;
 using Safir.Agent.Protos;
-using Safir.Protos;
+using Safir.Grpc.Client.Abstractions;
 
 namespace Safir.Agent.Client;
 
 [PublicAPI]
-public interface IAgentClient
+public interface IAgentClient : ISafirService
 {
     FileSystem.FileSystemClient FileSystem { get; }
-
-    Host.HostClient Host { get; }
 }

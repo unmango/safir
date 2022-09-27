@@ -15,7 +15,7 @@ public static class GrpcClientFactoryExtensions
 {
     public static IAgentClient CreateAgentClient(this GrpcClientFactory clientFactory, string name)
     {
-        return new AgentClient(
+        return new DefaultAgentClient(
             clientFactory.CreateFileSystemClient(name),
             clientFactory.CreateHostClient(name));
     }
@@ -31,8 +31,4 @@ public static class GrpcClientFactoryExtensions
         var clientName = ClientName.Host(name);
         return factory.CreateClient<Host.HostClient>(clientName);
     }
-
-    private record AgentClient(
-        FileSystem.FileSystemClient FileSystem,
-        Host.HostClient Host) : IAgentClient;
 }

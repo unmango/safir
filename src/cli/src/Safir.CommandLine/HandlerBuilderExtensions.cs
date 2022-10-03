@@ -1,8 +1,6 @@
-using System.CommandLine.Parsing;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Safir.CommandLine;
 
@@ -13,34 +11,6 @@ public static class HandlerBuilderExtensions
         this IHandlerBuilder builder,
         Action<IConfigurationBuilder> configureDelegate)
         => builder.ConfigureAppConfiguration((_, b) => configureDelegate(b));
-
-    public static IHandlerBuilder ConfigureHandler<T>(
-        this IHandlerBuilder builder,
-        Func<T, ParseResult, CancellationToken, Task<int>> handler)
-        where T : class
-        => builder
-            .ConfigureServices(x => x.TryAddSingleton<T>())
-            .ConfigureHandler(HandlerDelegate.Create(handler));
-
-    public static IHandlerBuilder ConfigureHandler<T>(
-        this IHandlerBuilder builder,
-        Func<T, ParseResult, CancellationToken, Task> handle)
-        where T : class
-        => builder
-            .ConfigureServices(x => x.TryAddSingleton<T>())
-            .ConfigureHandler(HandlerDelegate.Create(handle));
-
-    public static IHandlerBuilder ConfigureHandler<T>(this IHandlerBuilder builder, Func<T, ParseResult, int> handle)
-        where T : class
-        => builder
-            .ConfigureServices(x => x.TryAddSingleton<T>())
-            .ConfigureHandler(HandlerDelegate.Create(handle));
-
-    public static IHandlerBuilder ConfigureHandler<T>(this IHandlerBuilder builder, Action<T, ParseResult> handle)
-        where T : class
-        => builder
-            .ConfigureServices(x => x.TryAddSingleton<T>())
-            .ConfigureHandler(HandlerDelegate.Create(handle));
 
     public static IHandlerBuilder ConfigureHostConfiguration(
         this IHandlerBuilder builder,

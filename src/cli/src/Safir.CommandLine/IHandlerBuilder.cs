@@ -12,9 +12,7 @@ public interface IHandlerBuilder
 
     IHandlerBuilder ConfigureAppConfiguration(Action<HandlerBuilderContext, IConfigurationBuilder> configureDelegate);
 
-    IHandlerBuilder ConfigureHandler(CommandHandler handler);
-
     IHandlerBuilder ConfigureServices(Action<HandlerBuilderContext, IServiceCollection> configureDelegate);
 
-    ICommandHandler Build();
+    HandlerContext Build(InvocationContext context);
 }

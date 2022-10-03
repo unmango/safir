@@ -11,25 +11,12 @@ public sealed class HandlerBuilder : IHandlerBuilder
     private readonly List<Action<InvocationContext, IConfigurationBuilder>> _configureHostConfigActions = new();
     private readonly List<Action<HandlerBuilderContext, IConfigurationBuilder>> _configureAppConfigActions = new();
     private readonly List<Action<HandlerBuilderContext, IServiceCollection>> _configureServicesActions = new();
-    private CommandHandler? _handler;
 
-    public ICommandHandler Build()
-    {
-        if (_handler is null)
-            throw new InvalidOperationException("No handler configured");
-
-        return new DelegateHandler(this, _handler);
-    }
+    public HandlerContext Build(InvocationContext context) => BuildHandlerContext(context);
 
     public IHandlerBuilder ConfigureAppConfiguration(Action<HandlerBuilderContext, IConfigurationBuilder> configureDelegate)
     {
         _configureAppConfigActions.Add(configureDelegate);
-        return this;
-    }
-
-    public IHandlerBuilder ConfigureHandler(CommandHandler handler)
-    {
-        _handler = handler;
         return this;
     }
 
@@ -81,30 +68,5 @@ public sealed class HandlerBuilder : IHandlerBuilder
             configure(builderContext, services);
 
         return new(appConfiguration, context, services.BuildServiceProvider());
-    }
-
-    private class DelegateHandler : ICommandHandler
-    {
-        private readonly HandlerBuilder _builder;
-        private readonly CommandHandler _handler;
-        private bool _invoked;
-
-        public DelegateHandler(HandlerBuilder builder, CommandHandler handler)
-        {
-            _builder = builder;
-            _handler = handler;
-        }
-
-        public async Task<int> InvokeAsync(InvocationContext context)
-        {
-            // Naive guard against building the provider twice
-            if (_invoked)
-                throw new InvalidOperationException("Handler can only be invoked once");
-
-            _invoked = true;
-
-            var handlerContext = _builder.BuildHandlerContext(context);
-            return await _handler(handlerContext);
-        }
     }
 }

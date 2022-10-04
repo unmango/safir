@@ -10,7 +10,7 @@ namespace Safir.Cli.Commands.Config;
 
 internal static class AddCommand
 {
-    private static readonly IHandlerBuilder _builder = new HandlerBuilder()
+    public static readonly IHandlerBuilder Builder = new HandlerBuilder()
         .ConfigureAppConfiguration(builder => {
             builder.AddSafirCliDefault();
         })
@@ -35,7 +35,10 @@ internal static class AddCommand
             UriArgument,
         };
 
-        command.SetHandler(_builder);
+        command.SetHandler(
+            (handler, parseResult) => (Task)handler.Execute(parseResult),
+            Bind.FromServiceProvider<AddCommandHandler>(),
+            Bind.FromServiceProvider<ParseResult>());
 
         return command;
     }

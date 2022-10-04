@@ -95,6 +95,8 @@ public sealed class HandlerBuilder : IHandlerBuilder
             _handler = handler;
         }
 
+        public int Invoke(InvocationContext context) => InvokeAsync(context).GetAwaiter().GetResult();
+
         public async Task<int> InvokeAsync(InvocationContext context)
         {
             // Naive guard against building the provider twice

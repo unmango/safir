@@ -8,7 +8,7 @@
     <!-- Rider will show errors if this is not included, despite being able to build everything just fine -->
     <!-- To enable, set RIDER_BUILD equal to 'true' in Build, Execution, Deployment | Toolset And Build -->
     <PackageReference Condition="'$(RIDER_BUILD)' == 'true'" Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
     <PackageReference Include="System.Linq.Async" Version="6.0.1" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />

@@ -4,11 +4,11 @@
     ".NETStandard,Version=v2.1": {
       "Grpc.Core": {
         "type": "Direct",
-        "requested": "[2.46.3, )",
-        "resolved": "2.46.3",
-        "contentHash": "lu7KP7BVWdvFXWbn/IFYHBQCpMohJwbLM1aL+nu2C0pY2CdS0idaUNAJNC2nZ60fXfqoxnSiERrIU6rC474oTw==",
+        "requested": "[2.46.5, )",
+        "resolved": "2.46.5",
+        "contentHash": "bD35LTppXYmRvymX6rV+mqc2wZcZf8o0fYkEJ414cul1RiGRWTeVWOtDC94CaTGG2Ie/XoLTd347bnBB5vHaGQ==",
         "dependencies": {
-          "Grpc.Core.Api": "2.46.3",
+          "Grpc.Core.Api": "2.46.5",
           "System.Memory": "4.5.3"
         }
       },
@@ -34,8 +34,8 @@
       },
       "Google.Protobuf": {
         "type": "Transitive",
-        "resolved": "3.21.6",
-        "contentHash": "HSYHFnfuTu/O4Ijy0mCW9zxLI8MJfCZJ10dk3JGPrkLaRR4LsiPKzZrrnapf2G0tP2yRMkHCl+2LKLTXqGBn2A==",
+        "resolved": "3.21.7",
+        "contentHash": "0Q+wYqtEVjRxVbtfxXzTUzwLGMZJKqhmIgdDpwWyg8J4ykYqfPn0M60FPBcZkjiGgtJqvZp+8t2van9rxTCLWQ==",
         "dependencies": {
           "System.Memory": "4.5.3",
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
@@ -43,8 +43,8 @@
       },
       "Grpc.Core.Api": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "Kc9DrAVO3ao5jzI2IsItCZthJ1WCyvH8KE8N1cLRojmLvdCdOMT9R1doN47GuWPJQ1hH+dDPrxemB8Nv6Szn+w==",
+        "resolved": "2.49.0",
+        "contentHash": "6OTcSQ8iML+xzmELhH4anUZlNM3dHDKPFBsMLSdiT80LJaaZKxwZml/K9ZdfLIjSR/EzdMZzzU2Avbedz4N7BA==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }
@@ -84,8 +84,8 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.6.0, )",
-          "Google.Protobuf": "[3.21.6, )",
-          "Grpc.Core.Api": "[2.48.0, )",
+          "Google.Protobuf": "[3.21.7, )",
+          "Grpc.Core.Api": "[2.49.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       }
@@ -93,11 +93,11 @@
     ".NETCoreApp,Version=v5.0": {
       "Grpc.Core": {
         "type": "Direct",
-        "requested": "[2.46.3, )",
-        "resolved": "2.46.3",
-        "contentHash": "lu7KP7BVWdvFXWbn/IFYHBQCpMohJwbLM1aL+nu2C0pY2CdS0idaUNAJNC2nZ60fXfqoxnSiERrIU6rC474oTw==",
+        "requested": "[2.46.5, )",
+        "resolved": "2.46.5",
+        "contentHash": "bD35LTppXYmRvymX6rV+mqc2wZcZf8o0fYkEJ414cul1RiGRWTeVWOtDC94CaTGG2Ie/XoLTd347bnBB5vHaGQ==",
         "dependencies": {
-          "Grpc.Core.Api": "2.46.3",
+          "Grpc.Core.Api": "2.46.5",
           "System.Memory": "4.5.3"
         }
       },
@@ -123,13 +123,13 @@
       },
       "Google.Protobuf": {
         "type": "Transitive",
-        "resolved": "3.21.6",
-        "contentHash": "HSYHFnfuTu/O4Ijy0mCW9zxLI8MJfCZJ10dk3JGPrkLaRR4LsiPKzZrrnapf2G0tP2yRMkHCl+2LKLTXqGBn2A=="
+        "resolved": "3.21.7",
+        "contentHash": "0Q+wYqtEVjRxVbtfxXzTUzwLGMZJKqhmIgdDpwWyg8J4ykYqfPn0M60FPBcZkjiGgtJqvZp+8t2van9rxTCLWQ=="
       },
       "Grpc.Core.Api": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "Kc9DrAVO3ao5jzI2IsItCZthJ1WCyvH8KE8N1cLRojmLvdCdOMT9R1doN47GuWPJQ1hH+dDPrxemB8Nv6Szn+w==",
+        "resolved": "2.49.0",
+        "contentHash": "6OTcSQ8iML+xzmELhH4anUZlNM3dHDKPFBsMLSdiT80LJaaZKxwZml/K9ZdfLIjSR/EzdMZzzU2Avbedz4N7BA==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }
@@ -149,8 +149,8 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.6.0, )",
-          "Google.Protobuf": "[3.21.6, )",
-          "Grpc.Core.Api": "[2.48.0, )",
+          "Google.Protobuf": "[3.21.7, )",
+          "Grpc.Core.Api": "[2.49.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       }
@@ -158,11 +158,11 @@
     "net6.0": {
       "Grpc.Core": {
         "type": "Direct",
-        "requested": "[2.46.3, )",
-        "resolved": "2.46.3",
-        "contentHash": "lu7KP7BVWdvFXWbn/IFYHBQCpMohJwbLM1aL+nu2C0pY2CdS0idaUNAJNC2nZ60fXfqoxnSiERrIU6rC474oTw==",
+        "requested": "[2.46.5, )",
+        "resolved": "2.46.5",
+        "contentHash": "bD35LTppXYmRvymX6rV+mqc2wZcZf8o0fYkEJ414cul1RiGRWTeVWOtDC94CaTGG2Ie/XoLTd347bnBB5vHaGQ==",
         "dependencies": {
-          "Grpc.Core.Api": "2.46.3",
+          "Grpc.Core.Api": "2.46.5",
           "System.Memory": "4.5.3"
         }
       },
@@ -188,13 +188,13 @@
       },
       "Google.Protobuf": {
         "type": "Transitive",
-        "resolved": "3.21.6",
-        "contentHash": "HSYHFnfuTu/O4Ijy0mCW9zxLI8MJfCZJ10dk3JGPrkLaRR4LsiPKzZrrnapf2G0tP2yRMkHCl+2LKLTXqGBn2A=="
+        "resolved": "3.21.7",
+        "contentHash": "0Q+wYqtEVjRxVbtfxXzTUzwLGMZJKqhmIgdDpwWyg8J4ykYqfPn0M60FPBcZkjiGgtJqvZp+8t2van9rxTCLWQ=="
       },
       "Grpc.Core.Api": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "Kc9DrAVO3ao5jzI2IsItCZthJ1WCyvH8KE8N1cLRojmLvdCdOMT9R1doN47GuWPJQ1hH+dDPrxemB8Nv6Szn+w==",
+        "resolved": "2.49.0",
+        "contentHash": "6OTcSQ8iML+xzmELhH4anUZlNM3dHDKPFBsMLSdiT80LJaaZKxwZml/K9ZdfLIjSR/EzdMZzzU2Avbedz4N7BA==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }
@@ -214,8 +214,8 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.6.0, )",
-          "Google.Protobuf": "[3.21.6, )",
-          "Grpc.Core.Api": "[2.48.0, )",
+          "Google.Protobuf": "[3.21.7, )",
+          "Grpc.Core.Api": "[2.49.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       }

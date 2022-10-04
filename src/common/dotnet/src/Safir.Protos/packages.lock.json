@@ -13,9 +13,9 @@
       },
       "Google.Protobuf": {
         "type": "Direct",
-        "requested": "[3.21.6, )",
-        "resolved": "3.21.6",
-        "contentHash": "HSYHFnfuTu/O4Ijy0mCW9zxLI8MJfCZJ10dk3JGPrkLaRR4LsiPKzZrrnapf2G0tP2yRMkHCl+2LKLTXqGBn2A==",
+        "requested": "[3.21.7, )",
+        "resolved": "3.21.7",
+        "contentHash": "0Q+wYqtEVjRxVbtfxXzTUzwLGMZJKqhmIgdDpwWyg8J4ykYqfPn0M60FPBcZkjiGgtJqvZp+8t2van9rxTCLWQ==",
         "dependencies": {
           "System.Memory": "4.5.3",
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
@@ -23,18 +23,18 @@
       },
       "Grpc.Core.Api": {
         "type": "Direct",
-        "requested": "[2.48.0, )",
-        "resolved": "2.48.0",
-        "contentHash": "Kc9DrAVO3ao5jzI2IsItCZthJ1WCyvH8KE8N1cLRojmLvdCdOMT9R1doN47GuWPJQ1hH+dDPrxemB8Nv6Szn+w==",
+        "requested": "[2.49.0, )",
+        "resolved": "2.49.0",
+        "contentHash": "6OTcSQ8iML+xzmELhH4anUZlNM3dHDKPFBsMLSdiT80LJaaZKxwZml/K9ZdfLIjSR/EzdMZzzU2Avbedz4N7BA==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }
       },
       "Grpc.Tools": {
         "type": "Direct",
-        "requested": "[2.48.1, )",
-        "resolved": "2.48.1",
-        "contentHash": "OHUorqVY2Ya9y5PQItM132EeklQUTu1OI1g90YDIJ6a+yUvu9dsJxnEYw56L57DplD1O22QC6sVUxpnJD7/txg=="
+        "requested": "[2.49.1, )",
+        "resolved": "2.49.1",
+        "contentHash": "P6EeXbIPsyOXnb23Wy+WaFSSGxRnq0u5gqbO16RkjFrRFg6zmYNj9R9pO0b3rSU32+XvV55hfLNPGcjAScXw/Q=="
       },
       "IsExternalInit": {
         "type": "Direct",

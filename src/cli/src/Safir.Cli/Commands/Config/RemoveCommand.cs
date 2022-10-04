@@ -1,5 +1,6 @@
 using System.CommandLine;
 using System.CommandLine.Parsing;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
@@ -10,7 +11,7 @@ namespace Safir.Cli.Commands.Config;
 
 internal static class RemoveCommand
 {
-    private static readonly IHandlerBuilder _builder = HandlerBuilder.Create()
+    public static readonly IHandlerBuilder Builder = HandlerBuilder.Create()
         .ConfigureAppConfiguration(builder => {
             builder.AddSafirCliDefault();
         })
@@ -18,8 +19,8 @@ internal static class RemoveCommand
             services.AddSafirCliCore();
             services.AddSafirOptions();
             services.AddLocalConfiguration();
-        })
-        .UseRemoveCommandRemoveCommandHandler();
+            services.AddTransient<RemoveCommandHandler>();
+        });
 
     public static readonly Argument<string> ServiceArgument = new("service", "The service to remove");
 
@@ -32,7 +33,11 @@ internal static class RemoveCommand
         };
 
         command.AddAlias("rm");
-        command.SetHandler(_builder);
+        command.SetHandler(
+            (handler, service, cancellationToken) => handler.Execute(service, cancellationToken),
+            Bind.FromHandlerContext<RemoveCommandHandler>(),
+            ServiceArgument,
+            Bind.CancellationToken());
 
         return command;
     }
@@ -54,10 +59,8 @@ internal static class RemoveCommand
         }
 
         [CommandHandler]
-        public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken = default)
+        public async Task Execute(string service, CancellationToken cancellationToken = default)
         {
-            var service = parseResult.GetValueForArgument(ServiceArgument);
-
             if (_options.CurrentValue.Agents?.All(x => !NameEquals(x.Name, service)) ?? true) {
                 _console.WriteLine($"No service named \"{service}\" configured");
                 return;

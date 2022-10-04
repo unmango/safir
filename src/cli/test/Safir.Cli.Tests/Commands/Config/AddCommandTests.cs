@@ -14,7 +14,7 @@ public class AddCommandTests
     private readonly Mock<IConsole> _console = new();
     private readonly Mock<IOptionsMonitor<SafirOptions>> _options = new();
     private readonly Mock<IUserConfiguration> _configuration = new();
-    private readonly AddCommand.AddCommandHandler _handler;
+    private readonly AddCommand.Handler _handler;
 
     private readonly SafirOptions _defaultOptions = new() {
         Agents = new List<AgentOptions>(),

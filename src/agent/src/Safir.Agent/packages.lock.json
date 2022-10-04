@@ -4,48 +4,48 @@
     "net6.0": {
       "Grpc.AspNetCore": {
         "type": "Direct",
-        "requested": "[2.48.0, )",
-        "resolved": "2.48.0",
-        "contentHash": "vNfXJbHxmN8QyRIrfTZ+aItcnopFuU1nIyssYi7o2ncyELKouT649z4SmXtPZtbr6mB3f041Cj8uZT+qCplaUQ==",
+        "requested": "[2.49.0, )",
+        "resolved": "2.49.0",
+        "contentHash": "IHgWR8YcLnP2Rmz3guK1mOQVDLWL6XZdZT6ktHTTdlTm60FCVwtfrGmEdyu7lEsMzMd2vYHnZ1SwRzicMW4uoA==",
         "dependencies": {
-          "Google.Protobuf": "3.19.4",
-          "Grpc.AspNetCore.Server.ClientFactory": "2.48.0",
-          "Grpc.Tools": "2.48.0"
+          "Google.Protobuf": "3.21.5",
+          "Grpc.AspNetCore.Server.ClientFactory": "2.49.0",
+          "Grpc.Tools": "2.49.0"
         }
       },
       "Grpc.AspNetCore.Server.Reflection": {
         "type": "Direct",
-        "requested": "[2.48.0, )",
-        "resolved": "2.48.0",
-        "contentHash": "zK1Y643Th6v4oO8w2xu80Kmci4hD5IUNHMHRcOwoJIZbEhCoz53F4oEnXhNtSwnrh7N/uDSybcOb/AljAfEk8Q==",
+        "requested": "[2.49.0, )",
+        "resolved": "2.49.0",
+        "contentHash": "TFp89mjjUdRWoOH8FJ661PrXSdUycT2gn4v1m/+3HUZuKi3hzaJa7ynXkyGfL+xo8DkAow5BgfjaYAgDkUfydA==",
         "dependencies": {
-          "Google.Protobuf": "3.19.4",
-          "Grpc.AspNetCore.Server": "2.48.0",
-          "Grpc.Reflection": "2.48.0"
+          "Google.Protobuf": "3.21.5",
+          "Grpc.AspNetCore.Server": "2.49.0",
+          "Grpc.Reflection": "2.49.0"
         }
       },
       "Grpc.AspNetCore.Web": {
         "type": "Direct",
-        "requested": "[2.48.0, )",
-        "resolved": "2.48.0",
-        "contentHash": "8ExCxZVcbZTBpxnUQwT3Mdp0xAPdW6LNIEr90g9LVTjHk82aQg06rqgrEk2X/f9RE5HYDjjMHcPOT/NR+HmSnw=="
+        "requested": "[2.49.0, )",
+        "resolved": "2.49.0",
+        "contentHash": "YK/wCgTc28j+iRKbpWYxMQIZjhHtVsTeCHeaJlS0TfO/8tWwXeQGr2dTJredflc72KdJ1Q1Wm/xYYpOIRkmPfg=="
       },
       "MediatR": {
         "type": "Direct",
-        "requested": "[10.0.1, )",
-        "resolved": "10.0.1",
-        "contentHash": "vnjbk4giDJzJelh34Ygt0eorApCKrRFB7j0pauFPY1oxfO3cEZ7FugBrIOjCM76SDGTOmPFfbfmVnz1t3iFrGA==",
+        "requested": "[11.0.0, )",
+        "resolved": "11.0.0",
+        "contentHash": "8klzVGZQiA2oxZRzQFBZbdPD/IQUm9RYtfiyTDKhxDQ99Gi93+GXt1ZJjH2D7Lh7ZFHCv5XdkwbmfHEQBCatPg==",
         "dependencies": {
           "MediatR.Contracts": "1.0.1"
         }
       },
       "MediatR.Extensions.Microsoft.DependencyInjection": {
         "type": "Direct",
-        "requested": "[10.0.1, )",
-        "resolved": "10.0.1",
-        "contentHash": "mYdfMvpkahCAj4tRfBoeMlUBZa2WthaONdQ4y5TtIyxcZYb5e7AE7c1eITTZVWcQhguxvD8AdExdaiAW6RhrVA==",
+        "requested": "[11.0.0, )",
+        "resolved": "11.0.0",
+        "contentHash": "jfD2NBYvP+HiUil2DWfM4bn+bCLp4H2xvoc9aorcnn2Jpgz7Ey8RyYMpgqeF3bs6CP6t8pzb6WkF5NFF/1RLHA==",
         "dependencies": {
-          "MediatR": "10.0.1",
+          "MediatR": "11.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
         }
       },
@@ -104,73 +104,73 @@
       },
       "Google.Protobuf": {
         "type": "Transitive",
-        "resolved": "3.21.6",
-        "contentHash": "HSYHFnfuTu/O4Ijy0mCW9zxLI8MJfCZJ10dk3JGPrkLaRR4LsiPKzZrrnapf2G0tP2yRMkHCl+2LKLTXqGBn2A=="
+        "resolved": "3.21.7",
+        "contentHash": "0Q+wYqtEVjRxVbtfxXzTUzwLGMZJKqhmIgdDpwWyg8J4ykYqfPn0M60FPBcZkjiGgtJqvZp+8t2van9rxTCLWQ=="
       },
       "Grpc.AspNetCore.Server": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "7GaNW8YnE5t+BpU75PsHgAJuy5Fp5ZMvLDSBdjUR4zUi27FwnVxiOhACyayprdCNNOwitbxUIc3iB5A7yn/QvQ==",
+        "resolved": "2.49.0",
+        "contentHash": "it0nmQi10S/cgC1nk/nVgQiYv5sd/IWnob8SsB3JEpbIFAAKaU6ZjdTKRiATunNtDb/IYBLGeo8BMDoxfewxyw==",
         "dependencies": {
-          "Grpc.Net.Common": "2.48.0"
+          "Grpc.Net.Common": "2.49.0"
         }
       },
       "Grpc.AspNetCore.Server.ClientFactory": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "4EokjYJnLqaNUxhtTD2khodU6VuSmA35BkF2IyL7T7Q1JJJLCGTN0q5ycrB1+oRYkYvniZms++/vuEDxC3dk6g==",
+        "resolved": "2.49.0",
+        "contentHash": "2a30ebIihiDcJsDq4GAil2LTNY4y4bgPZLpG06WNI/JuxDkRxoQ0myuRHdVlouQ1MzkjixQepEuRvHvNHgvk6w==",
         "dependencies": {
-          "Grpc.AspNetCore.Server": "2.48.0",
-          "Grpc.Net.ClientFactory": "2.48.0"
+          "Grpc.AspNetCore.Server": "2.49.0",
+          "Grpc.Net.ClientFactory": "2.49.0"
         }
       },
       "Grpc.Core.Api": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "Kc9DrAVO3ao5jzI2IsItCZthJ1WCyvH8KE8N1cLRojmLvdCdOMT9R1doN47GuWPJQ1hH+dDPrxemB8Nv6Szn+w==",
+        "resolved": "2.49.0",
+        "contentHash": "6OTcSQ8iML+xzmELhH4anUZlNM3dHDKPFBsMLSdiT80LJaaZKxwZml/K9ZdfLIjSR/EzdMZzzU2Avbedz4N7BA==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }
       },
       "Grpc.Net.Client": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "4QRComAnIYGGuqp05tw31g6LaKOJGkJ+bWzGVMEWKeFioj94TtgwCr7no4eRq9C+1sof+q9n9t5x57tvhkhE4g==",
+        "resolved": "2.49.0",
+        "contentHash": "mLXxEJzqnRHseVzRCzSQznA7y8pcSStVbstLTUuQRulN7kREovh82ctNkGpkfwONi/DHoWscX9mJLiAmh0gjOQ==",
         "dependencies": {
-          "Grpc.Net.Common": "2.48.0",
+          "Grpc.Net.Common": "2.49.0",
           "Microsoft.Extensions.Logging.Abstractions": "3.0.3"
         }
       },
       "Grpc.Net.ClientFactory": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "BBQ9V0m50LWLCR+kdPhVSxWhv6pTQs/CjrXj8+BygGcqdDHs+BwCKsYb+ArfC2/26475+XldNyx5WbrjJvDOdg==",
+        "resolved": "2.49.0",
+        "contentHash": "4Ac7dsrARbcs1g2vrUSUadtZ0kIGTk6yhA5ccOBjgM+RTzY3L54TgMddmeaV7/Z4f9sZn6T1ls6FmUiG8Dms+Q==",
         "dependencies": {
-          "Grpc.Net.Client": "2.48.0",
+          "Grpc.Net.Client": "2.49.0",
           "Microsoft.Extensions.Http": "3.0.3"
         }
       },
       "Grpc.Net.Common": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "ju/jD0VR+cYdByLdaDc7toqAJxGzM0ba2rpQTbBrlHT+sRpCZAXUURZAlSszGAR7GLDXh4jm5n/KB6amT/xkVg==",
+        "resolved": "2.49.0",
+        "contentHash": "G0TVTS8fjCk8b7td/E7C8/ssJPm3JnGVBKsveoj/89PIwIee72qkXG+tVn5c1gwTanEFPdyPoydna/bmU/NAaw==",
         "dependencies": {
-          "Grpc.Core.Api": "2.48.0"
+          "Grpc.Core.Api": "2.49.0"
         }
       },
       "Grpc.Reflection": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "jlKIfFXQVVkOSu8+SWjgSm6QFMR1svUaHV4JDGSikI19TpQ6209LpxhQCD27CcbgQZl+eGovG0G4Ciq1Pbk8Sg==",
+        "resolved": "2.49.0",
+        "contentHash": "duVoY6xT1bqanJuNTsDrPf0X/u0WhMsFe8dA/yXOSAApoKr8nMtOaIGhAmGF06530shK0s8QXvIXrDeynlIxVw==",
         "dependencies": {
-          "Google.Protobuf": "3.19.4",
-          "Grpc.Core.Api": "2.48.0"
+          "Google.Protobuf": "3.21.5",
+          "Grpc.Core.Api": "2.49.0"
         }
       },
       "Grpc.Tools": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "53PFxisWVWweF/LNK/8T9NHQhCzHi9yjcYqk8vf/Mt7He+P8dVgaES6XeATW5WWWsIVNBaBZxxavRRMvjrLalQ=="
+        "resolved": "2.49.0",
+        "contentHash": "fvA8M6m+cKR5cCwVfKNyUtC8/immoNiNGXW8rwLmwb4y4XRFtQJyN9dmGCJNh1mt0cb9LjSSiAZwmSfMgmE2Ng=="
       },
       "JetBrains.Annotations": {
         "type": "Transitive",
@@ -603,7 +603,7 @@
       "safir.grpc": {
         "type": "Project",
         "dependencies": {
-          "Grpc.Core.Api": "[2.48.0, )",
+          "Grpc.Core.Api": "[2.49.0, )",
           "JetBrains.Annotations": "[2022.1.0, )"
         }
       },
@@ -633,7 +633,7 @@
         "type": "Project",
         "dependencies": {
           "JetBrains.Annotations": "[2022.1.0, )",
-          "MediatR": "[10.0.1, )",
+          "MediatR": "[11.0.0, )",
           "Safir.Common": "[1.0.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
@@ -642,8 +642,8 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.6.0, )",
-          "Google.Protobuf": "[3.21.6, )",
-          "Grpc.Core.Api": "[2.48.0, )",
+          "Google.Protobuf": "[3.21.7, )",
+          "Grpc.Core.Api": "[2.49.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       },

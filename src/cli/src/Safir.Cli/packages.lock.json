@@ -180,50 +180,50 @@
       },
       "Google.Protobuf": {
         "type": "Transitive",
-        "resolved": "3.21.6",
-        "contentHash": "HSYHFnfuTu/O4Ijy0mCW9zxLI8MJfCZJ10dk3JGPrkLaRR4LsiPKzZrrnapf2G0tP2yRMkHCl+2LKLTXqGBn2A=="
+        "resolved": "3.21.7",
+        "contentHash": "0Q+wYqtEVjRxVbtfxXzTUzwLGMZJKqhmIgdDpwWyg8J4ykYqfPn0M60FPBcZkjiGgtJqvZp+8t2van9rxTCLWQ=="
       },
       "Grpc.Core": {
         "type": "Transitive",
-        "resolved": "2.46.3",
-        "contentHash": "lu7KP7BVWdvFXWbn/IFYHBQCpMohJwbLM1aL+nu2C0pY2CdS0idaUNAJNC2nZ60fXfqoxnSiERrIU6rC474oTw==",
+        "resolved": "2.46.5",
+        "contentHash": "bD35LTppXYmRvymX6rV+mqc2wZcZf8o0fYkEJ414cul1RiGRWTeVWOtDC94CaTGG2Ie/XoLTd347bnBB5vHaGQ==",
         "dependencies": {
-          "Grpc.Core.Api": "2.46.3",
+          "Grpc.Core.Api": "2.46.5",
           "System.Memory": "4.5.3"
         }
       },
       "Grpc.Core.Api": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "Kc9DrAVO3ao5jzI2IsItCZthJ1WCyvH8KE8N1cLRojmLvdCdOMT9R1doN47GuWPJQ1hH+dDPrxemB8Nv6Szn+w==",
+        "resolved": "2.49.0",
+        "contentHash": "6OTcSQ8iML+xzmELhH4anUZlNM3dHDKPFBsMLSdiT80LJaaZKxwZml/K9ZdfLIjSR/EzdMZzzU2Avbedz4N7BA==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }
       },
       "Grpc.Net.Client": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "4QRComAnIYGGuqp05tw31g6LaKOJGkJ+bWzGVMEWKeFioj94TtgwCr7no4eRq9C+1sof+q9n9t5x57tvhkhE4g==",
+        "resolved": "2.49.0",
+        "contentHash": "mLXxEJzqnRHseVzRCzSQznA7y8pcSStVbstLTUuQRulN7kREovh82ctNkGpkfwONi/DHoWscX9mJLiAmh0gjOQ==",
         "dependencies": {
-          "Grpc.Net.Common": "2.48.0",
+          "Grpc.Net.Common": "2.49.0",
           "Microsoft.Extensions.Logging.Abstractions": "3.0.3"
         }
       },
       "Grpc.Net.ClientFactory": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "BBQ9V0m50LWLCR+kdPhVSxWhv6pTQs/CjrXj8+BygGcqdDHs+BwCKsYb+ArfC2/26475+XldNyx5WbrjJvDOdg==",
+        "resolved": "2.49.0",
+        "contentHash": "4Ac7dsrARbcs1g2vrUSUadtZ0kIGTk6yhA5ccOBjgM+RTzY3L54TgMddmeaV7/Z4f9sZn6T1ls6FmUiG8Dms+Q==",
         "dependencies": {
-          "Grpc.Net.Client": "2.48.0",
+          "Grpc.Net.Client": "2.49.0",
           "Microsoft.Extensions.Http": "3.0.3"
         }
       },
       "Grpc.Net.Common": {
         "type": "Transitive",
-        "resolved": "2.48.0",
-        "contentHash": "ju/jD0VR+cYdByLdaDc7toqAJxGzM0ba2rpQTbBrlHT+sRpCZAXUURZAlSszGAR7GLDXh4jm5n/KB6amT/xkVg==",
+        "resolved": "2.49.0",
+        "contentHash": "G0TVTS8fjCk8b7td/E7C8/ssJPm3JnGVBKsveoj/89PIwIee72qkXG+tVn5c1gwTanEFPdyPoydna/bmU/NAaw==",
         "dependencies": {
-          "Grpc.Core.Api": "2.48.0"
+          "Grpc.Core.Api": "2.49.0"
         }
       },
       "Microsoft.Bcl.AsyncInterfaces": {
@@ -385,8 +385,8 @@
       "safir.agent.client": {
         "type": "Project",
         "dependencies": {
-          "Grpc.Net.Client": "[2.48.0, )",
-          "Grpc.Net.ClientFactory": "[2.48.0, )",
+          "Grpc.Net.Client": "[2.49.0, )",
+          "Grpc.Net.ClientFactory": "[2.49.0, )",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "[6.0.0, )",
           "Microsoft.Extensions.Http": "[6.0.0, )",
           "Microsoft.Extensions.Options": "[6.0.0, )",
@@ -398,7 +398,7 @@
       "safir.agent.client.abstractions": {
         "type": "Project",
         "dependencies": {
-          "Grpc.Core": "[2.46.3, )",
+          "Grpc.Core": "[2.46.5, )",
           "JetBrains.Annotations": "[2022.1.0, )",
           "Safir.Grpc.Client.Abstractions": "[1.0.0, )",
           "Safir.Protos": "[1.0.0, )"
@@ -465,8 +465,8 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.6.0, )",
-          "Google.Protobuf": "[3.21.6, )",
-          "Grpc.Core.Api": "[2.48.0, )",
+          "Google.Protobuf": "[3.21.7, )",
+          "Grpc.Core.Api": "[2.49.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       },
@@ -480,10 +480,10 @@
     "net6.0/linux-x64": {
       "Grpc.Core": {
         "type": "Transitive",
-        "resolved": "2.46.3",
-        "contentHash": "lu7KP7BVWdvFXWbn/IFYHBQCpMohJwbLM1aL+nu2C0pY2CdS0idaUNAJNC2nZ60fXfqoxnSiERrIU6rC474oTw==",
+        "resolved": "2.46.5",
+        "contentHash": "bD35LTppXYmRvymX6rV+mqc2wZcZf8o0fYkEJ414cul1RiGRWTeVWOtDC94CaTGG2Ie/XoLTd347bnBB5vHaGQ==",
         "dependencies": {
-          "Grpc.Core.Api": "2.46.3",
+          "Grpc.Core.Api": "2.46.5",
           "System.Memory": "4.5.3"
         }
       },
@@ -499,10 +499,10 @@
     "net6.0/win-x64": {
       "Grpc.Core": {
         "type": "Transitive",
-        "resolved": "2.46.3",
-        "contentHash": "lu7KP7BVWdvFXWbn/IFYHBQCpMohJwbLM1aL+nu2C0pY2CdS0idaUNAJNC2nZ60fXfqoxnSiERrIU6rC474oTw==",
+        "resolved": "2.46.5",
+        "contentHash": "bD35LTppXYmRvymX6rV+mqc2wZcZf8o0fYkEJ414cul1RiGRWTeVWOtDC94CaTGG2Ie/XoLTd347bnBB5vHaGQ==",
         "dependencies": {
-          "Grpc.Core.Api": "2.46.3",
+          "Grpc.Core.Api": "2.46.5",
           "System.Memory": "4.5.3"
         }
       },

@@ -18,7 +18,7 @@ public sealed class HandlerBuilder : IHandlerBuilder
         if (_handler is null)
             throw new InvalidOperationException("No handler configured");
 
-        return new DelegateHandler(this, _handler);
+        return new HandlerApplication(this, _handler);
     }
 
     public IHandlerBuilder ConfigureAppConfiguration(Action<HandlerBuilderContext, IConfigurationBuilder> configureDelegate)
@@ -47,7 +47,7 @@ public sealed class HandlerBuilder : IHandlerBuilder
 
     public static IHandlerBuilder Create() => new HandlerBuilder();
 
-    private HandlerContext BuildHandlerContext(InvocationContext context)
+    internal HandlerContext BuildHandlerContext(InvocationContext context)
     {
         var hostConfigBuilder = new ConfigurationBuilder()
             .AddInMemoryCollection();
@@ -81,32 +81,5 @@ public sealed class HandlerBuilder : IHandlerBuilder
             configure(builderContext, services);
 
         return new(appConfiguration, context, services.BuildServiceProvider());
-    }
-
-    private class DelegateHandler : ICommandHandler
-    {
-        private readonly HandlerBuilder _builder;
-        private readonly CommandHandler _handler;
-        private bool _invoked;
-
-        public DelegateHandler(HandlerBuilder builder, CommandHandler handler)
-        {
-            _builder = builder;
-            _handler = handler;
-        }
-
-        public int Invoke(InvocationContext context) => InvokeAsync(context).GetAwaiter().GetResult();
-
-        public async Task<int> InvokeAsync(InvocationContext context)
-        {
-            // Naive guard against building the provider twice
-            if (_invoked)
-                throw new InvalidOperationException("Handler can only be invoked once");
-
-            _invoked = true;
-
-            var handlerContext = _builder.BuildHandlerContext(context);
-            return await _handler(handlerContext);
-        }
     }
 }

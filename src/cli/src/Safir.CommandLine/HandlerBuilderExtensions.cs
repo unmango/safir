@@ -1,3 +1,4 @@
+using System.CommandLine;
 using System.CommandLine.Parsing;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
@@ -49,4 +50,6 @@ public static class HandlerBuilderExtensions
 
     public static IHandlerBuilder ConfigureServices(this IHandlerBuilder builder, Action<IServiceCollection> configureDelegate)
         => builder.ConfigureServices((_, s) => configureDelegate(s));
+
+    public static void SetHandler(this IHandlerBuilder builder, Command command) => command.Handler = builder.Build();
 }

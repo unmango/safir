@@ -47,6 +47,9 @@ public sealed class HandlerBuilder : IHandlerBuilder
 
     public static IHandlerBuilder Create() => new HandlerBuilder();
 
+    public static IHandlerBuilder CreateDefault() => new HandlerBuilder()
+        .UseHandlerLifetime();
+
     internal HandlerContext BuildHandlerContext(InvocationContext context)
     {
         var hostConfigBuilder = new ConfigurationBuilder()

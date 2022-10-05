@@ -52,4 +52,11 @@ public static class HandlerBuilderExtensions
         => builder.ConfigureServices((_, s) => configureDelegate(s));
 
     public static void SetHandler(this IHandlerBuilder builder, Command command) => command.Handler = builder.Build();
+
+    public static IHandlerBuilder UseHandlerLifetime(this IHandlerBuilder builder)
+        => builder.UseHandlerLifetime<DefaultHandlerLifetime>();
+
+    public static IHandlerBuilder UseHandlerLifetime<T>(this IHandlerBuilder builder)
+        where T : class, IHandlerLifetime
+        => builder.ConfigureServices(s => s.TryAddSingleton<IHandlerLifetime, T>());
 }

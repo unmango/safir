@@ -7,6 +7,4 @@ namespace Safir.CommandLine;
 public static class CommandExtensions
 {
     public static void SetHandler(this Command command, IHandlerBuilder builder) => command.Handler = builder.Build();
-
-    public static void SetHandler(this IHandlerBuilder builder, Command command) => command.Handler = builder.Build();
 }

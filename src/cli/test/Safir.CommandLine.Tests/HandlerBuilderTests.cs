@@ -10,31 +10,20 @@ namespace Safir.CommandLine.Tests;
 public class HandlerBuilderTests
 {
     private readonly Mock<IConsole> _console = new();
-    private readonly ParseResult _parseResult;
     private readonly InvocationContext _invocationContext;
     private readonly HandlerBuilder _builder = new();
 
     public HandlerBuilderTests()
     {
         var command = new RootCommand();
-        _parseResult = command.Parse(string.Empty);
-        _invocationContext = new(_parseResult, _console.Object);
+        var parseResult = command.Parse(string.Empty);
+        _invocationContext = new(parseResult, _console.Object);
     }
 
     [Fact]
     public void Build_ThrowsWhenNoHandlerConfigured()
     {
         Assert.Throws<InvalidOperationException>(() => _builder.Build());
-    }
-
-    [Fact]
-    public async Task Build_CreatesHandlerThatThrowsWhenInvokedTwice()
-    {
-        var handler = _builder.ConfigureHandler(_ => new()).Build();
-        await handler.InvokeAsync(_invocationContext);
-
-        await Assert.ThrowsAsync<InvalidOperationException>(
-            () => handler.InvokeAsync(_invocationContext));
     }
 
     [Fact]

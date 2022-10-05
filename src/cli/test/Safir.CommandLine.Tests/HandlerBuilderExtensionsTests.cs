@@ -69,4 +69,14 @@ public class HandlerBuilderExtensionsTests
         callback!.Invoke(_builderContext, _services.Object);
         _services.Verify(x => x.Add(descriptor));
     }
+
+    [Fact]
+    public void SetHandler_BuildsHandler()
+    {
+        Command command = new("test");
+
+        _builder.Object.SetHandler(command);
+
+        _builder.Verify(x => x.Build());
+    }
 }

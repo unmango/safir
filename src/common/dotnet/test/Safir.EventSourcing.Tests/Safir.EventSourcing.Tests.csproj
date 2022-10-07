@@ -7,14 +7,14 @@
   <ItemGroup>
     <!-- Rider will show errors if this is not included, despite being able to build everything just fine -->
     <!-- To enable, set RIDER_BUILD equal to 'true' in Build, Execution, Deployment | Toolset And Build -->
-    <PackageReference Condition="'$(RIDER_BUILD)' == 'true'" Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
-    <PackageReference Include="xunit" Version="2.4.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
-    <PackageReference Include="coverlet.collector" Version="3.1.2" PrivateAssets="all" />
-    <PackageReference Update="Moq" Version="4.18.2" />
-    <PackageReference Update="Moq.AutoMock" Version="3.4.0" />
+    <PackageReference Condition="'$(RIDER_BUILD)' == 'true'" Include="IsExternalInit" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="System.Linq.Async" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <PackageReference Include="coverlet.collector" PrivateAssets="all" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="Moq.AutoMock" />
   </ItemGroup>
 
   <ItemGroup>

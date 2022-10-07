@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" />
-    <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
-    <PackageReference Include="MinVer" Version="4.2.0" PrivateAssets="all" />
+    <PackageReference Include="IsExternalInit" PrivateAssets="all" />
+    <PackageReference Include="JetBrains.Annotations" />
+    <PackageReference Include="MinVer" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

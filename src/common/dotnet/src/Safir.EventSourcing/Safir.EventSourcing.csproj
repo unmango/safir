@@ -13,11 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-    <PackageReference Include="MinVer" Version="4.2.0" PrivateAssets="all" />
-    <PackageReference Include="System.Text.Json" Version="6.0.6" />
+    <PackageReference Include="IsExternalInit" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+    <PackageReference Include="MinVer" PrivateAssets="all" />
+    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
 </Project>

@@ -7,6 +7,6 @@
 
   <ItemGroup>
     <PackageReference Condition="!$(AssemblyName.EndsWith('Tests'))"
-                      Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all"/>
+                      Include="Microsoft.SourceLink.GitHub" PrivateAssets="all"/>
   </ItemGroup>
 </Project>

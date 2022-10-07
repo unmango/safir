@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Api.CommonProtos" Version="2.6.0" />
-    <PackageReference Include="Google.Protobuf" Version="3.21.7" />
-    <PackageReference Include="Grpc.Core.Api" Version="2.49.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.49.1" PrivateAssets="All" />
-    <PackageReference Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" />
-    <PackageReference Include="MinVer" Version="4.2.0" PrivateAssets="all" />
+    <PackageReference Include="Google.Api.CommonProtos" />
+    <PackageReference Include="Google.Protobuf" />
+    <PackageReference Include="Grpc.Core.Api" />
+    <PackageReference Include="Grpc.Tools" PrivateAssets="All" />
+    <PackageReference Include="IsExternalInit" PrivateAssets="all" />
+    <PackageReference Include="MinVer" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

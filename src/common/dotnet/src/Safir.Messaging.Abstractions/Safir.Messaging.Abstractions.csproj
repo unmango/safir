@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
-    <PackageReference Include="MinVer" Version="4.2.0" PrivateAssets="all" />
+    <PackageReference Include="JetBrains.Annotations" />
+    <PackageReference Include="MinVer" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "dependencies": {
     ".NETStandard,Version=v2.0": {
       "JetBrains.Annotations": {
@@ -63,7 +63,8 @@
         "contentHash": "3TIsJhD1EiiT0w2CcDMN/iSSwnNnsrnbzeVHSKkaEgV85txMprmuO+Yq2AdSbeVGcg28pdNDTPK87tJhX7VFHw=="
       },
       "System.Threading.Tasks.Extensions": {
-        "type": "Transitive",
+        "type": "CentralTransitive",
+        "requested": "[4.5.4, )",
         "resolved": "4.5.4",
         "contentHash": "zteT+G8xuGu6mS+mzDzYXbzS7rd3K6Fjb9RiZlYlJPam2/hU7JCBZBVEcywNuR+oZ1ncTvc/cq0faRr3P01OVg==",
         "dependencies": {

@@ -20,7 +20,7 @@ public class AgentManagerTests
     public AgentManagerTests()
     {
         _optionsMonitor = _mocker.GetMock<IOptionsMonitor<ManagerOptions>>();
-        _optionsMonitor.Setup(x => x.OnChange(It.IsAny<Action<ManagerOptions, string>>()))
+        _optionsMonitor.Setup(x => x.OnChange(It.IsAny<Action<ManagerOptions, string?>>()))
             .Callback<Action<ManagerOptions, string>>(x => _changeCallback = x);
 
         _agentFactory = _mocker.GetMock<AgentFactory>();

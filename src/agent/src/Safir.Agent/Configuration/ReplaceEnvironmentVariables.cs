@@ -4,7 +4,7 @@ namespace Safir.Agent.Configuration;
 
 internal sealed class ReplaceEnvironmentVariables : IPostConfigureOptions<AgentOptions>
 {
-    public void PostConfigure(string name, AgentOptions options)
+    public void PostConfigure(string? name, AgentOptions options)
     {
         if (!string.IsNullOrWhiteSpace(options.DataDirectory))
         {

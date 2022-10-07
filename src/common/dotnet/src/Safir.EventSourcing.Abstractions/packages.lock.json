@@ -47,7 +47,7 @@
         }
       }
     },
-    ".NETCoreApp,Version=v5.0": {
+    "net6.0": {
       "IsExternalInit": {
         "type": "Direct",
         "requested": "[1.0.3, )",
@@ -93,7 +93,7 @@
         }
       }
     },
-    "net6.0": {
+    "net7.0": {
       "IsExternalInit": {
         "type": "Direct",
         "requested": "[1.0.3, )",

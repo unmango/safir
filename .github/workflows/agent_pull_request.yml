@@ -57,6 +57,9 @@ jobs:
       with:
         driver-opts: network=host
 
+    - name: Refresh proto files
+      run: hack/proto-refresh.sh
+
     - name: Build base image
       id: base-build
       uses: docker/build-push-action@v2

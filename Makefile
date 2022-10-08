@@ -27,6 +27,7 @@ all:: build
 restore::
 	dotnet restore
 	yarn install
+	hack/proto-refresh.sh
 
 build:: restore
 	dotnet build
@@ -59,6 +60,7 @@ common_dotnet::
 	dotnet build src/common/dotnet ${DOTNET_ARGS}
 
 common_dotnet_docker::
+	hack/proto-refresh.sh
 	cd src && docker build . \
 		-f common/dotnet/Dockerfile \
 		-t ${COMMON_DOTNET_TAG} \

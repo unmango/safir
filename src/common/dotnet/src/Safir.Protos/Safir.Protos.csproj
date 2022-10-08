@@ -19,6 +19,10 @@
     <ProjectReference Include="$(CommonSrc)\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
   </ItemGroup>
 
+  <Target Name="RefreshProtos" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet grpc refresh" />
+  </Target>
+
   <PropertyGroup>
     <ProtoCache>.cache</ProtoCache>
   </PropertyGroup>

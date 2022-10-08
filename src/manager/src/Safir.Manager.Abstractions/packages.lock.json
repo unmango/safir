@@ -102,7 +102,7 @@
         }
       }
     },
-    ".NETCoreApp,Version=v5.0": {
+    "net6.0": {
       "MinVer": {
         "type": "Direct",
         "requested": "[4.2.0, )",
@@ -131,14 +131,6 @@
           "Grpc.Core.Api": "[2.49.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
-      }
-    },
-    "net6.0": {
-      "MinVer": {
-        "type": "Direct",
-        "requested": "[4.2.0, )",
-        "resolved": "4.2.0",
-        "contentHash": "Po4tv+sri1jsaebQ8F6+yD5ru9Gas5mR111F6HR2ULqwflvjjZXMstpeOc1GHMJeQa3g4E3b8MX8K2cShkuUAg=="
       },
       "Google.Api.CommonProtos": {
         "type": "CentralTransitive",
@@ -187,7 +179,7 @@
         "contentHash": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA=="
       }
     },
-    "net6.0": {
+    "net7.0": {
       "MinVer": {
         "type": "Direct",
         "requested": "[4.2.0, )",
@@ -216,14 +208,6 @@
           "Grpc.Core.Api": "[2.49.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
-      }
-    },
-    "net7.0": {
-      "MinVer": {
-        "type": "Direct",
-        "requested": "[4.2.0, )",
-        "resolved": "4.2.0",
-        "contentHash": "Po4tv+sri1jsaebQ8F6+yD5ru9Gas5mR111F6HR2ULqwflvjjZXMstpeOc1GHMJeQa3g4E3b8MX8K2cShkuUAg=="
       },
       "Google.Api.CommonProtos": {
         "type": "CentralTransitive",

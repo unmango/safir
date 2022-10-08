@@ -7,6 +7,6 @@ public class FileCreatedHandler : IEventHandler<FileCreated>
 {
     public Task HandleAsync(FileCreated message, CancellationToken cancellationToken = default)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 }

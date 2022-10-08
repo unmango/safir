@@ -1,5 +1,4 @@
 using System.CommandLine;
-using System.CommandLine.Binding;
 using System.CommandLine.IO;
 using System.IO.Abstractions;
 using Microsoft.Extensions.DependencyInjection;

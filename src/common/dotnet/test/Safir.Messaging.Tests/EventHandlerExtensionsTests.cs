@@ -65,7 +65,7 @@ public class EventHandlerExtensionsTests
 
         Assert.NotNull(grouped);
         var item = Assert.Single(grouped);
-        Assert.Equal(typeof(MockEvent), item!.Key);
+        Assert.Equal(typeof(MockEvent), item.Key);
         var value = Assert.Single(item);
         Assert.Same(handler, value);
     }
@@ -119,7 +119,7 @@ public class EventHandlerExtensionsTests
 
         Assert.NotNull(grouped);
         var item = Assert.Single(grouped);
-        Assert.Equal(typeof(MockEvent), item!.Key);
+        Assert.Equal(typeof(MockEvent), item.Key);
         Assert.Collection(
             item,
             x => Assert.Same(handler1, x),

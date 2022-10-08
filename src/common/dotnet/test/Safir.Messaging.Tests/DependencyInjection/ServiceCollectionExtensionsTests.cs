@@ -24,10 +24,10 @@ public class ServiceCollectionExtensionsTests
         var hostedServices = services.GetService<IEnumerable<IHostedService>>()?.ToList();
 
         Assert.NotNull(hostedServices);
-        Assert.Single(hostedServices!.OfType<SubscriptionManager<FileCreated>>());
-        Assert.Single(hostedServices!.OfType<SubscriptionManager<FileChanged>>());
-        Assert.Single(hostedServices!.OfType<SubscriptionManager<FileDeleted>>());
-        Assert.Single(hostedServices!.OfType<SubscriptionManager<FileRenamed>>());
+        Assert.Single(hostedServices.OfType<SubscriptionManager<FileCreated>>());
+        Assert.Single(hostedServices.OfType<SubscriptionManager<FileChanged>>());
+        Assert.Single(hostedServices.OfType<SubscriptionManager<FileDeleted>>());
+        Assert.Single(hostedServices.OfType<SubscriptionManager<FileRenamed>>());
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class ServiceCollectionExtensionsTests
         var handlers = services.GetService<IEnumerable<IEventHandler>>();
 
         Assert.NotNull(handlers);
-        Assert.Single(handlers!);
+        Assert.Single(handlers);
     }
 
     [Fact]
@@ -53,7 +53,7 @@ public class ServiceCollectionExtensionsTests
         var handlers = services.GetService<IEnumerable<IEventHandler>>();
 
         Assert.NotNull(handlers);
-        Assert.Equal(2, handlers!.Count());
+        Assert.Equal(2, handlers.Count());
     }
 
     [Fact]
@@ -67,7 +67,7 @@ public class ServiceCollectionExtensionsTests
         var handlers = services.GetService<IEnumerable<IEventHandler>>()?.ToList();
 
         Assert.NotNull(handlers);
-        Assert.Equal(2, handlers!.Count);
+        Assert.Equal(2, handlers.Count);
         Assert.Single(handlers.OfType<MockEventHandler>());
         Assert.Single(handlers.OfType<DifferentEventHandler>());
     }

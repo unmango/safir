@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A21FBA48
 		src\Directory.Build.props = src\Directory.Build.props
 		global.json = global.json
 		Makefile = Makefile
+		src\Directory.Packages.props = src\Directory.Packages.props
+		NuGet.Config = NuGet.Config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{1087D1B9-57FF-4354-AA12-71F1F9084F5A}"

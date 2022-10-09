@@ -7,7 +7,7 @@ internal class Cors : IConfigureOptions<CorsOptions>
 {
     public void Configure(CorsOptions options)
     {
-        options.AddPolicy("AllowAll", builder => {
+        options.AddPolicy("AllowAll", static builder => {
             builder.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()

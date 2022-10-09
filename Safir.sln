@@ -115,6 +115,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.CommandLine.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.CommandLine.Generator", "src\cli\src\Safir.CommandLine.Generator\Safir.CommandLine.Generator.csproj", "{D172CF12-5F48-42A5-BDF9-7DD89CD822C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager", "src\manager\src\Safir.Manager\Safir.Manager.csproj", "{BF04A6EB-045C-4522-98C6-B0D1B3D5468B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,7 @@ Global
 		{B90583CA-A298-4BBA-A0B6-7FBCD074BD4D} = {207E32FA-DBA0-4B7E-B91E-1028EC81D452}
 		{71B76A1B-00EB-40A1-99D7-D1632CFC8C55} = {207E32FA-DBA0-4B7E-B91E-1028EC81D452}
 		{D172CF12-5F48-42A5-BDF9-7DD89CD822C5} = {207E32FA-DBA0-4B7E-B91E-1028EC81D452}
+		{BF04A6EB-045C-4522-98C6-B0D1B3D5468B} = {E7294B61-29DF-41C2-9E76-CE15D9A6AC20}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9E7CBC93-7265-4DB8-B1FD-5E6216BB42B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -297,5 +300,9 @@ Global
 		{D172CF12-5F48-42A5-BDF9-7DD89CD822C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D172CF12-5F48-42A5-BDF9-7DD89CD822C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D172CF12-5F48-42A5-BDF9-7DD89CD822C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF04A6EB-045C-4522-98C6-B0D1B3D5468B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF04A6EB-045C-4522-98C6-B0D1B3D5468B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF04A6EB-045C-4522-98C6-B0D1B3D5468B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF04A6EB-045C-4522-98C6-B0D1B3D5468B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

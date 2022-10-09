@@ -72,7 +72,7 @@
         }
       }
     },
-    ".NETCoreApp,Version=v5.0": {
+    "net6.0": {
       "JetBrains.Annotations": {
         "type": "Direct",
         "requested": "[2022.1.0, )",
@@ -106,7 +106,7 @@
         "contentHash": "WMcGpWKrmJmzrNeuaEb23bEMnbtR/vLmvZtkAP5qWu7vQsY59GqfRJd65sFpBszbd2k/bQ8cs8eWawQKAabkVg=="
       }
     },
-    "net6.0": {
+    "net7.0": {
       "JetBrains.Annotations": {
         "type": "Direct",
         "requested": "[2022.1.0, )",

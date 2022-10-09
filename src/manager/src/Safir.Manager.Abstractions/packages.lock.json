@@ -102,7 +102,7 @@
         }
       }
     },
-    ".NETCoreApp,Version=v5.0": {
+    "net6.0": {
       "MinVer": {
         "type": "Direct",
         "requested": "[4.2.0, )",
@@ -179,7 +179,7 @@
         "contentHash": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA=="
       }
     },
-    "net6.0": {
+    "net7.0": {
       "MinVer": {
         "type": "Direct",
         "requested": "[4.2.0, )",

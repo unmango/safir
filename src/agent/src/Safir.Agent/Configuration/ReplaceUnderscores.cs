@@ -13,7 +13,7 @@ internal class ReplaceUnderscores : IPostConfigureOptions<AgentOptions>
         _configuration = configuration;
     }
 
-    public void PostConfigure(string name, AgentOptions options)
+    public void PostConfigure(string? name, AgentOptions options)
     {
         if (!string.IsNullOrEmpty(_configuration["ENABLE_GRPCREFLECTION"]))
         {

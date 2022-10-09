@@ -5,7 +5,7 @@ namespace Safir.Agent.Configuration;
 
 internal class SafirMessaging : IConfigureOptions<MessagingOptions>
 {
-    private readonly AgentOptions _options;
+    private readonly AgentOptions? _options;
 
     public SafirMessaging(IConfiguration configuration)
     {
@@ -14,6 +14,6 @@ internal class SafirMessaging : IConfigureOptions<MessagingOptions>
 
     public void Configure(MessagingOptions options)
     {
-        options.ConnectionString = _options.Redis;
+        options.ConnectionString = _options?.Redis ?? string.Empty;
     }
 }

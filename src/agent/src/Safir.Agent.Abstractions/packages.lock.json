@@ -15,7 +15,7 @@
         "contentHash": "Po4tv+sri1jsaebQ8F6+yD5ru9Gas5mR111F6HR2ULqwflvjjZXMstpeOc1GHMJeQa3g4E3b8MX8K2cShkuUAg=="
       }
     },
-    ".NETCoreApp,Version=v5.0": {
+    "net6.0": {
       "JetBrains.Annotations": {
         "type": "Direct",
         "requested": "[2022.1.0, )",
@@ -29,7 +29,7 @@
         "contentHash": "Po4tv+sri1jsaebQ8F6+yD5ru9Gas5mR111F6HR2ULqwflvjjZXMstpeOc1GHMJeQa3g4E3b8MX8K2cShkuUAg=="
       }
     },
-    "net6.0": {
+    "net7.0": {
       "JetBrains.Annotations": {
         "type": "Direct",
         "requested": "[2022.1.0, )",

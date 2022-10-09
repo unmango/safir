@@ -9,7 +9,7 @@ internal class AgentManager : IAgents, IDisposable
     private readonly AgentFactory _agentFactory;
     private readonly ILogger<AgentManager> _logger;
     private readonly Lazy<Dictionary<string, IAgent>> _agents;
-    private readonly IDisposable _changeToken;
+    private readonly IDisposable? _changeToken;
 
     public AgentManager(
         IOptionsMonitor<ManagerOptions> optionsMonitor,
@@ -23,7 +23,8 @@ internal class AgentManager : IAgents, IDisposable
 
         _agents = new(() => CreateAgents(optionsMonitor.CurrentValue));
         _changeToken = optionsMonitor.OnChange(o => {
-            if (_agents.IsValueCreated) CreateAgents(o, _agents.Value);
+            if (_agents.IsValueCreated)
+                CreateAgents(o, _agents.Value);
         });
     }
 
@@ -33,7 +34,7 @@ internal class AgentManager : IAgents, IDisposable
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    public void Dispose() => _changeToken.Dispose();
+    public void Dispose() => _changeToken?.Dispose();
 
     // Impure BS, but DRY
     private Dictionary<string, IAgent> CreateAgents(ManagerOptions options, Dictionary<string, IAgent>? existing = null)

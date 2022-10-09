@@ -36,7 +36,7 @@ public class Startup
 
         services.Configure<ManagerOptions>(Configuration);
         var managerOptions = Configuration.Get<ManagerOptions>();
-        if (managerOptions.ProxyAgent)
+        if (managerOptions?.ProxyAgent ?? false)
         {
             services.AddTransient<IAgents, AgentProxy>();
             services.AddTransient<IEnumerable<IAgent>, AgentProxy>();
@@ -45,7 +45,7 @@ public class Startup
         {
             services.AddSingleton<AgentFactory>();
             services.AddSafirAgentClient();
-            foreach (var agent in managerOptions.Agents)
+            foreach (var agent in managerOptions?.Agents ?? Enumerable.Empty<AgentOptions>())
             {
                 services.AddSafirAgentClient(agent.Name, options => {
                     options.Address = new Uri(agent.BaseUrl);

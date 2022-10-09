@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Cli.Tests", "src\cli\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "manager", "manager", "{E7294B61-29DF-41C2-9E76-CE15D9A6AC20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager", "src\manager\src\Safir.Manager\Safir.Manager.csproj", "{C71CF21A-5D37-43E0-B268-FBEEA973D385}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Backup", "src\manager\src\Safir.Manager.Backup\Safir.Manager.Backup.csproj", "{C71CF21A-5D37-43E0-B268-FBEEA973D385}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Abstractions", "src\manager\src\Safir.Manager.Abstractions\Safir.Manager.Abstractions.csproj", "{1ED37D11-D92C-4F99-A6C3-5F3E752AEA5D}"
 EndProject
@@ -34,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Client.Abstra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Client", "src\manager\src\Safir.Manager.Client\Safir.Manager.Client.csproj", "{D459A642-61B4-4DF9-A100-01A38A8D5641}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Tests", "src\manager\test\Safir.Manager.Tests\Safir.Manager.Tests.csproj", "{CED13898-BD0D-45CD-8973-BDB096515C7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Backup.Tests", "src\manager\test\Safir.Manager.Backup.Tests\Safir.Manager.Backup.Tests.csproj", "{CED13898-BD0D-45CD-8973-BDB096515C7F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A21FBA48-B6A2-4486-B328-F51A4463EFFF}"
 	ProjectSection(SolutionItems) = preProject

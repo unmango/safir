@@ -68,7 +68,10 @@ if (app.Environment.IsDevelopment()) {
 
 app.UseGrpcWeb(new() { DefaultEnabled = true });
 app.UseCors();
-app.MapGrpcReflectionService();
+
+if (app.Environment.IsDevelopment())
+    app.MapGrpcReflectionService();
+
 app.MapGrpcService<HostService>().RequireCors(corsAllowAllPolicy);
 app.MapGrpcService<MediaService>().RequireCors(corsAllowAllPolicy);
 

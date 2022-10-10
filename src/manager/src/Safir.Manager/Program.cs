@@ -72,3 +72,6 @@ app.MapGrpcReflectionService();
 app.MapGrpcService<MediaService>().RequireCors(corsAllowAllPolicy);
 
 app.Run();
+
+// Make Program `public` for testing. Yuck
+public partial class Program { }

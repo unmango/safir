@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="Safir.Manager.IntegrationTests" />
     <InternalsVisibleTo Include="Safir.Manager.Tests" />
     <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>

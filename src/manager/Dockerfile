@@ -24,7 +24,7 @@ RUN dotnet publish Safir.Manager \
         --configuration Release \
         --output /out
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build /out .
 EXPOSE 80

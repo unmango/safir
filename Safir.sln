@@ -119,6 +119,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Tests", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.AspNetCore.IntegrationTesting", "src\common\dotnet\src\Safir.AspNetCore.IntegrationTesting\Safir.AspNetCore.IntegrationTesting.csproj", "{E5BDB2F0-CE98-48E1-94F5-2D1BDF1EE3DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.EndToEndTests", "src\manager\test\Safir.Manager.EndToEndTests\Safir.Manager.EndToEndTests.csproj", "{C1D8B2A6-4740-4C0F-94C9-BC96FAD8C64F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +167,7 @@ Global
 		{F2B84D26-F934-431A-9544-16D48D19ECF1} = {E7294B61-29DF-41C2-9E76-CE15D9A6AC20}
 		{E1834822-824A-4802-B76D-C6A270E8F2AF} = {E7294B61-29DF-41C2-9E76-CE15D9A6AC20}
 		{E5BDB2F0-CE98-48E1-94F5-2D1BDF1EE3DA} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
+		{C1D8B2A6-4740-4C0F-94C9-BC96FAD8C64F} = {E7294B61-29DF-41C2-9E76-CE15D9A6AC20}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9E7CBC93-7265-4DB8-B1FD-5E6216BB42B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -311,5 +314,9 @@ Global
 		{E5BDB2F0-CE98-48E1-94F5-2D1BDF1EE3DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5BDB2F0-CE98-48E1-94F5-2D1BDF1EE3DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5BDB2F0-CE98-48E1-94F5-2D1BDF1EE3DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1D8B2A6-4740-4C0F-94C9-BC96FAD8C64F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D8B2A6-4740-4C0F-94C9-BC96FAD8C64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D8B2A6-4740-4C0F-94C9-BC96FAD8C64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D8B2A6-4740-4C0F-94C9-BC96FAD8C64F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

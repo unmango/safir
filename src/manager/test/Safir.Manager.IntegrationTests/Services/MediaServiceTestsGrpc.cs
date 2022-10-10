@@ -6,11 +6,11 @@ using Safir.Manager.Protos;
 
 namespace Safir.Manager.IntegrationTests.Services;
 
-public class MediaServiceTests : IClassFixture<WebApplicationFactory<Program>>
+public class MediaServiceTestsGrpc : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly Media.MediaClient _client;
 
-    public MediaServiceTests(WebApplicationFactory<Program> factory)
+    public MediaServiceTestsGrpc(WebApplicationFactory<Program> factory)
     {
         var channel = factory.CreateChannel();
         _client = new Media.MediaClient(channel);

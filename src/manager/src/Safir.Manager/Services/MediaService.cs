@@ -4,7 +4,7 @@ using Safir.Manager.Protos;
 
 namespace Safir.Manager.Services;
 
-internal class MediaService : Media.MediaBase
+internal sealed class MediaService : Media.MediaBase
 {
     public override Task List(Empty request, IServerStreamWriter<MediaItem> responseStream, ServerCallContext context)
     {

@@ -1,13 +1,20 @@
-using Microsoft.OpenApi.Models;
 using Safir.Agent.Client.DependencyInjection;
-using Safir.Manager.Configuration;
+using Safir.Manager;
 using Safir.Manager.Services;
 using Serilog;
 
 const string title = "Safir Manager";
+const string version = "v1";
 const string corsAllowAllPolicy = "AllowAll";
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog(static (context, services, configuration) => configuration
+    .Enrich.FromLogContext()
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .WriteTo.Console(outputTemplate: "[{SourceContext:1} {Level:u3}] {Message:lj}{NewLine}{Exception}"));
+
 var services = builder.Services;
 
 // gRPC
@@ -18,15 +25,14 @@ if (builder.Environment.IsDevelopment()) {
     services.AddGrpcReflection();
     services.AddGrpcSwagger();
     services.AddSwaggerGen(static options => {
-        options.SwaggerDoc("v1", new() {
+        options.SwaggerDoc(version, new() {
             Title = title,
-            Version = "v1",
+            Version = version,
         });
     });
 }
 
 // Agent
-services.Configure<ManagerConfiguration>(builder.Configuration);
 var agentOptions = builder.Configuration
     .Get<ManagerConfiguration>()
     .GetAgentOptions();
@@ -38,6 +44,7 @@ foreach (var agent in agentOptions) {
 }
 
 // Other
+services.Configure<ManagerConfiguration>(builder.Configuration);
 services.AddCors(static options => {
     options.AddPolicy(corsAllowAllPolicy, static builder => {
         builder.AllowAnyOrigin()
@@ -54,8 +61,8 @@ app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
-    app.UseSwaggerUI(options => {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", $"{title} V1");
+    app.UseSwaggerUI(static options => {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", $"{title} {version}");
     });
 }
 
@@ -63,8 +70,5 @@ app.UseGrpcWeb(new() { DefaultEnabled = true });
 app.UseCors();
 app.MapGrpcReflectionService();
 app.MapGrpcService<MediaService>().RequireCors(corsAllowAllPolicy);
-app.MapGet(
-    "/",
-    () => "Communication with gRPC endpoints must be made through a gRPC client.");
 
 app.Run();

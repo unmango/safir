@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <RootNamespace>Safir.Manager.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,18 +10,10 @@
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
     <PackageReference Include="coverlet.collector" PrivateAssets="all" />
-    <PackageReference Include="Moq" />
-    <PackageReference Include="Moq.AutoMock" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Safir.Manager.Backup\Safir.Manager.Backup.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="..\xunit.runner.json">
-      <Link>xunit.runner.json</Link>
-    </Content>
+    <ProjectReference Include="$(ManagerSrc)\Safir.Manager\Safir.Manager.csproj" />
   </ItemGroup>
 
 </Project>

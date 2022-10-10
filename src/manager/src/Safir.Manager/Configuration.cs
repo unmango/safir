@@ -1,4 +1,16 @@
-namespace Safir.Manager.Configuration;
+namespace Safir.Manager;
+
+internal sealed class AgentConfiguration
+{
+    public string? Uri { get; init; }
+}
+
+internal sealed class ManagerConfiguration
+{
+    public IDictionary<string, AgentConfiguration>? Agents { get; init; }
+}
+
+internal sealed record AgentOptions(string Name, Uri Uri);
 
 internal static class ManagerConfigurationExtensions
 {

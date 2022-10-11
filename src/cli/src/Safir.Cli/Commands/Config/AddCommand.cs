@@ -28,6 +28,17 @@ internal static class AddCommand
 
     public static readonly Command Value = Create();
 
+    public static IHandlerBuilder CreateBuilder() => new HandlerBuilder()
+        .ConfigureAppConfiguration(builder => {
+            builder.AddSafirCliDefault();
+        })
+        .ConfigureServices(services => {
+            services.AddSafirCliCore();
+            services.AddSafirOptions();
+            services.AddLocalConfiguration();
+        })
+        .UseAddCommandAddCommandHandler();
+
     private static Command Create()
     {
         var command = new Command("add", "Add a Safir service to be used with the CLI") {
@@ -49,6 +60,43 @@ internal static class AddCommand
         catch (UriFormatException e) {
             result.ErrorMessage = e.Message;
         }
+    }
+
+    internal abstract class Handler
+    {
+        private readonly IConsole _console;
+        private readonly IOptions<SafirOptions> _options;
+        private readonly IUserConfiguration _configuration;
+
+        protected Handler(IConsole console, IOptions<SafirOptions> options, IUserConfiguration configuration)
+        {
+            _console = console;
+            _options = options;
+            _configuration = configuration;
+        }
+
+        public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken = default)
+        {
+            var service = parseResult.GetValueForArgument(ServiceArgument);
+
+            if (GetServiceOptions(_options.Value).Any(x => NameEquals(x.Name, service))) {
+                _console.WriteLine($"Agent with name \"{service}\" is already configured");
+                return;
+            }
+
+            var uri = parseResult.GetValueForArgument(UriArgument);
+
+            await _configuration.UpdateAsync(x => AddService(x, service, uri), cancellationToken);
+
+            _console.WriteLine($"Added agent \"{service}\"");
+        }
+
+        protected abstract void AddService(LocalConfiguration configuration, string service, Uri uri);
+
+        protected abstract IEnumerable<ServiceOptions> GetServiceOptions(SafirOptions options);
+
+        private static bool NameEquals(string first, string second)
+            => first.Equals(second, StringComparison.OrdinalIgnoreCase);
     }
 
     internal class AddCommandHandler

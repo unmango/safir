@@ -18,10 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="$(AgentSrc)\Safir.Agent.Client\Safir.Agent.Client.csproj" />
-    <ProjectReference Include="$(CommonSrc)\Safir.Grpc\Safir.Grpc.csproj" />
-    <ProjectReference Include="$(CommonSrc)\Safir.Messaging\Safir.Messaging.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
-    <ProjectReference Include="$(ManagerSrc)\Safir.Manager.Abstractions\Safir.Manager.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,10 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Condition=" '$(Configuration)' != 'Debug' " Remove="ProxyData\**" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <InternalsVisibleTo Include="Safir.Manager.IntegrationTests" />
     <InternalsVisibleTo Include="Safir.Manager.Tests" />
     <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>

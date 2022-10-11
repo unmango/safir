@@ -1,43 +1,81 @@
+using Safir.Agent.Client.DependencyInjection;
+using Safir.Manager;
+using Safir.Manager.Services;
 using Serilog;
-using Serilog.Events;
 
-namespace Safir.Manager;
+const string title = "Safir Manager";
+const string version = "v1";
+const string corsAllowAllPolicy = "AllowAll";
 
-public static class Program
-{
-    public static void Main(string[] args)
-    {
-        Log.Logger = ConfigureSerilog(new()).CreateBootstrapLogger();
+var builder = WebApplication.CreateBuilder(args);
 
-        try
-        {
-            Log.Information("Starting web host");
-            CreateHostBuilder(args).Build().Run();
-        }
-        catch (Exception ex)
-        {
-            Log.Fatal(ex, "Host terminated unexpectedly");
-        }
-        finally
-        {
-            Log.CloseAndFlush();
-        }
-    }
+builder.Host.UseSerilog(static (context, services, configuration) => configuration
+    .Enrich.FromLogContext()
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .WriteTo.Console(outputTemplate: "[{SourceContext:1} {Level:u3}] {Message:lj}{NewLine}{Exception}"));
 
-    private static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .UseSerilog((context, services, configuration) => ConfigureSerilog(configuration)
-                .ReadFrom.Configuration(context.Configuration)
-                .ReadFrom.Services(services))
-            .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+var services = builder.Services;
 
-    private static LoggerConfiguration ConfigureSerilog(LoggerConfiguration configuration)
-    {
-        return configuration
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-            .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
-            .MinimumLevel.Verbose()
-            .Enrich.FromLogContext()
-            .WriteTo.Console(outputTemplate: "[{SourceContext:1} {Level:u3}] {Message:lj}{NewLine}{Exception}");
-    }
+// gRPC
+services.AddGrpc();
+services.AddGrpcHttpApi();
+
+if (builder.Environment.IsDevelopment()) {
+    services.AddGrpcReflection();
+    services.AddGrpcSwagger();
+    services.AddSwaggerGen(static options => {
+        options.SwaggerDoc(version, new() {
+            Title = title,
+            Version = version,
+        });
+    });
 }
+
+// Agent
+var agentOptions = builder.Configuration
+    .Get<ManagerConfiguration>()
+    .GetAgentOptions();
+
+foreach (var agent in agentOptions) {
+    services.AddSafirAgentClient(agent.Name, options => {
+        options.Address = agent.Uri;
+    });
+}
+
+// Other
+services.Configure<ManagerConfiguration>(builder.Configuration);
+services.AddCors(static options => {
+    options.AddPolicy(corsAllowAllPolicy, static builder => {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
+    });
+});
+
+// App
+var app = builder.Build();
+
+app.UseSerilogRequestLogging();
+
+if (app.Environment.IsDevelopment()) {
+    app.UseSwagger();
+    app.UseSwaggerUI(static options => {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", $"{title} {version}");
+    });
+}
+
+app.UseGrpcWeb(new() { DefaultEnabled = true });
+app.UseCors();
+
+if (app.Environment.IsDevelopment())
+    app.MapGrpcReflectionService();
+
+app.MapGrpcService<HostService>().RequireCors(corsAllowAllPolicy);
+app.MapGrpcService<MediaService>().RequireCors(corsAllowAllPolicy);
+
+app.Run();
+
+// Make Program `public` for testing. Yuck
+public partial class Program { }

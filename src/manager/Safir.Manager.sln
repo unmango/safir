@@ -25,28 +25,32 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Client", "src\Safir.Manager.Client\Safir.Manager.Client.csproj", "{6ABE3684-2860-46B2-88FB-0B39D09B378C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{FBD8A1DC-653A-43DA-916B-6286AA86EE06}"
-ProjectSection(SolutionItems) = preProject
-	test\Directory.Build.props = test\Directory.Build.props
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		test\Directory.Build.props = test\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Tests", "test\Safir.Manager.Tests\Safir.Manager.Tests.csproj", "{A1F3A4F1-8636-4F29-B716-A4DD8B304454}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{82727394-CCE4-482C-B40A-08C1B67D69BF}"
-ProjectSection(SolutionItems) = preProject
-	README.md = README.md
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Abstractions", "src\Safir.Manager.Abstractions\Safir.Manager.Abstractions.csproj", "{81418215-6713-4117-A6AA-43F99199E1AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Client.Abstractions", "src\Safir.Manager.Client.Abstractions\Safir.Manager.Client.Abstractions.csproj", "{51B9BF5F-7313-4E4B-AB3C-16FF814F590C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{551E8272-2E83-4F57-B308-8CA0DC216F27}"
-ProjectSection(SolutionItems) = preProject
-	.github\workflows\auto-merge.yml = .github\workflows\auto-merge.yml
-	.github\workflows\docker_publish.yml = .github\workflows\docker_publish.yml
-	.github\workflows\package_publish.yml = .github\workflows\package_publish.yml
-	.github\workflows\pull_request.yml = .github\workflows\pull_request.yml
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\auto-merge.yml = .github\workflows\auto-merge.yml
+		.github\workflows\docker_publish.yml = .github\workflows\docker_publish.yml
+		.github\workflows\package_publish.yml = .github\workflows\package_publish.yml
+		.github\workflows\pull_request.yml = .github\workflows\pull_request.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.IntegrationTests", "test\Safir.Manager.IntegrationTests\Safir.Manager.IntegrationTests.csproj", "{288380FB-F989-4801-AD3A-E0CDF8C72FCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.EndToEndTests", "test\Safir.Manager.EndToEndTests\Safir.Manager.EndToEndTests.csproj", "{FD94C954-823E-4716-BC56-2CCB12BFC50B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +125,30 @@ Global
 		{51B9BF5F-7313-4E4B-AB3C-16FF814F590C}.Release|x64.Build.0 = Release|Any CPU
 		{51B9BF5F-7313-4E4B-AB3C-16FF814F590C}.Release|x86.ActiveCfg = Release|Any CPU
 		{51B9BF5F-7313-4E4B-AB3C-16FF814F590C}.Release|x86.Build.0 = Release|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Debug|x64.Build.0 = Debug|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Debug|x86.Build.0 = Debug|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Release|x64.ActiveCfg = Release|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Release|x64.Build.0 = Release|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Release|x86.ActiveCfg = Release|Any CPU
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE}.Release|x86.Build.0 = Release|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Debug|x64.Build.0 = Debug|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Debug|x86.Build.0 = Debug|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Release|x64.ActiveCfg = Release|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Release|x64.Build.0 = Release|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Release|x86.ActiveCfg = Release|Any CPU
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FA3088FD-44F7-4DA3-99DF-FA6493F84E10} = {D226064F-48DB-47E3-894A-B2048AC63ACB}
@@ -129,5 +157,7 @@ Global
 		{81418215-6713-4117-A6AA-43F99199E1AA} = {D226064F-48DB-47E3-894A-B2048AC63ACB}
 		{51B9BF5F-7313-4E4B-AB3C-16FF814F590C} = {D226064F-48DB-47E3-894A-B2048AC63ACB}
 		{551E8272-2E83-4F57-B308-8CA0DC216F27} = {0893977B-5D98-498A-9823-3BBDAE5FE55B}
+		{288380FB-F989-4801-AD3A-E0CDF8C72FCE} = {FBD8A1DC-653A-43DA-916B-6286AA86EE06}
+		{FD94C954-823E-4716-BC56-2CCB12BFC50B} = {FBD8A1DC-653A-43DA-916B-6286AA86EE06}
 	EndGlobalSection
 EndGlobal

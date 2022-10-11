@@ -10,9 +10,9 @@
 !.yarn/versions
 build
 
-**/bin/
-**/obj/
-**/out/
+**/bin
+**/obj
+**/out
 
 Dockerfile*
 .dockerignore

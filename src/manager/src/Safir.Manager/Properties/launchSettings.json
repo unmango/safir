@@ -1,23 +1,21 @@
 ﻿{
   "profiles": {
-    "Manager": {
+    "http": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
+      "dotnetRunMessages": true,
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:5000;https://localhost:5001",
+      "applicationUrl": "http://localhost:5107",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "AgentProxy": {
+    "https": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
+      "dotnetRunMessages": true,
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:5000;https://localhost:5001",
+      "applicationUrl": "https://localhost:7229;http://localhost:5107",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "PROXYAGENT": "true",
-        "PROXYDATADIRECTORY": "ProxyData"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }

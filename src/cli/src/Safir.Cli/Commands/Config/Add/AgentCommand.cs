@@ -5,13 +5,13 @@ using Safir.CommandLine;
 
 namespace Safir.Cli.Commands.Config.Add;
 
-internal static class ManagerCommand
+internal static class AgentCommand
 {
     public static readonly Command Value = Create();
 
     private static Command Create()
     {
-        var command = new Command("manager", "Add a Safir manager service to be used with the CLI") {
+        var command = new Command("agent", "Add a Safir agent service to be used with the CLI") {
             AddCommand.ServiceArgument,
             AddCommand.UriArgument,
         };
@@ -32,12 +32,12 @@ internal static class ManagerCommand
 
         protected override void AddService(LocalConfiguration configuration, string service, Uri uri)
         {
-            configuration.Managers.Add(new(service, uri));
+            configuration.Agents.Add(new(service, uri));
         }
 
         protected override IEnumerable<ServiceOptions> GetServiceOptions(SafirOptions options)
         {
-            return options.Managers ?? Enumerable.Empty<ServiceOptions>();
+            return options.Agents ?? Enumerable.Empty<ServiceOptions>();
         }
     }
 }

@@ -17,16 +17,6 @@ internal static class AddCommand
 
     public static readonly Command Value = Create();
 
-    public static IHandlerBuilder CreateBuilder() => new HandlerBuilder()
-        .ConfigureAppConfiguration(builder => {
-            builder.AddSafirCliDefault();
-        })
-        .ConfigureServices(services => {
-            services.AddSafirCliCore();
-            services.AddSafirOptions();
-            services.AddLocalConfiguration();
-        });
-
     private static Command Create()
     {
         var command = new Command("add", "Add a Safir service to be used with the CLI") {
@@ -36,6 +26,16 @@ internal static class AddCommand
 
         return command;
     }
+
+    public static IHandlerBuilder CreateBuilder() => new HandlerBuilder()
+        .ConfigureAppConfiguration(builder => {
+            builder.AddSafirCliDefault();
+        })
+        .ConfigureServices(services => {
+            services.AddSafirCliCore();
+            services.AddSafirOptions();
+            services.AddLocalConfiguration();
+        });
 
     private static void ValidateUri(ArgumentResult result)
     {

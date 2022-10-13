@@ -173,13 +173,13 @@ public class JsonUserConfigurationTests
         var result = Encoding.UTF8.GetString(stream.ToArray());
 
         _file.Verify();
-        Assert.Equal("{\n  \"agents\": []\n}\n", result);
+        Assert.Equal("{\n  \"agents\": [],\n  \"managers\": []\n}\n", result);
     }
 
     [Fact]
     public async Task WritesConfigurationWhenFileExists()
     {
-        const string expectedJson = "{\n  \"agents\": []\n}\n";
+        const string expectedJson = "{\n  \"agents\": [],\n  \"managers\": []\n}\n";
         var json = Encoding.UTF8.GetBytes(expectedJson);
         await using var readStream = new MemoryStream(json);
         await using var writeStream = new MemoryStream();
@@ -219,7 +219,7 @@ public class JsonUserConfigurationTests
 
         _file.Verify();
         Assert.Equal(
-            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"{_testUri.OriginalString}\"\n    }}\n  ]\n}}\n",
+            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"{_testUri.OriginalString}\"\n    }}\n  ],\n  \"managers\": []\n}}\n",
             result);
     }
 
@@ -246,7 +246,7 @@ public class JsonUserConfigurationTests
 
         _file.Verify();
         Assert.Equal(
-            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"{_testUri.OriginalString}\"\n    }}\n  ]\n}}\n",
+            $"{{\n  \"agents\": [\n    {{\n      \"name\": \"{expectedName}\",\n      \"uri\": \"{_testUri.OriginalString}\"\n    }}\n  ],\n  \"managers\": []\n}}\n",
             result);
     }
 }

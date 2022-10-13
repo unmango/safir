@@ -96,7 +96,7 @@ public class RemoveCommandTests
         _options.Verify();
         var testConfig = new LocalConfiguration(new List<AgentConfiguration> {
             new(service, new Uri("https://example.com")),
-        });
+        }, new List<ManagerConfiguration>());
         update?.Invoke(testConfig);
         Assert.Empty(testConfig.Agents);
     }

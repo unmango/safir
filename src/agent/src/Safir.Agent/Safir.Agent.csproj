@@ -5,11 +5,37 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+    <PackageReference Include="Grpc.AspNetCore" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" />
+    <PackageReference Include="Grpc.AspNetCore.Web" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" />
+    <PackageReference Include="JetBrains.Annotations" />
+    <PackageReference Include="LanguageExt.Core" />
+    <PackageReference Include="Microsoft.AspNetCore.Grpc.HttpApi" />
+    <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="System.Linq.Async" />
+    <PackageReference Include="System.Reactive" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="$(CommonSrc)/Safir.Grpc/Safir.Grpc.csproj" />
+    <ProjectReference Include="$(CommonSrc)/Safir.Protos/Safir.Protos.csproj" />
+    <ProjectReference Include="$(CommonSrc)/Safir.Messaging/Safir.Messaging.csproj" />
+    <ProjectReference Include="$(CommonSrc)/Safir.Messaging.MediatR/Safir.Messaging.MediatR.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" />
+    <None Include="$(AgentRoot)/docker-compose.yml" Link="docker-compose.yml" />
+    <None Include="$(AgentRoot)/Dockerfile" Link="Dockerfile" />
+    <None Include="$(AgentRoot)/.dockerignore" Link=".dockerignore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Safir.Agent.IntegrationTests" />
+    <InternalsVisibleTo Include="Safir.Agent.Tests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>
 
 </Project>

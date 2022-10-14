@@ -1,17 +1,66 @@
 using Safir.Agent.Services;
+using Serilog;
+
+const string title = "Safir Agent";
+const string version = "v1";
+const string corsAllowAllPolicy = "AllowAll";
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Additional configuration is required to successfully run gRPC on macOS.
-// For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
+builder.Host.UseSerilog(static (context, services, configuration) => configuration
+    .Enrich.FromLogContext()
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .WriteTo.Console(outputTemplate: "[{SourceContext:1} {Level:u3}] {Message:lj}{NewLine}{Exception}"));
 
-// Add services to the container.
-builder.Services.AddGrpc();
+var services = builder.Services;
 
+// gRPC
+services.AddGrpc();
+services.AddGrpcHttpApi();
+
+if (builder.Environment.IsDevelopment()) {
+    services.AddGrpcReflection();
+    services.AddGrpcSwagger();
+    services.AddSwaggerGen(static options => {
+        options.SwaggerDoc(version, new() {
+            Title = title,
+            Version = version,
+        });
+    });
+}
+
+// Other
+services.AddCors(static options => {
+    options.AddPolicy(corsAllowAllPolicy, static builder => {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
+    });
+});
+
+// App
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-app.MapGrpcService<GreeterService>();
-app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+app.UseSerilogRequestLogging();
+
+if (app.Environment.IsDevelopment()) {
+    app.UseSwagger();
+    app.UseSwaggerUI(static options => {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", $"{title} {version}");
+    });
+}
+
+app.UseGrpcWeb(new() { DefaultEnabled = true });
+app.UseCors();
+
+if (app.Environment.IsDevelopment())
+    app.MapGrpcReflectionService();
+
+app.MapGrpcService<HostService>().RequireCors(corsAllowAllPolicy);
 
 app.Run();
+
+// Make Program `public` for testing. Yuck
+public partial class Program { }

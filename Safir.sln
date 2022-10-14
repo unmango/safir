@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "agent", "agent", "{89CA5AAD
 		src\agent\Directory.Build.props = src\agent\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent", "src\agent\src\Safir.Agent\Safir.Agent.csproj", "{9E7CBC93-7265-4DB8-B1FD-5E6216BB42B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent.Backup", "src\agent\src\Safir.Agent.Backup\Safir.Agent.Backup.csproj", "{9E7CBC93-7265-4DB8-B1FD-5E6216BB42B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent.Abstractions", "src\agent\src\Safir.Agent.Abstractions\Safir.Agent.Abstractions.csproj", "{23789940-D27D-4DC7-9C1B-B7BC94EDF4B5}"
 EndProject
@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent.Client", "src\a
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent.Client.Abstractions", "src\agent\src\Safir.Agent.Client.Abstractions\Safir.Agent.Client.Abstractions.csproj", "{4D7A1864-913F-4D98-A807-CA844507DB34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent.Tests", "src\agent\test\Safir.Agent.Tests\Safir.Agent.Tests.csproj", "{120F507D-66E6-45CD-BE41-C089B8352170}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent.Tests.Backup", "src\agent\test\Safir.Agent.Tests.Backup\Safir.Agent.Tests.Backup.csproj", "{120F507D-66E6-45CD-BE41-C089B8352170}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cli", "cli", "{207E32FA-DBA0-4B7E-B91E-1028EC81D452}"
 EndProject

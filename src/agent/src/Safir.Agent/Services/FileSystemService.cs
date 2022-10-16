@@ -10,7 +10,7 @@ namespace Safir.Agent.Services;
 
 internal sealed class FileSystemService : FileSystem.FileSystemBase
 {
-    private readonly AgentOptions _options;
+    private readonly IOptions<AgentConfiguration> _options;
     private readonly IFileSystem _fileSystem;
     private readonly ILogger<FileSystemService> _logger;
 
@@ -19,7 +19,7 @@ internal sealed class FileSystemService : FileSystem.FileSystemBase
         IFileSystem fileSystem,
         ILogger<FileSystemService> logger)
     {
-        _options = options.Parse();
+        _options = options;
         _fileSystem = fileSystem;
         _logger = logger;
     }
@@ -29,7 +29,7 @@ internal sealed class FileSystemService : FileSystem.FileSystemBase
         IServerStreamWriter<FileSystemEntry> responseStream,
         ServerCallContext context)
     {
-        var root = _options.DataDirectory;
+        var root = _options.Parse().DataDirectory;
         if (string.IsNullOrWhiteSpace(root)) {
             _logger.LogInformation("No data directory set, returning");
             return;

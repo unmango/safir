@@ -10,6 +10,7 @@ namespace Safir.Agent.Tests.Services;
 
 public class FileSystemServiceTests
 {
+    private const string Directory = "dir";
     private readonly Mock<IOptions<AgentConfiguration>> _options = new();
     private readonly Mock<IDirectory> _directory = new();
     private readonly Mock<IPath> _path = new();
@@ -22,11 +23,14 @@ public class FileSystemServiceTests
         fileSystem.SetupGet(x => x.Directory).Returns(_directory.Object);
         fileSystem.SetupGet(x => x.Path).Returns(_path.Object);
 
+        _options.SetupGet(x => x.Value).Returns(new AgentConfiguration {
+            DataDirectory = Directory,
+        });
+
         _service = new(_options.Object, fileSystem.Object, Mock.Of<ILogger<FileSystemService>>());
     }
 
     [Theory]
-    [InlineData("")]
     [InlineData(" ")]
     [InlineData("\t")]
     [InlineData("\n")]
@@ -38,72 +42,55 @@ public class FileSystemServiceTests
 
         await _service.ListFiles(new(), _serverStreamWriter.Object, null!);
 
-        Assert.NotNull(result);
-        Assert.Empty(result.Files);
-        _mock.GetMock<IDirectory>().VerifyNoOtherCalls();
+        _directory.VerifyNoOtherCalls();
+        _serverStreamWriter.VerifyNoOtherCalls();
     }
 
     [Fact]
     public async Task SendsEmptyWhenDirectoryDoesNotExist()
     {
-        const string dir = "dir";
-        _mock.Setup<IDirectory, bool>(x => x.Exists(dir)).Returns(false);
-        var request = new ListFilesRequest(dir);
+        _directory.Setup(x => x.Exists(Directory)).Returns(false);
 
-        var result = await _handler.Handle(request, default);
+        await _service.ListFiles(new(), _serverStreamWriter.Object, null!);
 
-        Assert.NotNull(result);
-        Assert.Empty(result.Files);
-        _mock.GetMock<IDirectory>().VerifyAll();
-        _mock.GetMock<IDirectory>().VerifyNoOtherCalls();
+        _serverStreamWriter.VerifyNoOtherCalls();
     }
 
     [Fact]
     public async Task EnumeratesWithWildCardFilter()
     {
-        const string dir = "dir";
-        _mock.Setup<IDirectory, bool>(x => x.Exists(dir)).Returns(true);
-        var request = new ListFilesRequest(dir);
+        _directory.Setup(x => x.Exists(Directory)).Returns(true);
 
-        await _handler.Handle(request, default);
+        await _service.ListFiles(new(), _serverStreamWriter.Object, null!);
 
-        _mock.GetMock<IDirectory>()
-            .Verify(x => x.EnumerateFileSystemEntries(dir, "*", It.IsAny<EnumerationOptions>()));
-    }
-
-    [Fact]
-    public async Task PassesEnumerationOptionsFromRequest()
-    {
-        const string dir = "dir";
-        _mock.Setup<IDirectory, bool>(x => x.Exists(dir)).Returns(true);
-        var options = new EnumerationOptions();
-        var request = new ListFilesRequest(dir, options);
-
-        await _handler.Handle(request, default);
-
-        _mock.GetMock<IDirectory>().Verify(x => x.EnumerateFileSystemEntries(
-            dir,
-            It.IsAny<string>(),
-            It.Is<EnumerationOptions>(y => y == options)));
+        _directory.Verify(x => x.EnumerateFileSystemEntries(Directory, "*"));
     }
 
     [Fact]
     public async Task ReturnsPathRelativeToRoot()
     {
-        const string dir = "dir", entry = "entry", relative = "relative";
-        _mock.Setup<IDirectory, bool>(x => x.Exists(dir)).Returns(true);
-        _mock.Setup<IDirectory, IEnumerable<string>>(x =>
-                x.EnumerateFileSystemEntries(dir, It.IsAny<string>(), It.IsAny<EnumerationOptions>()))
+        const string entry = "entry";
+        _directory.Setup(x => x.Exists(Directory)).Returns(true);
+        _directory.Setup(x => x.EnumerateFileSystemEntries(Directory, It.IsAny<string>()))
             .Returns(new[] { entry });
-        _mock.Setup<IPath, string>(x => x.GetRelativePath(dir, entry)).Returns(relative);
-        var request = new ListFilesRequest(dir);
+        _path.Setup(x => x.GetRelativePath(Directory, entry)).Returns("bogus");
 
-        var result = await _handler.Handle(request, default);
+        await _service.ListFiles(new(), _serverStreamWriter.Object, null!);
 
-        Assert.NotNull(result);
-        Assert.NotEmpty(result.Files);
-        var paths = result.Files.Select(x => x.Path).ToList();
-        Assert.Contains(relative, paths);
-        Assert.DoesNotContain(entry, paths);
+        _path.Verify(x => x.GetRelativePath(Directory, entry));
+    }
+
+    [Fact]
+    public async Task WritesAllEntries()
+    {
+        const string entry = "entry", relative = "relative";
+        _directory.Setup(x => x.Exists(Directory)).Returns(true);
+        _directory.Setup(x => x.EnumerateFileSystemEntries(Directory, It.IsAny<string>()))
+            .Returns(new[] { entry });
+        _path.Setup(x => x.GetRelativePath(Directory, entry)).Returns(relative);
+
+        await _service.ListFiles(new(), _serverStreamWriter.Object, null!);
+
+        _serverStreamWriter.Verify(x => x.WriteAsync(It.Is<FileSystemEntry>(f => f.Path == relative)));
     }
 }

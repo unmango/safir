@@ -54,25 +54,6 @@
           "System.ValueTuple": "4.5.0"
         }
       },
-      "MediatR": {
-        "type": "Direct",
-        "requested": "[11.0.0, )",
-        "resolved": "11.0.0",
-        "contentHash": "8klzVGZQiA2oxZRzQFBZbdPD/IQUm9RYtfiyTDKhxDQ99Gi93+GXt1ZJjH2D7Lh7ZFHCv5XdkwbmfHEQBCatPg==",
-        "dependencies": {
-          "MediatR.Contracts": "1.0.1"
-        }
-      },
-      "MediatR.Extensions.Microsoft.DependencyInjection": {
-        "type": "Direct",
-        "requested": "[11.0.0, )",
-        "resolved": "11.0.0",
-        "contentHash": "jfD2NBYvP+HiUil2DWfM4bn+bCLp4H2xvoc9aorcnn2Jpgz7Ey8RyYMpgqeF3bs6CP6t8pzb6WkF5NFF/1RLHA==",
-        "dependencies": {
-          "MediatR": "11.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
-        }
-      },
       "Microsoft.AspNetCore.Grpc.HttpApi": {
         "type": "Direct",
         "requested": "[0.1.0-alpha.21317.5, )",
@@ -111,6 +92,12 @@
           "Serilog.Sinks.Debug": "2.0.0",
           "Serilog.Sinks.File": "5.0.0"
         }
+      },
+      "System.IO.Abstractions": {
+        "type": "Direct",
+        "requested": "[17.2.3, )",
+        "resolved": "17.2.3",
+        "contentHash": "VcozGeE4SxIo0cnXrDHhbrh/Gb8KQnZ3BvMelvh+iw0PrIKtuuA46U2Xm4e4pgnaWFgT4RdZfTpWl/WPRdw0WQ=="
       },
       "System.Linq.Async": {
         "type": "Direct",
@@ -677,6 +664,12 @@
           "System.Drawing.Common": "5.0.0"
         }
       },
+      "safir.agent.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "JetBrains.Annotations": "[2022.1.0, )"
+        }
+      },
       "safir.common": {
         "type": "Project",
         "dependencies": {
@@ -800,6 +793,15 @@
         "requested": "[2.49.1, )",
         "resolved": "2.49.0",
         "contentHash": "fvA8M6m+cKR5cCwVfKNyUtC8/immoNiNGXW8rwLmwb4y4XRFtQJyN9dmGCJNh1mt0cb9LjSSiAZwmSfMgmE2Ng=="
+      },
+      "MediatR": {
+        "type": "CentralTransitive",
+        "requested": "[11.0.0, )",
+        "resolved": "11.0.0",
+        "contentHash": "8klzVGZQiA2oxZRzQFBZbdPD/IQUm9RYtfiyTDKhxDQ99Gi93+GXt1ZJjH2D7Lh7ZFHCv5XdkwbmfHEQBCatPg==",
+        "dependencies": {
+          "MediatR.Contracts": "1.0.1"
+        }
       },
       "MessagePack": {
         "type": "CentralTransitive",

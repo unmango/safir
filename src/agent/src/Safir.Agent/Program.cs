@@ -1,3 +1,6 @@
+using System.IO.Abstractions;
+using Microsoft.Extensions.Options;
+using Safir.Agent;
 using Safir.Agent.Services;
 using Serilog;
 
@@ -30,7 +33,15 @@ if (builder.Environment.IsDevelopment()) {
     });
 }
 
+// File system
+services.AddTransient<IFileSystem, FileSystem>();
+services.AddSingleton<IFileWatcher>(s => {
+    var o = s.GetRequiredService<IOptions<AgentConfiguration>>().Parse();
+    return new SystemFileWatcher(new() { Path = o.DataDirectory });
+});
+
 // Other
+services.Configure<AgentConfiguration>(builder.Configuration);
 services.AddCors(static options => {
     options.AddPolicy(corsAllowAllPolicy, static builder => {
         builder.AllowAnyOrigin()
@@ -59,6 +70,7 @@ if (app.Environment.IsDevelopment())
     app.MapGrpcReflectionService();
 
 app.MapGrpcService<HostService>().RequireCors(corsAllowAllPolicy);
+app.MapGrpcService<FileSystemService>().RequireCors(corsAllowAllPolicy);
 
 app.Run();
 

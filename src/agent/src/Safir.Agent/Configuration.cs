@@ -12,16 +12,23 @@ internal sealed record AgentOptions
     public required string DataDirectory { get; init; }
 }
 
+internal sealed record FileWatcherOptions
+{
+    public required string Path { get; set; }
+}
+
 internal static class OptionsExtensions
 {
-    public static AgentOptions Parse(this IOptions<AgentConfiguration> options)
+    public static AgentOptions Parse(this AgentConfiguration? configuration)
     {
-        var v = options.Value;
-
-        ArgumentException.ThrowIfNullOrEmpty(v.DataDirectory);
+        ArgumentNullException.ThrowIfNull(configuration);
+        ArgumentException.ThrowIfNullOrEmpty(configuration.DataDirectory);
 
         return new AgentOptions {
-            DataDirectory = v.DataDirectory,
+            DataDirectory = configuration.DataDirectory,
         };
     }
+
+    public static AgentOptions Parse(this IOptions<AgentConfiguration> options)
+        => Parse(options.Value);
 }

@@ -1,4 +1,4 @@
-using System.Reactive.Linq;
+using Safir.IO.FSharp;
 
 namespace Safir.Agent.Services;
 
@@ -13,35 +13,11 @@ internal sealed class SystemFileWatcher : IFileWatcher, IDisposable
             IncludeSubdirectories = true,
         };
 
-        Created = Observable
-            .FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
-                x => _watcher.Created += x,
-                x => _watcher.Created -= x)
-            .Select(x => x.EventArgs);
-
-        Changed = Observable
-            .FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
-                x => _watcher.Created += x,
-                x => _watcher.Created -= x)
-            .Select(x => x.EventArgs);
-
-        Deleted = Observable
-            .FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
-                x => _watcher.Created += x,
-                x => _watcher.Created -= x)
-            .Select(x => x.EventArgs);
-
-        Renamed = Observable
-            .FromEventPattern<RenamedEventHandler, RenamedEventArgs>(
-                x => _watcher.Renamed += x,
-                x => _watcher.Renamed -= x)
-            .Select(x => x.EventArgs);
-
-        Error = Observable
-            .FromEventPattern<ErrorEventHandler, ErrorEventArgs>(
-                x => _watcher.Error += x,
-                x => _watcher.Error -= x)
-            .Select(x => x.EventArgs);
+        Changed = _watcher.CreateChangedObservable();
+        Created = _watcher.CreateCreatedObservable();
+        Deleted = _watcher.CreateDeletedObservable();
+        Renamed = _watcher.CreateRenamedObservable();
+        Error = _watcher.CreateErrorObservable();
     }
 
     public IObservable<FileSystemEventArgs> Created { get; }

@@ -1,0 +1,6 @@
+<Project>
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" IsImplicitilyDefined="true" Condition="'$(MSBuildProjectExtension)' == '.fsproj'" />
+    <PackageReference Update="System.ValueTuple" IsImplicitilyDefined="true" Condition="'$(MSBuildProjectExtension)' == '.fsproj'" />
+  </ItemGroup>
+</Project>

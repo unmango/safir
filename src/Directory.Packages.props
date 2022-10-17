@@ -11,7 +11,6 @@
     <PackageVersion Include="Grpc.AspNetCore" Version="2.49.0" />
     <PackageVersion Include="Grpc.AspNetCore.Server.Reflection" Version="2.49.0" />
     <PackageVersion Include="Grpc.AspNetCore.Web" Version="2.49.0" />
-    <PackageVersion Include="Grpc.Core" Version="2.46.5" />
     <PackageVersion Include="Grpc.Core.Api" Version="2.49.0" />
     <PackageVersion Include="Grpc.Net.Client" Version="2.49.0" />
     <PackageVersion Include="Grpc.Net.ClientFactory" Version="2.49.0" />

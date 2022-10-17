@@ -6,14 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="coverlet.collector" PrivateAssets="all" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Testcontainers" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
-    <PackageReference Include="coverlet.collector" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="$(CommonSrc)\Safir.Grpc\Safir.Grpc.csproj" />
     <ProjectReference Include="$(ManagerSrc)\Safir.Manager\Safir.Manager.csproj" />
   </ItemGroup>
 

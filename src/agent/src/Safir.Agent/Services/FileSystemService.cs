@@ -1,26 +1,26 @@
+using System.IO.Abstractions;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using JetBrains.Annotations;
-using MediatR;
 using Microsoft.Extensions.Options;
-using Safir.Agent.Configuration;
 using Safir.Agent.Protos;
-using Safir.Agent.Queries;
 using Safir.Grpc;
+using FileSystem = Safir.Agent.Protos.FileSystem;
 
 namespace Safir.Agent.Services;
 
-[UsedImplicitly]
-internal class FileSystemService : FileSystem.FileSystemBase
+internal sealed class FileSystemService : FileSystem.FileSystemBase
 {
-    private readonly IOptions<AgentOptions> _options;
-    private readonly ISender _sender;
+    private readonly IOptions<AgentConfiguration> _options;
+    private readonly IFileSystem _fileSystem;
     private readonly ILogger<FileSystemService> _logger;
 
-    public FileSystemService(IOptions<AgentOptions> options, ISender sender, ILogger<FileSystemService> logger)
+    public FileSystemService(
+        IOptions<AgentConfiguration> options,
+        IFileSystem fileSystem,
+        ILogger<FileSystemService> logger)
     {
-        _options = options ?? throw new ArgumentNullException(nameof(options));
-        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
+        _options = options;
+        _fileSystem = fileSystem;
         _logger = logger;
     }
 
@@ -29,21 +29,26 @@ internal class FileSystemService : FileSystem.FileSystemBase
         IServerStreamWriter<FileSystemEntry> responseStream,
         ServerCallContext context)
     {
-        var root = _options.Value.DataDirectory;
-        if (string.IsNullOrWhiteSpace(root))
-        {
+        var root = _options.Parse().DataDirectory;
+        if (string.IsNullOrWhiteSpace(root)) {
             _logger.LogInformation("No data directory set, returning");
             return;
         }
 
-        var enumerationOptions = _options.Value.EnumerationOptions;
-        _logger.LogTrace("Sending list files request");
-        var result = await _sender.Send(new ListFilesRequest(root, enumerationOptions));
-        _logger.LogTrace("Got list files response");
+        if (!_fileSystem.Directory.Exists(root)) {
+            _logger.LogError("Data directory doesn't exist");
+            return;
+        }
 
-        if (!result.Files.Any()) return;
+        _logger.LogTrace("Enumerating file system entries");
+        var entries = _fileSystem.Directory.EnumerateFileSystemEntries(root, "*");
+
+        _logger.LogTrace("Creating file response messages");
+        var files = entries.Select(x => new FileSystemEntry {
+            Path = _fileSystem.Path.GetRelativePath(root, x),
+        });
 
         _logger.LogTrace("Writing files to response stream");
-        await responseStream.WriteAllAsync(result.Files);
+        await responseStream.WriteAllAsync(files);
     }
 }

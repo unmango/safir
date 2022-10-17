@@ -7,10 +7,11 @@
 
   <ItemGroup>
     <Compile Include="Library.fs" />
+    <None Include="packages.lock.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="packages.lock.json" />
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
   </ItemGroup>
 
 </Project>

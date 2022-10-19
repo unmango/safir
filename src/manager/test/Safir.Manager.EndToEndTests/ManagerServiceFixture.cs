@@ -1,10 +1,17 @@
 using DotNet.Testcontainers.Builders;
+using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Images;
+using Xunit.Abstractions;
 
 namespace Safir.Manager.EndToEndTests;
 
 public sealed class ManagerServiceFixture : IAsyncLifetime
 {
+    public ManagerServiceFixture(IMessageSink sink)
+    {
+        TestcontainersSettings.Logger = new TestOutputLogger(sink);
+    }
+
     public IDockerImage BaseImage { get; } = new DockerImage("safir-common-dotnet-e2e");
 
     public IDockerImage Image { get; } = new DockerImage("safir-manager-e2e");

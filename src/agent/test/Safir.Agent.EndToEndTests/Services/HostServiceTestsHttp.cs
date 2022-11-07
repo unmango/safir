@@ -2,13 +2,13 @@ using System.Net.Http.Json;
 using Safir.Protos;
 using Xunit.Abstractions;
 
-namespace Safir.Manager.EndToEndTests.Services;
+namespace Safir.Agent.EndToEndTests.Services;
 
-[Collection(ManagerServiceCollection.Name)]
+[Collection(AgentServiceCollection.Name)]
 [Trait("Category", "EndToEnd")]
-public class HostServiceTestsHttp : ManagerServiceTestBase
+public class HostServiceTestsHttp : AgentServiceTestBase
 {
-    public HostServiceTestsHttp(ManagerServiceFixture service, ITestOutputHelper output)
+    public HostServiceTestsHttp(AgentServiceFixture service, ITestOutputHelper output)
         : base(service, output) { }
 
     [Fact(Skip = "Need to enable HTTP1 for regular 'ol requests")]

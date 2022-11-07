@@ -342,6 +342,12 @@
           "Microsoft.Extensions.Options": "7.0.0"
         }
       },
+      "Microsoft.Extensions.Logging.Abstractions": {
+        "type": "CentralTransitive",
+        "requested": "[6.0.0, )",
+        "resolved": "6.0.0",
+        "contentHash": "/HggWBbTwy8TgebGSX5DBZ24ndhzi93sHUBDvP1IxbZD7FDokYzdAr6+vbWGjw2XAfR2EJ1sfKUotpjHnFWPxA=="
+      },
       "Microsoft.Extensions.Options": {
         "type": "CentralTransitive",
         "requested": "[7.0.0, )",

@@ -1,13 +1,13 @@
 using Google.Protobuf.WellKnownTypes;
 using Xunit.Abstractions;
 
-namespace Safir.Manager.EndToEndTests.Services;
+namespace Safir.Agent.EndToEndTests.Services;
 
-[Collection(ManagerServiceCollection.Name)]
+[Collection(AgentServiceCollection.Name)]
 [Trait("Category", "EndToEnd")]
-public class HostServiceTestsGrpc : ManagerServiceTestBase
+public class HostServiceTestsGrpc : AgentServiceTestBase
 {
-    public HostServiceTestsGrpc(ManagerServiceFixture service, ITestOutputHelper output)
+    public HostServiceTestsGrpc(AgentServiceFixture service, ITestOutputHelper output)
         : base(service, output) { }
 
     [Fact]

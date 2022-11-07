@@ -1,38 +1,12 @@
-using DotNet.Testcontainers.Builders;
-using DotNet.Testcontainers.Configurations;
-using DotNet.Testcontainers.Images;
 using JetBrains.Annotations;
+using Safir.EndToEndTesting;
 using Xunit.Abstractions;
 
 namespace Safir.Manager.EndToEndTests;
 
 [UsedImplicitly]
-public sealed class ManagerServiceFixture : IAsyncLifetime
+public sealed class ManagerServiceFixture : ServiceFixtureBase
 {
     public ManagerServiceFixture(IMessageSink sink)
-    {
-        TestcontainersSettings.Logger = new TestOutputLogger(sink);
-    }
-
-    public IDockerImage BaseImage { get; } = new DockerImage("safir-common-dotnet:e2e");
-
-    public IDockerImage Image { get; } = new DockerImage("safir-manager:e2e");
-
-    public async Task InitializeAsync()
-    {
-        await new ImageFromDockerfileBuilder()
-            .WithName(BaseImage)
-            .WithDockerfile(Path.Combine("common", "dotnet", "Dockerfile"))
-            .WithDockerfileDirectory(CommonDirectoryPath.GetGitDirectory(), "src")
-            .Build();
-
-        await new ImageFromDockerfileBuilder()
-            .WithName(Image)
-            .WithDockerfile("manager/Dockerfile")
-            .WithDockerfileDirectory(CommonDirectoryPath.GetGitDirectory(), "src")
-            .WithBuildArgument("CommonImage", BaseImage.FullName)
-            .Build();
-    }
-
-    public Task DisposeAsync() => Task.CompletedTask;
+        : base(sink, "safir-manager:e2e", "manager/Dockerfile") { }
 }

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Grpc.Net.Client" />
+    <PackageReference Include="JetBrains.Annotations" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Testcontainers" />
+    <PackageReference Include="xunit.core" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="$(CommonSrc)/Safir.Common/Safir.Common.csproj" />
+  </ItemGroup>
+
+</Project>

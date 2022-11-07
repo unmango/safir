@@ -14,7 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(AgentSrc)\Safir.Agent\Safir.Agent.csproj" />
+    <ProjectReference Include="$(AgentSrc)/Safir.Agent/Safir.Agent.csproj" />
+    <ProjectReference Include="$(CommonSrc)/Safir.EndToEndTesting/Safir.EndToEndTesting.csproj" />
   </ItemGroup>
 
 </Project>

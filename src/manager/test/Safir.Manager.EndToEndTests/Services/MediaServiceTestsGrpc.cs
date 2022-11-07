@@ -5,6 +5,7 @@ using Xunit.Abstractions;
 namespace Safir.Manager.EndToEndTests.Services;
 
 [Collection(ManagerServiceCollection.Name)]
+[Trait("Category", "EndToEnd")]
 public class MediaServiceTestsGrpc : ManagerServiceTestBase
 {
     public MediaServiceTestsGrpc(ManagerServiceFixture service, ITestOutputHelper output)

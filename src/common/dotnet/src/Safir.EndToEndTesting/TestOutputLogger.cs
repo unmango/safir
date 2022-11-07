@@ -1,8 +1,9 @@
 using Microsoft.Extensions.Logging;
+using Safir.Common;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace Safir.Manager.EndToEndTests;
+namespace Safir.EndToEndTesting;
 
 public class TestOutputLogger : ILogger
 {
@@ -18,7 +19,7 @@ public class TestOutputLogger : ILogger
         _write = x => sink.OnMessage(new DiagnosticMessage(x));
     }
 
-    public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+    public IDisposable BeginScope<TState>(TState state) => Disposable.NoOp;
 
     public bool IsEnabled(LogLevel logLevel) => true;
 

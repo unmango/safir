@@ -43,6 +43,7 @@ public class ConfigurationBuilderExtensionsTests
 
         var result = configuration["config:directory"];
 
+        Assert.NotNull(result);
         Assert.NotEmpty(result);
     }
 
@@ -53,6 +54,7 @@ public class ConfigurationBuilderExtensionsTests
 
         var result = configuration["config:file"];
 
+        Assert.NotNull(result);
         Assert.NotEmpty(result);
     }
 
@@ -80,6 +82,7 @@ public class ConfigurationBuilderExtensionsTests
         var source = Assert.Single(builder.Sources, x => x.GetType() == typeof(ChainedConfigurationSource));
         var root = Assert.IsType<ChainedConfigurationSource>(source).Configuration;
 
+        Assert.NotNull(root);
         var testValue = root[testVariableName];
         Assert.Equal(expectedTestValue, testValue);
     }

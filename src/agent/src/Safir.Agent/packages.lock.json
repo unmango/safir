@@ -116,8 +116,8 @@
       },
       "FSharp.Core": {
         "type": "Transitive",
-        "resolved": "7.0.0-beta.22473.1",
-        "contentHash": "C41x/Jf0gYsJnMQOddrvtoJlqwqm49OENjcIxFkQ3FgQTYRuC33rjWnJKnhUKEArqy3cx4LTldtF5PCdQlOB0g=="
+        "resolved": "7.0.0",
+        "contentHash": "xPww0dhsH7o373ZNFY1Y08WRsJJUUzqGk0AIUxxUxSJkWqul0UwCBXg6UmqJX76VdiSvvEXn4SYwX8lYQaZzuQ=="
       },
       "Grpc.AspNetCore.Server": {
         "type": "Transitive",
@@ -704,7 +704,7 @@
       "safir.io.fsharp": {
         "type": "Project",
         "dependencies": {
-          "FSharp.Core": "[7.0.0-beta.22473.1, )"
+          "FSharp.Core": "[7.0.0, )"
         }
       },
       "safir.messaging": {

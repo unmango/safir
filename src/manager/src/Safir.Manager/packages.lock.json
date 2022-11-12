@@ -36,18 +36,6 @@
         "resolved": "2022.3.1",
         "contentHash": "11nsS3+lFICGkztVs9PP2NRItxf9fF+qD6xEW/T0YGto52zj07wseUeBdMAU1ah9HNVTDZyRC1u4NWdtJScwhw=="
       },
-      "Microsoft.AspNetCore.Grpc.HttpApi": {
-        "type": "Direct",
-        "requested": "[0.1.0-alpha.21317.5, )",
-        "resolved": "0.1.0-alpha.21317.5",
-        "contentHash": "UlWw4eJGeIElRI1QR/p4Hy879HQGPPSB6zgBVxdBIdyDihTAD8/Wn4zmo630rz7Aemme+UaRQcfGpUHvd+jboA==",
-        "dependencies": {
-          "Google.Api.CommonProtos": "2.2.0",
-          "Google.Protobuf": "3.14.0",
-          "Grpc.AspNetCore.Server": "2.33.1",
-          "System.IO.Pipelines": "4.7.2"
-        }
-      },
       "Microsoft.AspNetCore.Grpc.Swagger": {
         "type": "Direct",
         "requested": "[0.3.0, )",
@@ -252,11 +240,6 @@
         "type": "Transitive",
         "resolved": "6.4.0",
         "contentHash": "1Hh3atb3pi8c+v7n4/3N80Jj8RvLOXgWxzix6w3OZhB7zBGRwsy7FWr4e3hwgPweSBpwfElqj4V4nkjYabH9nQ=="
-      },
-      "System.IO.Pipelines": {
-        "type": "Transitive",
-        "resolved": "4.7.2",
-        "contentHash": "rGIIhoY3lUdn9rWeuGdgeZZ0P+SpJ1wZI5g8TnXqgvuhFgUP7iP9Nt5FZebYInQZQxqnwjPxdYYBE5l/8PJmqQ=="
       },
       "safir.agent.client": {
         "type": "Project",

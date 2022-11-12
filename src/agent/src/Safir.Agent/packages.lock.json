@@ -54,18 +54,6 @@
           "System.ValueTuple": "4.5.0"
         }
       },
-      "Microsoft.AspNetCore.Grpc.HttpApi": {
-        "type": "Direct",
-        "requested": "[0.1.0-alpha.21317.5, )",
-        "resolved": "0.1.0-alpha.21317.5",
-        "contentHash": "UlWw4eJGeIElRI1QR/p4Hy879HQGPPSB6zgBVxdBIdyDihTAD8/Wn4zmo630rz7Aemme+UaRQcfGpUHvd+jboA==",
-        "dependencies": {
-          "Google.Api.CommonProtos": "2.2.0",
-          "Google.Protobuf": "3.14.0",
-          "Grpc.AspNetCore.Server": "2.33.1",
-          "System.IO.Pipelines": "4.7.2"
-        }
-      },
       "Microsoft.AspNetCore.Grpc.Swagger": {
         "type": "Direct",
         "requested": "[0.3.0, )",

@@ -54,6 +54,7 @@ work/
 **/.idea/**/dynamic.xml
 **/.idea/**/uiDesigner.xml
 **/.idea/**/dbnavigator.xml
+**/.idea/**/riderMarkupCache.xml
 
 # Gradle
 **/.idea/**/gradle.xml

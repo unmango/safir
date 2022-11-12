@@ -14,10 +14,13 @@ public class FileSystemServiceTestsGrpc : AgentServiceTestBase
     [Fact]
     public async Task List_ReturnsTestData()
     {
-        await Container.ExecAsync(new[] { "" });
+        await Container.ExecAsync(new[] { "touch", "/data/Test.mp3" });
 
         var result = await GetFileSystemClient().ListFiles(new Empty())
             .ResponseStream
             .ToListAsync();
+
+        var item = Assert.Single(result);
+        Assert.Equal("Test.mp3", item.Path);
     }
 }

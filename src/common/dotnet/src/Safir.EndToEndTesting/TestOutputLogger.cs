@@ -19,7 +19,8 @@ public class TestOutputLogger : ILogger
         _write = x => sink.OnMessage(new DiagnosticMessage(x));
     }
 
-    public IDisposable BeginScope<TState>(TState state) => Disposable.NoOp;
+    public IDisposable BeginScope<TState>(TState state) where TState : notnull
+        => Disposable.NoOp;
 
     public bool IsEnabled(LogLevel logLevel) => true;
 

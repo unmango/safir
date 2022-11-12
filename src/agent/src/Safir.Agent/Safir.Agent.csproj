@@ -10,7 +10,6 @@
     <PackageReference Include="Grpc.AspNetCore.Web" />
     <PackageReference Include="JetBrains.Annotations" />
     <PackageReference Include="LanguageExt.Core" />
-    <PackageReference Include="Microsoft.AspNetCore.Grpc.HttpApi" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" />
     <PackageReference Include="Serilog.AspNetCore" />
     <PackageReference Include="System.IO.Abstractions" />

@@ -20,7 +20,6 @@ var services = builder.Services;
 
 // gRPC
 services.AddGrpc();
-services.AddGrpcHttpApi();
 
 if (builder.Environment.IsDevelopment()) {
     services.AddGrpcReflection();

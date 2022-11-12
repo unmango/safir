@@ -9,7 +9,6 @@
     <PackageReference Include="Grpc.AspNetCore.Server.Reflection" />
     <PackageReference Include="Grpc.AspNetCore.Web" />
     <PackageReference Include="JetBrains.Annotations" />
-    <PackageReference Include="Microsoft.AspNetCore.Grpc.HttpApi" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" />
     <PackageReference Include="Serilog.AspNetCore" />
     <PackageReference Include="System.Linq.Async" />

@@ -10,7 +10,7 @@ internal static class ConfigurationBuilderExtensions
         var directory = Path.Combine(root, "safir");
         var file = Path.Combine(directory, SafirDefaults.ConfigFileName);
 
-        return builder.AddInMemoryCollection(new Dictionary<string, string> {
+        return builder.AddInMemoryCollection(new Dictionary<string, string?> {
             [SafirDefaults.ConfigDirectoryKey] = directory,
             [SafirDefaults.ConfigFileKey] = file,
         });
@@ -26,7 +26,9 @@ internal static class ConfigurationBuilderExtensions
         // Add first to allow config file to overwrite
         builder.AddConfiguration(configuration);
 
-        var file = configuration.GetValue<string>(SafirDefaults.ConfigFileKey);
+        var file = configuration.GetValue<string>(SafirDefaults.ConfigFileKey)
+                   ?? throw new InvalidOperationException($"No value for {SafirDefaults.ConfigFileKey}");
+
         return builder.AddJsonFile(file, optional: true, reloadOnChange: true);
     }
 }

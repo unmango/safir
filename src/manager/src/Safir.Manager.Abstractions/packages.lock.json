@@ -26,21 +26,21 @@
       "safir.agent.client.abstractions": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "[2022.1.0, )",
+          "JetBrains.Annotations": "[2022.3.1, )",
           "Safir.Protos": "[1.0.0, )"
         }
       },
       "safir.messaging.abstractions": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "[2022.1.0, )"
+          "JetBrains.Annotations": "[2022.3.1, )"
         }
       },
       "safir.protos": {
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.6.0, )",
-          "Google.Protobuf": "[3.21.7, )",
+          "Google.Protobuf": "[3.21.9, )",
           "Grpc.Core.Api": "[2.49.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
@@ -56,9 +56,9 @@
       },
       "Google.Protobuf": {
         "type": "CentralTransitive",
-        "requested": "[3.21.7, )",
-        "resolved": "3.21.7",
-        "contentHash": "0Q+wYqtEVjRxVbtfxXzTUzwLGMZJKqhmIgdDpwWyg8J4ykYqfPn0M60FPBcZkjiGgtJqvZp+8t2van9rxTCLWQ==",
+        "requested": "[3.21.9, )",
+        "resolved": "3.21.9",
+        "contentHash": "OTpFujTgkmqMLbg3KT7F/iuKi1rg6s5FCS2M9XcVLDn40zL8wgXm37CY/F6MeOEXKjdcnXGCN/h7oyMkVydVsg==",
         "dependencies": {
           "System.Memory": "4.5.3",
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
@@ -75,9 +75,9 @@
       },
       "JetBrains.Annotations": {
         "type": "CentralTransitive",
-        "requested": "[2022.1.0, )",
-        "resolved": "2022.1.0",
-        "contentHash": "ASfpoFJxiRsC9Xc4TWuPM41Zb/gl64xwfMOhnOZ3RnVWGYIZchjpWQV5zshJgoc/ZxVtgjaF7b577lURj7E6ig=="
+        "requested": "[2022.3.1, )",
+        "resolved": "2022.3.1",
+        "contentHash": "11nsS3+lFICGkztVs9PP2NRItxf9fF+qD6xEW/T0YGto52zj07wseUeBdMAU1ah9HNVTDZyRC1u4NWdtJScwhw=="
       },
       "System.Memory": {
         "type": "CentralTransitive",
@@ -101,21 +101,21 @@
       "safir.agent.client.abstractions": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "[2022.1.0, )",
+          "JetBrains.Annotations": "[2022.3.1, )",
           "Safir.Protos": "[1.0.0, )"
         }
       },
       "safir.messaging.abstractions": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "[2022.1.0, )"
+          "JetBrains.Annotations": "[2022.3.1, )"
         }
       },
       "safir.protos": {
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.6.0, )",
-          "Google.Protobuf": "[3.21.7, )",
+          "Google.Protobuf": "[3.21.9, )",
           "Grpc.Core.Api": "[2.49.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
@@ -131,9 +131,9 @@
       },
       "Google.Protobuf": {
         "type": "CentralTransitive",
-        "requested": "[3.21.7, )",
-        "resolved": "3.21.7",
-        "contentHash": "0Q+wYqtEVjRxVbtfxXzTUzwLGMZJKqhmIgdDpwWyg8J4ykYqfPn0M60FPBcZkjiGgtJqvZp+8t2van9rxTCLWQ=="
+        "requested": "[3.21.9, )",
+        "resolved": "3.21.9",
+        "contentHash": "OTpFujTgkmqMLbg3KT7F/iuKi1rg6s5FCS2M9XcVLDn40zL8wgXm37CY/F6MeOEXKjdcnXGCN/h7oyMkVydVsg=="
       },
       "Grpc.Core.Api": {
         "type": "CentralTransitive",
@@ -146,9 +146,9 @@
       },
       "JetBrains.Annotations": {
         "type": "CentralTransitive",
-        "requested": "[2022.1.0, )",
-        "resolved": "2022.1.0",
-        "contentHash": "ASfpoFJxiRsC9Xc4TWuPM41Zb/gl64xwfMOhnOZ3RnVWGYIZchjpWQV5zshJgoc/ZxVtgjaF7b577lURj7E6ig=="
+        "requested": "[2022.3.1, )",
+        "resolved": "2022.3.1",
+        "contentHash": "11nsS3+lFICGkztVs9PP2NRItxf9fF+qD6xEW/T0YGto52zj07wseUeBdMAU1ah9HNVTDZyRC1u4NWdtJScwhw=="
       },
       "System.Memory": {
         "type": "CentralTransitive",
@@ -167,21 +167,21 @@
       "safir.agent.client.abstractions": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "[2022.1.0, )",
+          "JetBrains.Annotations": "[2022.3.1, )",
           "Safir.Protos": "[1.0.0, )"
         }
       },
       "safir.messaging.abstractions": {
         "type": "Project",
         "dependencies": {
-          "JetBrains.Annotations": "[2022.1.0, )"
+          "JetBrains.Annotations": "[2022.3.1, )"
         }
       },
       "safir.protos": {
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.6.0, )",
-          "Google.Protobuf": "[3.21.7, )",
+          "Google.Protobuf": "[3.21.9, )",
           "Grpc.Core.Api": "[2.49.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
@@ -197,9 +197,9 @@
       },
       "Google.Protobuf": {
         "type": "CentralTransitive",
-        "requested": "[3.21.7, )",
-        "resolved": "3.21.7",
-        "contentHash": "0Q+wYqtEVjRxVbtfxXzTUzwLGMZJKqhmIgdDpwWyg8J4ykYqfPn0M60FPBcZkjiGgtJqvZp+8t2van9rxTCLWQ=="
+        "requested": "[3.21.9, )",
+        "resolved": "3.21.9",
+        "contentHash": "OTpFujTgkmqMLbg3KT7F/iuKi1rg6s5FCS2M9XcVLDn40zL8wgXm37CY/F6MeOEXKjdcnXGCN/h7oyMkVydVsg=="
       },
       "Grpc.Core.Api": {
         "type": "CentralTransitive",
@@ -212,9 +212,9 @@
       },
       "JetBrains.Annotations": {
         "type": "CentralTransitive",
-        "requested": "[2022.1.0, )",
-        "resolved": "2022.1.0",
-        "contentHash": "ASfpoFJxiRsC9Xc4TWuPM41Zb/gl64xwfMOhnOZ3RnVWGYIZchjpWQV5zshJgoc/ZxVtgjaF7b577lURj7E6ig=="
+        "requested": "[2022.3.1, )",
+        "resolved": "2022.3.1",
+        "contentHash": "11nsS3+lFICGkztVs9PP2NRItxf9fF+qD6xEW/T0YGto52zj07wseUeBdMAU1ah9HNVTDZyRC1u4NWdtJScwhw=="
       },
       "System.Memory": {
         "type": "CentralTransitive",

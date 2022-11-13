@@ -15,7 +15,7 @@ public class ServiceFixtureBase : IAsyncLifetime
 
     public ServiceFixtureBase(IMessageSink sink, string image, string dockerFile, string baseImage = "safir-common-dotnet:e2e")
     {
-        TestcontainersSettings.Logger = new TestOutputLogger(sink);
+        TestcontainersSettings.Logger = new MessageSinkLogger(sink);
 
         BaseImage = new DockerImage(baseImage);
         Image = new DockerImage(image);

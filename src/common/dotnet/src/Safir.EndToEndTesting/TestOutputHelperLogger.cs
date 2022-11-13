@@ -1,22 +1,16 @@
 using Microsoft.Extensions.Logging;
 using Safir.Common;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace Safir.EndToEndTesting;
 
-public class TestOutputLogger : ILogger
+public class TestOutputHelperLogger : ILogger
 {
-    private readonly Action<string> _write;
+    private readonly ITestOutputHelper _outputHelper;
 
-    public TestOutputLogger(ITestOutputHelper outputHelper)
+    public TestOutputHelperLogger(ITestOutputHelper outputHelper)
     {
-        _write = outputHelper.WriteLine;
-    }
-
-    public TestOutputLogger(IMessageSink sink)
-    {
-        _write = x => sink.OnMessage(new DiagnosticMessage(x));
+        _outputHelper = outputHelper;
     }
 
     public IDisposable BeginScope<TState>(TState state) where TState : notnull
@@ -31,6 +25,7 @@ public class TestOutputLogger : ILogger
         Exception? exception,
         Func<TState, Exception?, string> formatter)
     {
-        _write(formatter(state, exception));
+        var message = formatter(state, exception);
+        _outputHelper.WriteLine(message);
     }
 }

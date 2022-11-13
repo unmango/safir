@@ -23,5 +23,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build /out .
 VOLUME "/data"
+ENV DATADIRECTORY="/data"
 EXPOSE 80
 ENTRYPOINT [ "dotnet", "Safir.Agent.dll" ]

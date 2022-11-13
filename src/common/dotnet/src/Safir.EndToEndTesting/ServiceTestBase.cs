@@ -15,12 +15,13 @@ public abstract class ServiceTestBase : IAsyncLifetime
 
     protected ServiceTestBase(ServiceFixtureBase service, ITestOutputHelper output)
     {
-        TestcontainersSettings.Logger = new TestOutputLogger(output);
+        TestcontainersSettings.Logger = new TestOutputHelperLogger(output);
         Container = new TestcontainersBuilder<TestcontainersContainer>()
             .WithImage(service.Image)
             .WithPortBinding(InternalPort, true)
             .WithWaitStrategy(Wait.ForUnixContainer()
                 .UntilPortIsAvailable(InternalPort))
+            .WithOutputConsumer(new TestOutputHelperOutputConsumer(output))
             .Build();
     }
 

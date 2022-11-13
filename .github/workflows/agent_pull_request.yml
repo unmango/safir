@@ -34,13 +34,13 @@ jobs:
           ${{ runner.os }}-nuget-
 
     - name: Restore dependencies
-      run: dotnet restore --locked-mode --nologo
+      run: dotnet restore --locked-mode
 
     - name: Build solution
-      run: dotnet build --no-restore --nologo
+      run: dotnet build --no-restore
 
     - name: Run tests
-      run: dotnet test --no-build --verbosity normal --nologo
+      run: dotnet test --no-build --verbosity normal --filter Category!=EndToEnd
 
   docker_build:
     runs-on: ubuntu-latest

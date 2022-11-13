@@ -95,7 +95,7 @@ public class HandlerBuilderTests
     [Fact]
     public async Task Build_UsesHostConfigurationInConfigureAppConfiguration()
     {
-        KeyValuePair<string, string> pair = new("key", "value");
+        KeyValuePair<string, string?> pair = new("key", "value");
         IConfiguration? invoked = null;
         var handler = _builder
             .ConfigureHostConfiguration((_, builder) => builder.AddInMemoryCollection(new[] { pair }))
@@ -112,7 +112,7 @@ public class HandlerBuilderTests
     [Fact]
     public async Task Build_UsesHostConfigurationInConfigureServices()
     {
-        KeyValuePair<string, string> pair = new("key", "value");
+        KeyValuePair<string, string?> pair = new("key", "value");
         IConfiguration? invoked = null;
         var handler = _builder
             .ConfigureHostConfiguration((_, builder) => builder.AddInMemoryCollection(new[] { pair }))
@@ -129,7 +129,7 @@ public class HandlerBuilderTests
     [Fact]
     public async Task Build_UsesAppConfigurationInConfigureServices()
     {
-        KeyValuePair<string, string> pair = new("key", "value");
+        KeyValuePair<string, string?> pair = new("key", "value");
         IConfiguration? invoked = null;
         var handler = _builder
             .ConfigureAppConfiguration((_, builder) => builder.AddInMemoryCollection(new[] { pair }))
@@ -150,7 +150,7 @@ public class HandlerBuilderTests
         IConfiguration? configuration = null;
         var handler = _builder
             .ConfigureAppConfiguration((_, builder) => builder.AddInMemoryCollection(new[] {
-                new KeyValuePair<string, string>(key, value),
+                new KeyValuePair<string, string?>(key, value),
             }))
             .ConfigureHandler(context => {
                 configuration = context.Configuration;
@@ -223,7 +223,7 @@ public class HandlerBuilderTests
         IConfiguration? configuration = null;
         var handler = _builder
             .ConfigureHostConfiguration((_, builder) => builder.AddInMemoryCollection(new[] {
-                new KeyValuePair<string, string>(key, value),
+                new KeyValuePair<string, string?>(key, value),
             }))
             .ConfigureHandler(context => {
                 configuration = context.Configuration;

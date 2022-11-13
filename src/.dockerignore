@@ -2,7 +2,8 @@
 .github
 .idea
 .vscode
-.yarn/*
+# .yarn/*
+.yarn
 !.yarn/patches
 !.yarn/releases
 !.yarn/plugins

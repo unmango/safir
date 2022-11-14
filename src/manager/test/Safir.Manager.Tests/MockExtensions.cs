@@ -1,8 +1,10 @@
 using Grpc.Core;
+using JetBrains.Annotations;
 using Moq.Language.Flow;
 
 namespace Safir.Manager.Tests;
 
+[PublicAPI]
 internal static class MockExtensions
 {
     public static IReturnsResult<TClient> ReturnsAsync<TClient, TItem>(

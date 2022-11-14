@@ -1,8 +1,7 @@
 using System.IO.Abstractions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Safir.AspNetCore.IntegrationTesting;
+using Safir.AspNetCore.Testing;
 using Safir.Grpc;
 using FileSystem = Safir.Agent.Protos.FileSystem;
 

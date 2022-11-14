@@ -1,6 +1,6 @@
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Safir.AspNetCore.IntegrationTesting;
+using Safir.AspNetCore.Testing;
 using Safir.Protos;
 
 namespace Safir.Manager.IntegrationTests.Services;

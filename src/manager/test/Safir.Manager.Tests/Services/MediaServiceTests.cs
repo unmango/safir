@@ -1,6 +1,7 @@
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Safir.Agent.Protos;
+using Safir.AspNetCore.Testing;
 using Safir.Manager.Protos;
 using Safir.Manager.Services;
 

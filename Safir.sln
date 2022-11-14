@@ -114,7 +114,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.IntegrationTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Tests", "src\manager\test\Safir.Manager.Tests\Safir.Manager.Tests.csproj", "{E1834822-824A-4802-B76D-C6A270E8F2AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.AspNetCore.IntegrationTesting", "src\common\dotnet\src\Safir.AspNetCore.IntegrationTesting\Safir.AspNetCore.IntegrationTesting.csproj", "{E5BDB2F0-CE98-48E1-94F5-2D1BDF1EE3DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.AspNetCore.Testing", "src\common\dotnet\src\Safir.AspNetCore.Testing\Safir.AspNetCore.Testing.csproj", "{E5BDB2F0-CE98-48E1-94F5-2D1BDF1EE3DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.EndToEndTests", "src\manager\test\Safir.Manager.EndToEndTests\Safir.Manager.EndToEndTests.csproj", "{C1D8B2A6-4740-4C0F-94C9-BC96FAD8C64F}"
 EndProject

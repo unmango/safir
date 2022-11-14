@@ -1,6 +1,6 @@
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Safir.AspNetCore.IntegrationTesting;
+using Safir.AspNetCore.Testing;
 using Safir.Grpc;
 using Safir.Manager.Protos;
 
@@ -12,7 +12,9 @@ public class MediaServiceTestsGrpc : IClassFixture<WebApplicationFactory<Program
 
     public MediaServiceTestsGrpc(WebApplicationFactory<Program> factory)
     {
-        var channel = factory.CreateChannel();
+        var channel = factory
+            .CreateChannel();
+
         _client = new Media.MediaClient(channel);
     }
 

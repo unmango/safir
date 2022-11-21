@@ -39,7 +39,12 @@ public static class WebApplicationFactoryExtensions
                 services.AddSingleton(_grpcClientFactoryMock.Value.Object);
         }));
 
-    public static WebApplicationFactory<T> WithOptions<T, TOptions>(this WebApplicationFactory<T> factory, TOptions options)
+    public static WebApplicationFactory<T> WithGrpcClient<T, TClient>(this WebApplicationFactory<T> factory, Mock<TClient> client)
+        where T : class
+        where TClient : class
+        => factory.WithGrpcClient(client.Object);
+
+    public static WebApplicationFactory<T> WithOptions<T, TOptions>(this WebApplicationFactory<T> factory, Func<TOptions> options)
         where T : class
         where TOptions : class
         => factory.WithWebHostBuilder(builder => {
@@ -49,4 +54,9 @@ public static class WebApplicationFactoryExtensions
                 services.AddSingleton(mock.Object);
             });
         });
+
+    public static WebApplicationFactory<T> WithOptions<T, TOptions>(this WebApplicationFactory<T> factory, TOptions options)
+        where T : class
+        where TOptions : class
+        => factory.WithOptions(() => options);
 }

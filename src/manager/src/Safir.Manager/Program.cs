@@ -43,6 +43,8 @@ foreach (var agent in agentOptions) {
     });
 }
 
+services.AddTransient<IAgents, AgentAggregator>();
+
 // Other
 services.Configure<ManagerConfiguration>(builder.Configuration);
 services.AddCors(static options => {

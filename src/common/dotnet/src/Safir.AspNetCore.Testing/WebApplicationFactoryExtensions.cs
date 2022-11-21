@@ -1,4 +1,5 @@
 using Grpc.Net.Client;
+using Grpc.Net.ClientFactory;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -13,6 +14,8 @@ namespace Safir.AspNetCore.Testing;
 [PublicAPI]
 public static class WebApplicationFactoryExtensions
 {
+    private static readonly Lazy<Mock<GrpcClientFactory>> _grpcClientFactoryMock = new(() => new());
+
     public static GrpcChannel CreateChannel<T>(this WebApplicationFactory<T> factory)
         where T : class
         => GrpcChannel.ForAddress("http://localhost", new() {
@@ -27,8 +30,13 @@ public static class WebApplicationFactoryExtensions
 
     public static WebApplicationFactory<T> WithGrpcClient<T, TClient>(this WebApplicationFactory<T> factory, TClient client)
         where T : class
-        => factory.WithWebHostBuilder(builder => builder.ConfigureServices((context, services) => {
-            // TODO: Was thinking about how to mock GrpcClientFactory w/o overwriting on multiple calls to WithGrpcClient
+        where TClient : class
+        => factory.WithWebHostBuilder(builder => builder.ConfigureTestServices(services => {
+            _grpcClientFactoryMock.Value.Setup(x => x.CreateClient<TClient>(It.IsAny<string>())).Returns(client);
+
+            var descriptor = services.FirstOrDefault(x => x.ImplementationInstance == _grpcClientFactoryMock.Value.Object);
+            if (descriptor is null)
+                services.AddSingleton(_grpcClientFactoryMock.Value.Object);
         }));
 
     public static WebApplicationFactory<T> WithOptions<T, TOptions>(this WebApplicationFactory<T> factory, TOptions options)

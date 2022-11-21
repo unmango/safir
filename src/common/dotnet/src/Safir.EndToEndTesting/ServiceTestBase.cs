@@ -3,6 +3,7 @@ using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Containers;
 using Grpc.Net.Client;
 using JetBrains.Annotations;
+using Safir.XUnit.AspNetCore;
 using Xunit;
 using Xunit.Abstractions;
 

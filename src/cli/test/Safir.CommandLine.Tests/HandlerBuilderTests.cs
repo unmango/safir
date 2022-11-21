@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Safir.CommandLine.Tests;
 
+[Trait("Category", "Unit")]
 public class HandlerBuilderTests
 {
     private readonly Mock<IConsole> _console = new();

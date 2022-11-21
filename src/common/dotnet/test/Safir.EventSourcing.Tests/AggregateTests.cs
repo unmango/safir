@@ -3,6 +3,7 @@ using Xunit;
 
 namespace Safir.EventSourcing.Tests;
 
+[Trait("Category", "Unit")]
 public class AggregateTests
 {
     [Fact]

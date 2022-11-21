@@ -2,6 +2,7 @@ using System.CommandLine;
 
 namespace Safir.CommandLine.Tests;
 
+[Trait("Category", "Unit")]
 public class CommandExtensionsTests
 {
     private readonly Mock<IHandlerBuilder> _builder = new();

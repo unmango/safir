@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Safir.Cli.Tests.Configuration;
 
+[Trait("Category", "Unit")]
 public class ConfigurationBuilderExtensionsTests
 {
     private readonly IConfigurationBuilder _builder = new ConfigurationBuilder();

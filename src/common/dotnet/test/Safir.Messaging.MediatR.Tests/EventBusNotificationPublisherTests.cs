@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Safir.Messaging.MediatR.Tests;
 
+[Trait("Category", "Unit")]
 public class EventBusNotificationPublisherTests
 {
     private readonly AutoMocker _mocker = new();

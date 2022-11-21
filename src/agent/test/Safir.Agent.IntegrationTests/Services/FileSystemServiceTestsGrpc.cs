@@ -7,6 +7,7 @@ using FileSystem = Safir.Agent.Protos.FileSystem;
 
 namespace Safir.Agent.IntegrationTests.Services;
 
+[Trait("Category", "Integration")]
 public class FileSystemServiceTestsGrpc : IClassFixture<WebApplicationFactory<Program>>
 {
     private const string DataDirectory = "Test";

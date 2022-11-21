@@ -1,8 +1,10 @@
 using Moq.AutoMock;
+using Xunit;
 
 namespace Safir.EventSourcing.EntityFrameworkCore.Tests;
 
 // TODO: Test everything
+[Trait("Category", "Unit")]
 public class DbContextSnapshotStoreTests : IAsyncDisposable
 {
     private readonly AutoMocker _mocker = new();

@@ -11,6 +11,7 @@ using Xunit;
 
 namespace Safir.Messaging.Tests.DependencyInjection;
 
+[Trait("Category", "Unit")]
 public class ServiceCollectionExtensionsTests
 {
     private readonly ServiceCollection _services = new();

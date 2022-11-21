@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Safir.EventSourcing.EntityFrameworkCore.Tests;
 
+[Trait("Category", "Unit")]
 public class DbContextEventStoreTests : IAsyncDisposable
 {
     private readonly AutoMocker _mocker = new();

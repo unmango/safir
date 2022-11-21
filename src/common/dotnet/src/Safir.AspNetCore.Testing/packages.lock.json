@@ -12,6 +12,16 @@
           "Microsoft.Extensions.Logging.Abstractions": "3.0.3"
         }
       },
+      "Grpc.Net.ClientFactory": {
+        "type": "Direct",
+        "requested": "[2.49.0, )",
+        "resolved": "2.49.0",
+        "contentHash": "4Ac7dsrARbcs1g2vrUSUadtZ0kIGTk6yhA5ccOBjgM+RTzY3L54TgMddmeaV7/Z4f9sZn6T1ls6FmUiG8Dms+Q==",
+        "dependencies": {
+          "Grpc.Net.Client": "2.49.0",
+          "Microsoft.Extensions.Http": "3.0.3"
+        }
+      },
       "JetBrains.Annotations": {
         "type": "Direct",
         "requested": "[2022.3.1, )",
@@ -355,6 +365,17 @@
           "Microsoft.Extensions.Configuration.Abstractions": "7.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
           "Microsoft.Extensions.FileProviders.Abstractions": "7.0.0"
+        }
+      },
+      "Microsoft.Extensions.Http": {
+        "type": "CentralTransitive",
+        "requested": "[7.0.0, )",
+        "resolved": "3.0.3",
+        "contentHash": "dcyB8szIcSynjVZRuFgqkZpPgTc5zeRSj1HMXSmNqWbHYKiPYJl8ZQgBHz6wmZNSUUNGpCs5uxUg8DZHHDC1Ew==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.0.3",
+          "Microsoft.Extensions.Logging": "3.0.3",
+          "Microsoft.Extensions.Options": "3.0.3"
         }
       },
       "Microsoft.Extensions.Logging": {

@@ -3,6 +3,7 @@ using Xunit;
 
 namespace Safir.Cli.Tests.Commands;
 
+[Trait("Category", "Unit")]
 public class ConfigCommandTests
 {
     [Fact]

@@ -8,6 +8,7 @@ using Safir.Agent.Services;
 
 namespace Safir.Agent.Tests.Services;
 
+[Trait("Category", "Unit")]
 public class FileSystemServiceTests
 {
     private const string Directory = "dir";

@@ -8,6 +8,7 @@ using Xunit;
 
 namespace Safir.Cli.Tests.Commands.Config;
 
+[Trait("Category", "Unit")]
 public class RemoveCommandTests
 {
     private readonly Mock<IStandardStreamWriter> _outWriter = new();

@@ -4,6 +4,7 @@ using Xunit;
 
 namespace Safir.EventSourcing.Tests;
 
+[Trait("Category", "Unit")]
 public class DefaultEventMetadataProviderTests
 {
     private readonly AutoMocker _mocker = new();

@@ -1,16 +1,19 @@
+using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Safir.Common;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 
-namespace Safir.EndToEndTesting;
+namespace Safir.XUnit.AspNetCore;
 
-public class TestOutputHelperLogger : ILogger
+[PublicAPI]
+public class MessageSinkLogger : ILogger
 {
-    private readonly ITestOutputHelper _outputHelper;
+    private readonly IMessageSink _sink;
 
-    public TestOutputHelperLogger(ITestOutputHelper outputHelper)
+    public MessageSinkLogger(IMessageSink sink)
     {
-        _outputHelper = outputHelper;
+        _sink = sink;
     }
 
     public IDisposable BeginScope<TState>(TState state) where TState : notnull
@@ -26,6 +29,7 @@ public class TestOutputHelperLogger : ILogger
         Func<TState, Exception?, string> formatter)
     {
         var message = formatter(state, exception);
-        _outputHelper.WriteLine(message);
+        var sinkMessage = new DiagnosticMessage(message);
+        _ = _sink.OnMessage(sinkMessage);
     }
 }

@@ -9,6 +9,7 @@ using Xunit;
 
 namespace Safir.Cli.Tests.Commands.Config.Add;
 
+[Trait("Category", "Unit")]
 public class AgentCommandTests
 {
     private readonly Mock<IStandardStreamWriter> _outWriter = new();

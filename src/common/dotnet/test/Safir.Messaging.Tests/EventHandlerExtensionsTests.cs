@@ -6,6 +6,7 @@ using Xunit;
 
 namespace Safir.Messaging.Tests;
 
+[Trait("Category", "Unit")]
 public class EventHandlerExtensionsTests
 {
     [Fact]

@@ -2,6 +2,7 @@ using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Images;
 using JetBrains.Annotations;
+using Safir.XUnit.AspNetCore;
 using Xunit;
 using Xunit.Abstractions;
 

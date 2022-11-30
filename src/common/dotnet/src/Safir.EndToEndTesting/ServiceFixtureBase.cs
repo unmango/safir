@@ -34,6 +34,8 @@ public class ServiceFixtureBase : IAsyncLifetime
             .WithName(BaseImage)
             .WithDockerfile(Path.Combine("common", "dotnet", "Dockerfile"))
             .WithDockerfileDirectory(_commonDirectoryPath, "src")
+            .WithDeleteIfExists(false)
+            .WithCleanUp(false)
             .Build();
 
         await new ImageFromDockerfileBuilder()
@@ -41,6 +43,8 @@ public class ServiceFixtureBase : IAsyncLifetime
             .WithDockerfile(_dockerFile)
             .WithDockerfileDirectory(_commonDirectoryPath, "src")
             .WithBuildArgument("CommonImage", BaseImage.FullName)
+            .WithDeleteIfExists(false)
+            .WithCleanUp(false)
             .Build();
     }
 

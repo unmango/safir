@@ -11,6 +11,10 @@ public abstract class ManagerServiceTestBase : ServiceTestBase
     protected ManagerServiceTestBase(ManagerServiceFixture service, ITestOutputHelper output)
         : base(service, output) { }
 
+    // ReSharper disable once SuggestBaseTypeForParameterInConstructor
+    protected ManagerServiceTestBase(ManagerServiceFixture service, ITestOutputHelper output, ConfigureServiceTest configure)
+        : base(service, output, configure) { }
+
     protected Host.HostClient GetHostClient() => new(CreateGrpcChannel());
 
     protected Media.MediaClient GetMediaClient() => new(CreateGrpcChannel());

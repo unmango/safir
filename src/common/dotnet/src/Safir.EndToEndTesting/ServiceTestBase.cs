@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Containers;
@@ -15,14 +16,24 @@ public abstract class ServiceTestBase : IAsyncLifetime
     private const int InternalPort = 80;
 
     protected ServiceTestBase(ServiceFixtureBase service, ITestOutputHelper output)
+        : this(service, output, ServiceTestConfiguration.NoOp) { }
+
+    protected ServiceTestBase(ServiceFixtureBase service, ITestOutputHelper output, ConfigureServiceTest configure)
+        : this(configure(new(service, output, ImmutableList<ConfigureBuilder>.Empty))) { }
+
+    protected ServiceTestBase(ServiceTestConfiguration configuration)
     {
+        var (service, output, configureActions) = configuration;
         TestcontainersSettings.Logger = new TestOutputHelperLogger(output);
-        Container = new TestcontainersBuilder<TestcontainersContainer>()
+        var builder = new TestcontainersBuilder<TestcontainersContainer>()
             .WithImage(service.Image)
             .WithPortBinding(InternalPort, true)
             .WithWaitStrategy(Wait.ForUnixContainer()
                 .UntilPortIsAvailable(InternalPort))
-            .WithOutputConsumer(new TestOutputHelperOutputConsumer(output))
+            .WithOutputConsumer(new TestOutputHelperOutputConsumer(output));
+
+        Container = configureActions
+            .Aggregate(builder, (current, configure) => configure(current))
             .Build();
     }
 

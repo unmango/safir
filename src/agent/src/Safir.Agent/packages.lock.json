@@ -83,13 +83,9 @@
       },
       "System.IO.Abstractions": {
         "type": "Direct",
-        "requested": "[18.0.1, )",
-        "resolved": "18.0.1",
-        "contentHash": "kyqYIu5Fjnrj9IO8G2jkYPIYvjhEoOBxd0+CRZyKqeuF2NNEUR4UyHMmxv8+F1cRmWQe5RUqYcXotJbQbWKapA==",
-        "dependencies": {
-          "TestableIO.System.IO.Abstractions": "18.0.1",
-          "TestableIO.System.IO.Abstractions.Wrappers": "18.0.1"
-        }
+        "requested": "[17.2.3, )",
+        "resolved": "17.2.3",
+        "contentHash": "VcozGeE4SxIo0cnXrDHhbrh/Gb8KQnZ3BvMelvh+iw0PrIKtuuA46U2Xm4e4pgnaWFgT4RdZfTpWl/WPRdw0WQ=="
       },
       "System.Linq.Async": {
         "type": "Direct",
@@ -573,19 +569,6 @@
         "type": "Transitive",
         "resolved": "4.5.0",
         "contentHash": "okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ=="
-      },
-      "TestableIO.System.IO.Abstractions": {
-        "type": "Transitive",
-        "resolved": "18.0.1",
-        "contentHash": "nacJfL4mGObg8Ttn3ZCJZ2u9z8ivG43xgUJvQQLKCmDnle4m49NYNOLk8cqB4iPdSqVhnUSy+qcIryWgDHCqeg=="
-      },
-      "TestableIO.System.IO.Abstractions.Wrappers": {
-        "type": "Transitive",
-        "resolved": "18.0.1",
-        "contentHash": "3vGUMEHgL7l1Jyvv0WdDzCrwV6xKRhI2xVgWHQDbfVsye/ZBflhWFyVrCanPHzm0r0WSl0ug8DuaKwmelHlLCw==",
-        "dependencies": {
-          "TestableIO.System.IO.Abstractions": "18.0.1"
-        }
       },
       "safir.agent.abstractions": {
         "type": "Project",

@@ -139,13 +139,9 @@
       },
       "System.IO.Abstractions": {
         "type": "Direct",
-        "requested": "[18.0.1, )",
-        "resolved": "18.0.1",
-        "contentHash": "kyqYIu5Fjnrj9IO8G2jkYPIYvjhEoOBxd0+CRZyKqeuF2NNEUR4UyHMmxv8+F1cRmWQe5RUqYcXotJbQbWKapA==",
-        "dependencies": {
-          "TestableIO.System.IO.Abstractions": "18.0.1",
-          "TestableIO.System.IO.Abstractions.Wrappers": "18.0.1"
-        }
+        "requested": "[17.2.3, )",
+        "resolved": "17.2.3",
+        "contentHash": "VcozGeE4SxIo0cnXrDHhbrh/Gb8KQnZ3BvMelvh+iw0PrIKtuuA46U2Xm4e4pgnaWFgT4RdZfTpWl/WPRdw0WQ=="
       },
       "System.Linq.Async": {
         "type": "Direct",
@@ -232,19 +228,6 @@
         "type": "Transitive",
         "resolved": "7.0.0",
         "contentHash": "OP6umVGxc0Z0MvZQBVigj4/U31Pw72ITihDWP9WiWDm+q5aoe0GaJivsfYGq53o6dxH7DcXWiCTl7+0o2CGdmg=="
-      },
-      "TestableIO.System.IO.Abstractions": {
-        "type": "Transitive",
-        "resolved": "18.0.1",
-        "contentHash": "nacJfL4mGObg8Ttn3ZCJZ2u9z8ivG43xgUJvQQLKCmDnle4m49NYNOLk8cqB4iPdSqVhnUSy+qcIryWgDHCqeg=="
-      },
-      "TestableIO.System.IO.Abstractions.Wrappers": {
-        "type": "Transitive",
-        "resolved": "18.0.1",
-        "contentHash": "3vGUMEHgL7l1Jyvv0WdDzCrwV6xKRhI2xVgWHQDbfVsye/ZBflhWFyVrCanPHzm0r0WSl0ug8DuaKwmelHlLCw==",
-        "dependencies": {
-          "TestableIO.System.IO.Abstractions": "18.0.1"
-        }
       },
       "safir.commandline": {
         "type": "Project",

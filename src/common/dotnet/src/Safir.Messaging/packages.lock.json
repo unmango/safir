@@ -4,13 +4,13 @@
     ".NETStandard,Version=v2.1": {
       "MessagePack": {
         "type": "Direct",
-        "requested": "[2.4.35, )",
-        "resolved": "2.4.35",
-        "contentHash": "sWyuByDues5fXghrCXXt5BSiqsQSjFWC+srBU97iwWWCV3JhiI3HoML5/Uj4zK9yD8pnAk2oobuuvwYfHhUruA==",
+        "requested": "[2.4.59, )",
+        "resolved": "2.4.59",
+        "contentHash": "bj1NsZu4SckIIHxZcLc3+S64MiDRm+YlQi9MDsA+dt6x/QNiELftDQ9VQ88n3sgRzaniMqgfzO9pHXGoxcsKCQ==",
         "dependencies": {
-          "MessagePack.Annotations": "2.4.35",
+          "MessagePack.Annotations": "2.4.59",
           "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
-          "Microsoft.NET.StringTools": "1.0.0",
+          "Microsoft.NET.StringTools": "17.4.0",
           "System.Collections.Immutable": "1.7.1",
           "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.Lightweight": "4.7.0",
@@ -75,13 +75,12 @@
       },
       "StackExchange.Redis": {
         "type": "Direct",
-        "requested": "[2.6.70, )",
-        "resolved": "2.6.70",
-        "contentHash": "O1QpPNrcGZXXClqdNe69/ySwRPINTwSnZQr0qxKfBMUPqemmJ5UXVwCznVIwMEYhoBlZtIgC+ZYywhNb8oXaKg==",
+        "requested": "[2.6.80, )",
+        "resolved": "2.6.80",
+        "contentHash": "97wrhWUJ7QQfcTr+QWflB/emzHEZF7zQSRG2iRbqbaVsYvaImtrl3i4vm3/Sc+1DfQRVhPqfDUTl0XvTjabx3w==",
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "5.0.0",
           "Pipelines.Sockets.Unofficial": "2.2.2",
-          "System.Diagnostics.PerformanceCounter": "5.0.0",
           "System.Threading.Channels": "5.0.0"
         }
       },
@@ -97,8 +96,8 @@
       },
       "MessagePack.Annotations": {
         "type": "Transitive",
-        "resolved": "2.4.35",
-        "contentHash": "6wfQ3Law5TMPeMm/HpYpMLal5HzEj70QFmbXWzHJjRsxF+nEol8RP3mqGUIctN9pItdtKCpbrpP8iEpSCkORCA=="
+        "resolved": "2.4.59",
+        "contentHash": "3I1OxkqjiL0QEHnEJCia5TOeQuqVpYmNbprdw9uyIRXniei01ElWTS7Qcte+ionHM0KYiPWYhXQFJIeYb5Hbrg=="
       },
       "Microsoft.Build.Tasks.Git": {
         "type": "Transitive",
@@ -132,11 +131,11 @@
       },
       "Microsoft.NET.StringTools": {
         "type": "Transitive",
-        "resolved": "1.0.0",
-        "contentHash": "ZYVcoDM0LnSyT5nWoRGfShYdOecCw2sOXWwP6j1Z0u48Xq3+BVvZ+EiPCX9/8Gz439giW+O1H1kWF9Eb/w6rVg==",
+        "resolved": "17.4.0",
+        "contentHash": "06T6Hqfs3JDIaBvJaBRFFMIdU7oE0OMab5Xl8LKQjWPxBQr3BgVFKMQPTC+GsSEuYREWmK6g5eOd7Xqd9p1YCA==",
         "dependencies": {
-          "System.Memory": "4.5.4",
-          "System.Runtime.CompilerServices.Unsafe": "5.0.0"
+          "System.Memory": "4.5.5",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         }
       },
       "Microsoft.NETCore.Platforms": {
@@ -183,11 +182,6 @@
           "System.Memory": "4.5.5",
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         }
-      },
-      "System.Diagnostics.PerformanceCounter": {
-        "type": "Transitive",
-        "resolved": "5.0.0",
-        "contentHash": "kcQWWtGVC3MWMNXdMDWfrmIlFZZ2OdoeT6pSNVRtk9+Sa7jwdPiMlNwb0ZQcS7NRlT92pCfmjRtkSWUW3RAKwg=="
       },
       "System.IO.Pipelines": {
         "type": "Transitive",
@@ -269,9 +263,9 @@
       "safir.protos": {
         "type": "Project",
         "dependencies": {
-          "Google.Api.CommonProtos": "[2.6.0, )",
-          "Google.Protobuf": "[3.21.9, )",
-          "Grpc.Core.Api": "[2.49.0, )",
+          "Google.Api.CommonProtos": "[2.7.0, )",
+          "Google.Protobuf": "[3.21.10, )",
+          "Grpc.Core.Api": "[2.50.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       },
@@ -280,23 +274,23 @@
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "[7.0.0, )",
           "Safir.Common": "[1.0.0, )",
-          "StackExchange.Redis": "[2.6.70, )"
+          "StackExchange.Redis": "[2.6.80, )"
         }
       },
       "Google.Api.CommonProtos": {
         "type": "CentralTransitive",
-        "requested": "[2.6.0, )",
-        "resolved": "2.6.0",
-        "contentHash": "GuxkKnM6Ok9f1CV2CpQatTQ04g3RAuUUStM1McHK4O8XopJTdih0nwgI1ESrgVi9LpExxzx7OhxDXivE2Ua8Ig==",
+        "requested": "[2.7.0, )",
+        "resolved": "2.7.0",
+        "contentHash": "Wpg4yRGJxX8FE3Ife+Gsj556MDHuki4KqVlZ1jOvvFX6yianI/hbScgvGUlteM9uu7vzbfCyKLc0Sv5/53M3hg==",
         "dependencies": {
           "Google.Protobuf": "[3.21.0, 4.0.0)"
         }
       },
       "Google.Protobuf": {
         "type": "CentralTransitive",
-        "requested": "[3.21.9, )",
-        "resolved": "3.21.9",
-        "contentHash": "OTpFujTgkmqMLbg3KT7F/iuKi1rg6s5FCS2M9XcVLDn40zL8wgXm37CY/F6MeOEXKjdcnXGCN/h7oyMkVydVsg==",
+        "requested": "[3.21.10, )",
+        "resolved": "3.21.10",
+        "contentHash": "9KnY/4N1pZkfoLv8Ozho3Tf8ms09YGX1UuURqXXidAhTP/FvIHwbon8VhX4Zmxb0YrOc/aVWYMgEimBwjbWCGg==",
         "dependencies": {
           "System.Memory": "4.5.3",
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
@@ -304,9 +298,9 @@
       },
       "Grpc.Core.Api": {
         "type": "CentralTransitive",
-        "requested": "[2.49.0, )",
-        "resolved": "2.49.0",
-        "contentHash": "6OTcSQ8iML+xzmELhH4anUZlNM3dHDKPFBsMLSdiT80LJaaZKxwZml/K9ZdfLIjSR/EzdMZzzU2Avbedz4N7BA==",
+        "requested": "[2.50.0, )",
+        "resolved": "2.50.0",
+        "contentHash": "ECZr0AqUobCIfxPYm07D/IqMbGd+Vu9KquRLLY1kMzc/xWZdqqiK0jA6t6Y5gate3lV4EiH53cvfcb6anritQg==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }

@@ -4,18 +4,18 @@
     ".NETStandard,Version=v2.1": {
       "Google.Api.CommonProtos": {
         "type": "Direct",
-        "requested": "[2.6.0, )",
-        "resolved": "2.6.0",
-        "contentHash": "GuxkKnM6Ok9f1CV2CpQatTQ04g3RAuUUStM1McHK4O8XopJTdih0nwgI1ESrgVi9LpExxzx7OhxDXivE2Ua8Ig==",
+        "requested": "[2.7.0, )",
+        "resolved": "2.7.0",
+        "contentHash": "Wpg4yRGJxX8FE3Ife+Gsj556MDHuki4KqVlZ1jOvvFX6yianI/hbScgvGUlteM9uu7vzbfCyKLc0Sv5/53M3hg==",
         "dependencies": {
           "Google.Protobuf": "[3.21.0, 4.0.0)"
         }
       },
       "Google.Protobuf": {
         "type": "Direct",
-        "requested": "[3.21.9, )",
-        "resolved": "3.21.9",
-        "contentHash": "OTpFujTgkmqMLbg3KT7F/iuKi1rg6s5FCS2M9XcVLDn40zL8wgXm37CY/F6MeOEXKjdcnXGCN/h7oyMkVydVsg==",
+        "requested": "[3.21.10, )",
+        "resolved": "3.21.10",
+        "contentHash": "9KnY/4N1pZkfoLv8Ozho3Tf8ms09YGX1UuURqXXidAhTP/FvIHwbon8VhX4Zmxb0YrOc/aVWYMgEimBwjbWCGg==",
         "dependencies": {
           "System.Memory": "4.5.3",
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
@@ -23,9 +23,9 @@
       },
       "Grpc.Core.Api": {
         "type": "Direct",
-        "requested": "[2.49.0, )",
-        "resolved": "2.49.0",
-        "contentHash": "6OTcSQ8iML+xzmELhH4anUZlNM3dHDKPFBsMLSdiT80LJaaZKxwZml/K9ZdfLIjSR/EzdMZzzU2Avbedz4N7BA==",
+        "requested": "[2.50.0, )",
+        "resolved": "2.50.0",
+        "contentHash": "ECZr0AqUobCIfxPYm07D/IqMbGd+Vu9KquRLLY1kMzc/xWZdqqiK0jA6t6Y5gate3lV4EiH53cvfcb6anritQg==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }

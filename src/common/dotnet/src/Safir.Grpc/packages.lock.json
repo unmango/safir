@@ -4,9 +4,9 @@
     ".NETStandard,Version=v2.1": {
       "Grpc.Core.Api": {
         "type": "Direct",
-        "requested": "[2.49.0, )",
-        "resolved": "2.49.0",
-        "contentHash": "6OTcSQ8iML+xzmELhH4anUZlNM3dHDKPFBsMLSdiT80LJaaZKxwZml/K9ZdfLIjSR/EzdMZzzU2Avbedz4N7BA==",
+        "requested": "[2.50.0, )",
+        "resolved": "2.50.0",
+        "contentHash": "ECZr0AqUobCIfxPYm07D/IqMbGd+Vu9KquRLLY1kMzc/xWZdqqiK0jA6t6Y5gate3lV4EiH53cvfcb6anritQg==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }

@@ -19,12 +19,12 @@ public class SafirAgentContainer : SafirContainer
 
     public FileSystem.FileSystemClient CreateFileSystemClient() => new(CreateChannel());
 
-    public Task CreateMediaFileAsync(string file, ReadOnlyMemory<byte> content, CancellationToken cancellationToken = default)
+    public Task CreateMediaFileAsync(string file, byte[] content, CancellationToken cancellationToken = default)
     {
         var path = Path.Combine(DataDirectory, file);
-        return CopyFileAsync(path, content.ToArray(), ct: cancellationToken);
+        return CopyFileAsync(path, content, ct: cancellationToken);
     }
 
     public Task CreateMediaFileAsync(string file, CancellationToken cancellationToken = default)
-        => CreateMediaFileAsync(file, ReadOnlyMemory<byte>.Empty, cancellationToken);
+        => CreateMediaFileAsync(file, Array.Empty<byte>(), cancellationToken);
 }

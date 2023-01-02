@@ -18,7 +18,7 @@ public static class WebApplicationFactoryExtensions
 
     public static GrpcChannel CreateChannel<T>(this WebApplicationFactory<T> factory)
         where T : class
-        => GrpcChannel.ForAddress("http://localhost", new() {
+        => GrpcChannel.ForAddress(factory.Server.BaseAddress, new() {
             HttpHandler = factory.Server.CreateHandler(),
         });
 

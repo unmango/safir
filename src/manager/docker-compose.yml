@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   manager:
@@ -51,9 +51,9 @@ services:
   #   environment:
   #     PGADMIN_DEFAULT_EMAIL: example@example.com
   #     PGADMIN_DEFAULT_PASSWORD: password
-  #     PGADMIN_DISABLE_POSTFIX: 'true'
+  #     PGADMIN_DISABLE_POSTFIX: "true"
   #     # This doesn't actually work atm
-  #     # PGADMIN_CONFIG_SERVER_MODE: 'False' # Needs to be capitalized because python
+  #     # PGADMIN_CONFIG_SERVER_MODE: "False" # Needs to be capitalized because python
   #     # PGADMIN_CONFIG_DATA_DIR: "'/var/lib/pgadmin'" # Needs to be quoted because this gets passed to config.py
   #     # PGADMIN_CONFIG_LOG_FILE: "'/var/log/pgadmin/pgadmin4.log'" # Needs to be quoted because this gets passed to config.py
   #   depends_on:

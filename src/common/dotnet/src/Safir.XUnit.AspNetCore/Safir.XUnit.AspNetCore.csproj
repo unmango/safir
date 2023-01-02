@@ -10,7 +10,7 @@
     <PackageReference Include="xunit.extensibility.core" />
     <PackageReference Include="xunit.extensibility.execution" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="$(CommonSrc)/Safir.Common/Safir.Common.csproj" />
   </ItemGroup>

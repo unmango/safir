@@ -17,8 +17,8 @@ public class AgentAggregatorTests
     [Fact]
     public void FileSystem_CreatesSingleClient()
     {
-        const string name = "test";
-        _clientFactory.Setup(x => x.CreateClient<FileSystem.FileSystemClient>(name)).Returns(_fileSystemClient);
+        const string name = "test", clientName = $"{name}-filesystem";
+        _clientFactory.Setup(x => x.CreateClient<FileSystem.FileSystemClient>(clientName)).Returns(_fileSystemClient);
         var aggregator = Create(new() {
             Agents = new Dictionary<string, AgentConfiguration> {
                 [name] = new() { Uri = "https://example.com" },
@@ -27,7 +27,7 @@ public class AgentAggregatorTests
 
         var result = Assert.Single(aggregator.FileSystem);
         Assert.Equal(name, result.Key);
-        _clientFactory.Verify(x => x.CreateClient<FileSystem.FileSystemClient>(name));
+        _clientFactory.Verify(x => x.CreateClient<FileSystem.FileSystemClient>(clientName));
         Assert.Same(_fileSystemClient, result.Value);
     }
 
@@ -35,8 +35,10 @@ public class AgentAggregatorTests
     public void FileSystem_CreatesMultipleClients()
     {
         const string name1 = "test1", name2 = "test2";
-        _clientFactory.Setup(x => x.CreateClient<FileSystem.FileSystemClient>(name1)).Returns(_fileSystemClient);
-        _clientFactory.Setup(x => x.CreateClient<FileSystem.FileSystemClient>(name2)).Returns(_fileSystemClient);
+        const string clientName1 = $"{name1}-filesystem", clientName2 = $"{name2}-filesystem";
+
+        _clientFactory.Setup(x => x.CreateClient<FileSystem.FileSystemClient>(clientName1)).Returns(_fileSystemClient);
+        _clientFactory.Setup(x => x.CreateClient<FileSystem.FileSystemClient>(clientName2)).Returns(_fileSystemClient);
         var aggregator = Create(new() {
             Agents = new Dictionary<string, AgentConfiguration> {
                 [name1] = new() { Uri = "https://example.com" },
@@ -47,12 +49,12 @@ public class AgentAggregatorTests
         Assert.Collection(aggregator.FileSystem,
             pair => {
                 Assert.Equal(name1, pair.Key);
-                _clientFactory.Verify(x => x.CreateClient<FileSystem.FileSystemClient>(name1));
+                _clientFactory.Verify(x => x.CreateClient<FileSystem.FileSystemClient>(clientName1));
                 Assert.Same(_fileSystemClient, pair.Value);
             },
             pair => {
                 Assert.Equal(name2, pair.Key);
-                _clientFactory.Verify(x => x.CreateClient<FileSystem.FileSystemClient>(name2));
+                _clientFactory.Verify(x => x.CreateClient<FileSystem.FileSystemClient>(clientName2));
                 Assert.Same(_fileSystemClient, pair.Value);
             });
     }
@@ -60,8 +62,8 @@ public class AgentAggregatorTests
     [Fact]
     public void Host_CreatesSingleClient()
     {
-        const string name = "test";
-        _clientFactory.Setup(x => x.CreateClient<Host.HostClient>(name)).Returns(_hostClient);
+        const string name = "test", clientName = $"{name}-host";
+        _clientFactory.Setup(x => x.CreateClient<Host.HostClient>(clientName)).Returns(_hostClient);
         var aggregator = Create(new() {
             Agents = new Dictionary<string, AgentConfiguration> {
                 [name] = new() { Uri = "https://example.com" },
@@ -70,7 +72,7 @@ public class AgentAggregatorTests
 
         var result = Assert.Single(aggregator.Host);
         Assert.Equal(name, result.Key);
-        _clientFactory.Verify(x => x.CreateClient<Host.HostClient>(name));
+        _clientFactory.Verify(x => x.CreateClient<Host.HostClient>(clientName));
         Assert.Same(_hostClient, result.Value);
     }
 
@@ -78,8 +80,10 @@ public class AgentAggregatorTests
     public void Host_CreatesMultipleClients()
     {
         const string name1 = "test1", name2 = "test2";
-        _clientFactory.Setup(x => x.CreateClient<Host.HostClient>(name1)).Returns(_hostClient);
-        _clientFactory.Setup(x => x.CreateClient<Host.HostClient>(name2)).Returns(_hostClient);
+        const string clientName1 = $"{name1}-host", clientName2 = $"{name2}-host";
+
+        _clientFactory.Setup(x => x.CreateClient<Host.HostClient>(clientName1)).Returns(_hostClient);
+        _clientFactory.Setup(x => x.CreateClient<Host.HostClient>(clientName2)).Returns(_hostClient);
         var aggregator = Create(new() {
             Agents = new Dictionary<string, AgentConfiguration> {
                 [name1] = new() { Uri = "https://example.com" },
@@ -90,12 +94,12 @@ public class AgentAggregatorTests
         Assert.Collection(aggregator.Host,
             pair => {
                 Assert.Equal(name1, pair.Key);
-                _clientFactory.Verify(x => x.CreateClient<Host.HostClient>(name1));
+                _clientFactory.Verify(x => x.CreateClient<Host.HostClient>(clientName1));
                 Assert.Same(_hostClient, pair.Value);
             },
             pair => {
                 Assert.Equal(name2, pair.Key);
-                _clientFactory.Verify(x => x.CreateClient<Host.HostClient>(name2));
+                _clientFactory.Verify(x => x.CreateClient<Host.HostClient>(clientName2));
                 Assert.Same(_hostClient, pair.Value);
             });
     }

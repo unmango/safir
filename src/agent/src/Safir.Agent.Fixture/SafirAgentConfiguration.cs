@@ -11,7 +11,7 @@ public sealed class SafirAgentConfiguration : SafirServiceConfiguration
     public const string DefaultDataDirectory = "/data";
 
     public SafirAgentConfiguration(int defaultPort = AgentPort)
-        : this("safir-agent:latest", defaultPort) { }
+        : this("unstoppablemango/safir-agent:latest", defaultPort) { }
 
     public SafirAgentConfiguration(string image, int defaultPort = AgentPort)
         : base(image, defaultPort)

@@ -1206,6 +1206,14 @@
           "System.Threading.Tasks.Extensions": "[4.5.4, )"
         }
       },
+      "safir.fixture": {
+        "type": "Project",
+        "dependencies": {
+          "Grpc.Net.Client": "[2.50.0, )",
+          "JetBrains.Annotations": "[2022.3.1, )",
+          "Testcontainers": "[2.2.0, )"
+        }
+      },
       "safir.xunit.aspnetcore": {
         "type": "Project",
         "dependencies": {

@@ -1,5 +1,6 @@
 using Grpc.Net.ClientFactory;
 using Microsoft.Extensions.Options;
+using Safir.Agent.Client;
 using Safir.Agent.Protos;
 using Host = Safir.Protos.Host;
 
@@ -9,19 +10,16 @@ internal sealed class AgentAggregator : IAgents
 {
     public AgentAggregator(IOptions<ManagerConfiguration> options, GrpcClientFactory clientFactory)
     {
-        FileSystem = CreateMap<FileSystem.FileSystemClient>(options, clientFactory);
-        Host = CreateMap<Host.HostClient>(options, clientFactory);
+        var agents = options.Value.GetAgentOptions().Select(x => x.Name).ToList();
+
+        FileSystem = agents
+            .Select(x => new KeyValuePair<string, FileSystem.FileSystemClient>(x, clientFactory.CreateFileSystemClient(x)));
+
+        Host = agents
+            .Select(x => new KeyValuePair<string, Host.HostClient>(x, clientFactory.CreateHostClient(x)));
     }
 
     public IEnumerable<KeyValuePair<string, FileSystem.FileSystemClient>> FileSystem { get; }
 
     public IEnumerable<KeyValuePair<string, Host.HostClient>> Host { get; }
-
-    private static IEnumerable<KeyValuePair<string, T>> CreateMap<T>(
-        IOptions<ManagerConfiguration> options,
-        GrpcClientFactory clientFactory)
-        where T : class
-        => options.Value.GetAgentOptions()
-            .Select(x => x.Name)
-            .Select(x => new KeyValuePair<string, T>(x, clientFactory.CreateClient<T>(x)));
 }

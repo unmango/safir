@@ -22,7 +22,9 @@ RUN dotnet publish Safir.Agent \
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build /out .
-VOLUME "/data"
 ENV DATADIRECTORY="/data"
+RUN mkdir $DATADIRECTORY
+VOLUME $DATADIRECTORY
+ENV ASPNETCORE_URLS="http://*:6901"
 EXPOSE 80
 ENTRYPOINT [ "dotnet", "Safir.Agent.dll" ]

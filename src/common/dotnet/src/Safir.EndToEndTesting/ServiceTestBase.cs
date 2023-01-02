@@ -30,7 +30,7 @@ public abstract class ServiceTestBase : IAsyncLifetime
             .WithPortBinding(InternalPort, true)
             .WithWaitStrategy(Wait.ForUnixContainer()
                 .UntilPortIsAvailable(InternalPort))
-            .WithOutputConsumer(new TestOutputHelperOutputConsumer(output));
+            .WithTestOutputHelper(output);
 
         Container = configureActions
             .Aggregate(builder, (current, configure) => configure(current))

@@ -18,25 +18,18 @@ public class ServiceFixtureBase : IAsyncLifetime
     {
         TestcontainersSettings.Logger = new MessageSinkLogger(sink);
 
-        BaseImage = new DockerImage(baseImage);
         Image = new DockerImage(image);
 
         _dockerFile = dockerFile;
     }
 
-    public IDockerImage BaseImage { get; }
+    public IDockerImage BaseImage => SafirImageBuilder.CommonImage;
 
     public IDockerImage Image { get; }
 
     public async Task InitializeAsync()
     {
-        await new ImageFromDockerfileBuilder()
-            .WithName(BaseImage)
-            .WithDockerfile(Path.Combine("common", "dotnet", "Dockerfile"))
-            .WithDockerfileDirectory(_commonDirectoryPath, "src")
-            .WithDeleteIfExists(false)
-            .WithCleanUp(false)
-            .Build();
+        await SafirImageBuilder.CreateCommon().Build();
 
         await new ImageFromDockerfileBuilder()
             .WithName(Image)

@@ -14,9 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(CommonSrc)\Safir.EndToEndTesting\Safir.EndToEndTesting.csproj" />
-    <ProjectReference Include="$(CommonSrc)\Safir.Grpc\Safir.Grpc.csproj" />
-    <ProjectReference Include="$(ManagerSrc)\Safir.Manager\Safir.Manager.csproj" />
+    <ProjectReference Include="$(AgentSrc)/Safir.Agent.Fixture/Safir.Agent.Fixture.csproj" />
+    <ProjectReference Include="$(CommonSrc)/Safir.EndToEndTesting/Safir.EndToEndTesting.csproj" />
+    <ProjectReference Include="$(CommonSrc)/Safir.Grpc/Safir.Grpc.csproj" />
+    <ProjectReference Include="$(ManagerSrc)/Safir.Manager/Safir.Manager.csproj" />
+    <ProjectReference Include="$(ManagerSrc)/Safir.Manager.Fixture/Safir.Manager.Fixture.csproj" />
   </ItemGroup>
 
 </Project>

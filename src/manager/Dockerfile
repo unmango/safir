@@ -27,5 +27,6 @@ RUN dotnet publish Safir.Manager \
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build /out .
-EXPOSE 80
+ENV ASPNETCORE_URLS="http://*:6900"
+EXPOSE 6900
 ENTRYPOINT [ "dotnet", "Safir.Manager.dll" ]

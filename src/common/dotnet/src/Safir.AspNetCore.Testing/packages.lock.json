@@ -14,11 +14,11 @@
       },
       "Grpc.Net.ClientFactory": {
         "type": "Direct",
-        "requested": "[2.49.0, )",
-        "resolved": "2.49.0",
-        "contentHash": "4Ac7dsrARbcs1g2vrUSUadtZ0kIGTk6yhA5ccOBjgM+RTzY3L54TgMddmeaV7/Z4f9sZn6T1ls6FmUiG8Dms+Q==",
+        "requested": "[2.50.0, )",
+        "resolved": "2.50.0",
+        "contentHash": "DPe+EXSu2mPT3pd7hASc8rtaItnHeL34BR5PabdFi0D5KnZI62VtbLL7ki8Rbv1eeatkUn17ANONhjYlBgxntw==",
         "dependencies": {
-          "Grpc.Net.Client": "2.49.0",
+          "Grpc.Net.Client": "2.50.0",
           "Microsoft.Extensions.Http": "3.0.3"
         }
       },

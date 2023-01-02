@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="$(CommonSrc)/Safir.Common/Safir.Common.csproj" />
     <ProjectReference Include="$(CommonSrc)/Safir.XUnit.AspNetCore/Safir.XUnit.AspNetCore.csproj" />
+    <ProjectReference Include="..\Safir.Fixture\Safir.Fixture.csproj" />
   </ItemGroup>
 
 </Project>

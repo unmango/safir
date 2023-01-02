@@ -40,8 +40,8 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.7.0, )",
-          "Google.Protobuf": "[3.21.10, )",
-          "Grpc.Core.Api": "[2.50.0, )",
+          "Google.Protobuf": "[3.21.12, )",
+          "Grpc.Core.Api": "[2.51.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       },
@@ -56,9 +56,9 @@
       },
       "Google.Protobuf": {
         "type": "CentralTransitive",
-        "requested": "[3.21.10, )",
-        "resolved": "3.21.10",
-        "contentHash": "9KnY/4N1pZkfoLv8Ozho3Tf8ms09YGX1UuURqXXidAhTP/FvIHwbon8VhX4Zmxb0YrOc/aVWYMgEimBwjbWCGg==",
+        "requested": "[3.21.12, )",
+        "resolved": "3.21.12",
+        "contentHash": "1TXWxQy0PDDM1NC/LojlX4YVh7NhOvvyriCfERzeUVTp0XNXv8mo/AyWxDYCvMQ9xRZHUVdWoE4/B8ridP8Btg==",
         "dependencies": {
           "System.Memory": "4.5.3",
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
@@ -66,9 +66,9 @@
       },
       "Grpc.Core.Api": {
         "type": "CentralTransitive",
-        "requested": "[2.50.0, )",
-        "resolved": "2.50.0",
-        "contentHash": "ECZr0AqUobCIfxPYm07D/IqMbGd+Vu9KquRLLY1kMzc/xWZdqqiK0jA6t6Y5gate3lV4EiH53cvfcb6anritQg==",
+        "requested": "[2.51.0, )",
+        "resolved": "2.51.0",
+        "contentHash": "WUYCnxZKfdBWCKNs08lWFRoTjESt3iyFDthsZu5KcWguZ4OnnXrTu/K5mIdO+R9dUhuw5Xm1ygUrI1e2q8d1YA==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }
@@ -115,8 +115,8 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.7.0, )",
-          "Google.Protobuf": "[3.21.10, )",
-          "Grpc.Core.Api": "[2.50.0, )",
+          "Google.Protobuf": "[3.21.12, )",
+          "Grpc.Core.Api": "[2.51.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       },
@@ -131,15 +131,15 @@
       },
       "Google.Protobuf": {
         "type": "CentralTransitive",
-        "requested": "[3.21.10, )",
-        "resolved": "3.21.10",
-        "contentHash": "9KnY/4N1pZkfoLv8Ozho3Tf8ms09YGX1UuURqXXidAhTP/FvIHwbon8VhX4Zmxb0YrOc/aVWYMgEimBwjbWCGg=="
+        "requested": "[3.21.12, )",
+        "resolved": "3.21.12",
+        "contentHash": "1TXWxQy0PDDM1NC/LojlX4YVh7NhOvvyriCfERzeUVTp0XNXv8mo/AyWxDYCvMQ9xRZHUVdWoE4/B8ridP8Btg=="
       },
       "Grpc.Core.Api": {
         "type": "CentralTransitive",
-        "requested": "[2.50.0, )",
-        "resolved": "2.50.0",
-        "contentHash": "ECZr0AqUobCIfxPYm07D/IqMbGd+Vu9KquRLLY1kMzc/xWZdqqiK0jA6t6Y5gate3lV4EiH53cvfcb6anritQg==",
+        "requested": "[2.51.0, )",
+        "resolved": "2.51.0",
+        "contentHash": "WUYCnxZKfdBWCKNs08lWFRoTjESt3iyFDthsZu5KcWguZ4OnnXrTu/K5mIdO+R9dUhuw5Xm1ygUrI1e2q8d1YA==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }
@@ -181,8 +181,8 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.7.0, )",
-          "Google.Protobuf": "[3.21.10, )",
-          "Grpc.Core.Api": "[2.50.0, )",
+          "Google.Protobuf": "[3.21.12, )",
+          "Grpc.Core.Api": "[2.51.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       },
@@ -197,15 +197,15 @@
       },
       "Google.Protobuf": {
         "type": "CentralTransitive",
-        "requested": "[3.21.10, )",
-        "resolved": "3.21.10",
-        "contentHash": "9KnY/4N1pZkfoLv8Ozho3Tf8ms09YGX1UuURqXXidAhTP/FvIHwbon8VhX4Zmxb0YrOc/aVWYMgEimBwjbWCGg=="
+        "requested": "[3.21.12, )",
+        "resolved": "3.21.12",
+        "contentHash": "1TXWxQy0PDDM1NC/LojlX4YVh7NhOvvyriCfERzeUVTp0XNXv8mo/AyWxDYCvMQ9xRZHUVdWoE4/B8ridP8Btg=="
       },
       "Grpc.Core.Api": {
         "type": "CentralTransitive",
-        "requested": "[2.50.0, )",
-        "resolved": "2.50.0",
-        "contentHash": "ECZr0AqUobCIfxPYm07D/IqMbGd+Vu9KquRLLY1kMzc/xWZdqqiK0jA6t6Y5gate3lV4EiH53cvfcb6anritQg==",
+        "requested": "[2.51.0, )",
+        "resolved": "2.51.0",
+        "contentHash": "WUYCnxZKfdBWCKNs08lWFRoTjESt3iyFDthsZu5KcWguZ4OnnXrTu/K5mIdO+R9dUhuw5Xm1ygUrI1e2q8d1YA==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }

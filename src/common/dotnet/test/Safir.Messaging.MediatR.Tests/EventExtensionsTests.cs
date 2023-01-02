@@ -3,6 +3,7 @@ using Xunit;
 
 namespace Safir.Messaging.MediatR.Tests;
 
+[Trait("Category", "Unit")]
 public class EventExtensionsTests
 {
     [Fact]
@@ -12,7 +13,7 @@ public class EventExtensionsTests
         var notification = new Notification<FakeEvent>(@event);
 
         var result = notification.GetEvent();
-            
+
         Assert.NotNull(result);
         Assert.Same(@event, result);
     }

@@ -36,11 +36,14 @@ var agentOptions = builder.Configuration
     .Get<ManagerConfiguration>()
     .GetAgentOptions();
 
+services.AddSafirAgentClient();
 foreach (var agent in agentOptions) {
     services.AddSafirAgentClient(agent.Name, options => {
         options.Address = agent.Uri;
     });
 }
+
+services.AddTransient<IAgents, AgentAggregator>();
 
 // Other
 services.Configure<ManagerConfiguration>(builder.Configuration);

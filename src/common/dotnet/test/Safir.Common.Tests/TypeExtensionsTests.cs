@@ -2,6 +2,7 @@ using Xunit;
 
 namespace Safir.Common.Tests;
 
+[Trait("Category", "Unit")]
 public class TypeExtensionsTests
 {
     [Fact]
@@ -11,12 +12,12 @@ public class TypeExtensionsTests
         var closed = typeof(Closed);
 
         var result = closed.IsAssignableToGeneric(@interface);
-            
+
         Assert.True(result);
     }
-        
+
     // ReSharper disable once UnusedTypeParameter
     private interface IOpen<T> { }
-        
+
     private class Closed : IOpen<int> { }
 }

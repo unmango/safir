@@ -6,8 +6,23 @@ namespace Safir.Manager.Services;
 
 internal sealed class MediaService : Media.MediaBase
 {
-    public override Task List(Empty request, IServerStreamWriter<MediaItem> responseStream, ServerCallContext context)
+    private readonly IAgents _agents;
+
+    public MediaService(IAgents agents)
     {
-        return responseStream.WriteAsync(new() { Host = "Test", Path = "Test" });
+        _agents = agents;
+    }
+
+    public override async Task List(Empty request, IServerStreamWriter<MediaItem> responseStream, ServerCallContext context)
+    {
+        var ct = context.CancellationToken;
+        var items = _agents.ListFilesAsync(ct).Select(x => new MediaItem {
+            Host = x.Host,
+            Path = x.Entry.Path,
+        });
+
+        await foreach (var item in items.WithCancellation(ct)) {
+            await responseStream.WriteAsync(item, ct);
+        }
     }
 }

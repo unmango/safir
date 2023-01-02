@@ -4,6 +4,7 @@ using Safir.Protos;
 
 namespace Safir.Agent.IntegrationTests.Services;
 
+[Trait("Category", "Integration")]
 public class HostServiceTestsHttp : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _client;

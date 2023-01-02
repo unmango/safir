@@ -1,9 +1,11 @@
 using System.Text;
 using DotNet.Testcontainers.Configurations;
+using JetBrains.Annotations;
 using Xunit.Abstractions;
 
 namespace Safir.EndToEndTesting;
 
+[PublicAPI]
 public sealed class TestOutputHelperOutputConsumer : IOutputConsumer
 {
     public TestOutputHelperOutputConsumer(ITestOutputHelper outputHelper)

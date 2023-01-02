@@ -3,6 +3,7 @@ using System.CommandLine.Invocation;
 
 namespace Safir.CommandLine.Tests;
 
+[Trait("Category", "Unit")]
 public class InvocationContextExtensionsTests
 {
     [Fact]

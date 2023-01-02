@@ -8,6 +8,7 @@ using Xunit;
 
 namespace Safir.Cli.Tests.Configuration;
 
+[Trait("Category", "Unit")]
 public class JsonUserConfigurationTests
 {
     private static readonly Uri _testUri = new Uri("https://example.com");

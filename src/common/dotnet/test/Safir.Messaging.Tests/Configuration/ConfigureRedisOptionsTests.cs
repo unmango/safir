@@ -6,6 +6,7 @@ using Xunit;
 
 namespace Safir.Messaging.Tests.Configuration;
 
+[Trait("Category", "Unit")]
 public class ConfigureRedisOptionsTests
 {
     private readonly AutoMocker _mocker = new();
@@ -27,7 +28,7 @@ public class ConfigureRedisOptionsTests
         var redisOptions = new RedisOptions();
 
         _configureOptions.Configure(redisOptions);
-            
+
         Assert.Equal(connectionString, redisOptions.Configuration);
     }
 }

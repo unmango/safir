@@ -255,6 +255,12 @@
           "Safir.Protos": "[1.0.0, )"
         }
       },
+      "safir.manager.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "Safir.Agent.Client.Abstractions": "[1.0.0, )"
+        }
+      },
       "safir.messaging.abstractions": {
         "type": "Project",
         "dependencies": {

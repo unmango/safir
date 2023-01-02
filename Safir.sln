@@ -114,7 +114,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.IntegrationTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Tests", "src\manager\test\Safir.Manager.Tests\Safir.Manager.Tests.csproj", "{E1834822-824A-4802-B76D-C6A270E8F2AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.AspNetCore.IntegrationTesting", "src\common\dotnet\src\Safir.AspNetCore.IntegrationTesting\Safir.AspNetCore.IntegrationTesting.csproj", "{E5BDB2F0-CE98-48E1-94F5-2D1BDF1EE3DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.AspNetCore.Testing", "src\common\dotnet\src\Safir.AspNetCore.Testing\Safir.AspNetCore.Testing.csproj", "{E5BDB2F0-CE98-48E1-94F5-2D1BDF1EE3DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.EndToEndTests", "src\manager\test\Safir.Manager.EndToEndTests\Safir.Manager.EndToEndTests.csproj", "{C1D8B2A6-4740-4C0F-94C9-BC96FAD8C64F}"
 EndProject
@@ -129,6 +129,16 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Safir.IO.FSharp", "src\common\dotnet\src\Safir.IO.FSharp\Safir.IO.FSharp.fsproj", "{A1D74EF3-6040-4BFE-92E9-E64E2F3068F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.EndToEndTesting", "src\common\dotnet\src\Safir.EndToEndTesting\Safir.EndToEndTesting.csproj", "{B01DCA15-24C4-4405-8A6D-AC9A797944CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.XUnit.AspNetCore", "src\common\dotnet\src\Safir.XUnit.AspNetCore\Safir.XUnit.AspNetCore.csproj", "{C58468FB-BC23-4963-88F1-E25B2B5561B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Agent.Fixture", "src\agent\src\Safir.Agent.Fixture\Safir.Agent.Fixture.csproj", "{1371BD49-DE06-4274-AC37-E50A2E90022E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Fixture", "src\common\dotnet\src\Safir.Fixture\Safir.Fixture.csproj", "{3DE75DDB-EE55-4796-9416-5E53D38178BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Manager.Fixture", "src\manager\src\Safir.Manager.Fixture\Safir.Manager.Fixture.csproj", "{E6003AC9-A7B7-4D47-8A76-48F2742355D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.XUnit.AssemblyFixture", "src\common\dotnet\src\Safir.XUnit.AssemblyFixture\Safir.XUnit.AssemblyFixture.csproj", "{35F3339E-E2BE-49EE-AFC1-FE3F7CD2FCFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -181,6 +191,11 @@ Global
 		{1AE6B61E-025B-4E22-9232-6B7FF9F04D4F} = {89CA5AAD-3B93-434E-BDAE-4C0D10D77AB0}
 		{A1D74EF3-6040-4BFE-92E9-E64E2F3068F3} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
 		{B01DCA15-24C4-4405-8A6D-AC9A797944CA} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
+		{C58468FB-BC23-4963-88F1-E25B2B5561B1} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
+		{1371BD49-DE06-4274-AC37-E50A2E90022E} = {89CA5AAD-3B93-434E-BDAE-4C0D10D77AB0}
+		{3DE75DDB-EE55-4796-9416-5E53D38178BF} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
+		{E6003AC9-A7B7-4D47-8A76-48F2742355D0} = {E7294B61-29DF-41C2-9E76-CE15D9A6AC20}
+		{35F3339E-E2BE-49EE-AFC1-FE3F7CD2FCFD} = {1087D1B9-57FF-4354-AA12-71F1F9084F5A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{23789940-D27D-4DC7-9C1B-B7BC94EDF4B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -347,5 +362,25 @@ Global
 		{B01DCA15-24C4-4405-8A6D-AC9A797944CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B01DCA15-24C4-4405-8A6D-AC9A797944CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B01DCA15-24C4-4405-8A6D-AC9A797944CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C58468FB-BC23-4963-88F1-E25B2B5561B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C58468FB-BC23-4963-88F1-E25B2B5561B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C58468FB-BC23-4963-88F1-E25B2B5561B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C58468FB-BC23-4963-88F1-E25B2B5561B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1371BD49-DE06-4274-AC37-E50A2E90022E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1371BD49-DE06-4274-AC37-E50A2E90022E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1371BD49-DE06-4274-AC37-E50A2E90022E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1371BD49-DE06-4274-AC37-E50A2E90022E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DE75DDB-EE55-4796-9416-5E53D38178BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DE75DDB-EE55-4796-9416-5E53D38178BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DE75DDB-EE55-4796-9416-5E53D38178BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DE75DDB-EE55-4796-9416-5E53D38178BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6003AC9-A7B7-4D47-8A76-48F2742355D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6003AC9-A7B7-4D47-8A76-48F2742355D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6003AC9-A7B7-4D47-8A76-48F2742355D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6003AC9-A7B7-4D47-8A76-48F2742355D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35F3339E-E2BE-49EE-AFC1-FE3F7CD2FCFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35F3339E-E2BE-49EE-AFC1-FE3F7CD2FCFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35F3339E-E2BE-49EE-AFC1-FE3F7CD2FCFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35F3339E-E2BE-49EE-AFC1-FE3F7CD2FCFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

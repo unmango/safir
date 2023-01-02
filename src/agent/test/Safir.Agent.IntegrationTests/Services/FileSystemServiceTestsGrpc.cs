@@ -1,13 +1,13 @@
 using System.IO.Abstractions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Safir.AspNetCore.IntegrationTesting;
+using Safir.AspNetCore.Testing;
 using Safir.Grpc;
 using FileSystem = Safir.Agent.Protos.FileSystem;
 
 namespace Safir.Agent.IntegrationTests.Services;
 
+[Trait("Category", "Integration")]
 public class FileSystemServiceTestsGrpc : IClassFixture<WebApplicationFactory<Program>>
 {
     private const string DataDirectory = "Test";

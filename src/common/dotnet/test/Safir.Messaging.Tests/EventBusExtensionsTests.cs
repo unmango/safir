@@ -7,6 +7,7 @@ using Xunit;
 
 namespace Safir.Messaging.Tests;
 
+[Trait("Category", "Unit")]
 public class EventBusExtensionsTests
 {
     private readonly AutoMocker _mocker = new();

@@ -7,6 +7,7 @@ using Xunit;
 
 namespace Safir.Linq.Async.Tests;
 
+[Trait("Category", "Unit")]
 public class AsyncEnumerableExtensionsTests
 {
     [Fact]

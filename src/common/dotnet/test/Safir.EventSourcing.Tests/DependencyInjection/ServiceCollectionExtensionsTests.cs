@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Safir.EventSourcing.Tests.DependencyInjection;
 
+[Trait("Category", "Unit")]
 public class ServiceCollectionExtensionsTests
 {
     private readonly IServiceCollection _services = new ServiceCollection();

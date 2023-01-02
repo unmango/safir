@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Safir.CommandLine.Tests;
 
+[Trait("Category", "Unit")]
 public class HandlerBuilderExtensionsTests
 {
     private readonly InvocationContext _invocationContext;

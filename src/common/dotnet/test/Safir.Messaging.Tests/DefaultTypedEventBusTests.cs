@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Safir.Messaging.Tests;
 
+[Trait("Category", "Unit")]
 public class DefaultTypedEventBusTests
 {
     private readonly AutoMocker _mocker = new();

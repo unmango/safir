@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Safir.CommandLine.Tests;
 
+[Trait("Category", "Unit")]
 public class HandlerContextExtensionsTests
 {
     private readonly Mock<IConfiguration> _configuration = new();

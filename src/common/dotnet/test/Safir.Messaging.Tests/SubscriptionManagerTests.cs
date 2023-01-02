@@ -7,6 +7,7 @@ using Xunit;
 
 namespace Safir.Messaging.Tests;
 
+[Trait("Category", "Unit")]
 public class SubscriptionManagerTests
 {
     private readonly AutoMocker _mocker = new();

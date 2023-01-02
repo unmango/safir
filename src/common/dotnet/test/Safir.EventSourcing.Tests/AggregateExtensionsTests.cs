@@ -4,6 +4,7 @@ using Xunit;
 
 namespace Safir.EventSourcing.Tests;
 
+[Trait("Category", "Unit")]
 public class AggregateExtensionsTests
 {
     private readonly Mock<IAggregate> _aggregate = new();

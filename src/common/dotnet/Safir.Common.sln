@@ -5,13 +5,10 @@ VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CC75D772-3E67-4095-9351-DCD6EEF144AD}"
 	ProjectSection(SolutionItems) = preProject
-		src\Directory.Build.props = src\Directory.Build.props
+		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{3915209A-D60D-48CA-BEBF-AF19F3F594ED}"
-	ProjectSection(SolutionItems) = preProject
-		test\Directory.Build.props = test\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Common", "src\Safir.Common\Safir.Common.csproj", "{7D9BBDAA-9C15-43A3-BC29-398C5FAB527B}"
 EndProject
@@ -56,11 +53,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Linq.Async", "src\Saf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Linq.Async.Tests", "test\Safir.Linq.Async.Tests\Safir.Linq.Async.Tests.csproj", "{22243C6B-DA26-4D95-8737-A8F048167C5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.AspNetCore.IntegrationTesting", "src\Safir.AspNetCore.IntegrationTesting\Safir.AspNetCore.IntegrationTesting.csproj", "{BE0DF604-1927-4C60-85D7-E7531691CE34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.AspNetCore.Testing", "src\Safir.AspNetCore.Testing\Safir.AspNetCore.Testing.csproj", "{BE0DF604-1927-4C60-85D7-E7531691CE34}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Safir.IO.FSharp", "src\Safir.IO.FSharp\Safir.IO.FSharp.fsproj", "{00733DDE-A294-4EB5-8B7D-F644B73CF024}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.EndToEndTesting", "src\Safir.EndToEndTesting\Safir.EndToEndTesting.csproj", "{8A73C90F-70A0-45BE-8D03-D5298F9FAB6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.XUnit.AspNetCore", "src\Safir.XUnit.AspNetCore\Safir.XUnit.AspNetCore.csproj", "{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Fixture", "src\Safir.Fixture\Safir.Fixture.csproj", "{01E23BD0-2430-4162-A0FB-79DEA58C4869}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.XUnit.AssemblyFixture", "src\Safir.XUnit.AssemblyFixture\Safir.XUnit.AssemblyFixture.csproj", "{7627B95C-AC91-461C-81A1-56FEC6BDECF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{F1E56D13-4BF1-40A4-8FD4-E33DF5DF4F17}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -339,6 +347,42 @@ Global
 		{8A73C90F-70A0-45BE-8D03-D5298F9FAB6F}.Release|x64.Build.0 = Release|Any CPU
 		{8A73C90F-70A0-45BE-8D03-D5298F9FAB6F}.Release|x86.ActiveCfg = Release|Any CPU
 		{8A73C90F-70A0-45BE-8D03-D5298F9FAB6F}.Release|x86.Build.0 = Release|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Debug|x64.Build.0 = Debug|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Debug|x86.Build.0 = Debug|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Release|x64.ActiveCfg = Release|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Release|x64.Build.0 = Release|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Release|x86.ActiveCfg = Release|Any CPU
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A}.Release|x86.Build.0 = Release|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Debug|x64.Build.0 = Debug|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Debug|x86.Build.0 = Debug|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Release|x64.ActiveCfg = Release|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Release|x64.Build.0 = Release|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Release|x86.ActiveCfg = Release|Any CPU
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869}.Release|x86.Build.0 = Release|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Debug|x64.Build.0 = Debug|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Debug|x86.Build.0 = Debug|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Release|x64.ActiveCfg = Release|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Release|x64.Build.0 = Release|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Release|x86.ActiveCfg = Release|Any CPU
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7D9BBDAA-9C15-43A3-BC29-398C5FAB527B} = {CC75D772-3E67-4095-9351-DCD6EEF144AD}
@@ -363,5 +407,8 @@ Global
 		{BE0DF604-1927-4C60-85D7-E7531691CE34} = {CC75D772-3E67-4095-9351-DCD6EEF144AD}
 		{00733DDE-A294-4EB5-8B7D-F644B73CF024} = {CC75D772-3E67-4095-9351-DCD6EEF144AD}
 		{8A73C90F-70A0-45BE-8D03-D5298F9FAB6F} = {CC75D772-3E67-4095-9351-DCD6EEF144AD}
+		{7A004F86-2D1E-43D7-AADE-74B7B9D8067A} = {CC75D772-3E67-4095-9351-DCD6EEF144AD}
+		{01E23BD0-2430-4162-A0FB-79DEA58C4869} = {CC75D772-3E67-4095-9351-DCD6EEF144AD}
+		{7627B95C-AC91-461C-81A1-56FEC6BDECF2} = {CC75D772-3E67-4095-9351-DCD6EEF144AD}
 	EndGlobalSection
 EndGlobal

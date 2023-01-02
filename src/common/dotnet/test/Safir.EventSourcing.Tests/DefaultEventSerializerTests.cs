@@ -7,6 +7,7 @@ using Xunit;
 
 namespace Safir.EventSourcing.Tests;
 
+[Trait("Category", "Unit")]
 public class DefaultEventSerializerTests
 {
     private readonly AutoMocker _mocker = new();

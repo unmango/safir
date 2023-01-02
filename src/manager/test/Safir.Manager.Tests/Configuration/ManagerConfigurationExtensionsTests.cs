@@ -1,5 +1,6 @@
 namespace Safir.Manager.Tests.Configuration;
 
+[Trait("Category", "Unit")]
 public class ManagerConfigurationExtensionsTests
 {
     [Fact]

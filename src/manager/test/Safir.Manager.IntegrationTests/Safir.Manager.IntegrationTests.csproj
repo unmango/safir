@@ -14,8 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(CommonSrc)\Safir.AspNetCore.IntegrationTesting\Safir.AspNetCore.IntegrationTesting.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.AspNetCore.Testing\Safir.AspNetCore.Testing.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.Grpc\Safir.Grpc.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.XUnit.AspNetCore\Safir.XUnit.AspNetCore.csproj" />
     <ProjectReference Include="$(ManagerSrc)\Safir.Manager\Safir.Manager.csproj" />
   </ItemGroup>
 

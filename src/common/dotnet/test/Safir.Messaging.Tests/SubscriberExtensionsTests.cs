@@ -10,6 +10,7 @@ using Xunit;
 namespace Safir.Messaging.Tests;
 
 // There isn't a good way to test the observable messages at this point
+[Trait("Category", "Unit")]
 public class SubscriberExtensionsTests
 {
     private readonly AutoMocker _mocker = new();

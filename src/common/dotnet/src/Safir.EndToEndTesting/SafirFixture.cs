@@ -1,24 +1,17 @@
-using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Images;
 using JetBrains.Annotations;
-using Safir.XUnit.AspNetCore;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Safir.EndToEndTesting;
 
 [PublicAPI]
 public abstract class SafirFixture : IAsyncLifetime
 {
-    private readonly string _tagSuffix;
-
-    protected SafirFixture(IMessageSink sink, string tagSuffix)
+    protected SafirFixture(string tagPrefix)
     {
-        TestcontainersSettings.Logger = new MessageSinkLogger(sink);
-        _tagSuffix = tagSuffix;
-        CommonImage = Image(SafirImageBuilder.DefaultCommonImageName);
-        AgentImage = Image(SafirImageBuilder.DefaultAgentImageName);
-        ManagerImage = Image(SafirImageBuilder.DefaultManagerImageName);
+        CommonImage = Image(SafirImageBuilder.DefaultCommonImageName, tagPrefix);
+        AgentImage = Image(SafirImageBuilder.DefaultAgentImageName, tagPrefix);
+        ManagerImage = Image(SafirImageBuilder.DefaultManagerImageName, tagPrefix);
     }
 
     public IDockerImage CommonImage { get; }
@@ -46,5 +39,6 @@ public abstract class SafirFixture : IAsyncLifetime
 
     public Task DisposeAsync() => Task.CompletedTask;
 
-    private IDockerImage Image(string prefix) => new DockerImage($"{prefix}:{_tagSuffix}-{SafirImageBuilder.DefaultTag}");
+    private static IDockerImage Image(string image, string tagPrefix)
+        => new DockerImage($"{image}:{tagPrefix}-{SafirImageBuilder.DefaultTag}");
 }

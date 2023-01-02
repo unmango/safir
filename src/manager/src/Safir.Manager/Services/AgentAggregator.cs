@@ -12,11 +12,8 @@ internal sealed class AgentAggregator : IAgents
     {
         var agents = options.Value.GetAgentOptions().Select(x => x.Name).ToList();
 
-        FileSystem = agents
-            .Select(x => new KeyValuePair<string, FileSystem.FileSystemClient>(x, clientFactory.CreateFileSystemClient(x)));
-
-        Host = agents
-            .Select(x => new KeyValuePair<string, Host.HostClient>(x, clientFactory.CreateHostClient(x)));
+        FileSystem = agents.ToDictionary(x => x, clientFactory.CreateFileSystemClient);
+        Host = agents.ToDictionary(x => x, clientFactory.CreateHostClient);
     }
 
     public IEnumerable<KeyValuePair<string, FileSystem.FileSystemClient>> FileSystem { get; }

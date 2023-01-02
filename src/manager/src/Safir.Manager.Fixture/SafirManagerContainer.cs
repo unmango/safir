@@ -1,5 +1,4 @@
 using DotNet.Testcontainers.Configurations;
-using DotNet.Testcontainers.Containers;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Safir.Fixture;

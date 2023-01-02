@@ -15,7 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="$(AgentSrc)/Safir.Agent/Safir.Agent.csproj" />
+    <ProjectReference Include="$(AgentSrc)/Safir.Agent.Fixture/Safir.Agent.Fixture.csproj" />
     <ProjectReference Include="$(CommonSrc)/Safir.EndToEndTesting/Safir.EndToEndTesting.csproj" />
+    <ProjectReference Include="$(CommonSrc)/Safir.XUnit.AssemblyFixture/Safir.XUnit.AssemblyFixture.csproj" />
   </ItemGroup>
 
 </Project>

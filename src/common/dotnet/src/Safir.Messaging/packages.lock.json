@@ -75,9 +75,9 @@
       },
       "StackExchange.Redis": {
         "type": "Direct",
-        "requested": "[2.6.80, )",
-        "resolved": "2.6.80",
-        "contentHash": "97wrhWUJ7QQfcTr+QWflB/emzHEZF7zQSRG2iRbqbaVsYvaImtrl3i4vm3/Sc+1DfQRVhPqfDUTl0XvTjabx3w==",
+        "requested": "[2.6.86, )",
+        "resolved": "2.6.86",
+        "contentHash": "++rdOGeAJ3GUZADwygIgap4fyU/pvvtRLN2FClawW/OxG5XhfS/mH66ADk19k+oj6SawuBqgH39mhKhVngai/g==",
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "5.0.0",
           "Pipelines.Sockets.Unofficial": "2.2.2",
@@ -264,8 +264,8 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.7.0, )",
-          "Google.Protobuf": "[3.21.10, )",
-          "Grpc.Core.Api": "[2.50.0, )",
+          "Google.Protobuf": "[3.21.12, )",
+          "Grpc.Core.Api": "[2.51.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       },
@@ -274,7 +274,7 @@
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "[7.0.0, )",
           "Safir.Common": "[1.0.0, )",
-          "StackExchange.Redis": "[2.6.80, )"
+          "StackExchange.Redis": "[2.6.86, )"
         }
       },
       "Google.Api.CommonProtos": {
@@ -288,9 +288,9 @@
       },
       "Google.Protobuf": {
         "type": "CentralTransitive",
-        "requested": "[3.21.10, )",
-        "resolved": "3.21.10",
-        "contentHash": "9KnY/4N1pZkfoLv8Ozho3Tf8ms09YGX1UuURqXXidAhTP/FvIHwbon8VhX4Zmxb0YrOc/aVWYMgEimBwjbWCGg==",
+        "requested": "[3.21.12, )",
+        "resolved": "3.21.12",
+        "contentHash": "1TXWxQy0PDDM1NC/LojlX4YVh7NhOvvyriCfERzeUVTp0XNXv8mo/AyWxDYCvMQ9xRZHUVdWoE4/B8ridP8Btg==",
         "dependencies": {
           "System.Memory": "4.5.3",
           "System.Runtime.CompilerServices.Unsafe": "4.5.2"
@@ -298,9 +298,9 @@
       },
       "Grpc.Core.Api": {
         "type": "CentralTransitive",
-        "requested": "[2.50.0, )",
-        "resolved": "2.50.0",
-        "contentHash": "ECZr0AqUobCIfxPYm07D/IqMbGd+Vu9KquRLLY1kMzc/xWZdqqiK0jA6t6Y5gate3lV4EiH53cvfcb6anritQg==",
+        "requested": "[2.51.0, )",
+        "resolved": "2.51.0",
+        "contentHash": "WUYCnxZKfdBWCKNs08lWFRoTjESt3iyFDthsZu5KcWguZ4OnnXrTu/K5mIdO+R9dUhuw5Xm1ygUrI1e2q8d1YA==",
         "dependencies": {
           "System.Memory": "4.5.3"
         }

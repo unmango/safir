@@ -26,6 +26,7 @@ RUN dotnet publish Safir.Cli \
 FROM mcr.microsoft.com/dotnet/runtime:7.0
 WORKDIR /app
 COPY --from=build /out .
-ENV SAFIR_CONFIG__DIRECTORY=/config
-VOLUME "/config"
+ENV SAFIR_CONFIG__DIRECTORY="/config"
+RUN mkdir $SAFIR_CONFIG__DIRECTORY
+VOLUME $SAFIR_CONFIG__DIRECTORY
 ENTRYPOINT [ "dotnet", "Safir.Cli.dll" ]

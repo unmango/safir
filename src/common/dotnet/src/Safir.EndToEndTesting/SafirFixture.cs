@@ -22,15 +22,18 @@ public abstract class SafirFixture : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        _ = await SafirImageBuilder.CreateCommon()
+        _ = await SafirImageBuilder.Create()
+            .WithSafirCommonConfiguration()
             .WithName(CommonImage)
             .Build();
 
-        var agentBuild = SafirImageBuilder.CreateAgent(CommonImage)
+        var agentBuild = SafirImageBuilder.Create()
+            .WithSafirAgentConfiguration(CommonImage)
             .WithName(AgentImage)
             .Build();
 
-        var managerBuild = SafirImageBuilder.CreateManager(CommonImage)
+        var managerBuild = SafirImageBuilder.Create()
+            .WithSafirManagerConfiguration(CommonImage)
             .WithName(ManagerImage)
             .Build();
 

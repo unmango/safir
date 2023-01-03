@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" />
-    <PackageReference Include="Grpc.Core" />
     <PackageReference Include="Grpc.Net.ClientFactory" />
     <PackageReference Include="JetBrains.Annotations" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />
@@ -33,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="$(CliSrc)\Safir.CommandLine\Safir.CommandLine.csproj" />
     <ProjectReference Include="$(CliSrc)\Safir.CommandLine.Generator\Safir.CommandLine.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="$(CommonSrc)\Safir.Grpc\Safir.Grpc.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
   </ItemGroup>
 

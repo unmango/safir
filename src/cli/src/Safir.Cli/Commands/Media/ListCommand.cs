@@ -2,7 +2,6 @@ using System.CommandLine;
 using System.CommandLine.Parsing;
 using System.Text.Json;
 using Grpc.Core;
-using Grpc.Core.Utils;
 using Grpc.Net.ClientFactory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
 using Safir.CommandLine;
+using Safir.Grpc;
 using MediaClient = Safir.Manager.Protos.Media.MediaClient;
 
 namespace Safir.Cli.Commands.Media;
@@ -26,7 +26,7 @@ internal static class ListCommand
             services.AddLocalConfiguration();
 
             var safirOptions = context.Configuration.Get<SafirOptions>();
-            if (safirOptions.Managers is null)
+            if (safirOptions!.Managers is null)
                 return;
 
             foreach (var manager in safirOptions.Managers) {

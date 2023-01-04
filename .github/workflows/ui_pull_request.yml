@@ -51,8 +51,7 @@ jobs:
         id: base-build
         uses: docker/build-push-action@v2
         with:
-          context: "{{defaultContext}}:src"
-          file: ./common/node/Dockerfile
+          file: ./src/common/node/Dockerfile
           load: true
           tags: ${{ env.BASE_IMAGE }}
           cache-from: type=gha
@@ -61,8 +60,7 @@ jobs:
       - name: Docker build
         uses: docker/build-push-action@v2
         with:
-          context: "{{defaultContext}}:src"
-          file: ./ui/Dockerfile
+          file: ./src/ui/Dockerfile
           build-args: BaseImage=${{ env.BASE_IMAGE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

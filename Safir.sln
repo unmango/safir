@@ -35,7 +35,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A21FBA48
 		Makefile = Makefile
 		src\Directory.Packages.props = src\Directory.Packages.props
 		NuGet.Config = NuGet.Config
-		src\Directory.Build.targets = src\Directory.Build.targets
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{1087D1B9-57FF-4354-AA12-71F1F9084F5A}"

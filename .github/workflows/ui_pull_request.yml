@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 16.14
           cache: yarn
 
       - name: Restore dependencies
@@ -34,16 +34,26 @@ jobs:
 
   docker_build:
     runs-on: ubuntu-latest
+    env:
+      BASE_IMAGE: localhost:5000/safir/ui-base
+    services:
+      registry:
+        image: registry:2
+        ports:
+        - 5000:5000
     steps:
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v1
+        with:
+          driver-opts: network=host
 
       - name: Build base image
+        id: base-build
         uses: docker/build-push-action@v2
         with:
           file: ./src/common/node/Dockerfile
-          load: true
-          tags: safir-common-node
+          push: true
+          tags: ${{ env.BASE_IMAGE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -51,6 +61,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           file: ./src/ui/Dockerfile
-          build-args: BaseImage=safir-common-node
+          build-args: BaseImage=${{ env.BASE_IMAGE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

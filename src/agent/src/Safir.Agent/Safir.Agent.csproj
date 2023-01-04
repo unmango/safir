@@ -29,7 +29,7 @@
   <ItemGroup>
     <None Include="$(AgentRoot)/docker-compose.yml" Link="docker-compose.yml" />
     <None Include="$(AgentRoot)/Dockerfile" Link="Dockerfile" />
-    <None Include="$(AgentRoot)/.dockerignore" Link=".dockerignore" />
+    <None Include="$(SourceRoot)/.dockerignore" Link=".dockerignore" />
   </ItemGroup>
 
   <ItemGroup>

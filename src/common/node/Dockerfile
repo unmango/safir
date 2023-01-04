@@ -1,4 +1,4 @@
-FROM node:16 AS setup
+FROM node:16.14 AS setup
 
 ENV COMMON_ROOT=src/common/node
 ENV UI_DIR=src/ui
@@ -13,7 +13,7 @@ COPY ${UI_DIR} ${UI_DIR}
 RUN find src/* -type f ! -name "package.json" -delete && \
     find src/* -type d -empty -delete
 
-FROM node:16-bullseye
+FROM node:16.14-bullseye
 
 RUN echo $PATH
 

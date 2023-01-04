@@ -1,8 +1,19 @@
+# Repo config
 .git
 .github
-.idea
-.vscode
-# .yarn/*
+
+**/.editorconfig
+**/.gitignore
+
+# IDE configuration
+**/.idea
+**/.run
+**/.vscode
+
+**/*.DotSettings*
+**/*.sln
+
+# Yarn
 .yarn
 !.yarn/patches
 !.yarn/releases
@@ -10,24 +21,58 @@
 !.yarn/sdks
 !.yarn/versions
 
-build
+# Packages
+**/node_modules
 
+# Build output
+**/build
+**/dist
 **/bin
 **/obj
 **/out
 
-Dockerfile*
-.dockerignore
-.editorconfig
-.gitignore
+# Generated code
+**/gen
+**/generated
 
+# Currently used as a temp dir for downloaded protos
+**/.cache
+
+# Test projects
+**/test
+**/*.Fixture
+**/Safir.XUnit*
+**/Safir.*Testing
+
+# Test config
+**/jest.config.js
+**/xunit.runner.json
+**/setupTests*
+
+# Test files
+**/*.test*
+**/*.spec*
+
+# Docker
+**/Dockerfile*
+**/docker-compose.yml
+**/.dockerignore
+
+# Local environment config
+**/.env.local
+**/.envrc
+
+# Hack
+**/tool
+
+# Scripts and text files
 **/*.trx
 **/*.md
 **/*.ps1
 **/*.cmd
 **/*.sh
 
+# The child props rely on relative paths and the
+# build context has a different directory structure
 **/Directory.Build.props
 !Directory.Build.props
-
-protos/google

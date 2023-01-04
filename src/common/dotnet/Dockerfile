@@ -28,4 +28,7 @@ RUN find */*.{c,f}sproj | xargs -n1 dotnet restore
 COPY protos ${ProtoRoot}
 COPY common/dotnet/src/ ./
 
-RUN find */*.{c,f}sproj | xargs -n1 dotnet build --no-restore
+RUN find */*.{c,f}sproj | xargs -n1 \
+        dotnet build \
+        --no-restore \
+        --configuration Release

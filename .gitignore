@@ -6,6 +6,9 @@
 # Sandbox workspace directory
 work/
 
+# Dockerignore test script output
+**/dockerignore-test.tar
+
 # User Specific Files
 *.user
 *.code-workspace

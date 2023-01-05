@@ -24,6 +24,7 @@ internal static class ListCommand
             services.AddSafirCliCore();
             services.AddSafirOptions();
             services.AddLocalConfiguration();
+            services.AddGrpcClient<MediaClient>();
 
             var safirOptions = context.Configuration.Get<SafirOptions>();
             if (safirOptions!.Managers is null)
@@ -66,8 +67,10 @@ internal static class ListCommand
         public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken)
         {
             var managerOptions = _options.Value.Managers;
-            if (managerOptions is null)
-                throw new InvalidOperationException("No managers configured");
+            if (managerOptions is null) {
+                _console.WriteLine("No managers configured");
+                return;
+            }
 
             var manager = managerOptions.First();
             var client = _clientFactory.CreateClient<MediaClient>(manager.Name);

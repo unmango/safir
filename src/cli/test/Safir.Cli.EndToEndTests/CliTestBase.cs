@@ -43,6 +43,17 @@ public abstract class CliTestBase : IAsyncLifetime
 
     protected ITestcontainersBuilder<CliContainer> CliBuilder { get; }
 
+    protected string ManagerConfig => $$"""
+        {
+          "Managers": [
+            {
+              "Name": "{{ManagerName}}",
+              "Uri": "{{ManagerContainer.InternalAddress}}"
+            }
+          ]
+        }
+        """;
+
     public async Task InitializeAsync()
     {
         await Network.CreateAsync();

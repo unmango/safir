@@ -18,13 +18,13 @@ jobs:
         working-directory: src/common/src/dotnet
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: recursive
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
 
     - name: Add github source credentials
       run: |

@@ -20,17 +20,20 @@ public abstract class SafirFixture : IAsyncLifetime
 
     public IDockerImage ManagerImage { get; }
 
-    public async Task InitializeAsync()
+    public virtual async Task InitializeAsync()
     {
-        _ = await SafirImageBuilder.CreateCommon()
+        _ = await SafirImageBuilder.Create()
+            .WithSafirCommonConfiguration()
             .WithName(CommonImage)
             .Build();
 
-        var agentBuild = SafirImageBuilder.CreateAgent(CommonImage)
+        var agentBuild = SafirImageBuilder.Create()
+            .WithSafirAgentConfiguration(CommonImage)
             .WithName(AgentImage)
             .Build();
 
-        var managerBuild = SafirImageBuilder.CreateManager(CommonImage)
+        var managerBuild = SafirImageBuilder.Create()
+            .WithSafirManagerConfiguration(CommonImage)
             .WithName(ManagerImage)
             .Build();
 
@@ -39,6 +42,6 @@ public abstract class SafirFixture : IAsyncLifetime
 
     public Task DisposeAsync() => Task.CompletedTask;
 
-    private static IDockerImage Image(string image, string tagPrefix)
+    protected static IDockerImage Image(string image, string tagPrefix)
         => new DockerImage($"{image}:{tagPrefix}-{SafirImageBuilder.DefaultTag}");
 }

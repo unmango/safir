@@ -14,9 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{91043FE3-E
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{73C535AE-FE5B-407A-9D94-7F57FB818109}"
-ProjectSection(SolutionItems) = preProject
-	Directory.Build.props = Directory.Build.props
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Cli", "src\Safir.Cli\Safir.Cli.csproj", "{DE9E511D-F26F-4EE4-9D80-F815F5B34F1F}"
 EndProject
@@ -27,6 +27,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.CommandLine.Generator", "src\Safir.CommandLine.Generator\Safir.CommandLine.Generator.csproj", "{F6F829FA-D14C-4F6F-89C7-398AA646DA95}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.CommandLine.Tests", "test\Safir.CommandLine.Tests\Safir.CommandLine.Tests.csproj", "{632EB2E0-3A1A-4C55-A0A7-89B6CB633AAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safir.Cli.EndToEndTests", "test\Safir.Cli.EndToEndTests\Safir.Cli.EndToEndTests.csproj", "{FA3E8D70-87DC-4AD2-97B0-537E80151147}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +103,18 @@ Global
 		{632EB2E0-3A1A-4C55-A0A7-89B6CB633AAB}.Release|x64.Build.0 = Release|Any CPU
 		{632EB2E0-3A1A-4C55-A0A7-89B6CB633AAB}.Release|x86.ActiveCfg = Release|Any CPU
 		{632EB2E0-3A1A-4C55-A0A7-89B6CB633AAB}.Release|x86.Build.0 = Release|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Debug|x64.Build.0 = Debug|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Debug|x86.Build.0 = Debug|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Release|x64.ActiveCfg = Release|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Release|x64.Build.0 = Release|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Release|x86.ActiveCfg = Release|Any CPU
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DE9E511D-F26F-4EE4-9D80-F815F5B34F1F} = {F3D77520-318F-4C1F-BC4A-218FD0852643}
@@ -108,5 +122,6 @@ Global
 		{FF06F748-B5D6-4C6E-A511-BEE3F6AFFACF} = {F3D77520-318F-4C1F-BC4A-218FD0852643}
 		{F6F829FA-D14C-4F6F-89C7-398AA646DA95} = {F3D77520-318F-4C1F-BC4A-218FD0852643}
 		{632EB2E0-3A1A-4C55-A0A7-89B6CB633AAB} = {91043FE3-E8DA-4CA9-BB9D-728DA423E3BE}
+		{FA3E8D70-87DC-4AD2-97B0-537E80151147} = {91043FE3-E8DA-4CA9-BB9D-728DA423E3BE}
 	EndGlobalSection
 EndGlobal

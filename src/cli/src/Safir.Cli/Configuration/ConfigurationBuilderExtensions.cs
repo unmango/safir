@@ -20,7 +20,7 @@ internal static class ConfigurationBuilderExtensions
     {
         var configuration = new ConfigurationBuilder()
             .AddDefaultUserConfigurationPaths()
-            .AddEnvironmentVariables()
+            .AddEnvironmentVariables("SAFIR_") // TODO: Don't use prefix when in docker container
             .Build();
 
         // Add first to allow config file to overwrite

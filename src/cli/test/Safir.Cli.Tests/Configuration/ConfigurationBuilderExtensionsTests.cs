@@ -84,7 +84,7 @@ public class ConfigurationBuilderExtensionsTests
         var root = Assert.IsType<ChainedConfigurationSource>(source).Configuration;
 
         Assert.NotNull(root);
-        var testValue = root[testVariableName];
+        var testValue = root["SUPER_SECRET_TEST_VARIABLE"];
         Assert.Equal(expectedTestValue, testValue);
     }
 }

@@ -15,16 +15,16 @@ jobs:
         working-directory: src/agent
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
 
     - name: Build and push
       run: |
         GITHUB_IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
         DOCKERHUB_IMAGE_ID=unstoppablemango/$IMAGE_NAME
-        
+
         dotnet tool restore && VERSION=$(dotnet minver -t v)
         docker build . --file Dockerfile \
           --build-arg GithubUsername=${{ github.actor }} \
@@ -38,6 +38,6 @@ jobs:
 
         echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
         echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u unstoppablemango --password-stdin
-        
+
         docker push $GITHUB_IMAGE_ID --all-tags
         docker push $DOCKERHUB_IMAGE_ID --all-tags

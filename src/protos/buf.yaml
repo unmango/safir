@@ -1,4 +1,5 @@
 version: v1
+name: buf.build/unstoppablemango/safir
 deps:
   - buf.build/googleapis/googleapis
 breaking:
@@ -7,3 +8,4 @@ breaking:
 lint:
   use:
     - DEFAULT
+    - PACKAGE_NO_IMPORT_CYCLE

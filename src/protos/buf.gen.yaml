@@ -2,6 +2,8 @@ version: v1
 plugins:
   - remote: buf.build/protocolbuffers/plugins/csharp
     out: gen/dotnet
+    opt:
+      - file_extension=.g.cs
   - remote: buf.build/grpc/plugins/csharp
     out: gen/dotnet
   - remote: buf.build/protocolbuffers/plugins/js

@@ -4,8 +4,6 @@ package safir.manager.v1alpha1;
 
 import "google/api/annotations.proto";
 
-option csharp_namespace = "Safir.Manager.Protos";
-
 service MediaService {
   rpc List(ListRequest) returns (ListResponse) {
     option (google.api.http) = {get: "/v1alpha1/media/list"};

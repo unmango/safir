@@ -1,7 +1,7 @@
 using Safir.Protos.Internal;
 
 // ReSharper disable CheckNamespace
-namespace Safir.Agent.Protos;
+namespace Safir.Agent.V1Alpha1;
 
 public partial class FileCreated : EventBase { }
 

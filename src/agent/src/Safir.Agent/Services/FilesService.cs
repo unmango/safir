@@ -1,32 +1,30 @@
 using System.IO.Abstractions;
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.Options;
-using Safir.Agent.Protos;
+using Safir.Agent.V1Alpha1;
 using Safir.Grpc;
-using FileSystem = Safir.Agent.Protos.FileSystem;
 
 namespace Safir.Agent.Services;
 
-internal sealed class FileSystemService : FileSystem.FileSystemBase
+internal sealed class FilesService : V1Alpha1.FilesService.FilesServiceBase
 {
     private readonly IOptions<AgentConfiguration> _options;
     private readonly IFileSystem _fileSystem;
-    private readonly ILogger<FileSystemService> _logger;
+    private readonly ILogger<FilesService> _logger;
 
-    public FileSystemService(
+    public FilesService(
         IOptions<AgentConfiguration> options,
         IFileSystem fileSystem,
-        ILogger<FileSystemService> logger)
+        ILogger<FilesService> logger)
     {
         _options = options;
         _fileSystem = fileSystem;
         _logger = logger;
     }
 
-    public override async Task ListFiles(
-        Empty request,
-        IServerStreamWriter<FileSystemEntry> responseStream,
+    public override async Task List(
+        ListRequest request,
+        IServerStreamWriter<ListResponse> responseStream,
         ServerCallContext context)
     {
         var root = _options.Parse().DataDirectory;
@@ -44,7 +42,7 @@ internal sealed class FileSystemService : FileSystem.FileSystemBase
         var entries = _fileSystem.Directory.EnumerateFileSystemEntries(root, "*");
 
         _logger.LogTrace("Creating file response messages");
-        var files = entries.Select(x => new FileSystemEntry {
+        var files = entries.Select(x => new ListResponse {
             Path = _fileSystem.Path.GetRelativePath(root, x),
         });
 

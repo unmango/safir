@@ -1,5 +1,5 @@
 using System.Net.Http.Json;
-using Safir.Protos;
+using Safir.Common.V1Alpha1;
 
 namespace Safir.Manager.EndToEndTests.Services;
 
@@ -18,7 +18,7 @@ public class HostServiceTestsHttp : ManagerTestBase
             Assert.Fail(error);
         }
 
-        var result = await message.Content.ReadFromJsonAsync<HostInfo>();
+        var result = await message.Content.ReadFromJsonAsync<InfoResponse>();
 
         Assert.NotNull(result);
         Assert.Equal(Environment.MachineName, result.MachineName);

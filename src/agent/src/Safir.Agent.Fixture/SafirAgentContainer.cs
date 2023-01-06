@@ -2,8 +2,8 @@ using DotNet.Testcontainers.Configurations;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Safir.Fixture;
-using Safir.Agent.Protos;
-using Safir.Protos;
+using Safir.Agent.V1Alpha1;
+using Safir.Common.V1Alpha1;
 
 namespace Safir.Agent.Fixture;
 
@@ -15,9 +15,9 @@ public class SafirAgentContainer : SafirContainer
 
     public string DataDirectory { get; internal set; } = SafirAgentConfiguration.DefaultDataDirectory;
 
-    public Host.HostClient CreateHostClient() => new(CreateChannel());
+    public HostService.HostServiceClient CreateHostClient() => new(CreateChannel());
 
-    public FileSystem.FileSystemClient CreateFileSystemClient() => new(CreateChannel());
+    public FilesService.FilesServiceClient CreateFileSystemClient() => new(CreateChannel());
 
     public Task CreateMediaFileAsync(string file, byte[] content, CancellationToken cancellationToken = default)
     {

@@ -1,23 +1,23 @@
 using Grpc.Core;
-using Safir.Protos;
+using Safir.Common.V1Alpha1;
 
 namespace Safir.Agent.Client.Internal;
 
 internal class HostClientWrapper : IHostClient
 {
-    private readonly Host.HostClient _client;
+    private readonly HostService.HostServiceClient _client;
 
-    public HostClientWrapper(Host.HostClient client)
+    public HostClientWrapper(HostService.HostServiceClient client)
     {
         _client = client ?? throw new ArgumentNullException(nameof(client));
     }
 
-    public HostInfo GetInfo(CancellationToken cancellationToken = default)
+    public InfoResponse GetInfo(CancellationToken cancellationToken = default)
     {
         return _client.GetInfo(cancellationToken);
     }
 
-    public AsyncUnaryCall<HostInfo> GetInfoAsync(CancellationToken cancellationToken = default)
+    public AsyncUnaryCall<InfoResponse> GetInfoAsync(CancellationToken cancellationToken = default)
     {
         return _client.GetInfoAsync(cancellationToken);
     }

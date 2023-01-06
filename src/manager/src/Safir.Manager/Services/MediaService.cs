@@ -1,10 +1,10 @@
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Safir.Manager.Protos;
+using Safir.Manager.V1Alpha1;
 
 namespace Safir.Manager.Services;
 
-internal sealed class MediaService : Media.MediaBase
+internal sealed class MediaService : V1Alpha1.MediaService.MediaServiceBase
 {
     private readonly IAgents _agents;
 
@@ -13,16 +13,18 @@ internal sealed class MediaService : Media.MediaBase
         _agents = agents;
     }
 
-    public override async Task List(Empty request, IServerStreamWriter<MediaItem> responseStream, ServerCallContext context)
+    public override async Task<ListResponse> List(ListRequest request, ServerCallContext context)
     {
         var ct = context.CancellationToken;
-        var items = _agents.ListFilesAsync(ct).Select(x => new MediaItem {
-            Host = x.Host,
-            Path = x.Entry.Path,
-        });
+        var items = await _agents.ListFilesAsync(ct)
+            .Select(x => new MediaItem {
+                Host = x.Host,
+                Path = x.Entry.Path,
+            })
+            .ToListAsync(cancellationToken: ct);
 
-        await foreach (var item in items.WithCancellation(ct)) {
-            await responseStream.WriteAsync(item, ct);
-        }
+        return new ListResponse {
+            Media = { items },
+        };
     }
 }

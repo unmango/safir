@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Safir.Protos;
+using Safir.Common.V1Alpha1;
 
 namespace Safir.Agent.IntegrationTests.Services;
 
@@ -23,7 +23,7 @@ public class HostServiceTestsHttp : IClassFixture<WebApplicationFactory<Program>
             Assert.Fail(error);
         }
 
-        var result = await message.Content.ReadFromJsonAsync<HostInfo>();
+        var result = await message.Content.ReadFromJsonAsync<InfoResponse>();
 
         Assert.NotNull(result);
         Assert.Equal(Environment.MachineName, result.MachineName);

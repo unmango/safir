@@ -1,6 +1,5 @@
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Safir.Agent.Protos;
+using Safir.Agent.V1Alpha1;
 using Safir.AspNetCore.Testing;
 using Safir.Manager.Services;
 
@@ -10,21 +9,21 @@ namespace Safir.Manager.Tests.Services;
 public class AgentsExtensionsTests
 {
     private readonly Mock<IAgents> _agents = new();
-    private readonly Mock<FileSystem.FileSystemClient> _client1 = new();
-    private readonly Mock<FileSystem.FileSystemClient> _client2 = new();
+    private readonly Mock<FilesService.FilesServiceClient> _client1 = new();
+    private readonly Mock<FilesService.FilesServiceClient> _client2 = new();
 
     [Fact]
     public async Task ListFilesAsync_SingleAgentListsFiles()
     {
         const string host = "Test1", file = "yeet.mp3";
-        _client1.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+        _client1.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file } });
+            .ReturnsAsync(new ListResponse[] { new() { Path = file } });
 
-        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FileSystem.FileSystemClient> {
+        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host] = _client1.Object,
         });
 
@@ -37,14 +36,14 @@ public class AgentsExtensionsTests
     public async Task ListFilesAsync_SingleAgentListsAllFiles()
     {
         const string host = "Test1", file1 = "yeet.mp3", file2 = "yolo.mp3";
-        _client1.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+        _client1.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file1 }, new() { Path = file2 } });
+            .ReturnsAsync(new ListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
 
-        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FileSystem.FileSystemClient> {
+        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host] = _client1.Object,
         });
 
@@ -58,20 +57,20 @@ public class AgentsExtensionsTests
     public async Task ListFilesAsync_MultipleAgentsListsFiles()
     {
         const string host1 = "Test1", host2 = "Test2", file = "yeet.mp3";
-        _client1.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+        _client1.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file } });
-        _client2.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+            .ReturnsAsync(new ListResponse[] { new() { Path = file } });
+        _client2.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file } });
+            .ReturnsAsync(new ListResponse[] { new() { Path = file } });
 
-        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FileSystem.FileSystemClient> {
+        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host1] = _client1.Object,
             [host2] = _client2.Object,
         });
@@ -86,20 +85,20 @@ public class AgentsExtensionsTests
     public async Task ListFilesAsync_MultipleAgentListsAllFiles()
     {
         const string host1 = "Test1", host2 = "Test2", file1 = "yeet.mp3", file2 = "yolo.mp3";
-        _client1.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+        _client1.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file1 }, new() { Path = file2 } });
-        _client2.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+            .ReturnsAsync(new ListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
+        _client2.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file1 }, new() { Path = file2 } });
+            .ReturnsAsync(new ListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
 
-        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FileSystem.FileSystemClient> {
+        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host1] = _client1.Object,
             [host2] = _client2.Object,
         });

@@ -1,25 +1,24 @@
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using JetBrains.Annotations;
-using Safir.Agent.Protos;
+using Safir.Agent.V1Alpha1;
 
 namespace Safir.Agent.Client;
 
 [PublicAPI]
 public static class FileSystemClientExtensions
 {
-    public static AsyncServerStreamingCall<FileSystemEntry> ListFiles(
-        this FileSystem.FileSystemClient client,
+    public static AsyncServerStreamingCall<ListResponse> List(
+        this FilesService.FilesServiceClient client,
         CancellationToken cancellationToken = default)
     {
-        return client.ListFiles(new Empty(), Metadata.Empty, null, cancellationToken);
+        return client.List(new ListRequest(), Metadata.Empty, null, cancellationToken);
     }
 
-    public static IAsyncEnumerable<FileSystemEntry> ListFilesAsync(
-        this FileSystem.FileSystemClient client,
+    public static IAsyncEnumerable<ListResponse> ListAsync(
+        this FilesService.FilesServiceClient client,
         CancellationToken cancellationToken = default)
     {
-        var streamingCall = client.ListFiles(new Empty(), Metadata.Empty, null, cancellationToken);
+        var streamingCall = client.List(new ListRequest(), Metadata.Empty, null, cancellationToken);
         return streamingCall.ResponseStream.ReadAllAsync(cancellationToken);
     }
 }

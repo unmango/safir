@@ -69,7 +69,7 @@ if (app.Environment.IsDevelopment())
     app.MapGrpcReflectionService();
 
 app.MapGrpcService<HostService>().RequireCors(corsAllowAllPolicy);
-app.MapGrpcService<FileSystemService>().RequireCors(corsAllowAllPolicy);
+app.MapGrpcService<FilesService>().RequireCors(corsAllowAllPolicy);
 
 app.Run();
 

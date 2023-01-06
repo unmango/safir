@@ -1,5 +1,5 @@
 using System.Text.Json;
-using Safir.Manager.Protos;
+using Safir.Manager.V1Alpha1;
 
 namespace Safir.Cli.EndToEndTests.Commands.Media.ListCommandTests;
 

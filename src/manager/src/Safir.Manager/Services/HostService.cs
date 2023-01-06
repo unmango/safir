@@ -1,16 +1,14 @@
 using System.Net;
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Safir.Protos;
-using Host = Safir.Protos.Host; // This was breaking the CI docker build for some reason...
+using Safir.Common.V1Alpha1;
 
 namespace Safir.Manager.Services;
 
-internal sealed class HostService : Host.HostBase
+internal sealed class HostService : Common.V1Alpha1.HostService.HostServiceBase
 {
-    public override Task<HostInfo> GetInfo(Empty request, ServerCallContext context)
+    public override Task<InfoResponse> Info(InfoRequest request, ServerCallContext context)
     {
-        return Task.FromResult(new HostInfo {
+        return Task.FromResult(new InfoResponse {
             MachineName = Environment.MachineName,
             HostName = Dns.GetHostName(),
         });

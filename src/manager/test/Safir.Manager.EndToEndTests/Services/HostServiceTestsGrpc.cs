@@ -14,7 +14,7 @@ public class HostServiceTestsGrpc : ManagerTestBase
         var expected = string.Concat(ManagerContainer.Id.Take(12));
 
         var result = await ManagerContainer.CreateHostClient()
-            .GetInfoAsync(new Empty());
+            .InfoAsync(new());
 
         Assert.NotNull(result);
         Assert.Equal(expected, result.MachineName);

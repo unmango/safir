@@ -1,8 +1,7 @@
 using Grpc.Net.ClientFactory;
 using Microsoft.Extensions.Options;
 using Safir.Agent.Client;
-using Safir.Agent.Protos;
-using Host = Safir.Protos.Host;
+using Safir.Agent.V1Alpha1;
 
 namespace Safir.Manager.Services;
 
@@ -16,7 +15,7 @@ internal sealed class AgentAggregator : IAgents
         Host = agents.ToDictionary(x => x, clientFactory.CreateHostClient);
     }
 
-    public IEnumerable<KeyValuePair<string, FileSystem.FileSystemClient>> FileSystem { get; }
+    public IEnumerable<KeyValuePair<string, FilesService.FilesServiceClient>> FileSystem { get; }
 
-    public IEnumerable<KeyValuePair<string, Host.HostClient>> Host { get; }
+    public IEnumerable<KeyValuePair<string, Common.V1Alpha1.HostService.HostServiceClient>> Host { get; }
 }

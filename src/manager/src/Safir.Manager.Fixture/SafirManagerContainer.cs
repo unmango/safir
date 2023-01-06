@@ -1,9 +1,9 @@
 using DotNet.Testcontainers.Configurations;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
+using Safir.Common.V1Alpha1;
 using Safir.Fixture;
-using Safir.Manager.Protos;
-using Safir.Protos;
+using Safir.Manager.V1Alpha1;
 
 namespace Safir.Manager.Fixture;
 
@@ -13,7 +13,7 @@ public class SafirManagerContainer : SafirContainer
     protected SafirManagerContainer(ITestcontainersConfiguration configuration, ILogger logger)
         : base(configuration, logger) { }
 
-    public Host.HostClient CreateHostClient() => new(CreateChannel());
+    public HostService.HostServiceClient CreateHostClient() => new(CreateChannel());
 
-    public Media.MediaClient CreateMediaClient() => new(CreateChannel());
+    public MediaService.MediaServiceClient CreateMediaClient() => new(CreateChannel());
 }

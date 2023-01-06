@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package safir.agent.v1alpha1;
+
+import "google/api/annotations.proto";
+
+option csharp_namespace = "Safir.Agent.Protos";
+
+service FilesService {
+  rpc List(ListRequest) returns (stream ListResponse) {
+    option (google.api.http) = {get: "/v1alpha1/files/list"};
+  }
+}
+
+message ListRequest {}
+
+message ListResponse {
+  string path = 1;
+}

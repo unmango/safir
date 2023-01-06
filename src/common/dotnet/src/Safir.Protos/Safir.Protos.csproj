@@ -22,17 +22,15 @@
   <PropertyGroup>
     <VendorDir>vendor</VendorDir>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Remove="$(VendorDir)/**" />
+  </ItemGroup>
 
   <!-- https://github.com/grpc/grpc/blob/master/src/csharp/BUILD-INTEGRATION.md -->
   <ItemGroup>
-    <Protobuf Include="$(ProtoRoot)/*.proto" ProtoRoot="$(ProtoRoot)" AdditionalImportDirs="$(VendorDir)">
-      <Link>$(FileName).proto</Link>
-    </Protobuf>
-    <Protobuf Include="$(ProtoRoot)/agent/*.proto" ProtoRoot="$(ProtoRoot)" AdditionalImportDirs="$(VendorDir)">
-      <Link>Agent\$(FileName).proto</Link>
-    </Protobuf>
-    <Protobuf Include="$(ProtoRoot)/manager/*.proto" ProtoRoot="$(ProtoRoot)" AdditionalImportDirs="$(VendorDir)">
-      <Link>Manager\$(FileName).proto</Link>
+    <Protobuf Include="$(ProtoRoot)/safir/**/*.proto" ProtoRoot="$(ProtoRoot)" AdditionalImportDirs="$(VendorDir)">
+      <Link>%(RecursiveDir)/$(FileName).proto</Link>
     </Protobuf>
     <!-- The dotnet-grpc tool does not seem to resolve MSBuild properties, so we are forced to hardcode the path in the `Include` -->
     <Protobuf Include="vendor/google/api/annotations.proto" GrpcServices="None" ProtoRoot="$(VendorDir)" CompileOutputs="false">

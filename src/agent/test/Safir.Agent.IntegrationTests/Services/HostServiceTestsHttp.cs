@@ -17,7 +17,7 @@ public class HostServiceTestsHttp : IClassFixture<WebApplicationFactory<Program>
     [Fact]
     public async Task GetInfo_ReturnsHostInfo()
     {
-        var message = await _client.GetAsync("/v1/host/info");
+        var message = await _client.GetAsync("/v1alpha1/host/info");
         if (!message.IsSuccessStatusCode) {
             var error = await message.Content.ReadAsStringAsync();
             Assert.Fail(error);

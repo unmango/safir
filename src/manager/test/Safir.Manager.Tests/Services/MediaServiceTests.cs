@@ -14,13 +14,12 @@ public sealed class MediaServiceTests
     private readonly Mock<IAgents> _agents = new();
     private readonly Mock<FilesService.FilesServiceClient> _client1 = new();
     private readonly Mock<FilesService.FilesServiceClient> _client2 = new();
-    private readonly Mock<IServerStreamWriter<MediaItem>> _mediaItemWriter = new();
     private readonly ServerCallContext _callContext = Mock.Of<ServerCallContext>();
     private readonly MediaService _service;
 
     public MediaServiceTests()
     {
-        _service = new MediaService(_agents.Object);
+        _service = new(_agents.Object);
     }
 
     [Fact]
@@ -38,9 +37,9 @@ public sealed class MediaServiceTests
             [host] = _client1.Object,
         });
 
-        await _service.List(new(), _mediaItemWriter.Object, _callContext);
+        var response = await _service.List(new(), _callContext);
 
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host, Path = file }, _callContext.CancellationToken));
+        Assert.Contains(response.Media, x => x.Host == host && x.Path == file);
     }
 
     [Fact]
@@ -58,10 +57,11 @@ public sealed class MediaServiceTests
             [host] = _client1.Object,
         });
 
-        await _service.List(new(), _mediaItemWriter.Object, _callContext);
+        var response = await _service.List(new(), _callContext);
 
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host, Path = file1 }, _callContext.CancellationToken));
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host, Path = file2 }, _callContext.CancellationToken));
+        Assert.Collection(response.Media,
+            x => Assert.True(x.Host == host && x.Path == file1),
+            x => Assert.True(x.Host == host && x.Path == file2));
     }
 
     [Fact]
@@ -86,10 +86,11 @@ public sealed class MediaServiceTests
             [host2] = _client2.Object,
         });
 
-        await _service.List(new(), _mediaItemWriter.Object, _callContext);
+        var response = await _service.List(new(), _callContext);
 
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host1, Path = file }, _callContext.CancellationToken));
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host2, Path = file }, _callContext.CancellationToken));
+        Assert.Collection(response.Media,
+            x => Assert.True(x.Host == host1 && x.Path == file),
+            x => Assert.True(x.Host == host2 && x.Path == file));
     }
 
     [Fact]
@@ -114,11 +115,12 @@ public sealed class MediaServiceTests
             [host2] = _client2.Object,
         });
 
-        await _service.List(new(), _mediaItemWriter.Object, _callContext);
+        var response = await _service.List(new(), _callContext);
 
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host1, Path = file1 }, _callContext.CancellationToken));
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host1, Path = file2 }, _callContext.CancellationToken));
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host2, Path = file1 }, _callContext.CancellationToken));
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host2, Path = file2 }, _callContext.CancellationToken));
+        Assert.Collection(response.Media,
+            x => Assert.True(x.Host == host1 && x.Path == file1),
+            x => Assert.True(x.Host == host1 && x.Path == file2),
+            x => Assert.True(x.Host == host2 && x.Path == file1),
+            x => Assert.True(x.Host == host2 && x.Path == file2));
     }
 }

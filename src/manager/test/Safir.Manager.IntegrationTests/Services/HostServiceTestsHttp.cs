@@ -17,7 +17,7 @@ public class HostServiceTestsHttp : IClassFixture<WebApplicationFactory<Program>
     [Fact]
     public async Task GetInfo_ReturnsHostInfo()
     {
-        var result = await _client.GetFromJsonAsync<InfoResponse>("/v1/host/info");
+        var result = await _client.GetFromJsonAsync<InfoResponse>("/v1alpha1/host/info");
 
         Assert.NotNull(result);
         Assert.Equal(Environment.MachineName, result.MachineName);

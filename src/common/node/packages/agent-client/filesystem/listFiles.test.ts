@@ -1,11 +1,11 @@
-import { FileSystemClient } from '@unmango/safir-protos/dist/agent';
+import { FilesServiceClient } from '@unmango/safir-protos/dist/safir/agent/v1alpha1';
 import { Metadata, Status } from 'grpc-web';
 import { Observer } from 'rxjs';
 import { MetadataCallback, StatusCallback } from '../types';
 import { MockClientReadableStream } from '../util';
 import { listFiles } from './listFiles';
 
-jest.mock('@unmango/safir-protos/dist/agent');
+jest.mock('@unmango/safir-protos/dist/safir/agent/v1alpha1');
 
 const baseUrl = 'testUrl';
 
@@ -15,7 +15,7 @@ describe('list', () => {
 
   beforeEach(() => {
     mockStream = new MockClientReadableStream<string>();
-    (FileSystemClient as jest.Mock).mockImplementation(() => ({
+    (FilesServiceClient as jest.Mock).mockImplementation(() => ({
       listFiles: () => mockStream,
     }));
 
@@ -31,7 +31,7 @@ describe('list', () => {
 
     listFiles(baseUrl, undefined, expected);
 
-    expect(FileSystemClient).toHaveBeenCalledWith(baseUrl, expected, undefined);
+    expect(FilesServiceClient).toHaveBeenCalledWith(baseUrl, expected, undefined);
   });
 
   test('calls list with options', () => {
@@ -39,7 +39,7 @@ describe('list', () => {
 
     listFiles(baseUrl, undefined, undefined, expected);
 
-    expect(FileSystemClient).toHaveBeenCalledWith(baseUrl, undefined, expected);
+    expect(FilesServiceClient).toHaveBeenCalledWith(baseUrl, undefined, expected);
   });
 
   test('completes observable when no data', () => {

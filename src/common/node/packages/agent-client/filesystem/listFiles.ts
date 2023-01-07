@@ -1,5 +1,4 @@
-import { FileSystemClient } from '@unmango/safir-protos/dist/agent';
-import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
+import { FilesServiceClient, ListRequest } from '@unmango/safir-protos/dist/safir/agent/v1alpha1';
 import { Observable, Subject } from 'rxjs';
 import { Credentials, ResponseCallbacks } from '../types';
 
@@ -10,11 +9,11 @@ export function listFiles(
   options?: Record<string, unknown>,
 ): Observable<string> {
   const subject = new Subject<string>();
-  const stream = new FileSystemClient(
+  const stream = new FilesServiceClient(
     baseUrl,
     credentials,
     options,
-  ).listFiles(new Empty());
+  ).list(new ListRequest());
 
   if (callbacks?.metadata) {
     stream.on('metadata', callbacks.metadata);

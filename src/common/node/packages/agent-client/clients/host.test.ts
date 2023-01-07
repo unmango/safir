@@ -1,12 +1,12 @@
-import { HostClient } from '@unmango/safir-protos';
-import { createClient, getInfoAsync } from './host';
+import { HostServiceClient } from '@unmango/safir-protos/dist/safir/common/v1alpha1';
+import { createClient, infoAsync } from './host';
 
 jest.mock('@unmango/safir-protos');
 
 const baseUrl = 'testUrl';
 const mock = jest.fn();
 beforeEach(() => {
-  (HostClient as jest.Mock).mockImplementation(() => ({
+  (HostServiceClient as jest.Mock).mockImplementation(() => ({
     getInfo: mock
   }));
 });
@@ -17,7 +17,7 @@ describe('createClient', () => {
 
     await client.getInfoAsync();
 
-    expect(HostClient).toHaveBeenCalledWith(baseUrl);
+    expect(HostServiceClient).toHaveBeenCalledWith(baseUrl);
   });
 });
 
@@ -26,7 +26,7 @@ describe('getInfoAsync', () => {
     const expected = {};
     mock.mockReturnValue(expected);
 
-    const result = await getInfoAsync(baseUrl);
+    const result = await infoAsync(baseUrl);
 
     expect(result).toBe(expected);
   });

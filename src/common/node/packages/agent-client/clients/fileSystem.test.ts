@@ -1,7 +1,7 @@
 import { createClient } from './fileSystem';
 import { listFiles, listFilesAsync } from '../filesystem';
 
-jest.mock('@unmango/safir-protos/dist/agent');
+jest.mock('@unmango/safir-protos/dist/safir/agent/v1alpha1');
 jest.mock('../filesystem');
 
 const baseUrl = 'testUrl';

@@ -58,7 +58,7 @@ clean_work::
 buf::
 	cd src/protos && buf build
 
-buf_lint:: buf
+buf_lint::
 	cd src/protos && buf lint
 
 gen:: gen_agent gen_manager

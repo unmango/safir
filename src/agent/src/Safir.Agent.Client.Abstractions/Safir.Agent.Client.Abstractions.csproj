@@ -2,19 +2,18 @@
 
   <PropertyGroup>
     <Product>Safir.Agent.Client.Abstractions</Product>
-    <RootNamespace>Safir.Agent.Client</RootNamespace>
+    <RootNamespace>Safir.Agent</RootNamespace>
     <Description>Abstractions for a client that can make requests to a Safir agent.</Description>
     <TargetFrameworks>netstandard2.1;net6.0;net7.0</TargetFrameworks>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Api.CommonProtos" />
+    <PackageReference Include="Google.Protobuf" />
+    <PackageReference Include="Grpc.Core.Api" />
     <PackageReference Include="JetBrains.Annotations" />
     <PackageReference Include="MinVer" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
   </ItemGroup>
 
 </Project>

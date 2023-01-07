@@ -1,4 +1,5 @@
 using Grpc.Core;
+using Safir.Agent.V1Alpha1;
 using Safir.Manager.V1Alpha1;
 
 namespace Safir.Manager.Services;
@@ -12,7 +13,7 @@ internal sealed class MediaGrpcService : MediaService.MediaServiceBase
         _agents = agents;
     }
 
-    public override async Task<ListResponse> List(ListRequest request, ServerCallContext context)
+    public override async Task<MediaServiceListResponse> List(MediaServiceListRequest request, ServerCallContext context)
     {
         var ct = context.CancellationToken;
         var items = await _agents.ListFilesAsync(ct)
@@ -22,7 +23,7 @@ internal sealed class MediaGrpcService : MediaService.MediaServiceBase
             })
             .ToListAsync(cancellationToken: ct);
 
-        return new ListResponse {
+        return new MediaServiceListResponse {
             Media = { items },
         };
     }

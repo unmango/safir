@@ -68,7 +68,6 @@ app.UseCors();
 if (app.Environment.IsDevelopment())
     app.MapGrpcReflectionService();
 
-app.MapGrpcService<HostGrpcService>().RequireCors(corsAllowAllPolicy);
 app.MapGrpcService<FilesGrpcService>().RequireCors(corsAllowAllPolicy);
 
 app.Run();

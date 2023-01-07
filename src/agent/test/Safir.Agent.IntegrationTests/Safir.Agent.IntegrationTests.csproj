@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="$(AgentSrc)\Safir.Agent\Safir.Agent.csproj" />
+    <ProjectReference Include="$(AgentSrc)\Safir.Agent.Client\Safir.Agent.Client.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.AspNetCore.Testing\Safir.AspNetCore.Testing.csproj" />
   </ItemGroup>
 

@@ -21,7 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="$(CommonSrc)\Safir.Common\Safir.Common.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.Messaging.Abstractions\Safir.Messaging.Abstractions.csproj" />
-    <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
     <ProjectReference Include="$(CommonSrc)\Safir.Redis\Safir.Redis.csproj" />
   </ItemGroup>
 

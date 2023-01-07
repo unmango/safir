@@ -15,7 +15,7 @@ public class FileSystemServiceTestsGrpc : AgentTestBase
         await Container.ExecAsync(new[] { "touch", "/data/Test.mp3" });
 
         var result = await Container.CreateFileSystemClient()
-            .List(new ListRequest())
+            .List(new FilesServiceListRequest())
             .ResponseStream
             .ToListAsync();
 

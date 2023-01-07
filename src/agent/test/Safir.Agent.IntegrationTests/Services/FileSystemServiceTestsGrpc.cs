@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Safir.Agent.V1Alpha1;
 using Safir.AspNetCore.Testing;
-using Safir.Grpc;
 
 namespace Safir.Agent.IntegrationTests.Services;
 

@@ -568,6 +568,8 @@
       "safir.agent.abstractions": {
         "type": "Project",
         "dependencies": {
+          "Google.Api.CommonProtos": "[2.7.0, )",
+          "Google.Protobuf": "[3.21.12, )",
           "JetBrains.Annotations": "[2022.3.1, )"
         }
       },
@@ -610,7 +612,6 @@
           "Microsoft.Extensions.Options": "[7.0.0, )",
           "Safir.Common": "[1.0.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )",
-          "Safir.Protos": "[1.0.0, )",
           "Safir.Redis": "[1.0.0, )",
           "StackExchange.Redis": "[2.6.86, )",
           "System.Reactive": "[5.0.0, )"
@@ -628,15 +629,6 @@
           "JetBrains.Annotations": "[2022.3.1, )",
           "MediatR": "[11.1.0, )",
           "Safir.Common": "[1.0.0, )",
-          "Safir.Messaging.Abstractions": "[1.0.0, )"
-        }
-      },
-      "safir.protos": {
-        "type": "Project",
-        "dependencies": {
-          "Google.Api.CommonProtos": "[2.7.0, )",
-          "Google.Protobuf": "[3.21.12, )",
-          "Grpc.Core.Api": "[2.51.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
       },

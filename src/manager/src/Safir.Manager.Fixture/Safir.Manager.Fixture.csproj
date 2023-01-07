@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="$(CommonSrc)\Safir.Fixture\Safir.Fixture.csproj" />
-    <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
+    <ProjectReference Include="$(ManagerSrc)\Safir.Manager.Client\Safir.Manager.Client.csproj" />
   </ItemGroup>
 
 </Project>

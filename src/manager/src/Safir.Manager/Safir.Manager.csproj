@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="$(AgentSrc)\Safir.Agent.Client\Safir.Agent.Client.csproj" />
-    <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
     <ProjectReference Include="$(ManagerSrc)\Safir.Manager.Abstractions\Safir.Manager.Abstractions.csproj" />
   </ItemGroup>
 

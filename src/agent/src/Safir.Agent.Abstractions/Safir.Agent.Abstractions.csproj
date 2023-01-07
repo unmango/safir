@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Api.CommonProtos" />
+    <PackageReference Include="Google.Protobuf" />
     <PackageReference Include="JetBrains.Annotations" />
     <PackageReference Include="MinVer" PrivateAssets="All" />
   </ItemGroup>

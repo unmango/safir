@@ -12,12 +12,12 @@ internal class FileSystemClientWrapper : IFileSystemClient
         _client = client ?? throw new ArgumentNullException(nameof(client));
     }
 
-    public AsyncServerStreamingCall<ListResponse> List(CancellationToken cancellationToken = default)
+    public AsyncServerStreamingCall<FilesServiceListResponse> List(CancellationToken cancellationToken = default)
     {
         return _client.List(cancellationToken);
     }
 
-    public IAsyncEnumerable<ListResponse> ListAsync(CancellationToken cancellationToken = default)
+    public IAsyncEnumerable<FilesServiceListResponse> ListAsync(CancellationToken cancellationToken = default)
     {
         return _client.ListAsync(cancellationToken);
     }

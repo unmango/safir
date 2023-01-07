@@ -3,7 +3,6 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Safir.Fixture;
 using Safir.Agent.V1Alpha1;
-using Safir.Common.V1Alpha1;
 
 namespace Safir.Agent.Fixture;
 
@@ -14,8 +13,6 @@ public class SafirAgentContainer : SafirContainer
         : base(configuration, logger) { }
 
     public string DataDirectory { get; internal set; } = SafirAgentConfiguration.DefaultDataDirectory;
-
-    public HostService.HostServiceClient CreateHostClient() => new(CreateChannel());
 
     public FilesService.FilesServiceClient CreateFileSystemClient() => new(CreateChannel());
 

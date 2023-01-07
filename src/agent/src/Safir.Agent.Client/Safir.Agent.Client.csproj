@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Product>Safir.Agent.Client</Product>
+    <Product>Safir.Agent</Product>
     <Description>Client for making requests to a Safir agent.</Description>
     <TargetFrameworks>netstandard2.1;net6.0;net7.0</TargetFrameworks>
     <IsPackable>true</IsPackable>
@@ -11,15 +11,12 @@
     <PackageReference Include="Grpc.Net.Client" />
     <PackageReference Include="Grpc.Net.ClientFactory" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
-    <PackageReference Include="Microsoft.Extensions.Http" />
-    <PackageReference Include="Microsoft.Extensions.Options" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
     <PackageReference Include="MinVer" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="$(AgentSrc)\Safir.Agent.Client.Abstractions\Safir.Agent.Client.Abstractions.csproj" />
-    <ProjectReference Include="$(CommonSrc)\Safir.Protos\Safir.Protos.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@ using Safir.Common.V1Alpha1;
 
 namespace Safir.Manager.Services;
 
-internal sealed class HostService : Common.V1Alpha1.HostService.HostServiceBase
+internal sealed class HostGrpcService : HostService.HostServiceBase
 {
     public override Task<InfoResponse> Info(InfoRequest request, ServerCallContext context)
     {

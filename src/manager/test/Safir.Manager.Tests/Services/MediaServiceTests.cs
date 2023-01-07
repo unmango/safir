@@ -1,9 +1,9 @@
 using Grpc.Core;
 using Safir.Agent.V1Alpha1;
 using Safir.AspNetCore.Testing;
+using Safir.Manager.Services;
 using ListRequest = Safir.Agent.V1Alpha1.ListRequest;
 using ListResponse = Safir.Agent.V1Alpha1.ListResponse;
-using MediaService = Safir.Manager.Services.MediaService;
 
 namespace Safir.Manager.Tests.Services;
 
@@ -14,7 +14,7 @@ public sealed class MediaServiceTests
     private readonly Mock<FilesService.FilesServiceClient> _client1 = new();
     private readonly Mock<FilesService.FilesServiceClient> _client2 = new();
     private readonly ServerCallContext _callContext = Mock.Of<ServerCallContext>();
-    private readonly MediaService _service;
+    private readonly MediaGrpcService _service;
 
     public MediaServiceTests()
     {

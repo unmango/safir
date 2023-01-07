@@ -6,16 +6,16 @@ using Safir.Grpc;
 
 namespace Safir.Agent.Services;
 
-internal sealed class FilesService : V1Alpha1.FilesService.FilesServiceBase
+internal sealed class FilesGrpcService : FilesService.FilesServiceBase
 {
     private readonly IOptions<AgentConfiguration> _options;
     private readonly IFileSystem _fileSystem;
-    private readonly ILogger<FilesService> _logger;
+    private readonly ILogger<FilesGrpcService> _logger;
 
-    public FilesService(
+    public FilesGrpcService(
         IOptions<AgentConfiguration> options,
         IFileSystem fileSystem,
-        ILogger<FilesService> logger)
+        ILogger<FilesGrpcService> logger)
     {
         _options = options;
         _fileSystem = fileSystem;

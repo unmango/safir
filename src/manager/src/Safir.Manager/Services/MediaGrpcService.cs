@@ -3,11 +3,11 @@ using Safir.Manager.V1Alpha1;
 
 namespace Safir.Manager.Services;
 
-internal sealed class MediaService : V1Alpha1.MediaService.MediaServiceBase
+internal sealed class MediaGrpcService : MediaService.MediaServiceBase
 {
     private readonly IAgents _agents;
 
-    public MediaService(IAgents agents)
+    public MediaGrpcService(IAgents agents)
     {
         _agents = agents;
     }

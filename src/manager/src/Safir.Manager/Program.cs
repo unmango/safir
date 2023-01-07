@@ -74,8 +74,8 @@ app.UseCors();
 if (app.Environment.IsDevelopment())
     app.MapGrpcReflectionService();
 
-app.MapGrpcService<HostService>().RequireCors(corsAllowAllPolicy);
-app.MapGrpcService<MediaService>().RequireCors(corsAllowAllPolicy);
+app.MapGrpcService<HostGrpcService>().RequireCors(corsAllowAllPolicy);
+app.MapGrpcService<MediaGrpcService>().RequireCors(corsAllowAllPolicy);
 
 app.Run();
 

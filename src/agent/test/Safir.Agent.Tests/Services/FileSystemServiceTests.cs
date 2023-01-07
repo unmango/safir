@@ -3,8 +3,8 @@ using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
+using Safir.Agent.Services;
 using Safir.Agent.V1Alpha1;
-using FilesService = Safir.Agent.Services.FilesService;
 
 namespace Safir.Agent.Tests.Services;
 
@@ -16,7 +16,7 @@ public class FileSystemServiceTests
     private readonly Mock<IDirectory> _directory = new();
     private readonly Mock<IPath> _path = new();
     private readonly Mock<IServerStreamWriter<ListResponse>> _serverStreamWriter = new();
-    private readonly FilesService _service;
+    private readonly FilesGrpcService _service;
 
     public FileSystemServiceTests()
     {
@@ -28,7 +28,7 @@ public class FileSystemServiceTests
             DataDirectory = Directory,
         });
 
-        _service = new(_options.Object, fileSystem.Object, Mock.Of<ILogger<FilesService>>());
+        _service = new(_options.Object, fileSystem.Object, Mock.Of<ILogger<FilesGrpcService>>());
     }
 
     [Theory]

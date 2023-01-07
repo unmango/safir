@@ -16,7 +16,7 @@ describe('list', () => {
   beforeEach(() => {
     mockStream = new MockClientReadableStream<string>();
     (FilesServiceClient as jest.Mock).mockImplementation(() => ({
-      listFiles: () => mockStream,
+      list: () => mockStream,
     }));
 
     mockObserver = {

@@ -1,13 +1,13 @@
 import { HostServiceClient } from '@unmango/safir-protos/dist/safir/common/v1alpha1';
 import { createClient, infoAsync } from './host';
 
-jest.mock('@unmango/safir-protos');
+jest.mock('@unmango/safir-protos/dist/safir/common/v1alpha1');
 
 const baseUrl = 'testUrl';
 const mock = jest.fn();
 beforeEach(() => {
   (HostServiceClient as jest.Mock).mockImplementation(() => ({
-    getInfo: mock
+    info: mock
   }));
 });
 

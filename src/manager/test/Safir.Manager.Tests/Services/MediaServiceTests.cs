@@ -1,7 +1,6 @@
 using Grpc.Core;
 using Safir.Agent.V1Alpha1;
 using Safir.AspNetCore.Testing;
-using Safir.Manager.V1Alpha1;
 using ListRequest = Safir.Agent.V1Alpha1.ListRequest;
 using ListResponse = Safir.Agent.V1Alpha1.ListResponse;
 using MediaService = Safir.Manager.Services.MediaService;

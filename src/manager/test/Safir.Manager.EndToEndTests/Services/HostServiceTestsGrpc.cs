@@ -1,5 +1,3 @@
-using Google.Protobuf.WellKnownTypes;
-
 namespace Safir.Manager.EndToEndTests.Services;
 
 [Trait("Category", "EndToEnd")]

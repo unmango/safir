@@ -1,8 +1,8 @@
 using System.CommandLine;
-using System.CommandLine.Parsing;
 using System.Text.Json;
 using Grpc.Core;
 using Grpc.Net.ClientFactory;
+using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -36,8 +36,8 @@ internal static class ListCommand
                 });
             }
         })
-        .ConfigureHandler<Handler>((handler, result, cancellationToken)
-            => handler.Execute(result, cancellationToken));
+        .ConfigureHandler<Handler>((handler, _, cancellationToken)
+            => handler.Execute(cancellationToken));
 
     public static readonly Command Value = Create();
 
@@ -50,6 +50,7 @@ internal static class ListCommand
         return command;
     }
 
+    [UsedImplicitly]
     private sealed class Handler
     {
         private readonly IOptions<SafirOptions> _options;
@@ -63,7 +64,7 @@ internal static class ListCommand
             _console = console;
         }
 
-        public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken)
+        public async Task Execute(CancellationToken cancellationToken)
         {
             var managerOptions = _options.Value.Managers;
             if (managerOptions is null) {

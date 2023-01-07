@@ -1,6 +1,4 @@
 using DotNet.Testcontainers.Configurations;
-using Google.Protobuf.WellKnownTypes;
-using Safir.Grpc;
 using Safir.XUnit.AspNetCore;
 using Xunit.Abstractions;
 

@@ -1,0 +1,10 @@
+version: v1
+plugins:
+  - remote: buf.build/grpc/plugins/csharp
+    out: ../manager/src/Safir.Manager.Client/Generated
+    opt:
+      - no_server
+  - remote: buf.build/grpc/plugins/csharp
+    out: ../manager/src/Safir.Manager/Generated
+    opt:
+      - no_client

@@ -1,0 +1,10 @@
+version: v1
+plugins:
+  - remote: buf.build/protocolbuffers/plugins/csharp
+    out: ../agent/src/Safir.Agent.Client.Abstractions/Generated
+    opt:
+      - file_extension=.g.cs
+  - remote: buf.build/protocolbuffers/plugins/csharp
+    out: ../agent/src/Safir.Agent.Abstractions/Generated
+    opt:
+      - file_extension=.g.cs

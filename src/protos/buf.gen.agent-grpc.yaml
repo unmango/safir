@@ -1,0 +1,10 @@
+version: v1
+plugins:
+  - remote: buf.build/grpc/plugins/csharp
+    out: ../agent/src/Safir.Agent.Client/Generated
+    opt:
+      - no_server
+  - remote: buf.build/grpc/plugins/csharp
+    out: ../agent/src/Safir.Agent/Generated
+    opt:
+      - no_client

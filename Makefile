@@ -55,6 +55,38 @@ clean_node::
 clean_work::
 	-rm -rf ${WORK_DIR}
 
+buf::
+	cd src/protos && buf build
+
+buf_lint:: buf
+	cd src/protos && buf lint
+
+gen:: gen_agent gen_manager
+
+gen_agent:: gen_agent_proto gen_agent_grpc
+
+gen_agent_proto:: buf
+	cd src/protos && buf generate \
+		--template buf.gen.agent-proto.yaml \
+		--path safir/agent
+
+gen_agent_grpc:: buf
+	cd src/protos && buf generate \
+		--template buf.gen.agent-grpc.yaml \
+		--path safir/agent
+
+gen_manager:: gen_manager_proto gen_manager_grpc
+
+gen_manager_proto:: buf
+	cd src/protos && buf generate \
+		--template buf.gen.manager-proto.yaml \
+		--path safir/manager
+
+gen_manager_grpc:: buf
+	cd src/protos && buf generate \
+		--template buf.gen.manager-grpc.yaml \
+		--path safir/manager
+
 common_dotnet::
 	dotnet build src/common/dotnet ${DOTNET_ARGS}
 

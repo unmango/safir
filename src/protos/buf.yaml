@@ -9,3 +9,4 @@ lint:
   use:
     - DEFAULT
     - PACKAGE_NO_IMPORT_CYCLE
+  enum_zero_value_suffix: _NONE

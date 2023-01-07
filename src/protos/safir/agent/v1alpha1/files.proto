@@ -5,13 +5,13 @@ package safir.agent.v1alpha1;
 import "google/api/annotations.proto";
 
 service FilesService {
-  rpc List(ListRequest) returns (stream ListResponse) {
+  rpc List(FilesServiceListRequest) returns (stream FilesServiceListResponse) {
     option (google.api.http) = {get: "/v1alpha1/files/list"};
   }
 }
 
-message ListRequest {}
+message FilesServiceListRequest {}
 
-message ListResponse {
+message FilesServiceListResponse {
   string path = 1;
 }

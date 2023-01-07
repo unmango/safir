@@ -1,6 +1,4 @@
 using DotNet.Testcontainers.Configurations;
-using Google.Protobuf.WellKnownTypes;
-using Safir.Grpc;
 using Safir.XUnit.AspNetCore;
 using Xunit.Abstractions;
 
@@ -22,11 +20,9 @@ public class MediaServiceTestsGrpc : ManagerTestBase
         await AgentContainer.CreateMediaFileAsync(fileName);
 
         var result = await ManagerContainer.CreateMediaClient()
-            .List(new Empty())
-            .ResponseStream
-            .ToListAsync();
+            .ListAsync(new());
 
-        var item = Assert.Single(result);
+        var item = Assert.Single(result.Media);
         Assert.Equal(AgentName, item.Host);
         Assert.Equal(fileName, item.Path);
     }

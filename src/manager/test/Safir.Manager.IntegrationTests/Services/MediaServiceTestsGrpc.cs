@@ -1,21 +1,21 @@
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
-using Safir.Agent.Protos;
+using Safir.Agent.V1Alpha1;
 using Safir.AspNetCore.Testing;
-using Safir.Grpc;
-using Safir.Manager.Protos;
+using Safir.Manager.V1Alpha1;
 using Safir.XUnit.AspNetCore;
 using Xunit.Abstractions;
+using ListRequest = Safir.Agent.V1Alpha1.ListRequest;
+using ListResponse = Safir.Agent.V1Alpha1.ListResponse;
 
 namespace Safir.Manager.IntegrationTests.Services;
 
 [Trait("Category", "Integration")]
 public class MediaServiceTestsGrpc : IClassFixture<WebApplicationFactory<Program>>
 {
-    private readonly Mock<FileSystem.FileSystemClient> _fileSystemClient = new();
-    private readonly Media.MediaClient _client;
+    private readonly Mock<FilesService.FilesServiceClient> _fileSystemClient = new();
+    private readonly MediaService.MediaServiceClient _client;
     private ManagerConfiguration _configuration = new();
 
     public MediaServiceTestsGrpc(WebApplicationFactory<Program> factory, ITestOutputHelper outputHelper)
@@ -26,7 +26,7 @@ public class MediaServiceTestsGrpc : IClassFixture<WebApplicationFactory<Program
             .WithLogger(outputHelper)
             .CreateChannel();
 
-        _client = new Media.MediaClient(channel);
+        _client = new(channel);
     }
 
     [Fact]
@@ -40,14 +40,12 @@ public class MediaServiceTestsGrpc : IClassFixture<WebApplicationFactory<Program
             },
         };
         _fileSystemClient.Setup(
-                x => x.ListFiles(It.IsAny<Empty>(), It.IsAny<Metadata>(), It.IsAny<DateTime?>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = "Test" } });
+                x => x.List(It.IsAny<ListRequest>(), It.IsAny<Metadata>(), It.IsAny<DateTime?>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ListResponse[] { new() { Path = "Test" } });
 
-        var result = await _client.List(new Empty())
-            .ResponseStream
-            .ToListAsync();
+        var result = await _client.ListAsync(new());
 
-        var item = Assert.Single(result);
+        var item = Assert.Single(result.Media);
         Assert.Equal("Test", item.Host);
         Assert.Equal("Test", item.Path);
     }

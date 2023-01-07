@@ -1,24 +1,24 @@
 using Grpc.Core;
-using Safir.Agent.Protos;
+using Safir.Agent.V1Alpha1;
 
 namespace Safir.Agent.Client.Internal;
 
 internal class FileSystemClientWrapper : IFileSystemClient
 {
-    private readonly FileSystem.FileSystemClient _client;
+    private readonly FilesService.FilesServiceClient _client;
 
-    public FileSystemClientWrapper(FileSystem.FileSystemClient client)
+    public FileSystemClientWrapper(FilesService.FilesServiceClient client)
     {
         _client = client ?? throw new ArgumentNullException(nameof(client));
     }
 
-    public AsyncServerStreamingCall<FileSystemEntry> ListFiles(CancellationToken cancellationToken = default)
+    public AsyncServerStreamingCall<ListResponse> List(CancellationToken cancellationToken = default)
     {
-        return _client.ListFiles(cancellationToken);
+        return _client.List(cancellationToken);
     }
 
-    public IAsyncEnumerable<FileSystemEntry> ListFilesAsync(CancellationToken cancellationToken = default)
+    public IAsyncEnumerable<ListResponse> ListAsync(CancellationToken cancellationToken = default)
     {
-        return _client.ListFilesAsync(cancellationToken);
+        return _client.ListAsync(cancellationToken);
     }
 }

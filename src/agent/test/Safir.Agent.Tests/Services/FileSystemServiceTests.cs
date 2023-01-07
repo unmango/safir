@@ -3,8 +3,8 @@ using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
-using Safir.Agent.Protos;
 using Safir.Agent.Services;
+using Safir.Agent.V1Alpha1;
 
 namespace Safir.Agent.Tests.Services;
 
@@ -15,8 +15,8 @@ public class FileSystemServiceTests
     private readonly Mock<IOptions<AgentConfiguration>> _options = new();
     private readonly Mock<IDirectory> _directory = new();
     private readonly Mock<IPath> _path = new();
-    private readonly Mock<IServerStreamWriter<FileSystemEntry>> _serverStreamWriter = new();
-    private readonly FileSystemService _service;
+    private readonly Mock<IServerStreamWriter<ListResponse>> _serverStreamWriter = new();
+    private readonly FilesGrpcService _service;
 
     public FileSystemServiceTests()
     {
@@ -28,7 +28,7 @@ public class FileSystemServiceTests
             DataDirectory = Directory,
         });
 
-        _service = new(_options.Object, fileSystem.Object, Mock.Of<ILogger<FileSystemService>>());
+        _service = new(_options.Object, fileSystem.Object, Mock.Of<ILogger<FilesGrpcService>>());
     }
 
     [Theory]
@@ -41,7 +41,7 @@ public class FileSystemServiceTests
             DataDirectory = root,
         });
 
-        await _service.ListFiles(new(), _serverStreamWriter.Object, null!);
+        await _service.List(new(), _serverStreamWriter.Object, null!);
 
         _directory.VerifyNoOtherCalls();
         _serverStreamWriter.VerifyNoOtherCalls();
@@ -52,7 +52,7 @@ public class FileSystemServiceTests
     {
         _directory.Setup(x => x.Exists(Directory)).Returns(false);
 
-        await _service.ListFiles(new(), _serverStreamWriter.Object, null!);
+        await _service.List(new(), _serverStreamWriter.Object, null!);
 
         _serverStreamWriter.VerifyNoOtherCalls();
     }
@@ -62,7 +62,7 @@ public class FileSystemServiceTests
     {
         _directory.Setup(x => x.Exists(Directory)).Returns(true);
 
-        await _service.ListFiles(new(), _serverStreamWriter.Object, null!);
+        await _service.List(new(), _serverStreamWriter.Object, null!);
 
         _directory.Verify(x => x.EnumerateFileSystemEntries(Directory, "*"));
     }
@@ -76,7 +76,7 @@ public class FileSystemServiceTests
             .Returns(new[] { entry });
         _path.Setup(x => x.GetRelativePath(Directory, entry)).Returns("bogus");
 
-        await _service.ListFiles(new(), _serverStreamWriter.Object, null!);
+        await _service.List(new(), _serverStreamWriter.Object, null!);
 
         _path.Verify(x => x.GetRelativePath(Directory, entry));
     }
@@ -90,8 +90,8 @@ public class FileSystemServiceTests
             .Returns(new[] { entry });
         _path.Setup(x => x.GetRelativePath(Directory, entry)).Returns(relative);
 
-        await _service.ListFiles(new(), _serverStreamWriter.Object, null!);
+        await _service.List(new(), _serverStreamWriter.Object, null!);
 
-        _serverStreamWriter.Verify(x => x.WriteAsync(It.Is<FileSystemEntry>(f => f.Path == relative)));
+        _serverStreamWriter.Verify(x => x.WriteAsync(It.Is<ListResponse>(f => f.Path == relative)));
     }
 }

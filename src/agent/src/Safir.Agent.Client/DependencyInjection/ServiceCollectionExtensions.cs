@@ -2,8 +2,8 @@ using Grpc.Net.ClientFactory;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Safir.Agent.Client.Internal;
-using Safir.Agent.Protos;
-using Safir.Protos;
+using Safir.Agent.V1Alpha1;
+using Safir.Common.V1Alpha1;
 
 namespace Safir.Agent.Client.DependencyInjection;
 
@@ -13,8 +13,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddSafirAgentClient(this IServiceCollection services)
     {
         services.AddWrappers();
-        services.AddGrpcClient<FileSystem.FileSystemClient>();
-        services.AddGrpcClient<Host.HostClient>();
+        services.AddGrpcClient<FilesService.FilesServiceClient>();
+        services.AddGrpcClient<HostService.HostServiceClient>();
 
         return services;
     }
@@ -24,8 +24,8 @@ public static class ServiceCollectionExtensions
         Action<GrpcClientFactoryOptions> configureClient)
     {
         services.AddWrappers();
-        services.AddGrpcClient<FileSystem.FileSystemClient>(configureClient);
-        services.AddGrpcClient<Host.HostClient>(configureClient);
+        services.AddGrpcClient<FilesService.FilesServiceClient>(configureClient);
+        services.AddGrpcClient<HostService.HostServiceClient>(configureClient);
 
         return services;
     }
@@ -35,8 +35,8 @@ public static class ServiceCollectionExtensions
         Action<IServiceProvider, GrpcClientFactoryOptions> configureClient)
     {
         services.AddWrappers();
-        services.AddGrpcClient<FileSystem.FileSystemClient>(configureClient);
-        services.AddGrpcClient<Host.HostClient>(configureClient);
+        services.AddGrpcClient<FilesService.FilesServiceClient>(configureClient);
+        services.AddGrpcClient<HostService.HostServiceClient>(configureClient);
 
         return services;
     }
@@ -44,8 +44,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddSafirAgentClient(this IServiceCollection services, string name)
     {
         services.AddWrappers();
-        services.AddGrpcClient<FileSystem.FileSystemClient>(ClientName.FileSystem(name));
-        services.AddGrpcClient<Host.HostClient>(ClientName.Host(name));
+        services.AddGrpcClient<FilesService.FilesServiceClient>(ClientName.FileSystem(name));
+        services.AddGrpcClient<HostService.HostServiceClient>(ClientName.Host(name));
 
         return services;
     }
@@ -56,8 +56,8 @@ public static class ServiceCollectionExtensions
         Action<GrpcClientFactoryOptions> configureClient)
     {
         services.AddWrappers();
-        services.AddGrpcClient<FileSystem.FileSystemClient>(ClientName.FileSystem(name), configureClient);
-        services.AddGrpcClient<Host.HostClient>(ClientName.Host(name), configureClient);
+        services.AddGrpcClient<FilesService.FilesServiceClient>(ClientName.FileSystem(name), configureClient);
+        services.AddGrpcClient<HostService.HostServiceClient>(ClientName.Host(name), configureClient);
 
         return services;
     }

@@ -1,9 +1,9 @@
 using System.IO.Abstractions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using Safir.Agent.V1Alpha1;
 using Safir.AspNetCore.Testing;
 using Safir.Grpc;
-using FileSystem = Safir.Agent.Protos.FileSystem;
 
 namespace Safir.Agent.IntegrationTests.Services;
 
@@ -13,7 +13,7 @@ public class FileSystemServiceTestsGrpc : IClassFixture<WebApplicationFactory<Pr
     private const string DataDirectory = "Test";
     private readonly Mock<IDirectory> _directory = new();
     private readonly Mock<IPath> _path = new();
-    private readonly FileSystem.FileSystemClient _client;
+    private readonly FilesService.FilesServiceClient _client;
 
     public FileSystemServiceTestsGrpc(WebApplicationFactory<Program> factory)
     {
@@ -29,7 +29,7 @@ public class FileSystemServiceTestsGrpc : IClassFixture<WebApplicationFactory<Pr
         });
 
         var channel = factory.CreateChannel();
-        _client = new FileSystem.FileSystemClient(channel);
+        _client = new(channel);
     }
 
     [Fact]
@@ -42,7 +42,7 @@ public class FileSystemServiceTestsGrpc : IClassFixture<WebApplicationFactory<Pr
         _path.Setup(x => x.GetRelativePath(DataDirectory, "test")).Returns("test");
         _path.Setup(x => x.GetRelativePath(DataDirectory, "test2")).Returns("test2");
 
-        var result = await _client.ListFiles(new()).ResponseStream.ToListAsync();
+        var result = await _client.List(new()).ResponseStream.ToListAsync();
 
         Assert.Equal(entries, result.Select(x => x.Path));
     }

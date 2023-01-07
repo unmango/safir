@@ -1,5 +1,5 @@
 using System.Text.Json;
-using Safir.Manager.Protos;
+using Safir.Manager.V1Alpha1;
 
 namespace Safir.Cli.EndToEndTests.Commands.Media.ListCommandTests;
 
@@ -22,11 +22,13 @@ public class HappyPath : CliTestBase
         if (result.ExitCode > 0)
             Assert.Fail(result.Stderr);
 
-        var actual = JsonSerializer.Deserialize<MediaItem[]>(result.Stdout);
+        var actual = JsonSerializer.Deserialize<Response>(result.Stdout);
         Assert.NotNull(actual);
 
-        var item = Assert.Single(actual);
+        var item = Assert.Single(actual.Media);
         Assert.Equal(AgentName, item.Host);
         Assert.Equal(file, item.Path);
     }
+
+    private record Response(List<MediaItem> Media);
 }

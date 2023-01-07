@@ -1,13 +1,13 @@
 using Grpc.Core;
 using JetBrains.Annotations;
-using Safir.Agent.Protos;
+using Safir.Agent.V1Alpha1;
 
 namespace Safir.Agent.Client;
 
 [PublicAPI]
 public interface IFileSystemClient
 {
-    AsyncServerStreamingCall<FileSystemEntry> ListFiles(CancellationToken cancellationToken = default);
+    AsyncServerStreamingCall<ListResponse> List(CancellationToken cancellationToken = default);
 
-    IAsyncEnumerable<FileSystemEntry> ListFilesAsync(CancellationToken cancellationToken = default);
+    IAsyncEnumerable<ListResponse> ListAsync(CancellationToken cancellationToken = default);
 }

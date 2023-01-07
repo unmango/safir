@@ -1,4 +1,4 @@
-using Google.Protobuf.WellKnownTypes;
+using Safir.Agent.V1Alpha1;
 using Safir.Grpc;
 
 namespace Safir.Agent.EndToEndTests.Services;
@@ -15,7 +15,7 @@ public class FileSystemServiceTestsGrpc : AgentTestBase
         await Container.ExecAsync(new[] { "touch", "/data/Test.mp3" });
 
         var result = await Container.CreateFileSystemClient()
-            .ListFiles(new Empty())
+            .List(new ListRequest())
             .ResponseStream
             .ToListAsync();
 

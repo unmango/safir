@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Safir.Agent.Protos";
+package safir.agent.v1alpha1;
 
 message FileChanged {
   string path = 1;

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package safir.manager.v1alpha1;
+
+import "google/api/annotations.proto";
+
+service MediaService {
+  rpc List(ListRequest) returns (ListResponse) {
+    option (google.api.http) = {get: "/v1alpha1/media/list"};
+  }
+}
+
+message ListRequest {}
+
+message ListResponse {
+  repeated MediaItem media = 1;
+}
+
+message MediaItem {
+  string host = 1;
+  string path = 2;
+}

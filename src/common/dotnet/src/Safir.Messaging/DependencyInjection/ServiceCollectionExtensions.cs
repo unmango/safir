@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using Safir.Agent.Protos;
+using Safir.Agent.V1Alpha1;
 using Safir.Messaging.Configuration;
 using Safir.Redis.Configuration;
 using Safir.Redis.DependencyInjection;

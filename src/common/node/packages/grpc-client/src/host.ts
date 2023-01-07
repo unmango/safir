@@ -1,20 +1,19 @@
-import { HostClient, HostInfo } from '@unmango/safir-protos';
-import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
+import { HostServiceClient, InfoRequest, InfoResponse } from '@unmango/safir-protos/dist/safir/common/v1alpha1';
 import { Metadata } from 'grpc-web';
 import { ClientConstructorParams, GrpcClient } from './types';
 
-interface Interface extends GrpcClient<HostClient> { }
+interface Interface extends GrpcClient<HostServiceClient> { }
 
 class Client implements Interface {
 
-  private readonly client: HostClient;
+  private readonly client: HostServiceClient;
 
   constructor(...args: ClientConstructorParams) {
-    this.client = new HostClient(...args);
+    this.client = new HostServiceClient(...args);
   }
 
-  getInfoAsync(metadata?: Metadata): Promise<HostInfo> {
-    return this.client.getInfo(new Empty(), metadata ?? null);
+  infoAsync(metadata?: Metadata): Promise<InfoResponse> {
+    return this.client.info(new InfoRequest(), metadata ?? null);
   }
 
 }

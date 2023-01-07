@@ -1,20 +1,19 @@
-import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
-import * as protos from '@unmango/safir-protos';
+import * as common from '@unmango/safir-protos/dist/safir/common/v1alpha1'
 
 export interface HostClient {
-  getInfoAsync(): Promise<protos.HostInfo>;
+  getInfoAsync(): Promise<common.InfoResponse>;
 }
 
-const client = (baseUrl: string): protos.HostClient => {
-  return new protos.HostClient(baseUrl);
+const client = (baseUrl: string): common.HostServiceClient => {
+  return new common.HostServiceClient(baseUrl);
 };
 
 export function createClient(baseUrl: string): HostClient {
   return {
-    getInfoAsync: () => getInfoAsync(baseUrl),
+    getInfoAsync: () => infoAsync(baseUrl),
   };
 }
 
-export function getInfoAsync(baseUrl: string): Promise<protos.HostInfo> {
-  return client(baseUrl).getInfo(new Empty(), null);
+export function infoAsync(baseUrl: string): Promise<common.InfoResponse> {
+  return client(baseUrl).info(new common.InfoRequest(), null);
 }

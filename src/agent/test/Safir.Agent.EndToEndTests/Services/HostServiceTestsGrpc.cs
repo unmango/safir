@@ -1,5 +1,3 @@
-using Google.Protobuf.WellKnownTypes;
-
 namespace Safir.Agent.EndToEndTests.Services;
 
 [Trait("Category", "EndToEnd")]
@@ -14,7 +12,7 @@ public class HostServiceTestsGrpc : AgentTestBase
         var expected = string.Concat(Container.Id.Take(12));
 
         var result = await Container.CreateHostClient()
-            .GetInfoAsync(new Empty());
+            .InfoAsync(new());
 
         Assert.NotNull(result);
         Assert.Equal(expected, result.MachineName);

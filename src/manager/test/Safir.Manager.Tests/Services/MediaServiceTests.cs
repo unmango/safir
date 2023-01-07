@@ -1,9 +1,9 @@
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Safir.Agent.Protos;
+using Safir.Agent.V1Alpha1;
 using Safir.AspNetCore.Testing;
-using Safir.Manager.Protos;
 using Safir.Manager.Services;
+using ListRequest = Safir.Agent.V1Alpha1.ListRequest;
+using ListResponse = Safir.Agent.V1Alpha1.ListResponse;
 
 namespace Safir.Manager.Tests.Services;
 
@@ -11,113 +11,115 @@ namespace Safir.Manager.Tests.Services;
 public sealed class MediaServiceTests
 {
     private readonly Mock<IAgents> _agents = new();
-    private readonly Mock<FileSystem.FileSystemClient> _client1 = new();
-    private readonly Mock<FileSystem.FileSystemClient> _client2 = new();
-    private readonly Mock<IServerStreamWriter<MediaItem>> _mediaItemWriter = new();
+    private readonly Mock<FilesService.FilesServiceClient> _client1 = new();
+    private readonly Mock<FilesService.FilesServiceClient> _client2 = new();
     private readonly ServerCallContext _callContext = Mock.Of<ServerCallContext>();
-    private readonly MediaService _service;
+    private readonly MediaGrpcService _service;
 
     public MediaServiceTests()
     {
-        _service = new MediaService(_agents.Object);
+        _service = new(_agents.Object);
     }
 
     [Fact]
     public async Task List_SingleAgentListsFiles()
     {
         const string host = "Test1", file = "yeet.mp3";
-        _client1.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+        _client1.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 _callContext.CancellationToken))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file } });
+            .ReturnsAsync(new ListResponse[] { new() { Path = file } });
 
-        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FileSystem.FileSystemClient> {
+        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host] = _client1.Object,
         });
 
-        await _service.List(new(), _mediaItemWriter.Object, _callContext);
+        var response = await _service.List(new(), _callContext);
 
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host, Path = file }, _callContext.CancellationToken));
+        Assert.Contains(response.Media, x => x.Host == host && x.Path == file);
     }
 
     [Fact]
     public async Task List_SingleAgentListsAllFiles()
     {
         const string host = "Test1", file1 = "yeet.mp3", file2 = "yolo.mp3";
-        _client1.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+        _client1.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 _callContext.CancellationToken))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file1 }, new() { Path = file2 } });
+            .ReturnsAsync(new ListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
 
-        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FileSystem.FileSystemClient> {
+        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host] = _client1.Object,
         });
 
-        await _service.List(new(), _mediaItemWriter.Object, _callContext);
+        var response = await _service.List(new(), _callContext);
 
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host, Path = file1 }, _callContext.CancellationToken));
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host, Path = file2 }, _callContext.CancellationToken));
+        Assert.Collection(response.Media,
+            x => Assert.True(x.Host == host && x.Path == file1),
+            x => Assert.True(x.Host == host && x.Path == file2));
     }
 
     [Fact]
     public async Task List_MultipleAgentsListsFiles()
     {
         const string host1 = "Test1", host2 = "Test2", file = "yeet.mp3";
-        _client1.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+        _client1.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 _callContext.CancellationToken))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file } });
-        _client2.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+            .ReturnsAsync(new ListResponse[] { new() { Path = file } });
+        _client2.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 _callContext.CancellationToken))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file } });
+            .ReturnsAsync(new ListResponse[] { new() { Path = file } });
 
-        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FileSystem.FileSystemClient> {
+        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host1] = _client1.Object,
             [host2] = _client2.Object,
         });
 
-        await _service.List(new(), _mediaItemWriter.Object, _callContext);
+        var response = await _service.List(new(), _callContext);
 
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host1, Path = file }, _callContext.CancellationToken));
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host2, Path = file }, _callContext.CancellationToken));
+        Assert.Collection(response.Media,
+            x => Assert.True(x.Host == host1 && x.Path == file),
+            x => Assert.True(x.Host == host2 && x.Path == file));
     }
 
     [Fact]
     public async Task List_MultipleAgentListsAllFiles()
     {
         const string host1 = "Test1", host2 = "Test2", file1 = "yeet.mp3", file2 = "yolo.mp3";
-        _client1.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+        _client1.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 _callContext.CancellationToken))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file1 }, new() { Path = file2 } });
-        _client2.Setup(x => x.ListFiles(
-                It.IsAny<Empty>(),
+            .ReturnsAsync(new ListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
+        _client2.Setup(x => x.List(
+                It.IsAny<ListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 _callContext.CancellationToken))
-            .ReturnsAsync(new FileSystemEntry[] { new() { Path = file1 }, new() { Path = file2 } });
+            .ReturnsAsync(new ListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
 
-        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FileSystem.FileSystemClient> {
+        _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host1] = _client1.Object,
             [host2] = _client2.Object,
         });
 
-        await _service.List(new(), _mediaItemWriter.Object, _callContext);
+        var response = await _service.List(new(), _callContext);
 
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host1, Path = file1 }, _callContext.CancellationToken));
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host1, Path = file2 }, _callContext.CancellationToken));
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host2, Path = file1 }, _callContext.CancellationToken));
-        _mediaItemWriter.Verify(x => x.WriteAsync(new() { Host = host2, Path = file2 }, _callContext.CancellationToken));
+        Assert.Collection(response.Media,
+            x => Assert.True(x.Host == host1 && x.Path == file1),
+            x => Assert.True(x.Host == host1 && x.Path == file2),
+            x => Assert.True(x.Host == host2 && x.Path == file1),
+            x => Assert.True(x.Host == host2 && x.Path == file2));
     }
 }

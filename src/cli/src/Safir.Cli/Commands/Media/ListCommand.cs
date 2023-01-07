@@ -1,16 +1,15 @@
 using System.CommandLine;
-using System.CommandLine.Parsing;
 using System.Text.Json;
 using Grpc.Core;
 using Grpc.Net.ClientFactory;
+using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Safir.Cli.Configuration;
 using Safir.Cli.DependencyInjection;
 using Safir.CommandLine;
-using Safir.Grpc;
-using MediaClient = Safir.Manager.Protos.Media.MediaClient;
+using Safir.Manager.V1Alpha1;
 
 namespace Safir.Cli.Commands.Media;
 
@@ -24,21 +23,21 @@ internal static class ListCommand
             services.AddSafirCliCore();
             services.AddSafirOptions();
             services.AddLocalConfiguration();
-            services.AddGrpcClient<MediaClient>();
+            services.AddGrpcClient<MediaService.MediaServiceClient>();
 
             var safirOptions = context.Configuration.Get<SafirOptions>();
             if (safirOptions!.Managers is null)
                 return;
 
             foreach (var manager in safirOptions.Managers) {
-                services.AddGrpcClient<MediaClient>(manager.Name, options => {
+                services.AddGrpcClient<MediaService.MediaServiceClient>(manager.Name, options => {
                     options.Address = new(manager.Uri);
                     options.ChannelOptionsActions.Add(x => x.Credentials = ChannelCredentials.Insecure);
                 });
             }
         })
-        .ConfigureHandler<Handler>((handler, result, cancellationToken)
-            => handler.Execute(result, cancellationToken));
+        .ConfigureHandler<Handler>((handler, _, cancellationToken)
+            => handler.Execute(cancellationToken));
 
     public static readonly Command Value = Create();
 
@@ -51,6 +50,7 @@ internal static class ListCommand
         return command;
     }
 
+    [UsedImplicitly]
     private sealed class Handler
     {
         private readonly IOptions<SafirOptions> _options;
@@ -64,7 +64,7 @@ internal static class ListCommand
             _console = console;
         }
 
-        public async Task Execute(ParseResult parseResult, CancellationToken cancellationToken)
+        public async Task Execute(CancellationToken cancellationToken)
         {
             var managerOptions = _options.Value.Managers;
             if (managerOptions is null) {
@@ -73,10 +73,9 @@ internal static class ListCommand
             }
 
             var manager = managerOptions.First();
-            var client = _clientFactory.CreateClient<MediaClient>(manager.Name);
+            var client = _clientFactory.CreateClient<MediaService.MediaServiceClient>(manager.Name);
 
-            var results = await client.List(new(), cancellationToken: cancellationToken)
-                .ResponseStream.ToListAsync();
+            var results = await client.ListAsync(new(), cancellationToken: cancellationToken);
 
             var output = JsonSerializer.Serialize(results, new JsonSerializerOptions {
                 WriteIndented = true,

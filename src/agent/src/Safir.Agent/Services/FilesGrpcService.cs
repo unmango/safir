@@ -23,8 +23,8 @@ internal sealed class FilesGrpcService : FilesService.FilesServiceBase
     }
 
     public override async Task List(
-        ListRequest request,
-        IServerStreamWriter<ListResponse> responseStream,
+        FilesServiceListRequest request,
+        IServerStreamWriter<FilesServiceListResponse> responseStream,
         ServerCallContext context)
     {
         var root = _options.Parse().DataDirectory;
@@ -42,7 +42,7 @@ internal sealed class FilesGrpcService : FilesService.FilesServiceBase
         var entries = _fileSystem.Directory.EnumerateFileSystemEntries(root, "*");
 
         _logger.LogTrace("Creating file response messages");
-        var files = entries.Select(x => new ListResponse {
+        var files = entries.Select(x => new FilesServiceListResponse {
             Path = _fileSystem.Path.GetRelativePath(root, x),
         });
 

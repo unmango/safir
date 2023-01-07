@@ -7,7 +7,7 @@ namespace Safir.Agent.Client;
 [PublicAPI]
 public interface IFileSystemClient
 {
-    AsyncServerStreamingCall<ListResponse> List(CancellationToken cancellationToken = default);
+    AsyncServerStreamingCall<FilesServiceListResponse> List(CancellationToken cancellationToken = default);
 
-    IAsyncEnumerable<ListResponse> ListAsync(CancellationToken cancellationToken = default);
+    IAsyncEnumerable<FilesServiceListResponse> ListAsync(CancellationToken cancellationToken = default);
 }

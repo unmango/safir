@@ -5,7 +5,7 @@ namespace Safir.Manager.Services;
 
 internal static class AgentsExtensions
 {
-    public static IAsyncEnumerable<(string Host, ListResponse Entry)> ListFilesAsync(
+    public static IAsyncEnumerable<(string Host, FilesServiceListResponse Entry)> ListFilesAsync(
         this IAgents agents,
         CancellationToken cancellationToken)
         => agents.FileSystem.ToAsyncEnumerable().SelectMany(

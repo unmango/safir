@@ -7,18 +7,18 @@ namespace Safir.Agent.Client;
 [PublicAPI]
 public static class FileSystemClientExtensions
 {
-    public static AsyncServerStreamingCall<ListResponse> List(
+    public static AsyncServerStreamingCall<FilesServiceListResponse> List(
         this FilesService.FilesServiceClient client,
         CancellationToken cancellationToken = default)
     {
-        return client.List(new ListRequest(), Metadata.Empty, null, cancellationToken);
+        return client.List(new FilesServiceListRequest(), Metadata.Empty, null, cancellationToken);
     }
 
-    public static IAsyncEnumerable<ListResponse> ListAsync(
+    public static IAsyncEnumerable<FilesServiceListResponse> ListAsync(
         this FilesService.FilesServiceClient client,
         CancellationToken cancellationToken = default)
     {
-        var streamingCall = client.List(new ListRequest(), Metadata.Empty, null, cancellationToken);
+        var streamingCall = client.List(new FilesServiceListRequest(), Metadata.Empty, null, cancellationToken);
         return streamingCall.ResponseStream.ReadAllAsync(cancellationToken);
     }
 }

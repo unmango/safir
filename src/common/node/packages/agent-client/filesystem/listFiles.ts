@@ -1,4 +1,4 @@
-import { FilesServiceClient, ListRequest } from '@unmango/safir-protos/dist/safir/agent/v1alpha1';
+import { FilesServiceClient, FilesServiceListRequest } from '@unmango/safir-protos/dist/safir/agent/v1alpha1';
 import { Observable, Subject } from 'rxjs';
 import { Credentials, ResponseCallbacks } from '../types';
 
@@ -13,7 +13,7 @@ export function listFiles(
     baseUrl,
     credentials,
     options,
-  ).list(new ListRequest());
+  ).list(new FilesServiceListRequest());
 
   if (callbacks?.metadata) {
     stream.on('metadata', callbacks.metadata);

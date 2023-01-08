@@ -17,11 +17,11 @@ public class AgentsExtensionsTests
     {
         const string host = "Test1", file = "yeet.mp3";
         _client1.Setup(x => x.List(
-                It.IsAny<ListRequest>(),
+                It.IsAny<FilesServiceListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ListResponse[] { new() { Path = file } });
+            .ReturnsAsync(new FilesServiceListResponse[] { new() { Path = file } });
 
         _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host] = _client1.Object,
@@ -37,11 +37,11 @@ public class AgentsExtensionsTests
     {
         const string host = "Test1", file1 = "yeet.mp3", file2 = "yolo.mp3";
         _client1.Setup(x => x.List(
-                It.IsAny<ListRequest>(),
+                It.IsAny<FilesServiceListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
+            .ReturnsAsync(new FilesServiceListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
 
         _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host] = _client1.Object,
@@ -58,17 +58,17 @@ public class AgentsExtensionsTests
     {
         const string host1 = "Test1", host2 = "Test2", file = "yeet.mp3";
         _client1.Setup(x => x.List(
-                It.IsAny<ListRequest>(),
+                It.IsAny<FilesServiceListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ListResponse[] { new() { Path = file } });
+            .ReturnsAsync(new FilesServiceListResponse[] { new() { Path = file } });
         _client2.Setup(x => x.List(
-                It.IsAny<ListRequest>(),
+                It.IsAny<FilesServiceListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ListResponse[] { new() { Path = file } });
+            .ReturnsAsync(new FilesServiceListResponse[] { new() { Path = file } });
 
         _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host1] = _client1.Object,
@@ -86,17 +86,17 @@ public class AgentsExtensionsTests
     {
         const string host1 = "Test1", host2 = "Test2", file1 = "yeet.mp3", file2 = "yolo.mp3";
         _client1.Setup(x => x.List(
-                It.IsAny<ListRequest>(),
+                It.IsAny<FilesServiceListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
+            .ReturnsAsync(new FilesServiceListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
         _client2.Setup(x => x.List(
-                It.IsAny<ListRequest>(),
+                It.IsAny<FilesServiceListRequest>(),
                 It.IsAny<Metadata>(),
                 It.IsAny<DateTime?>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
+            .ReturnsAsync(new FilesServiceListResponse[] { new() { Path = file1 }, new() { Path = file2 } });
 
         _agents.SetupGet(x => x.FileSystem).Returns(new Dictionary<string, FilesService.FilesServiceClient> {
             [host1] = _client1.Object,

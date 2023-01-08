@@ -5,14 +5,14 @@ package safir.manager.v1alpha1;
 import "google/api/annotations.proto";
 
 service MediaService {
-  rpc List(ListRequest) returns (ListResponse) {
+  rpc List(MediaServiceListRequest) returns (MediaServiceListResponse) {
     option (google.api.http) = {get: "/v1alpha1/media/list"};
   }
 }
 
-message ListRequest {}
+message MediaServiceListRequest {}
 
-message ListResponse {
+message MediaServiceListResponse {
   repeated MediaItem media = 1;
 }
 

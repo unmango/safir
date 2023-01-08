@@ -15,7 +15,7 @@ public class FileSystemServiceTests
     private readonly Mock<IOptions<AgentConfiguration>> _options = new();
     private readonly Mock<IDirectory> _directory = new();
     private readonly Mock<IPath> _path = new();
-    private readonly Mock<IServerStreamWriter<ListResponse>> _serverStreamWriter = new();
+    private readonly Mock<IServerStreamWriter<FilesServiceListResponse>> _serverStreamWriter = new();
     private readonly FilesGrpcService _service;
 
     public FileSystemServiceTests()
@@ -92,6 +92,6 @@ public class FileSystemServiceTests
 
         await _service.List(new(), _serverStreamWriter.Object, null!);
 
-        _serverStreamWriter.Verify(x => x.WriteAsync(It.Is<ListResponse>(f => f.Path == relative)));
+        _serverStreamWriter.Verify(x => x.WriteAsync(It.Is<FilesServiceListResponse>(f => f.Path == relative)));
     }
 }

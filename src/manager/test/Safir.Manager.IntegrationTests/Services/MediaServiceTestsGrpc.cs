@@ -6,8 +6,6 @@ using Safir.AspNetCore.Testing;
 using Safir.Manager.V1Alpha1;
 using Safir.XUnit.AspNetCore;
 using Xunit.Abstractions;
-using ListRequest = Safir.Agent.V1Alpha1.ListRequest;
-using ListResponse = Safir.Agent.V1Alpha1.ListResponse;
 
 namespace Safir.Manager.IntegrationTests.Services;
 
@@ -40,8 +38,8 @@ public class MediaServiceTestsGrpc : IClassFixture<WebApplicationFactory<Program
             },
         };
         _fileSystemClient.Setup(
-                x => x.List(It.IsAny<ListRequest>(), It.IsAny<Metadata>(), It.IsAny<DateTime?>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ListResponse[] { new() { Path = "Test" } });
+                x => x.List(It.IsAny<FilesServiceListRequest>(), It.IsAny<Metadata>(), It.IsAny<DateTime?>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new FilesServiceListResponse[] { new() { Path = "Test" } });
 
         var result = await _client.ListAsync(new());
 

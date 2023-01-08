@@ -8,6 +8,8 @@ internal record LocalConfiguration(
         : this(
             new List<AgentConfiguration>(),
             new List<ManagerConfiguration>()) { }
+
+    public static LocalConfiguration Empty() => new();
 }
 
 internal abstract record ServiceConfiguration(string Name, Uri Uri);

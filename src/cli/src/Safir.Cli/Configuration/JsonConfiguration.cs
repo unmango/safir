@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Safir.Cli.Configuration;
 
-internal sealed class JsonConfiguration : ILocalConfiguration
+internal sealed class JsonConfiguration : IUserConfiguration
 {
     private readonly IUserConfigurationFile _configurationFile;
     private readonly ILogger<JsonConfiguration> _logger;
@@ -35,11 +35,11 @@ internal sealed class JsonConfiguration : ILocalConfiguration
                 _serializerOptions,
                 cancellationToken);
 
-            configuration = onDisk ?? new(new List<AgentOptions>());
+            configuration = onDisk ?? new(new List<AgentConfiguration>(), new List<ManagerConfiguration>());
         }
         else {
             _logger.LogTrace("Creating new configuration object");
-            configuration = new(new List<AgentOptions>());
+            configuration = new(new List<AgentConfiguration>(), new List<ManagerConfiguration>());
         }
 
         _logger.LogTrace("Performing configuration update");

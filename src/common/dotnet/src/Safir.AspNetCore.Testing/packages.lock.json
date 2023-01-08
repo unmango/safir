@@ -274,11 +274,6 @@
         "resolved": "7.0.0",
         "contentHash": "eUDP47obqQm3SFJfP6z+Fx2nJ4KKTQbXB4Q9Uesnzw9SbYdhjyoGXuvDn/gEmFY6N5Z3bFFbpAQGA7m6hrYJCw=="
       },
-      "System.IO.Pipelines": {
-        "type": "Transitive",
-        "resolved": "7.0.0",
-        "contentHash": "jRn6JYnNPW6xgQazROBLSfpdoczRw694vO5kKvMcNnpXuolEixUyw6IBuBs2Y2mlSX/LdLvyyWmfXhaI3ND1Yg=="
-      },
       "System.Text.Encodings.Web": {
         "type": "Transitive",
         "resolved": "7.0.0",
@@ -418,6 +413,12 @@
           "Microsoft.Extensions.Options": "7.0.0",
           "Microsoft.Extensions.Primitives": "7.0.0"
         }
+      },
+      "System.IO.Pipelines": {
+        "type": "CentralTransitive",
+        "requested": "[7.0.0, )",
+        "resolved": "7.0.0",
+        "contentHash": "jRn6JYnNPW6xgQazROBLSfpdoczRw694vO5kKvMcNnpXuolEixUyw6IBuBs2Y2mlSX/LdLvyyWmfXhaI3ND1Yg=="
       },
       "System.Memory": {
         "type": "CentralTransitive",

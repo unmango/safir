@@ -22,7 +22,7 @@ internal static class ServiceCollectionExtensions
         .AddLogging()
         .AddOptions()
         .AddIoAbstractions()
-        .AddSingleton<IUserConfiguration, JsonUserConfiguration>();
+        .AddSingleton<IUserConfiguration, JsonConfiguration>();
 
     public static IServiceCollection AddSafirOptions(this IServiceCollection services) => services
         .AddOptions<SafirOptions>().BindConfiguration(configSectionPath: string.Empty)

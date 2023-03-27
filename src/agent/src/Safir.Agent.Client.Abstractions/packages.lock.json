@@ -84,7 +84,7 @@
         }
       }
     },
-    "net6.0": {
+    "net7.0": {
       "JetBrains.Annotations": {
         "type": "Direct",
         "requested": "[2022.3.1, )",
@@ -143,7 +143,7 @@
         "contentHash": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA=="
       }
     },
-    "net7.0": {
+    "net8.0": {
       "JetBrains.Annotations": {
         "type": "Direct",
         "requested": "[2022.3.1, )",

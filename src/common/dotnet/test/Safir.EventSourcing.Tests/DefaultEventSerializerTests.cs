@@ -56,6 +56,8 @@ public class DefaultEventSerializerTests
         var value = new Event(Guid.NewGuid(), discriminator, Array.Empty<byte>(), DateTime.Now, new Metadata(), version);
         _metadataProvider.Setup(x => x.GetTypeAsync(discriminator, version, It.IsAny<CancellationToken>()))
             .ReturnsAsync(type);
+        _serializer.Setup(x => x.DeserializeAsync(type, Array.Empty<byte>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new MockEvent());
 
         await _eventSerializer.DeserializeAsync(value);
 

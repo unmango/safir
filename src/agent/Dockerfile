@@ -19,7 +19,7 @@ RUN dotnet publish Safir.Agent \
         --configuration Release \
         --output /out
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-preview
 WORKDIR /app
 COPY --from=build /out .
 ENV DATADIRECTORY="/data"

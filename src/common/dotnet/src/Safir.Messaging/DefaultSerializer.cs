@@ -25,7 +25,7 @@ public sealed class DefaultSerializer : ISerializer
         return MessagePackSerializer.DeserializeAsync<T>(stream, _options, cancellationToken);
     }
 
-    public ValueTask<object> DeserializeAsync(Type type, ReadOnlyMemory<byte> value, CancellationToken cancellationToken = default)
+    public ValueTask<object?> DeserializeAsync(Type type, ReadOnlyMemory<byte> value, CancellationToken cancellationToken = default)
     {
         using var stream = new MemoryStream(value.ToArray());
         return MessagePackSerializer.DeserializeAsync(type, stream, _options, cancellationToken);

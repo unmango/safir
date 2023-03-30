@@ -4,7 +4,7 @@
     <Product>Safir.Agent.Client.Abstractions</Product>
     <RootNamespace>Safir.Agent.Client</RootNamespace>
     <Description>Abstractions for a client that can make requests to a Safir agent.</Description>
-    <TargetFrameworks>netstandard2.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net7.0;net8.0</TargetFrameworks>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 

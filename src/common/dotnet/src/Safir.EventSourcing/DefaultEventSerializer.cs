@@ -48,7 +48,11 @@ public class DefaultEventSerializer : IEventSerializer
         var type = await _metadataProvider.GetTypeAsync(@event.Type, @event.Version, cancellationToken);
 
         _logger.LogTrace("Deserializing event using type discriminator");
-        return (IEvent)await _serializer.DeserializeAsync(type, @event.Data, cancellationToken);
+        var deserialized = await _serializer.DeserializeAsync(type, @event.Data, cancellationToken);
+
+        if (deserialized is null) throw new InvalidOperationException("Unable to deserialize event");
+
+        return (IEvent)deserialized;
     }
 
     public ValueTask<T> DeserializeAsync<TAggregateId, T>(

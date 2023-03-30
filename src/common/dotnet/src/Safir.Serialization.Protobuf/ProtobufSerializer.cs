@@ -25,11 +25,11 @@ public class ProtobufSerializer : ISerializer
         return new ValueTask<T>(instance);
     }
 
-    ValueTask<object> ISerializer.DeserializeAsync(Type type, ReadOnlyMemory<byte> value, CancellationToken cancellationToken)
+    ValueTask<object?> ISerializer.DeserializeAsync(Type type, ReadOnlyMemory<byte> value, CancellationToken cancellationToken)
     {
         var instance = Activator.CreateInstance(type);
         AssertMessage(instance).MergeFrom(value.ToArray());
-        return new ValueTask<object>(instance);
+        return new ValueTask<object?>(instance);
     }
 
     void ISerializer.Serialize<T>(IBufferWriter<byte> writer, T value)
@@ -53,7 +53,7 @@ public class ProtobufSerializer : ISerializer
     public static ValueTask<T> DeserializeAsync<T>(ReadOnlyMemory<byte> value, CancellationToken cancellationToken = default)
         => Instance.DeserializeAsync<T>(value, cancellationToken);
 
-    public static ValueTask<object> DeserializeAsync(
+    public static ValueTask<object?> DeserializeAsync(
         Type type,
         ReadOnlyMemory<byte> value,
         CancellationToken cancellationToken = default)

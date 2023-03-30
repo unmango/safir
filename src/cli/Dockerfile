@@ -23,7 +23,7 @@ RUN dotnet publish Safir.Cli \
         --no-self-contained \
         --output /out
 
-FROM mcr.microsoft.com/dotnet/runtime:7.0
+FROM mcr.microsoft.com/dotnet/runtime:8.0-preview
 WORKDIR /app
 COPY --from=build /out .
 ENV SAFIR_CONFIG__DIRECTORY="/config"

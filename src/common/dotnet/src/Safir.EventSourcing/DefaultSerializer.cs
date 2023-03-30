@@ -21,13 +21,13 @@ public class DefaultSerializer : ISerializer
         return JsonSerializer.DeserializeAsync<T>(stream, _options, cancellationToken)!;
     }
 
-    public ValueTask<object> DeserializeAsync(
+    public ValueTask<object?> DeserializeAsync(
         Type type,
         ReadOnlyMemory<byte> value,
         CancellationToken cancellationToken = default)
     {
         using var stream = new MemoryStream(value.Span.ToArray());
-        return JsonSerializer.DeserializeAsync(stream, type, _options, cancellationToken)!;
+        return JsonSerializer.DeserializeAsync(stream, type, _options, cancellationToken);
     }
 
     public void Serialize<T>(IBufferWriter<byte> writer, T value)

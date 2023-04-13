@@ -19,6 +19,12 @@
       "commands": [
         "protogen"
       ]
+    },
+    "grpc-fsharp": {
+      "version": "0.2.0",
+      "commands": [
+        "protoc-gen-fsharp"
+      ]
     }
   }
 }

@@ -2,12 +2,8 @@ syntax = "proto3";
 
 package safir.agent.v1alpha1;
 
-import "google/api/annotations.proto";
-
 service FilesService {
-  rpc List(FilesServiceListRequest) returns (stream FilesServiceListResponse) {
-    option (google.api.http) = {get: "/v1alpha1/files/list"};
-  }
+  rpc List(FilesServiceListRequest) returns (stream FilesServiceListResponse);
 }
 
 message FilesServiceListRequest {}

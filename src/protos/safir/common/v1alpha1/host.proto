@@ -2,12 +2,8 @@ syntax = "proto3";
 
 package safir.common.v1alpha1;
 
-import "google/api/annotations.proto";
-
 service HostService {
-  rpc Info(InfoRequest) returns (InfoResponse) {
-    option (google.api.http) = {get: "/v1alpha1/host/info"};
-  }
+  rpc Info(InfoRequest) returns (InfoResponse);
 }
 
 message InfoRequest {}

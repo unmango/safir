@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Marten" />
+    <PackageReference Include="System.Linq.Async" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(CommonSrc)\Safir.Common\Safir.Common.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.EventSourcing.Abstractions\Safir.EventSourcing.Abstractions.csproj" />
+    <ProjectReference Include="$(CommonSrc)\Safir.EventSourcing\Safir.EventSourcing.csproj" />
+  </ItemGroup>
+
+</Project>

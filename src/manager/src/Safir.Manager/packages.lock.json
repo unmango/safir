@@ -38,11 +38,11 @@
       },
       "Microsoft.AspNetCore.Grpc.Swagger": {
         "type": "Direct",
-        "requested": "[0.3.4, )",
-        "resolved": "0.3.4",
-        "contentHash": "Tgo0h98MHGzHBB09jtjlPhxilMpVo4k/lyivqlC7oSyvoxHz2FZQD3P/CtwNoqzCD0PgEkByn5sVn6taRchyjg==",
+        "requested": "[0.3.5, )",
+        "resolved": "0.3.5",
+        "contentHash": "U+GCfNJIcXip+AY7syTsfafY8Uj5BXaUDVir3WkgvkWDPl5FkxH1wIxSk4iDEiWlhdoD6jrBAoR+IFOxDoDPsg==",
         "dependencies": {
-          "Microsoft.AspNetCore.Grpc.JsonTranscoding": "7.0.4",
+          "Microsoft.AspNetCore.Grpc.JsonTranscoding": "7.0.5",
           "Swashbuckle.AspNetCore": "6.4.0"
         }
       },
@@ -114,8 +114,8 @@
       },
       "Microsoft.AspNetCore.Grpc.JsonTranscoding": {
         "type": "Transitive",
-        "resolved": "7.0.4",
-        "contentHash": "omaGkT92tEiFedARJhuLCExlYm7nthAKi4z16Qsg/Tj9RPkQnVDPY8BCse7dIfRWW7eDtU4qXfCWgprF58n2Vg==",
+        "resolved": "7.0.5",
+        "contentHash": "6QHraMfn+Uj/xDnpfzGpQAqigpWNhwmv0Yn7b2TPIiJR9ps7MPCLFCkqaoYNGfiRbIXvaVwi/T8UEbT1+oWLOw==",
         "dependencies": {
           "Google.Api.CommonProtos": "2.5.0",
           "Google.Protobuf": "3.21.6",
@@ -271,7 +271,7 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.9.0, )",
-          "Google.Protobuf": "[3.22.1, )",
+          "Google.Protobuf": "[3.22.3, )",
           "Grpc.Core.Api": "[2.52.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
@@ -287,9 +287,9 @@
       },
       "Google.Protobuf": {
         "type": "CentralTransitive",
-        "requested": "[3.22.1, )",
-        "resolved": "3.22.1",
-        "contentHash": "Ul4gVJWLya83Z8/n3+O4QKhD8ukCCwNLDyoWpUdJSnmzxRe8o3pWiuCzzvN2z/LVH60nozlKpTzhJo3ctI+G4Q=="
+        "requested": "[3.22.3, )",
+        "resolved": "3.22.3",
+        "contentHash": "uyWJZTS0N3gw35jtm/++1jAJNPkFP92QYdxgiC0yv8vQaOi8gaJZ8PhCnjmN6JbobJcCFPBd0cGkmCh6QYOt6Q=="
       },
       "Grpc.Core.Api": {
         "type": "CentralTransitive",
@@ -322,7 +322,7 @@
       },
       "Grpc.Tools": {
         "type": "CentralTransitive",
-        "requested": "[2.53.0, )",
+        "requested": "[2.54.0, )",
         "resolved": "2.52.0",
         "contentHash": "4BNEWpkMXWUEttmhjjey10+un3XOxBBO3kN0aCyjwFCtzzM73lRI06rppkMh+CtKx+xLcbMBJ991XKYTQORCQA=="
       },

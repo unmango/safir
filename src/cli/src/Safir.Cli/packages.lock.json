@@ -4,9 +4,9 @@
     "net8.0": {
       "FluentValidation": {
         "type": "Direct",
-        "requested": "[11.5.1, )",
-        "resolved": "11.5.1",
-        "contentHash": "0h1Q5lNOLLyYTWMJmyNoMqhY4CBRvvUWvJP1R4F2CnmmzuWwvB0A8aVmw5+lOuwYnwUwCRrdeMLbc81F38ahNQ=="
+        "requested": "[11.5.2, )",
+        "resolved": "11.5.2",
+        "contentHash": "kj/hW/iusp2zq1Vt1YPLgDj6UG0DhoJXGkLwjLwm3j7vUtRF8DVA5vHJfItG3BxDjLWJUR2pvw8fK7rnuysZNA=="
       },
       "Grpc.Net.ClientFactory": {
         "type": "Direct",
@@ -273,7 +273,7 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.9.0, )",
-          "Google.Protobuf": "[3.22.1, )",
+          "Google.Protobuf": "[3.22.3, )",
           "Grpc.Core.Api": "[2.52.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
@@ -289,9 +289,9 @@
       },
       "Google.Protobuf": {
         "type": "CentralTransitive",
-        "requested": "[3.22.1, )",
-        "resolved": "3.22.1",
-        "contentHash": "Ul4gVJWLya83Z8/n3+O4QKhD8ukCCwNLDyoWpUdJSnmzxRe8o3pWiuCzzvN2z/LVH60nozlKpTzhJo3ctI+G4Q=="
+        "requested": "[3.22.3, )",
+        "resolved": "3.22.3",
+        "contentHash": "uyWJZTS0N3gw35jtm/++1jAJNPkFP92QYdxgiC0yv8vQaOi8gaJZ8PhCnjmN6JbobJcCFPBd0cGkmCh6QYOt6Q=="
       },
       "Grpc.Core.Api": {
         "type": "CentralTransitive",

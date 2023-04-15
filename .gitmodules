@@ -1,0 +1,3 @@
+[submodule "vendor/FSharp.GrpcCodeGenerator"]
+	path = vendor/FSharp.GrpcCodeGenerator
+	url = git@github.com:UnstoppableMango/FSharp.GrpcCodeGenerator.git

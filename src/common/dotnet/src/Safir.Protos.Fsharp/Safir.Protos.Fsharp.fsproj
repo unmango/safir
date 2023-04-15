@@ -13,31 +13,34 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Api.CommonProtos" />
-    <PackageReference Include="Grpc-FSharp.Tools" PrivateAssets="all" />
     <PackageReference Include="Grpc.Core.Api" />
-    <PackageReference Include="Protobuf.FSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(VendorRoot)\FSharp.GrpcCodeGenerator\Protobuf.FSharp\Protobuf.FSharp.fsproj" />
+    <ProjectReference Include="$(VendorRoot)\FSharp.GrpcCodeGenerator\Grpc-FSharp.Tools\Grpc-FSharp.Tools.fsproj" PrivateAssets="all" />
   </ItemGroup>
 
   <PropertyGroup>
-    <VendorDir>vendor</VendorDir>
+    <ProtoVendorDir>vendor</ProtoVendorDir>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="$(VendorDir)/**" />
+    <None Remove="$(ProtoVendorDir)/**" />
   </ItemGroup>
 
   <!-- https://github.com/grpc/grpc/blob/master/src/csharp/BUILD-INTEGRATION.md -->
   <ItemGroup>
-    <Protobuf Include="$(ProtoRoot)/safir/**/*.proto" ProtoRoot="$(ProtoRoot)" AdditionalImportDirs="$(VendorDir)">
+    <Protobuf Include="$(ProtoRoot)/safir/**/*.proto" ProtoRoot="$(ProtoRoot)" AdditionalImportDirs="$(ProtoVendorDir)">
       <Link>%(RecursiveDir)/$(FileName).proto</Link>
     </Protobuf>
     <!-- The dotnet-grpc tool does not seem to resolve MSBuild properties, so we are forced to hardcode the path in the `Include` -->
-    <Protobuf Include="vendor/google/api/annotations.proto" GrpcServices="None" ProtoRoot="$(VendorDir)" CompileOutputs="false">
+    <Protobuf Include="vendor/google/api/annotations.proto" GrpcServices="None" ProtoRoot="$(ProtoVendorDir)" CompileOutputs="false">
       <SourceUrl>https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/annotations.proto</SourceUrl>
       <Link>google\api\annotations.proto</Link>
     </Protobuf>
     <!-- The dotnet-grpc tool does not seem to resolve MSBuild properties, so we are forced to hardcode the path in the `Include` -->
-    <Protobuf Include="vendor/google/api/http.proto" GrpcServices="None" ProtoRoot="$(VendorDir)" CompileOutputs="false">
+    <Protobuf Include="vendor/google/api/http.proto" GrpcServices="None" ProtoRoot="$(ProtoVendorDir)" CompileOutputs="false">
       <SourceUrl>https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/http.proto</SourceUrl>
       <Link>google\api\http.proto</Link>
     </Protobuf>

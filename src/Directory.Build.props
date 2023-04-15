@@ -50,6 +50,7 @@
     <CommonSrc Condition="'$(CommonSrc)' == ''">$(CommonRoot)\src</CommonSrc>
     <ManagerRoot Condition="'$(ManagerRoot)' == ''">$(SourceRoot)\manager</ManagerRoot>
     <ManagerSrc Condition="'$(ManagerSrc)' == ''">$(ManagerRoot)\src</ManagerSrc>
+    <VendorRoot Condition="'$(VendorRoot)' == ''">$(RepositoryRoot)\vendor</VendorRoot>
     <ProtoRoot Condition="'$(ProtoRoot)' == ''">$(SourceRoot)\protos</ProtoRoot>
   </PropertyGroup>
 

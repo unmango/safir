@@ -38,29 +38,29 @@
       },
       "LanguageExt.Core": {
         "type": "Direct",
-        "requested": "[4.4.2, )",
-        "resolved": "4.4.2",
-        "contentHash": "YPL/99R65EXkRozcSrxGyYkINH1viP0cHe1fzxRu9C4fsOTzd9I0ysewiLeLxrxddlpgrHbv9aG6WEDVfMND5A==",
+        "requested": "[4.4.3, )",
+        "resolved": "4.4.3",
+        "contentHash": "N+txHYfiDi7+qRaVmZSO8YCdbhDvabm5CMiFn+qgW4QVx4vDcyysNI70DsuOlSeIgvhsodWY+9AcY86Zp7yIJQ==",
         "dependencies": {
-          "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
+          "Microsoft.Bcl.AsyncInterfaces": "7.0.0",
           "Microsoft.CSharp": "4.7.0",
           "System.Diagnostics.Contracts": "4.3.0",
           "System.Linq": "4.3.0",
           "System.Linq.Queryable": "4.3.0",
-          "System.Memory": "4.5.4",
-          "System.Reflection.Emit": "4.3.0",
-          "System.Reflection.Emit.Lightweight": "4.3.0",
+          "System.Memory": "4.5.5",
+          "System.Reflection.Emit": "4.7.0",
+          "System.Reflection.Emit.Lightweight": "4.7.0",
           "System.Threading.Tasks.Extensions": "4.5.4",
           "System.ValueTuple": "4.5.0"
         }
       },
       "Microsoft.AspNetCore.Grpc.Swagger": {
         "type": "Direct",
-        "requested": "[0.3.4, )",
-        "resolved": "0.3.4",
-        "contentHash": "Tgo0h98MHGzHBB09jtjlPhxilMpVo4k/lyivqlC7oSyvoxHz2FZQD3P/CtwNoqzCD0PgEkByn5sVn6taRchyjg==",
+        "requested": "[0.3.5, )",
+        "resolved": "0.3.5",
+        "contentHash": "U+GCfNJIcXip+AY7syTsfafY8Uj5BXaUDVir3WkgvkWDPl5FkxH1wIxSk4iDEiWlhdoD6jrBAoR+IFOxDoDPsg==",
         "dependencies": {
-          "Microsoft.AspNetCore.Grpc.JsonTranscoding": "7.0.4",
+          "Microsoft.AspNetCore.Grpc.JsonTranscoding": "7.0.5",
           "Swashbuckle.AspNetCore": "6.4.0"
         }
       },
@@ -148,8 +148,8 @@
       },
       "Microsoft.AspNetCore.Grpc.JsonTranscoding": {
         "type": "Transitive",
-        "resolved": "7.0.4",
-        "contentHash": "omaGkT92tEiFedARJhuLCExlYm7nthAKi4z16Qsg/Tj9RPkQnVDPY8BCse7dIfRWW7eDtU4qXfCWgprF58n2Vg==",
+        "resolved": "7.0.5",
+        "contentHash": "6QHraMfn+Uj/xDnpfzGpQAqigpWNhwmv0Yn7b2TPIiJR9ps7MPCLFCkqaoYNGfiRbIXvaVwi/T8UEbT1+oWLOw==",
         "dependencies": {
           "Google.Api.CommonProtos": "2.5.0",
           "Google.Protobuf": "3.21.6",
@@ -434,15 +434,8 @@
       },
       "System.Reflection.Emit": {
         "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "228FG0jLcIwTVJyz8CLFKueVqQK36ANazUManGaJHkO0icjiIypKW7YLWLIWahyIkdh5M7mV2dJepllLyA1SKg==",
-        "dependencies": {
-          "System.IO": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Emit.ILGeneration": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.0"
-        }
+        "resolved": "4.7.0",
+        "contentHash": "VR4kk8XLKebQ4MZuKuIni/7oh+QGFmZW3qORd1GvBq/8026OpW501SzT/oypwiQl4TvT8ErnReh/NzY9u+C6wQ=="
       },
       "System.Reflection.Emit.ILGeneration": {
         "type": "Transitive",
@@ -456,14 +449,8 @@
       },
       "System.Reflection.Emit.Lightweight": {
         "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "oadVHGSMsTmZsAF864QYN1t1QzZjIcuKU3l2S9cZOwDdDueNTrqq1yRj7koFfIGEnKpt6NjpL3rOzRhs4ryOgA==",
-        "dependencies": {
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Emit.ILGeneration": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.0"
-        }
+        "resolved": "4.7.0",
+        "contentHash": "a4OLB4IITxAXJeV74MDx49Oq2+PsF6Sml54XAFv+2RyWwtDBcabzoxiiJRhdhx+gaohLh4hEGCLQyBozXoQPqA=="
       },
       "System.Reflection.Extensions": {
         "type": "Transitive",
@@ -612,7 +599,7 @@
           "Safir.Messaging.Abstractions": "[1.0.0, )",
           "Safir.Protos": "[1.0.0, )",
           "Safir.Redis": "[1.0.0, )",
-          "StackExchange.Redis": "[2.6.96, )",
+          "StackExchange.Redis": "[2.6.104, )",
           "System.Reactive": "[5.0.0, )"
         }
       },
@@ -635,7 +622,7 @@
         "type": "Project",
         "dependencies": {
           "Google.Api.CommonProtos": "[2.9.0, )",
-          "Google.Protobuf": "[3.22.1, )",
+          "Google.Protobuf": "[3.22.3, )",
           "Grpc.Core.Api": "[2.52.0, )",
           "Safir.Messaging.Abstractions": "[1.0.0, )"
         }
@@ -645,7 +632,7 @@
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "[7.0.0, )",
           "Safir.Common": "[1.0.0, )",
-          "StackExchange.Redis": "[2.6.96, )"
+          "StackExchange.Redis": "[2.6.104, )"
         }
       },
       "Google.Api.CommonProtos": {
@@ -659,9 +646,9 @@
       },
       "Google.Protobuf": {
         "type": "CentralTransitive",
-        "requested": "[3.22.1, )",
-        "resolved": "3.22.1",
-        "contentHash": "Ul4gVJWLya83Z8/n3+O4QKhD8ukCCwNLDyoWpUdJSnmzxRe8o3pWiuCzzvN2z/LVH60nozlKpTzhJo3ctI+G4Q=="
+        "requested": "[3.22.3, )",
+        "resolved": "3.22.3",
+        "contentHash": "uyWJZTS0N3gw35jtm/++1jAJNPkFP92QYdxgiC0yv8vQaOi8gaJZ8PhCnjmN6JbobJcCFPBd0cGkmCh6QYOt6Q=="
       },
       "Grpc.Core.Api": {
         "type": "CentralTransitive",
@@ -694,7 +681,7 @@
       },
       "Grpc.Tools": {
         "type": "CentralTransitive",
-        "requested": "[2.53.0, )",
+        "requested": "[2.54.0, )",
         "resolved": "2.52.0",
         "contentHash": "4BNEWpkMXWUEttmhjjey10+un3XOxBBO3kN0aCyjwFCtzzM73lRI06rppkMh+CtKx+xLcbMBJ991XKYTQORCQA=="
       },
@@ -850,9 +837,9 @@
       },
       "StackExchange.Redis": {
         "type": "CentralTransitive",
-        "requested": "[2.6.96, )",
-        "resolved": "2.6.96",
-        "contentHash": "JDj94bTwBZ6zA1vknEYJppRXRejTnl5u2z6cRBQ0DJ+Uy94qvn0XsQZ2M+1/VkqtxQ+LUU1h4JZWwcvVojGiQg==",
+        "requested": "[2.6.104, )",
+        "resolved": "2.6.104",
+        "contentHash": "ccfmWZifNOk2c+co6urH9BeyUzmbqalyksVy6Ma28xNTLT3Nrng+5OX+EB5KrTsWHykoZTGzTM3L7ndySuxEuA==",
         "dependencies": {
           "Pipelines.Sockets.Unofficial": "2.2.2"
         }

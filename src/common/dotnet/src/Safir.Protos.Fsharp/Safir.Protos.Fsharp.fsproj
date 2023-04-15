@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Library.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Google.Api.CommonProtos" />
     <PackageReference Include="Grpc.Core.Api" />
   </ItemGroup>

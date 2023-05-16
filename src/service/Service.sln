@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Safir.Service", "Safir.Service\Safir.Service.fsproj", "{3DCE7B83-E2FB-4A75-A9D7-2B66FACD1B2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{5BB44CAA-118E-48F2-AAC0-BCF182047384}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Safir.Service.Tests", "Safir.Service.Tests\Safir.Service.Tests.fsproj", "{8A8783E0-5A9C-410B-9DDC-9AC50315FA15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DCE7B83-E2FB-4A75-A9D7-2B66FACD1B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DCE7B83-E2FB-4A75-A9D7-2B66FACD1B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DCE7B83-E2FB-4A75-A9D7-2B66FACD1B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DCE7B83-E2FB-4A75-A9D7-2B66FACD1B2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A8783E0-5A9C-410B-9DDC-9AC50315FA15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A8783E0-5A9C-410B-9DDC-9AC50315FA15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A8783E0-5A9C-410B-9DDC-9AC50315FA15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A8783E0-5A9C-410B-9DDC-9AC50315FA15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -6,11 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Util.fs" />
+    <Compile Include="Config.fs" />
+    <Compile Include="FileSystem.fs" />
+    <Compile Include="Library.fs" />
+    <Compile Include="Services\StartupScanner.fs" />
+    <Compile Include="Services\DataWatcher.fs" />
+    <Compile Include="Endpoints.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Equinox.EventStoreDb" />
+    <PackageReference Include="FsCodec.SystemTextJson" />
     <PackageReference Include="Giraffe" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
   </ItemGroup>
 
 </Project>

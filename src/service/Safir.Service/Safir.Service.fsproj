@@ -19,6 +19,8 @@
   <ItemGroup>
     <PackageReference Include="Equinox.EventStoreDb" />
     <PackageReference Include="FsCodec.SystemTextJson" />
+    <PackageReference Include="FSharp.Control.AsyncRx" />
+    <PackageReference Include="FSharp.Control.AsyncSeq" />
     <PackageReference Include="Giraffe" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />
   </ItemGroup>

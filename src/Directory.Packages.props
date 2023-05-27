@@ -8,6 +8,8 @@
     <PackageVersion Include="FluentValidation" Version="11.5.2" />
     <PackageVersion Include="FsCheck.Xunit" Version="2.16.5" />
     <PackageVersion Include="FsCodec.SystemTextJson" Version="3.0.0-rc.9.5" />
+    <PackageVersion Include="FSharp.Control.AsyncRx" Version="1.6.7" />
+    <PackageVersion Include="FSharp.Control.AsyncSeq" Version="3.2.1" />
     <PackageVersion Include="Giraffe" Version="6.0.0" />
     <PackageVersion Include="Google.Api.CommonProtos" Version="2.9.0" />
     <PackageVersion Include="Google.Protobuf" Version="3.22.3" />

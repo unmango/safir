@@ -10,10 +10,11 @@ open Safir.Service
 type StartupScanner(config: IConfiguration, scopeFactory: IServiceScopeFactory) =
     let scan directory =
         use scope = scopeFactory.CreateScope()
-        let service = scope.ServiceProvider.GetRequiredService<Library.Service>()
+        let service = scope.ServiceProvider.GetRequiredService<FileSystem.Service>()
 
         Directory.EnumerateFileSystemEntries directory
-        |> Seq.map (fun e -> service.Discover("yeet", e))
+        |> Seq.map (fun e -> e, Path.GetFileName(e))
+        |> Seq.map (fun (f, n) -> service.Discovered(directory, f, n))
         |> Async.Parallel
 
     interface IHostedService with

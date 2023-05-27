@@ -34,7 +34,10 @@ let main args =
     let options = builder.Configuration.Get<Config.Options>()
     DI.register builder.Services options |> ignore
 
-    builder.Services.AddHostedService<StartupScanner>() |> ignore
+    builder.Services
+        .AddHostedService<StartupScanner>()
+        .AddHostedService<DataWatcher>()
+    |> ignore
 
     let app = builder.Build()
 

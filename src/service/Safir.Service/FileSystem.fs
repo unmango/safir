@@ -29,6 +29,7 @@ module Events =
         | Deleted of File
         | Renamed of RenamedFile
         | Error of Error
+        | Discovered of File
         | Snapshot of Snapshot
 
         interface UnionContract.IUnionContract
@@ -43,7 +44,7 @@ module Fold =
     let evolve state =
         function
         | Events.Created file -> { state with Files = file :: state.Files }
-        | Events.Changed _ -> state // Why is this weird
+        | Events.Changed _ -> state
         | Events.Deleted file -> {
             state with
                 Files = state.Files |> List.filter ((<>) file)
@@ -59,6 +60,7 @@ module Fold =
                     |> List.filter (fun f -> f.FullPath <> file.OldFullPath)
           }
         | Events.Error error -> { state with Errors = error :: state.Errors }
+        | Events.Discovered file -> { state with Files = file :: state.Files }
         | Events.Snapshot snapshot -> {
             Files = List.ofArray snapshot.Files
             Errors = List.ofArray snapshot.Errors
@@ -92,8 +94,15 @@ let decideRenamed path name oldPath oldName (_: Fold.State) = [
     }
 ]
 
-let decideError ex (_: Fold.State) =
-    [ Events.Error { Exception = ex } ]
+let decideError ex (_: Fold.State) = [ Events.Error { Exception = ex } ]
+
+let decideDiscovered path name (state: Fold.State) =
+    let proposed: Events.File = { FullPath = path; Name = name }
+
+    if state.Files |> List.contains proposed then
+        []
+    else
+        [ Events.Discovered proposed ]
 
 type Service internal (resolve: string -> Equinox.Decider<Events.Event, Fold.State>) =
     member _.Created(id, path, name) =
@@ -107,6 +116,10 @@ type Service internal (resolve: string -> Equinox.Decider<Events.Event, Fold.Sta
     member _.Deleted(id, path, name) =
         let decider = resolve id
         decider.Transact(decideDeleted path name)
+
+    member _.Discovered(id, path, name) =
+        let decider = resolve id
+        decider.Transact(decideDiscovered path name)
 
     member _.Renamed(id, path, name, oldPath, oldName) =
         let decider = resolve id

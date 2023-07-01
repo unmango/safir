@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="buf generate" type="buf" factoryName="buf.build">
+    <option name="bufPath" value="$USER_HOME$/.local/bin/buf" />
+    <option name="command" value="generate" />
+    <option name="workDir" value="$PROJECT_DIR$/protos" />
+    <method v="2" />
+  </configuration>
+</component>

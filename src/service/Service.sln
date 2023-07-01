@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -8,6 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{5BB44CAA-118E-48F2-AAC0-BCF182047384}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yaml = docker-compose.yaml
+		protos\buf.gen.yaml = protos\buf.gen.yaml
+		protos\buf.yaml = protos\buf.yaml
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Safir.Service.Tests", "Safir.Service.Tests\Safir.Service.Tests.fsproj", "{8A8783E0-5A9C-410B-9DDC-9AC50315FA15}"

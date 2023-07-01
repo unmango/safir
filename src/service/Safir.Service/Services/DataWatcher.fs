@@ -7,8 +7,9 @@ open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Safir.Service
+open Safir.V1alpha1
 
-type DataWatcher(config: IConfiguration, fileSystem: FileSystem.Service, logger: ILogger<DataWatcher>) =
+type DataWatcher(config: IConfiguration, fileSystem: Files.Service, logger: ILogger<DataWatcher>) =
     let mutable _watcher: FileSystemWatcher option = None
     let mutable _subscription: IAsyncRxDisposable = AsyncDisposable.Empty
 
@@ -16,7 +17,15 @@ type DataWatcher(config: IConfiguration, fileSystem: FileSystem.Service, logger:
 
     let onChanged (event: FileSystemEventArgs) =
         logger.LogTrace("Changed: {FullPath}", event.FullPath)
-        fileSystem.Changed(mediaDir, event.FullPath, event.Name)
+
+        fileSystem.Changed(
+            mediaDir,
+            {
+                File.empty () with
+                    FullPath = event.FullPath
+                    Name = event.Name
+            }
+        )
 
     let onCreated (event: FileSystemEventArgs) =
         logger.LogTrace("Created: {FullPath}", event.FullPath)
@@ -39,6 +48,7 @@ type DataWatcher(config: IConfiguration, fileSystem: FileSystem.Service, logger:
             .ToAsyncObservable()
             .SubscribeAsync(fun n -> async {
                 logger.LogTrace("Got notification {Notification}", n)
+
                 match n with
                 | OnNext e -> do! on e
                 | _ -> ()
@@ -49,8 +59,18 @@ type DataWatcher(config: IConfiguration, fileSystem: FileSystem.Service, logger:
             let mediaDir = config["MediaDirectory"]
             let watcher = new FileSystemWatcher(mediaDir)
 
+            watcher.Changed.Subscribe(fun (e: FileSystemEventArgs) -> logger.LogInformation(e.FullPath))
+            |> ignore
+
+            watcher.Created.Subscribe(fun (e: FileSystemEventArgs) -> logger.LogInformation(e.FullPath))
+            |> ignore
+
+            watcher.Deleted.Subscribe(fun (e: FileSystemEventArgs) -> logger.LogInformation(e.FullPath))
+            |> ignore
+
             // TODO: Doesn't work
             logger.LogTrace("Subscribing FileSystemWatcher events")
+
             let! subscriptions =
                 [
                     watcher.Changed |> subscribe onChanged

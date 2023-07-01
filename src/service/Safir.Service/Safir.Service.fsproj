@@ -6,13 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Util.fs" />
+    <None Include="../protos/safir/**/*.proto" Link="protos/%(RecursiveDir)/$(FileName).proto" />
+    <Compile Include="Generated/Files.fs" />
+    <Compile Include="Generated/Host.fs" />
+    <Compile Include="Generated/Media.fs" />
+    <Compile Include="Generated/MediaDir.fs" />
     <Compile Include="Config.fs" />
-    <Compile Include="FileSystem.fs" />
-    <Compile Include="Library.fs" />
+    <Compile Include="Files.fs" />
+    <Compile Include="MediaDir.fs" />
+    <None Include="Library.fs" />
     <Compile Include="Services\StartupScanner.fs" />
-    <Compile Include="Services\DataWatcher.fs" />
-    <Compile Include="Endpoints.fs" />
+    <None Include="Services\DataWatcher.fs" />
+    <Compile Include="Services\FilesService.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

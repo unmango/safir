@@ -1,8 +1,6 @@
 module Safir.Service.Library
 
 open Equinox
-open FsCodec.SystemTextJson
-open TypeShape
 
 [<Literal>]
 let Category = "Library"
@@ -19,8 +17,6 @@ module Events =
         | FileUntracked of File
         | FileRemoved of File
         | Snapshot of Snapshot
-
-        interface UnionContract.IUnionContract
 
     let codec = Codec.Create<Event>()
 

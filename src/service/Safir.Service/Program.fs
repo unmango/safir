@@ -1,8 +1,9 @@
-open Giraffe
+open EventStore.Client
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
+open Propulsion.EventStoreDb
 open Safir.Service
 open Safir.Service.Services
 open System
@@ -16,32 +17,42 @@ module private ES =
         let connection = connector.Establish("Twin", Discovery.ConnectionString connectionString, strategy)
         EventStoreContext(connection, batchSize = 500)
 
+    let client connectionString =
+        let settings = EventStoreClientSettings.Create(connectionString)
+        new EventStoreClient(settings)
+
 module private DI =
     let register (services: IServiceCollection) (options: Config.Options) =
         let cache = Equinox.Cache("EventStore", options.CacheMb)
         let context = ES.connect options.ConnectionStrings.EventStore
+        let client = ES.client options.ConnectionStrings.EventStore
 
         services
-            .AddSingleton(Library.Service.create (context, cache))
-            .AddSingleton(FileSystem.Service.create (context, cache))
+            // .AddSingleton(Library.Service.create (context, cache))
+            .AddSingleton(Files.Service.create (context, cache))
+            .AddSingleton(client)
 
 [<EntryPoint>]
 let main args =
     let builder = WebApplication.CreateBuilder(args)
 
-    builder.Services.AddGiraffe() |> ignore
-
     let options = builder.Configuration.Get<Config.Options>()
     DI.register builder.Services options |> ignore
 
     builder.Services
+        .AddGrpcReflection()
+        .AddGrpc()
+    |> ignore
+
+    builder.Services
         .AddHostedService<StartupScanner>()
-        .AddHostedService<DataWatcher>()
+        // .AddHostedService<DataWatcher>()
     |> ignore
 
     let app = builder.Build()
 
-    app.UseGiraffe(choose [ route "/" >=> Endpoints.get ])
+    app.MapGrpcReflectionService() |> ignore
+    app.MapGrpcService<FilesService>() |> ignore
 
     app.Run()
 

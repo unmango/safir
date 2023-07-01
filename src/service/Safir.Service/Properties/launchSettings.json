@@ -16,7 +16,8 @@
       "applicationUrl": "http://localhost:5029",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "Logging__LogLevel__Default": "Trace"
+        "Logging__LogLevel__Default": "Trace",
+        "MediaDirectory": "/home/erik/Music"
       }
     },
     "https": {
@@ -26,7 +27,8 @@
       "applicationUrl": "https://localhost:7203;http://localhost:5029",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "Logging__LogLevel__Default": "Trace"
+        "Logging__LogLevel__Default": "Trace",
+        "MediaDirectory": "/home/erik/Music"
       }
     }
   }

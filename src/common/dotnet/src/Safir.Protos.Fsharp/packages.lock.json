@@ -32,8 +32,8 @@
       },
       "FSharp.Core": {
         "type": "Transitive",
-        "resolved": "7.0.300-beta.23176.1",
-        "contentHash": "c6Dn9BZPu27GXYNyi5NcupIutNk06aecPFap2soXKUa/dHGhJcMPDSCJQv7DB6Qwg44t08NzFu6KJWe1xcVKwg=="
+        "resolved": "7.0.400-beta.23251.2",
+        "contentHash": "sg19Mozp8Qn2RZobv+Qktl7mLfKCJbScSXfEPXuiqzGnw5tbEnY2mkYEAbzLfIhW/kg/LR57bdtjqMCROVZ5yQ=="
       },
       "Microsoft.Build.Tasks.Git": {
         "type": "Transitive",
@@ -66,7 +66,7 @@
       "protobuf.fsharp": {
         "type": "Project",
         "dependencies": {
-          "FSharp.Core": "[7.0.300-beta.23176.1, )",
+          "FSharp.Core": "[7.0.400-beta.23251.2, )",
           "Google.Protobuf": "[3.22.3, )"
         }
       },

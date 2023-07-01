@@ -18,11 +18,15 @@
 
   <ItemGroup>
     <PackageReference Include="Equinox.EventStoreDb" />
+    <PackageReference Include="EventStore.Client.Grpc.Streams" />
     <PackageReference Include="FsCodec.SystemTextJson" />
     <PackageReference Include="FSharp.Control.AsyncRx" />
     <PackageReference Include="FSharp.Control.AsyncSeq" />
-    <PackageReference Include="Giraffe" />
+    <PackageReference Include="FSharp.UMX" />
+    <PackageReference Include="Grpc.AspNetCore.Server" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Propulsion.EventStoreDb" />
   </ItemGroup>
 
 </Project>

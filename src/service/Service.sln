@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{5BB44CAA
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Safir.Service.Tests", "Safir.Service.Tests\Safir.Service.Tests.fsproj", "{8A8783E0-5A9C-410B-9DDC-9AC50315FA15}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Safir.Service.EndToEndTests", "Safir.Service.EndToEndTests\Safir.Service.EndToEndTests.fsproj", "{533A2F6E-5FF0-49D9-A6C2-D4E50EC788D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,5 +33,9 @@ Global
 		{8A8783E0-5A9C-410B-9DDC-9AC50315FA15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A8783E0-5A9C-410B-9DDC-9AC50315FA15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A8783E0-5A9C-410B-9DDC-9AC50315FA15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{533A2F6E-5FF0-49D9-A6C2-D4E50EC788D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{533A2F6E-5FF0-49D9-A6C2-D4E50EC788D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{533A2F6E-5FF0-49D9-A6C2-D4E50EC788D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{533A2F6E-5FF0-49D9-A6C2-D4E50EC788D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

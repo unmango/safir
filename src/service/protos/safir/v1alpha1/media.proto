@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package safir.service.v1alpha1;
+
+service MediaService {
+  rpc List(MediaServiceListRequest) returns (MediaServiceListResponse);
+}
+
+message MediaServiceListRequest {}
+
+message MediaServiceListResponse {
+  repeated MediaItem media = 1;
+}
+
+message MediaItem {
+  string host = 1;
+  string path = 2;
+}

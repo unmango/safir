@@ -1,0 +1,9 @@
+version: v1
+name: buf.build/unstoppablemango/safir
+breaking:
+  use:
+    - FILE
+lint:
+  use:
+    - DEFAULT
+    - PACKAGE_NO_IMPORT_CYCLE

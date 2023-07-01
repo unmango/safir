@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package safir.v1alpha1;
+
+message Entry {
+  string full_path = 1;
+  string sha256 = 2;
+}

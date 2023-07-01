@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package safir.v1alpha1;
+
+service FilesService {
+  rpc List (FilesServiceListRequest) returns (FilesServiceListResponse);
+}
+
+message FilesServiceListRequest {}
+
+message FilesServiceListResponse {
+  repeated File files = 1;
+}
+
+message File {
+  string full_path = 1;
+  string name = 2;
+}
+
+message RenamedFile {
+  string full_path = 1;
+  string name = 2;
+  string old_full_path = 3;
+  string old_name = 4;
+}
+
+message FileWatcherError {
+  string message = 1;
+}
+
+message Snapshot {
+  string full_path = 1;
+  string hash = 2;
+  repeated FileEvent history = 3;
+}
+
+//enum FileEvent {
+//  FILE_EVENT_CHANGED = 0;
+//  FILE_EVENT_CREATED = 1;
+//  FILE_EVENT_DELETED = 2;
+//  FILE_EVENT_ERROR = 3;
+//  FILE_EVENT_RENAMED = 4;
+//  FILE_EVENT_DISCOVERED = 5;
+//}
+
+message FileEvent {
+  oneof event {
+    File changed = 1;
+    File created = 2;
+    File deleted = 3;
+    FileWatcherError error = 4;
+    RenamedFile renamed = 5;
+    File discovered = 6;
+  }
+  string new_hash = 7;
+}

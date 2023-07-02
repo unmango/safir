@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
+    <ContainerImageName>safir-service</ContainerImageName>
+    <ContainerImageTag>1.0.0</ContainerImageTag>
+    <ContainerSdkImage>mcr.microsoft.com/dotnet/sdk:8.0.100-preview.5</ContainerSdkImage>
+    <ContainerBaseImage>mcr.microsoft.com/dotnet/aspnet:8.0.0-preview.5</ContainerBaseImage>
   </PropertyGroup>
 
   <ItemGroup>

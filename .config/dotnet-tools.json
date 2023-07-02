@@ -25,6 +25,12 @@
       "commands": [
         "protoc-gen-fsharp"
       ]
+    },
+    "dotnet-build-image": {
+      "version": "0.5.1",
+      "commands": [
+        "dotnet-build-image"
+      ]
     }
   }
 }

@@ -1,6 +1,9 @@
 # Artifact directories
 **/bin/
+
+# Build files
 **/obj/
+.fake/
 
 # User Specific Files
 *.user

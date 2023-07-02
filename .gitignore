@@ -1,13 +1,6 @@
-# Most tooling specific ignores are in the .gitignore in their respective folders
-
-# Common artifact directories
-**/.bin/
-
-# Sandbox workspace directory
-work/
-
-# Dockerignore test script output
-**/dockerignore-test.tar
+# Artifact directories
+**/bin/
+**/obj/
 
 # User Specific Files
 *.user
@@ -28,7 +21,6 @@ work/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-*.code-workspace
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -39,12 +31,7 @@ work/
 **/.idea/**/usage.statistics.xml
 **/.idea/**/dictionaries
 **/.idea/**/shelf
-
-# Discord User-specific
 **/.idea/**/discord.xml
-
-# AWS User-specific
-**/.idea/**/aws.xml
 
 # Generated files
 **/.idea/**/contentModel.xml
@@ -59,43 +46,8 @@ work/
 **/.idea/**/dbnavigator.xml
 **/.idea/**/riderMarkupCache.xml
 
-# Gradle
-**/.idea/**/gradle.xml
-**/.idea/**/libraries
-
-# Gradle and Maven with auto-import
-# When using Gradle or Maven with auto-import, you should exclude module files,
-# since they will be recreated, and may cause churn.  Uncomment if using
-# auto-import.
-# **/.idea/artifacts
-# **/.idea/compiler.xml
-# **/.idea/jarRepositories.xml
-# **/.idea/modules.xml
-# **/.idea/*.iml
-# **/.idea/modules
-# **/*.iml
-# **/*.ipr
-
-# CMake
-**/cmake-build-*/
-
-# Mongo Explorer plugin
-**/.idea/**/mongoSettings.xml
-
 # File-based project format
 **/*.iws
-
-# IntelliJ
-**/out/
-
-# mpeltonen/sbt-idea plugin
-**/.idea_modules/
-
-# JIRA plugin
-**/atlassian-ide-plugin.xml
-
-# Cursive Clojure plugin
-**/.idea/replstate.xml
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 **/com_crashlytics_export_strings.xml

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "JJruhwSjAYcGawgzcUS29Bcan9R9BcWyXAZaLgPUA5Rpnojg+tWM4+eBorfv9ukixk99jTWtTvk7Jxw64ffnkQ==",
+  "success": true,
+  "projectFilePath": "/home/erik/src/repos/unmango/safir/service/Safir.Service/Safir.Service.fsproj",
+  "expectedPackageFiles": [
+    "/home/erik/.nuget/packages/fsharp.core/7.0.400-beta.23281.1/fsharp.core.7.0.400-beta.23281.1.nupkg.sha512"
+  ],
+  "logs": []
+}

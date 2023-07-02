@@ -1,0 +1,70 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/erik/src/repos/unmango/safir/service/Safir.Service/Safir.Service.fsproj": {}
+  },
+  "projects": {
+    "/home/erik/src/repos/unmango/safir/service/Safir.Service/Safir.Service.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/erik/src/repos/unmango/safir/service/Safir.Service/Safir.Service.fsproj",
+        "projectName": "Safir.Service",
+        "projectPath": "/home/erik/src/repos/unmango/safir/service/Safir.Service/Safir.Service.fsproj",
+        "packagesPath": "/home/erik/.nuget/packages/",
+        "outputPath": "/home/erik/src/repos/unmango/safir/service/Safir.Service/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/erik/src/repos/unmango/safir/NuGet.Config",
+          "/home/erik/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/share/dotnet/sdk/8.0.100-preview.5.23303.2/FSharp/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/unmango/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FSharp.Core": {
+              "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[7.0.400-beta.23281.1, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.100-preview.5.23303.2/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BufFileManager">
-    <libraries>
+    <modules>
       <module>
-        <name>buf.build/googleapis/googleapis</name>
-        <path>$USER_HOME$/.cache/buf/v1/module/data/buf.build/googleapis/googleapis/0f45818f23164927b753ca450a5ed5bf</path>
-        <reference>buf.build/googleapis/googleapis:0f45818f23164927b753ca450a5ed5bf</reference>
-        <yaml>$USER_HOME$/.cache/buf/v1/module/data/buf.build/googleapis/googleapis/0f45818f23164927b753ca450a5ed5bf/buf.yaml</yaml>
+        <name>buf.build/unstoppablemango/safir</name>
+        <path>$PROJECT_DIR$/protos</path>
+        <yaml>$PROJECT_DIR$/protos/buf.yaml</yaml>
       </module>
-      <module>
-        <name>buf.build/googleapis/googleapis</name>
-        <path>$USER_HOME$/.cache/buf/v1/module/data/buf.build/googleapis/googleapis/3b4e902919a04bd4a955f1fc17e47cdc</path>
-        <reference>buf.build/googleapis/googleapis:3b4e902919a04bd4a955f1fc17e47cdc</reference>
-        <yaml>$USER_HOME$/.cache/buf/v1/module/data/buf.build/googleapis/googleapis/3b4e902919a04bd4a955f1fc17e47cdc/buf.yaml</yaml>
-      </module>
-      <module>
-        <name>buf.build/googleapis/googleapis</name>
-        <path>$USER_HOME$/.cache/buf/v1/module/data/buf.build/googleapis/googleapis/75b4300737fb4efca0831636be94e517</path>
-        <reference>buf.build/googleapis/googleapis:75b4300737fb4efca0831636be94e517</reference>
-        <yaml>$USER_HOME$/.cache/buf/v1/module/data/buf.build/googleapis/googleapis/75b4300737fb4efca0831636be94e517/buf.yaml</yaml>
-      </module>
-    </libraries>
+    </modules>
   </component>
-  <component name="ProtobufSettings">
-    <roots>
-      <entry common="false" path="file://$PROJECT_DIR$/src/protos" />
-      <entry common="false" path="file://$PROJECT_DIR$/src/common/dotnet/src/Safir.Protos/.cache" />
-    </roots>
+  <component name="BufSettings">
+    <option name="path" value="$USER_HOME$/.local/bin/buf" />
   </component>
 </project>

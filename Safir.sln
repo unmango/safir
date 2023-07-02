@@ -42,6 +42,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflow", "workflow", "{76
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Safir.Build", "build\Safir.Build.fsproj", "{7ECDBF78-32F2-4D8D-BFDB-8D3D51A6AF23}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "protos", "protos", "{56C444FB-99C4-4FEF-8B3F-27B66602F317}"
+	ProjectSection(SolutionItems) = preProject
+		protos\buf.gen.yaml = protos\buf.gen.yaml
+		protos\buf.yaml = protos\buf.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,0 +1,10 @@
+version: v1
+plugins:
+  - name: fsharp
+    out: ../service/Safir.Service/Generated
+    opt:
+      - no_client
+#  - name: fsharp
+#    out: ../Safir.Service.EndToEndTests/Generated
+#    opt:
+#      - no_server

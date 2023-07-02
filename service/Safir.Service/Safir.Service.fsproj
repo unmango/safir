@@ -10,7 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="../../protos/safir/**/*.proto" Link="protos/%(RecursiveDir)/$(FileName).proto" />
+    <Compile Include="Generated/Files.fs" />
+    <Compile Include="Services\FilesService.fs" />
     <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore.Server" Version="2.54.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.54.0" />
   </ItemGroup>
 
 </Project>

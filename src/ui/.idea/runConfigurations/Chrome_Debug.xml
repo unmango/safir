@@ -1,6 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Chrome Debug" type="JavascriptDebugType" uri="http://http:/localhost:3000">
-    <mapping url="webpack:///src/*" local-file="$PROJECT_DIR$/src" />
-    <method v="2" />
-  </configuration>
-</component>

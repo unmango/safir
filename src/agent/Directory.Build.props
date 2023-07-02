@@ -1,7 +1,0 @@
-<Project>
-  <Import Project="../Directory.Build.props" />
-
-  <PropertyGroup>
-    <Product>Safir.Agent</Product>
-  </PropertyGroup>
-</Project>

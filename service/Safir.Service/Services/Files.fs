@@ -1,11 +1,22 @@
 module Safir.Service.Services.Files
 
+open Equinox
 open FsCodec.SystemTextJson
+open FSharp.UMX
 open Safir.Service
 open TypeShape.UnionContract
 
+type FileId = string<fileId>
+and [<Measure>] fileId
+
 module FileId =
-    let noop = ()
+    let inline ofString (f: string) : FileId = %f
+    let inline toString (id: FileId) : string = %id
+
+[<Literal>]
+let Category = "Files"
+
+let streamId = StreamId.gen FileId.toString
 
 module Events =
     type File = { Sha256: string; FullPath: string; Name: string }
@@ -55,6 +66,13 @@ module Decisions =
         | Fold.Tracked _ -> []
         | _ -> failwith "Can't track an unknown file"
 
-type Service() =
-    class
-    end
+type Service internal (resolve: FileId -> Equinox.Decider<Events.Event, Fold.State>) =
+    member _.Discover(id, file) =
+        let decider = resolve(id)
+        decider.Transact(Decisions.discover file)
+
+    member _.Track(id) =
+        let decider = resolve(id)
+        decider.Transact(Decisions.track)
+
+let create resolve = Service(streamId >> resolve Category)

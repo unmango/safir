@@ -48,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "protos", "protos", "{56C444
 		protos\buf.yaml = protos\buf.yaml
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Safir.Service.Tests", "service\Safir.Service.Tests\Safir.Service.Tests.fsproj", "{BF94A6F4-36CC-402B-89FB-D6E2E39B8119}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,10 +71,15 @@ Global
 		{7ECDBF78-32F2-4D8D-BFDB-8D3D51A6AF23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ECDBF78-32F2-4D8D-BFDB-8D3D51A6AF23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ECDBF78-32F2-4D8D-BFDB-8D3D51A6AF23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF94A6F4-36CC-402B-89FB-D6E2E39B8119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF94A6F4-36CC-402B-89FB-D6E2E39B8119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF94A6F4-36CC-402B-89FB-D6E2E39B8119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF94A6F4-36CC-402B-89FB-D6E2E39B8119}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{01E49D6F-96D7-4E08-B062-1928C7EB79BE} = {74F52826-177B-46C7-A73E-9A88A9D64013}
 		{6877DA83-1BD4-48BE-A646-0F90D299FCBB} = {1E8CD0D3-F0D4-419D-8F5A-F8366A7FACCC}
 		{7ECDBF78-32F2-4D8D-BFDB-8D3D51A6AF23} = {26FF640B-2096-4BF0-BA9F-B5EFFD9730F7}
+		{BF94A6F4-36CC-402B-89FB-D6E2E39B8119} = {74F52826-177B-46C7-A73E-9A88A9D64013}
 	EndGlobalSection
 EndGlobal

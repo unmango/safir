@@ -6,12 +6,13 @@ open FSharp.UMX
 open Safir.Service
 open TypeShape.UnionContract
 
-type FileId = string<fileId>
-and [<Measure>] fileId
+type FileId = string<fullPath> * string<sha256>
+and [<Measure>] fullPath
+and [<Measure>] sha256
 
 module FileId =
-    let inline ofString (f: string) : FileId = %f
-    let inline toString (id: FileId) : string = %id
+    let inline from (p: string) (s: string) : FileId = %p, %s
+    let inline toString ((p, s): FileId) : string = $"{%p}-{%s}"
 
 [<Literal>]
 let Category = "Files"
@@ -20,10 +21,12 @@ let streamId = StreamId.gen FileId.toString
 
 module Events =
     type File = { Sha256: string; FullPath: string; Name: string }
+    type Snapshot = { Tracked: bool; File: File }
 
     type Event =
         | Discovered of File
         | Tracked
+        | Snapshot of Snapshot
 
         interface IUnionContract
 
@@ -32,10 +35,11 @@ module Events =
 module Fold =
     open Events
 
+    type ManagedFile = { Tracked: bool; File: File }
+
     type State =
         | Initial
-        | Discovered of File
-        | Tracked of File
+        | Managed of ManagedFile
 
     let initial = Initial
 
@@ -43,36 +47,55 @@ module Fold =
         match state with
         | Initial ->
             match event with
-            | Events.Discovered file -> Discovered file
+            | Discovered file -> { Tracked = false; File = file }
+            | Snapshot snapshot -> { Tracked = snapshot.Tracked; File = snapshot.File }
             | e -> failwithf $"Unexpected %A{e}"
-        | Discovered file ->
+        | Managed file ->
             match event with
-            | Events.Discovered newFile -> Discovered newFile
-            | Events.Tracked -> Tracked file
-        | Tracked _ -> state
+            | Tracked -> { file with Tracked = true }
+            | Snapshot snapshot -> { Tracked = snapshot.Tracked; File = snapshot.File }
+            | e -> failwithf $"Unexpected %A{e}"
+        |> Managed
 
     let fold: State -> Events.Event seq -> State = Seq.fold evolve
+
+    let isOrigin =
+        function
+        | Snapshot _ -> true
+        | _ -> false
+
+    let toSnapshot =
+        function
+        | Initial -> failwith "Can't snapshot initial state"
+        | Managed file -> Snapshot { Tracked = file.Tracked; File = file.File }
 
 module Decisions =
     let discover file state =
         match state with
         | Fold.Initial -> [ Events.Discovered file ]
-        | Fold.Discovered existing when existing = file -> []
+        | Fold.Managed existing when existing.File = file -> []
         | _ -> failwith "Can't discover an existing file"
 
     let track state =
         match state with
-        | Fold.Discovered _ -> [ Events.Tracked ]
-        | Fold.Tracked _ -> []
+        | Fold.Managed file -> if file.Tracked then [] else [ Events.Tracked ]
         | _ -> failwith "Can't track an unknown file"
 
-type Service internal (resolve: FileId -> Equinox.Decider<Events.Event, Fold.State>) =
+type Service internal (resolve: FileId -> Decider<Events.Event, Fold.State>) =
     member _.Discover(id, file) =
-        let decider = resolve(id)
+        let decider = resolve id
         decider.Transact(Decisions.discover file)
 
     member _.Track(id) =
-        let decider = resolve(id)
+        let decider = resolve id
         decider.Transact(Decisions.track)
 
-let create resolve = Service(streamId >> resolve Category)
+module Service =
+    let create resolve = Service(streamId >> resolve Category)
+
+let accessStrategy = Config.accessStrategy Fold.isOrigin Fold.toSnapshot
+
+let category store =
+    Config.category Events.codec Fold.fold Fold.initial accessStrategy store
+
+let create resolve = category >> resolve >> Service.create

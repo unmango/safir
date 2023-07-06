@@ -1,18 +1,19 @@
 module Safir.Service.Services.Files
 
 open Equinox
-open FsCodec.SystemTextJson
 open FSharp.UMX
 open Safir.Service
+open System
 open TypeShape.UnionContract
 
-type FileId = string<fullPath> * string<sha256>
-and [<Measure>] fullPath
-and [<Measure>] sha256
+type FileId = Guid<fileId>
+and [<Measure>] fileId
 
 module FileId =
-    let inline from (p: string) (s: string) : FileId = %p, %s
-    let inline toString ((p, s): FileId) : string = $"{%p}-{%s}"
+    let inline ofGuid (g: Guid) : FileId = %g
+    let inline parse (s: string) = Guid.Parse s |> ofGuid
+    let inline toGuid (id: FileId) : Guid = %id
+    let inline toString (id: FileId) : string = (toGuid id).ToString("N")
 
 [<Literal>]
 let Category = "Files"
@@ -20,13 +21,15 @@ let Category = "Files"
 let streamId = StreamId.gen FileId.toString
 
 module Events =
+    open FsCodec.SystemTextJson
+
     type File = { Sha256: string; FullPath: string; Name: string }
-    type Snapshot = { Tracked: bool; File: File }
+    type SnapshotData = { Tracked: bool; File: File }
 
     type Event =
         | Discovered of File
         | Tracked
-        | Snapshot of Snapshot
+        | Snapshot of SnapshotData
 
         interface IUnionContract
 

@@ -21,7 +21,7 @@ open Events
 let ``Discover a file`` file =
     test <@ [] => Decisions.discover file = [ Discovered file ] @>
     test <@ [ Discovered file ] => Decisions.discover file = [] @>
-    raises <@ [ Discovered file; Tracked ] => Decisions.discover file @>
+    test <@ [ Discovered file; Tracked ] => Decisions.discover file = [] @>
 
 [<Property>]
 let ``Track a file`` file =

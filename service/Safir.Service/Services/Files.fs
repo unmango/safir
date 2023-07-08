@@ -11,6 +11,7 @@ and [<Measure>] fileId
 
 module FileId =
     let inline ofGuid (g: Guid) : FileId = %g
+    let inline gen () = Guid.NewGuid() |> ofGuid
     let inline parse (s: string) = Guid.Parse s |> ofGuid
     let inline toGuid (id: FileId) : Guid = %id
     let inline toString (id: FileId) : string = (toGuid id).ToString("N")
@@ -96,7 +97,7 @@ type Service internal (resolve: FileId -> Decider<Events.Event, Fold.State>) =
 module Service =
     let create resolve = Service(streamId >> resolve Category)
 
-let accessStrategy = Config.accessStrategy Fold.isOrigin Fold.toSnapshot
+let private accessStrategy = Config.accessStrategy Fold.isOrigin Fold.toSnapshot
 
 let category store =
     Config.category Events.codec Fold.fold Fold.initial accessStrategy store

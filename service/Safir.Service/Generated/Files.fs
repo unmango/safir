@@ -6,19 +6,28 @@ namespace rec Safir.V1alpha1
 #nowarn "40"
 module FilesReflection =
     [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
-    let internal FilesServiceListRequest_Descriptor() = Descriptor().MessageTypes.[0]
+    let internal File_Descriptor() = Descriptor().MessageTypes.[0]
     [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
-    let internal FilesServiceListResponse_Descriptor() = Descriptor().MessageTypes.[1]
+    let internal FilesServiceListRequest_Descriptor() = Descriptor().MessageTypes.[1]
     [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
-    let internal File_Descriptor() = Descriptor().MessageTypes.[2]
+    let internal FilesServiceListResponse_Descriptor() = Descriptor().MessageTypes.[2]
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    let internal FilesServiceDiscoverRequest_Descriptor() = Descriptor().MessageTypes.[3]
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    let internal FilesServiceDiscoverResponse_Descriptor() = Descriptor().MessageTypes.[4]
     let private descriptorBackingField: global.System.Lazy<global.Google.Protobuf.Reflection.FileDescriptor> =
         let descriptorData = global.System.Convert.FromBase64String("\
-            ChpzYWZpci92MWFscGhhMS9maWxlcy5wcm90bxIOc2FmaXIudjFhbHBoYTEiGQoXRmlsZXNTZXJ2aWNl\
-            TGlzdFJlcXVlc3QiRgoYRmlsZXNTZXJ2aWNlTGlzdFJlc3BvbnNlEioKBWZpbGVzGAEgAygLMhQuc2Fm\
-            aXIudjFhbHBoYTEuRmlsZVIFZmlsZXMiTwoERmlsZRIWCgZzaGEyNTYYASABKAlSBnNoYTI1NhIbCglm\
-            dWxsX3BhdGgYAiABKAlSCGZ1bGxQYXRoEhIKBG5hbWUYAyABKAlSBG5hbWUyaQoMRmlsZXNTZXJ2aWNl\
-            ElkKBExpc3QSJy5zYWZpci52MWFscGhhMS5GaWxlc1NlcnZpY2VMaXN0UmVxdWVzdBooLnNhZmlyLnYx\
-            YWxwaGExLkZpbGVzU2VydmljZUxpc3RSZXNwb25zZWIGcHJvdG8z")
+            ChpzYWZpci92MWFscGhhMS9maWxlcy5wcm90bxIOc2FmaXIudjFhbHBoYTEiXwoERmlsZRIOCgJpZBgB\
+            IAEoCVICaWQSFgoGc2hhMjU2GAIgASgJUgZzaGEyNTYSGwoJZnVsbF9wYXRoGAMgASgJUghmdWxsUGF0\
+            aBISCgRuYW1lGAQgASgJUgRuYW1lIhkKF0ZpbGVzU2VydmljZUxpc3RSZXF1ZXN0IkYKGEZpbGVzU2Vy\
+            dmljZUxpc3RSZXNwb25zZRIqCgVmaWxlcxgBIAMoCzIULnNhZmlyLnYxYWxwaGExLkZpbGVSBWZpbGVz\
+            ImYKG0ZpbGVzU2VydmljZURpc2NvdmVyUmVxdWVzdBIWCgZzaGEyNTYYASABKAlSBnNoYTI1NhIbCglm\
+            dWxsX3BhdGgYAiABKAlSCGZ1bGxQYXRoEhIKBG5hbWUYAyABKAlSBG5hbWUiSAocRmlsZXNTZXJ2aWNl\
+            RGlzY292ZXJSZXNwb25zZRIoCgRmaWxlGAEgASgLMhQuc2FmaXIudjFhbHBoYTEuRmlsZVIEZmlsZTLQ\
+            AQoMRmlsZXNTZXJ2aWNlElkKBExpc3QSJy5zYWZpci52MWFscGhhMS5GaWxlc1NlcnZpY2VMaXN0UmVx\
+            dWVzdBooLnNhZmlyLnYxYWxwaGExLkZpbGVzU2VydmljZUxpc3RSZXNwb25zZRJlCghEaXNjb3ZlchIr\
+            LnNhZmlyLnYxYWxwaGExLkZpbGVzU2VydmljZURpc2NvdmVyUmVxdWVzdBosLnNhZmlyLnYxYWxwaGEx\
+            LkZpbGVzU2VydmljZURpc2NvdmVyUmVzcG9uc2ViBnByb3RvMw==")
         global.System.Lazy<_>(
             (fun () ->
                 global.Google.Protobuf.Reflection.FileDescriptor.FromGeneratedCode(
@@ -29,9 +38,11 @@ module FilesReflection =
                         null,
                         null,
                         [|
+                            new global.Google.Protobuf.Reflection.GeneratedClrTypeInfo(typeof<global.Safir.V1alpha1.File>, global.Safir.V1alpha1.File.Parser, [| "Id"; "Sha256"; "FullPath"; "Name" |], null, null, null, null)
                             new global.Google.Protobuf.Reflection.GeneratedClrTypeInfo(typeof<global.Safir.V1alpha1.FilesServiceListRequest>, global.Safir.V1alpha1.FilesServiceListRequest.Parser, null, null, null, null, null)
                             new global.Google.Protobuf.Reflection.GeneratedClrTypeInfo(typeof<global.Safir.V1alpha1.FilesServiceListResponse>, global.Safir.V1alpha1.FilesServiceListResponse.Parser, [| "Files" |], null, null, null, null)
-                            new global.Google.Protobuf.Reflection.GeneratedClrTypeInfo(typeof<global.Safir.V1alpha1.File>, global.Safir.V1alpha1.File.Parser, [| "Sha256"; "FullPath"; "Name" |], null, null, null, null)
+                            new global.Google.Protobuf.Reflection.GeneratedClrTypeInfo(typeof<global.Safir.V1alpha1.FilesServiceDiscoverRequest>, global.Safir.V1alpha1.FilesServiceDiscoverRequest.Parser, [| "Sha256"; "FullPath"; "Name" |], null, null, null, null)
+                            new global.Google.Protobuf.Reflection.GeneratedClrTypeInfo(typeof<global.Safir.V1alpha1.FilesServiceDiscoverResponse>, global.Safir.V1alpha1.FilesServiceDiscoverResponse.Parser, [| "File" |], null, null, null, null)
                         |]
                     )
                 )
@@ -39,6 +50,118 @@ module FilesReflection =
             true
         )
     let Descriptor(): global.Google.Protobuf.Reflection.FileDescriptor = descriptorBackingField.Value
+type File = {
+    mutable _UnknownFields: global.Google.Protobuf.UnknownFieldSet
+    mutable Id: string
+    mutable Sha256: string
+    mutable FullPath: string
+    mutable Name: string
+} with
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    member me.Clone() : File = {
+        File._UnknownFields = global.Google.Protobuf.UnknownFieldSet.Clone(me._UnknownFields)
+        File.Id = me.Id
+        File.Sha256 = me.Sha256
+        File.FullPath = me.FullPath
+        File.Name = me.Name
+    }
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    member private me.InternalWriteTo(output: byref<global.Google.Protobuf.WriteContext>) =
+        if me.Id <> File.DefaultValue.Id
+        then
+            output.WriteRawTag(10uy)
+            output.WriteString(me.Id)
+        if me.Sha256 <> File.DefaultValue.Sha256
+        then
+            output.WriteRawTag(18uy)
+            output.WriteString(me.Sha256)
+        if me.FullPath <> File.DefaultValue.FullPath
+        then
+            output.WriteRawTag(26uy)
+            output.WriteString(me.FullPath)
+        if me.Name <> File.DefaultValue.Name
+        then
+            output.WriteRawTag(34uy)
+            output.WriteString(me.Name)
+        if not <| isNull me._UnknownFields then me._UnknownFields.WriteTo(&output)
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    member private me.CalculateSize() =
+        let mutable size = 0
+        if me.Id <> File.DefaultValue.Id then size <- size + 1 + global.Google.Protobuf.CodedOutputStream.ComputeStringSize(me.Id)
+        if me.Sha256 <> File.DefaultValue.Sha256 then size <- size + 1 + global.Google.Protobuf.CodedOutputStream.ComputeStringSize(me.Sha256)
+        if me.FullPath <> File.DefaultValue.FullPath then size <- size + 1 + global.Google.Protobuf.CodedOutputStream.ComputeStringSize(me.FullPath)
+        if me.Name <> File.DefaultValue.Name then size <- size + 1 + global.Google.Protobuf.CodedOutputStream.ComputeStringSize(me.Name)
+        if not <| isNull me._UnknownFields then size <- size + me._UnknownFields.CalculateSize()
+        size
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    member private me.MergeFrom(other: File) =
+        if other.Id <> File.DefaultValue.Id
+        then me.Id <- other.Id
+        if other.Sha256 <> File.DefaultValue.Sha256
+        then me.Sha256 <- other.Sha256
+        if other.FullPath <> File.DefaultValue.FullPath
+        then me.FullPath <- other.FullPath
+        if other.Name <> File.DefaultValue.Name
+        then me.Name <- other.Name
+        me._UnknownFields <- global.Google.Protobuf.UnknownFieldSet.MergeFrom(me._UnknownFields, other._UnknownFields)
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    member private me.InternalMergeFrom(input: byref<global.Google.Protobuf.ParseContext>) =
+        let mutable tag = input.ReadTag()
+        while tag <> 0u do
+            match tag with
+            | 10u ->
+                me.Id <- input.ReadString()
+            | 18u ->
+                me.Sha256 <- input.ReadString()
+            | 26u ->
+                me.FullPath <- input.ReadString()
+            | 34u ->
+                me.Name <- input.ReadString()
+            | _ ->
+                me._UnknownFields <- global.Google.Protobuf.UnknownFieldSet.MergeFieldFrom(me._UnknownFields, &input)
+            tag <- input.ReadTag()
+    interface global.Google.Protobuf.IBufferMessage with
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.InternalMergeFrom(ctx) = me.InternalMergeFrom(&ctx)
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.InternalWriteTo(ctx) = me.InternalWriteTo(&ctx)
+    interface global.Google.Protobuf.IMessage<File> with
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.Clone() = me.Clone()
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.MergeFrom(other) = me.MergeFrom(other)
+    interface global.Google.Protobuf.IMessage with
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.CalculateSize() = me.CalculateSize()
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.MergeFrom(input) = input.ReadRawMessage(me)
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.WriteTo(output) = output.WriteRawMessage(me)
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member __.Descriptor = global.Safir.V1alpha1.FilesReflection.File_Descriptor()
+module File =
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    let internal DefaultValue = {
+        File._UnknownFields = null
+        File.Id = ""
+        File.Sha256 = ""
+        File.FullPath = ""
+        File.Name = ""
+    }
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    let empty () = {
+        File._UnknownFields = null
+        File.Id = ""
+        File.Sha256 = ""
+        File.FullPath = ""
+        File.Name = ""
+    }
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    let Parser = global.Google.Protobuf.MessageParser<File>(global.System.Func<_>(empty))
+    let IdFieldNumber = 1
+    let Sha256FieldNumber = 2
+    let FullPathFieldNumber = 3
+    let NameFieldNumber = 4
 type FilesServiceListRequest = {
     mutable _UnknownFields: global.Google.Protobuf.UnknownFieldSet
 } with
@@ -162,30 +285,30 @@ module FilesServiceListResponse =
     let Parser = global.Google.Protobuf.MessageParser<FilesServiceListResponse>(global.System.Func<_>(empty))
     let FilesFieldNumber = 1
     let RepeatedFilesCodec = global.Google.Protobuf.FieldCodec.ForMessage(10u, global.Safir.V1alpha1.File.Parser)
-type File = {
+type FilesServiceDiscoverRequest = {
     mutable _UnknownFields: global.Google.Protobuf.UnknownFieldSet
     mutable Sha256: string
     mutable FullPath: string
     mutable Name: string
 } with
     [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
-    member me.Clone() : File = {
-        File._UnknownFields = global.Google.Protobuf.UnknownFieldSet.Clone(me._UnknownFields)
-        File.Sha256 = me.Sha256
-        File.FullPath = me.FullPath
-        File.Name = me.Name
+    member me.Clone() : FilesServiceDiscoverRequest = {
+        FilesServiceDiscoverRequest._UnknownFields = global.Google.Protobuf.UnknownFieldSet.Clone(me._UnknownFields)
+        FilesServiceDiscoverRequest.Sha256 = me.Sha256
+        FilesServiceDiscoverRequest.FullPath = me.FullPath
+        FilesServiceDiscoverRequest.Name = me.Name
     }
     [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
     member private me.InternalWriteTo(output: byref<global.Google.Protobuf.WriteContext>) =
-        if me.Sha256 <> File.DefaultValue.Sha256
+        if me.Sha256 <> FilesServiceDiscoverRequest.DefaultValue.Sha256
         then
             output.WriteRawTag(10uy)
             output.WriteString(me.Sha256)
-        if me.FullPath <> File.DefaultValue.FullPath
+        if me.FullPath <> FilesServiceDiscoverRequest.DefaultValue.FullPath
         then
             output.WriteRawTag(18uy)
             output.WriteString(me.FullPath)
-        if me.Name <> File.DefaultValue.Name
+        if me.Name <> FilesServiceDiscoverRequest.DefaultValue.Name
         then
             output.WriteRawTag(26uy)
             output.WriteString(me.Name)
@@ -193,18 +316,18 @@ type File = {
     [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
     member private me.CalculateSize() =
         let mutable size = 0
-        if me.Sha256 <> File.DefaultValue.Sha256 then size <- size + 1 + global.Google.Protobuf.CodedOutputStream.ComputeStringSize(me.Sha256)
-        if me.FullPath <> File.DefaultValue.FullPath then size <- size + 1 + global.Google.Protobuf.CodedOutputStream.ComputeStringSize(me.FullPath)
-        if me.Name <> File.DefaultValue.Name then size <- size + 1 + global.Google.Protobuf.CodedOutputStream.ComputeStringSize(me.Name)
+        if me.Sha256 <> FilesServiceDiscoverRequest.DefaultValue.Sha256 then size <- size + 1 + global.Google.Protobuf.CodedOutputStream.ComputeStringSize(me.Sha256)
+        if me.FullPath <> FilesServiceDiscoverRequest.DefaultValue.FullPath then size <- size + 1 + global.Google.Protobuf.CodedOutputStream.ComputeStringSize(me.FullPath)
+        if me.Name <> FilesServiceDiscoverRequest.DefaultValue.Name then size <- size + 1 + global.Google.Protobuf.CodedOutputStream.ComputeStringSize(me.Name)
         if not <| isNull me._UnknownFields then size <- size + me._UnknownFields.CalculateSize()
         size
     [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
-    member private me.MergeFrom(other: File) =
-        if other.Sha256 <> File.DefaultValue.Sha256
+    member private me.MergeFrom(other: FilesServiceDiscoverRequest) =
+        if other.Sha256 <> FilesServiceDiscoverRequest.DefaultValue.Sha256
         then me.Sha256 <- other.Sha256
-        if other.FullPath <> File.DefaultValue.FullPath
+        if other.FullPath <> FilesServiceDiscoverRequest.DefaultValue.FullPath
         then me.FullPath <- other.FullPath
-        if other.Name <> File.DefaultValue.Name
+        if other.Name <> FilesServiceDiscoverRequest.DefaultValue.Name
         then me.Name <- other.Name
         me._UnknownFields <- global.Google.Protobuf.UnknownFieldSet.MergeFrom(me._UnknownFields, other._UnknownFields)
     [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
@@ -226,7 +349,7 @@ type File = {
         member me.InternalMergeFrom(ctx) = me.InternalMergeFrom(&ctx)
         [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
         member me.InternalWriteTo(ctx) = me.InternalWriteTo(&ctx)
-    interface global.Google.Protobuf.IMessage<File> with
+    interface global.Google.Protobuf.IMessage<FilesServiceDiscoverRequest> with
         [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
         member me.Clone() = me.Clone()
         [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
@@ -239,27 +362,102 @@ type File = {
         [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
         member me.WriteTo(output) = output.WriteRawMessage(me)
         [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
-        member __.Descriptor = global.Safir.V1alpha1.FilesReflection.File_Descriptor()
-module File =
+        member __.Descriptor = global.Safir.V1alpha1.FilesReflection.FilesServiceDiscoverRequest_Descriptor()
+module FilesServiceDiscoverRequest =
     [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
     let internal DefaultValue = {
-        File._UnknownFields = null
-        File.Sha256 = ""
-        File.FullPath = ""
-        File.Name = ""
+        FilesServiceDiscoverRequest._UnknownFields = null
+        FilesServiceDiscoverRequest.Sha256 = ""
+        FilesServiceDiscoverRequest.FullPath = ""
+        FilesServiceDiscoverRequest.Name = ""
     }
     [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
     let empty () = {
-        File._UnknownFields = null
-        File.Sha256 = ""
-        File.FullPath = ""
-        File.Name = ""
+        FilesServiceDiscoverRequest._UnknownFields = null
+        FilesServiceDiscoverRequest.Sha256 = ""
+        FilesServiceDiscoverRequest.FullPath = ""
+        FilesServiceDiscoverRequest.Name = ""
     }
     [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
-    let Parser = global.Google.Protobuf.MessageParser<File>(global.System.Func<_>(empty))
+    let Parser = global.Google.Protobuf.MessageParser<FilesServiceDiscoverRequest>(global.System.Func<_>(empty))
     let Sha256FieldNumber = 1
     let FullPathFieldNumber = 2
     let NameFieldNumber = 3
+type FilesServiceDiscoverResponse = {
+    mutable _UnknownFields: global.Google.Protobuf.UnknownFieldSet
+    mutable File: ValueOption<global.Safir.V1alpha1.File>
+} with
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    member me.Clone() : FilesServiceDiscoverResponse = {
+        FilesServiceDiscoverResponse._UnknownFields = global.Google.Protobuf.UnknownFieldSet.Clone(me._UnknownFields)
+        FilesServiceDiscoverResponse.File = me.File |> global.Microsoft.FSharp.Core.ValueOption.map (fun x -> (x :> global.Google.Protobuf.IMessage<global.Safir.V1alpha1.File>).Clone())
+    }
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    member private me.InternalWriteTo(output: byref<global.Google.Protobuf.WriteContext>) =
+        if me.File <> ValueNone
+        then
+            output.WriteRawTag(10uy)
+            output.WriteMessage(me.File.Value)
+        if not <| isNull me._UnknownFields then me._UnknownFields.WriteTo(&output)
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    member private me.CalculateSize() =
+        let mutable size = 0
+        if me.File <> ValueNone then size <- size + 1 + global.Google.Protobuf.CodedOutputStream.ComputeMessageSize(me.File.Value)
+        if not <| isNull me._UnknownFields then size <- size + me._UnknownFields.CalculateSize()
+        size
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    member private me.MergeFrom(other: FilesServiceDiscoverResponse) =
+        if other.File <> ValueNone
+        then
+            if me.File.IsNone
+            then me.File <- ValueSome(global.Safir.V1alpha1.File.empty())
+            (me.File.Value :> global.Google.Protobuf.IMessage<global.Safir.V1alpha1.File>).MergeFrom(other.File.Value)
+        me._UnknownFields <- global.Google.Protobuf.UnknownFieldSet.MergeFrom(me._UnknownFields, other._UnknownFields)
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    member private me.InternalMergeFrom(input: byref<global.Google.Protobuf.ParseContext>) =
+        let mutable tag = input.ReadTag()
+        while tag <> 0u do
+            match tag with
+            | 10u ->
+                if me.File.IsNone
+                then me.File <- ValueSome(global.Safir.V1alpha1.File.empty())
+                input.ReadMessage(me.File.Value)
+            | _ ->
+                me._UnknownFields <- global.Google.Protobuf.UnknownFieldSet.MergeFieldFrom(me._UnknownFields, &input)
+            tag <- input.ReadTag()
+    interface global.Google.Protobuf.IBufferMessage with
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.InternalMergeFrom(ctx) = me.InternalMergeFrom(&ctx)
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.InternalWriteTo(ctx) = me.InternalWriteTo(&ctx)
+    interface global.Google.Protobuf.IMessage<FilesServiceDiscoverResponse> with
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.Clone() = me.Clone()
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.MergeFrom(other) = me.MergeFrom(other)
+    interface global.Google.Protobuf.IMessage with
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.CalculateSize() = me.CalculateSize()
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.MergeFrom(input) = input.ReadRawMessage(me)
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member me.WriteTo(output) = output.WriteRawMessage(me)
+        [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+        member __.Descriptor = global.Safir.V1alpha1.FilesReflection.FilesServiceDiscoverResponse_Descriptor()
+module FilesServiceDiscoverResponse =
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    let internal DefaultValue = {
+        FilesServiceDiscoverResponse._UnknownFields = null
+        FilesServiceDiscoverResponse.File = ValueNone
+    }
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    let empty () = {
+        FilesServiceDiscoverResponse._UnknownFields = null
+        FilesServiceDiscoverResponse.File = ValueNone
+    }
+    [<global.System.Diagnostics.DebuggerNonUserCodeAttribute>]
+    let Parser = global.Google.Protobuf.MessageParser<FilesServiceDiscoverResponse>(global.System.Func<_>(empty))
+    let FileFieldNumber = 1
 module FilesService =
     let __ServiceName : string = "safir.v1alpha1.FilesService"
     let private __Helper_SerializeMessage<'t when 't :> global.Google.Protobuf.IBufferMessage>(message: 't, ctx: global.Grpc.Core.SerializationContext) =
@@ -268,17 +466,22 @@ module FilesService =
         ctx.Complete()
     let private __Helper_DeserializeMessage<'t when 't :> global.Google.Protobuf.IMessage<'t>>(ctx: global.Grpc.Core.DeserializationContext, parser: global.Google.Protobuf.MessageParser<'t>) : 't =
         parser.ParseFrom(ctx.PayloadAsReadOnlySequence())
+    let private __Marshaller_global_Safir_V1alpha1_FilesServiceDiscoverRequest: global.Grpc.Core.Marshaller<global.Safir.V1alpha1.FilesServiceDiscoverRequest> = global.Grpc.Core.Marshallers.Create(global.System.Action<_,_>(fun msg ctx -> __Helper_SerializeMessage(msg, ctx)), global.System.Func<_,_>(fun ctx -> __Helper_DeserializeMessage(ctx, global.Safir.V1alpha1.FilesServiceDiscoverRequest.Parser)))
+    let private __Marshaller_global_Safir_V1alpha1_FilesServiceDiscoverResponse: global.Grpc.Core.Marshaller<global.Safir.V1alpha1.FilesServiceDiscoverResponse> = global.Grpc.Core.Marshallers.Create(global.System.Action<_,_>(fun msg ctx -> __Helper_SerializeMessage(msg, ctx)), global.System.Func<_,_>(fun ctx -> __Helper_DeserializeMessage(ctx, global.Safir.V1alpha1.FilesServiceDiscoverResponse.Parser)))
     let private __Marshaller_global_Safir_V1alpha1_FilesServiceListRequest: global.Grpc.Core.Marshaller<global.Safir.V1alpha1.FilesServiceListRequest> = global.Grpc.Core.Marshallers.Create(global.System.Action<_,_>(fun msg ctx -> __Helper_SerializeMessage(msg, ctx)), global.System.Func<_,_>(fun ctx -> __Helper_DeserializeMessage(ctx, global.Safir.V1alpha1.FilesServiceListRequest.Parser)))
     let private __Marshaller_global_Safir_V1alpha1_FilesServiceListResponse: global.Grpc.Core.Marshaller<global.Safir.V1alpha1.FilesServiceListResponse> = global.Grpc.Core.Marshallers.Create(global.System.Action<_,_>(fun msg ctx -> __Helper_SerializeMessage(msg, ctx)), global.System.Func<_,_>(fun ctx -> __Helper_DeserializeMessage(ctx, global.Safir.V1alpha1.FilesServiceListResponse.Parser)))
     let private __Method_List = global.Grpc.Core.Method<global.Safir.V1alpha1.FilesServiceListRequest, global.Safir.V1alpha1.FilesServiceListResponse>(global.Grpc.Core.MethodType.Unary, __ServiceName, "List", __Marshaller_global_Safir_V1alpha1_FilesServiceListRequest, __Marshaller_global_Safir_V1alpha1_FilesServiceListResponse)
+    let private __Method_Discover = global.Grpc.Core.Method<global.Safir.V1alpha1.FilesServiceDiscoverRequest, global.Safir.V1alpha1.FilesServiceDiscoverResponse>(global.Grpc.Core.MethodType.Unary, __ServiceName, "Discover", __Marshaller_global_Safir_V1alpha1_FilesServiceDiscoverRequest, __Marshaller_global_Safir_V1alpha1_FilesServiceDiscoverResponse)
     let Descriptor : global.Google.Protobuf.Reflection.ServiceDescriptor = global.Safir.V1alpha1.FilesReflection.Descriptor().Services.[0]
     type FilesServiceMethodBinder =
         static member BindService(serviceImpl: FilesServiceBase) : global.Grpc.Core.ServerServiceDefinition =
-            global.Grpc.Core.ServerServiceDefinition.CreateBuilder().AddMethod(__Method_List, serviceImpl.List).Build()
+            global.Grpc.Core.ServerServiceDefinition.CreateBuilder().AddMethod(__Method_List, serviceImpl.List).AddMethod(__Method_Discover, serviceImpl.Discover).Build()
         static member BindService(serviceBinder: global.Grpc.Core.ServiceBinderBase, serviceImpl: FilesServiceBase) =
             serviceBinder.AddMethod(__Method_List, if isNull (box serviceImpl) then null else global.Grpc.Core.UnaryServerMethod<global.Safir.V1alpha1.FilesServiceListRequest, global.Safir.V1alpha1.FilesServiceListResponse>(serviceImpl.List))
+            serviceBinder.AddMethod(__Method_Discover, if isNull (box serviceImpl) then null else global.Grpc.Core.UnaryServerMethod<global.Safir.V1alpha1.FilesServiceDiscoverRequest, global.Safir.V1alpha1.FilesServiceDiscoverResponse>(serviceImpl.Discover))
     [<global.Grpc.Core.BindServiceMethod(typeof<FilesServiceMethodBinder>, "BindService")>]
     [<AbstractClass>]
     type FilesServiceBase() =
         abstract List : request: global.Safir.V1alpha1.FilesServiceListRequest -> context: global.Grpc.Core.ServerCallContext -> global.System.Threading.Tasks.Task<global.Safir.V1alpha1.FilesServiceListResponse>
+        abstract Discover : request: global.Safir.V1alpha1.FilesServiceDiscoverRequest -> context: global.Grpc.Core.ServerCallContext -> global.System.Threading.Tasks.Task<global.Safir.V1alpha1.FilesServiceDiscoverResponse>
 // End of auto-generated code

@@ -1,6 +1,8 @@
 module Safir.Service.Ingester
 
 open System
+open FsCodec
+open Safir.Service.Domain
 
 type Outcome =
     | Ok of used: int * unused: int
@@ -16,4 +18,7 @@ type Stats(logger) =
     override this.HandleOk(outcome) = () // TODO
     override this.HandleExn(logger, ex) = logger.Information(ex, "Unhandled")
 
-let handle stream span = failwith "TODO"
+let (|Decode|) (codec: IEventCodec) struct (stream, events: Propulsion.Sinks.Event[]): 'E[] =
+    events |> Propulsion.Internal.Array.chooseV (codec stream)
+
+let handle (fileSystem: FileSystem.Service) stream span = failwith "TODO"

@@ -1,4 +1,4 @@
-module Safir.Service.Services.Files
+module Safir.Service.Domain.Files
 
 open Equinox
 open FSharp.UMX

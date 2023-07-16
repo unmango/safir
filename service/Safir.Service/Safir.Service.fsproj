@@ -15,8 +15,9 @@
     <Compile Include="Codec.fs" />
     <Compile Include="Config.fs" />
     <Compile Include="CheckpointStore.fs" />
+    <Compile Include="Domain\Files.fs" />
+    <Compile Include="Domain\FileSystem.fs" />
     <Compile Include="Ingester.fs" />
-    <Compile Include="Services\Files.fs" />
     <Compile Include="Services\EventStoreSource.fs" />
     <Compile Include="Grpc\FilesService.fs" />
     <Compile Include="Program.fs" />

@@ -2,7 +2,7 @@ module Safir.Service.Tests.Services.FilesTests
 
 open FsCheck.Xunit
 open FsCodec.Core
-open Safir.Service.Services.Files
+open Safir.Service.Domain.Files
 open Swensen.Unquote
 
 [<Property>]

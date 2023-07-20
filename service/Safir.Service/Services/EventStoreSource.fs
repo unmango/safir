@@ -4,9 +4,10 @@ open Microsoft.Extensions.Hosting
 open Propulsion
 open Propulsion.Feed
 open Safir.Service
+open Safir.Service.Domain
 open Serilog
 
-type EventStoreSource(logger: ILogger, checkpoints: IFeedCheckpointStore) =
+type EventStoreSource(logger: ILogger, checkpoints: IFeedCheckpointStore, service: FileSystem.Service) =
     inherit BackgroundService()
 
     override this.ExecuteAsync(stoppingToken) = task {
@@ -20,7 +21,7 @@ type EventStoreSource(logger: ILogger, checkpoints: IFeedCheckpointStore) =
                 logger,
                 maxReadAhead,
                 maxConcurrentStreams,
-                Ingester.handle,
+                Ingester.handle service,
                 Ingester.Stats(logger)
             )
 

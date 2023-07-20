@@ -1,6 +1,7 @@
 namespace Safir.Service.Services
 
-open Safir.Service.Services.Files
+open Safir.Service.Domain
+open Safir.Service.Domain.Files
 open Safir.V1alpha1
 
 type FilesService(service: Files.Service) =

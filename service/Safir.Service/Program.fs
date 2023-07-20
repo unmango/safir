@@ -15,6 +15,7 @@ Log.Logger <- logger
 
 module DI =
     open Equinox
+    open Safir.Service.Domain
 
     [<Literal>]
     let ConnectionName = "Safir"

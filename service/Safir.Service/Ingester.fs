@@ -38,6 +38,13 @@ let private tryDecode<'E> (codec: Propulsion.Sinks.Codec<'E>) (streamName: Strea
     | x -> x
 
 let (|Decode|) codec struct (stream, events: Propulsion.Sinks.Event[]) : 'E[] =
-    events |> Propulsion.Internal.Array.chooseV (tryDecode codec stream)
+    events |> Array.chooseV (tryDecode codec stream)
 
-let handle (fileSystem: FileSystem.Service) stream span = failwith "TODO"
+let [<return: Struct>] (|Parse|_|) = function
+    | (FileSystem.StreamName clientId, _) & Decode Files.Events.codec events -> ValueSome struct (clientId, events)
+    | _ -> ValueNone
+
+let handle (fileSystem: FileSystem.Service) stream span =
+    match (stream, span) with
+    | Decode Files.Events.codec events -> ()
+    failwith "TODO"

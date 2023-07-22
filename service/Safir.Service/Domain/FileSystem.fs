@@ -2,6 +2,7 @@ module Safir.Service.Domain.FileSystem
 
 open Equinox
 open FSharp.UMX
+open FsCodec
 open Safir.Service
 open Safir.Service.Domain.Files
 open System
@@ -16,11 +17,18 @@ module FileSystemId =
     let inline parse (s: string) = Guid.Parse s |> ofGuid
     let inline toGuid (id: FileSystemId) : Guid = %id
     let inline toString (id: FileSystemId) : string = (toGuid id).ToString("N")
+    let (|Parse|) = parse
 
 [<Literal>]
 let Category = "FileSystem"
 
 let streamId = StreamId.gen FileSystemId.toString
+
+[<return: Struct>]
+let (|StreamName|_|) =
+    function
+    | StreamName.CategoryAndId(Category, FileSystemId.Parse clientId) -> ValueSome clientId
+    | _ -> ValueNone
 
 module Events =
     open FsCodec.SystemTextJson

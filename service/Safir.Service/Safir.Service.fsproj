@@ -12,6 +12,7 @@
   <ItemGroup>
     <None Include="../../protos/safir/**/*.proto" Link="protos/%(RecursiveDir)/$(FileName).proto" />
     <Compile Include="Generated/Files.fs" />
+    <Compile Include="Internal.fs" />
     <Compile Include="Codec.fs" />
     <Compile Include="Config.fs" />
     <Compile Include="CheckpointStore.fs" />

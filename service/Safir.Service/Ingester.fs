@@ -49,11 +49,17 @@ let (|Parse|_|) =
 
 let handle (fileSystem: FileSystem.Service) stream span =
     match struct (stream, span) with
-    | Parse(id, events) ->
+    | Parse(fileId, events) ->
         events
         |> Array.map (function
-            | Files.Events.Discovered _ -> fileSystem.Add(FileSystem.id, id)
-            | _ -> async { () })
+            | Files.Events.Discovered _ -> async {
+                do! fileSystem.Add(FileSystem.id, fileId)
+                return true
+              }
+            | _ -> async { return false })
         |> Async.Sequential
-        |> (fun _ -> async { return StreamResult.AllProcessed, Outcome.Ok(events.Length, 0) })
+        |> (fun operation -> async {
+            let! results = operation
+            return StreamResult.AllProcessed, Outcome.Ok(results |> Array.filter id |> Array.length, 0)
+        })
     | _ -> async { return StreamResult.NoneProcessed, Outcome.Skipped span.Length }

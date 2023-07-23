@@ -19,7 +19,7 @@ module FileSystemId =
     let inline toString (id: FileSystemId) : string = (toGuid id).ToString("N")
     let (|Parse|) = parse
 
-let id = FileSystemId.gen ()
+let id = FileSystemId.parse "7005bb2b92e24e1eb14121d7c0d5f5a4"
 
 [<Literal>]
 let Category = "FileSystem"
@@ -35,11 +35,12 @@ let (|StreamName|_|) =
 module Events =
     open FsCodec.SystemTextJson
 
+    type File = { Id: FileId }
     type SnapshotData = { Files: FileId array }
 
     type Event =
-        | Added of FileId
-        | Removed of FileId
+        | Added of File
+        | Removed of File
         | Snapshot of SnapshotData
 
         interface IUnionContract
@@ -58,8 +59,8 @@ module Fold =
 
     let evolve state event =
         match event with
-        | Added fileId -> { Files = fileId :: state.Files }
-        | Removed fileId -> { Files = state.Files |> List.filter ((<>) fileId) }
+        | Added file -> { Files = file.Id :: state.Files }
+        | Removed file -> { Files = state.Files |> List.filter ((<>) file.Id) }
         | Snapshot snapshot -> { Files = snapshot.Files |> List.ofArray }
 
     let fold: State -> Events.Event seq -> State = Seq.fold evolve
@@ -79,15 +80,15 @@ module Decisions =
     let (|Contains|_|) x xs =
         if List.contains x xs then Some Contains else None
 
-    let add file state =
+    let add id state =
         match state.Files with
-        | Contains file -> [ Events.Added file ]
-        | _ -> []
+        | Contains id -> []
+        | _ -> [ Events.Added { Id = id } ]
 
-    let remove file state =
+    let remove id state =
         match state.Files with
-        | Contains file -> []
-        | _ -> [ Events.Removed file ]
+        | Contains id -> [ Events.Removed { Id = id } ]
+        | _ -> []
 
 type Service internal (resolve: FileSystemId -> Decider<Events.Event, Fold.State>) =
     member _.Add(id, file) =

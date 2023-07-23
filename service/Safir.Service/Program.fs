@@ -2,6 +2,7 @@ open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
+open Propulsion.Feed
 open Safir.Service
 open Safir.Service.Services
 open Serilog
@@ -36,7 +37,7 @@ let main args =
 
     builder.Services
         .AddHostedService<EventStoreSource>()
-        .AddSingleton(CheckpointStore(logger, Config.checkpointInterval))
+        .AddSingleton<IFeedCheckpointStore>(CheckpointStore(logger, Config.checkpointInterval))
     |> DI.register connectionString
     |> ignore
 
@@ -45,7 +46,7 @@ let main args =
         .AddGrpc()
     |> ignore
 
-    builder.Host.UseSerilog() |> ignore
+    builder.Host.UseSerilog(logger) |> ignore
 
     let app = builder.Build()
 

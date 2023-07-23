@@ -28,9 +28,7 @@ type EventStoreSource
                 Ingester.Stats(logger)
             )
 
-        let filter _ = true
-
-        let source = Config.Source.create logger connection checkpoints sink filter
+        let source = Config.Source.create logger connection checkpoints sink FileSystem.Reactions.categoryFilter
 
         let pipeline = source.Start()
         do! pipeline.AwaitWithStopOnCancellation()

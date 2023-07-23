@@ -82,13 +82,13 @@ module Decisions =
 
     let add id state =
         match state.Files with
-        | Contains id -> []
-        | _ -> [ Events.Added { Id = id } ]
+        | Contains id -> false, []
+        | _ -> true, [ Events.Added { Id = id } ]
 
     let remove id state =
         match state.Files with
-        | Contains id -> [ Events.Removed { Id = id } ]
-        | _ -> []
+        | Contains id -> true, [ Events.Removed { Id = id } ]
+        | _ -> false, []
 
 type Service internal (resolve: FileSystemId -> Decider<Events.Event, Fold.State>) =
     member _.Add(id, file) =

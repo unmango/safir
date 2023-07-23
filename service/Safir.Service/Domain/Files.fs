@@ -93,6 +93,12 @@ module Decisions =
         | Fold.Managed file -> if file.Tracked then [] else [ Events.Tracked ]
         | _ -> failwith "Can't track an unknown file"
 
+module View =
+    let render =
+        function
+        | Fold.State.Initial -> None
+        | Fold.State.Managed file -> Some file
+
 type Service internal (resolve: FileId -> Decider<Events.Event, Fold.State>) =
     member _.Discover(id, file) =
         let decider = resolve id
@@ -101,6 +107,10 @@ type Service internal (resolve: FileId -> Decider<Events.Event, Fold.State>) =
     member _.Track(id) =
         let decider = resolve id
         decider.Transact(Decisions.track)
+
+    member _.Query(fileId) =
+        let decider = resolve fileId
+        decider.Query(View.render)
 
 module Service =
     let create resolve = Service(streamId >> resolve Category)

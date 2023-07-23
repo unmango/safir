@@ -7,20 +7,28 @@ type FilesService(files: Files.Service, fileSystem: FileSystem.Service) =
     inherit FilesService.FilesServiceBase()
 
     override this.List request context = task {
-        let! items = fileSystem.Query(FileSystem.id)
+        let! ids = fileSystem.Query(FileSystem.id)
+
+        let! items =
+            ids
+            |> List.map (fun i -> async {
+                let! file = files.Query(i)
+
+                return
+                    file
+                    |> Option.map (fun x -> {
+                        File.empty () with
+                            Id = Files.FileId.toString i
+                            Name = x.File.Name
+                            FullPath = x.File.FullPath
+                            Sha256 = x.File.Sha256
+                    })
+                    |> Option.defaultValue (File.empty ())
+            })
+            |> Async.Parallel
 
         let response = FilesServiceListResponse.empty ()
-
-        response.Files.AddRange(
-            items
-            |> List.map (fun x -> {
-                File.empty () with
-                    Id = Files.FileId.toString x
-                    Name = "TODO"
-                    FullPath = "TestPath"
-            })
-        )
-
+        response.Files.AddRange(items)
         return response
     }
 

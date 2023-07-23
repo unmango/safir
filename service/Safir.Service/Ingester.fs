@@ -47,19 +47,22 @@ let (|Parse|_|) =
     | struct (Files.StreamName clientId, _) & Decode Files.Events.codec events -> ValueSome struct (clientId, events)
     | _ -> ValueNone
 
-let handle (fileSystem: FileSystem.Service) stream span =
-    match struct (stream, span) with
+let handle (fileSystem: FileSystem.Service) stream events =
+    match struct (stream, events) with
     | Parse(fileId, events) ->
         events
         |> Array.map (function
-            | Files.Events.Discovered _ -> async {
-                do! fileSystem.Add(FileSystem.id, fileId)
-                return true
-              }
+            | Files.Events.Discovered _ -> fileSystem.Add(FileSystem.id, fileId)
             | _ -> async { return false })
         |> Async.Sequential
         |> (fun operation -> async {
             let! results = operation
-            return StreamResult.AllProcessed, Outcome.Ok(results |> Array.filter id |> Array.length, 0)
+            let processed = results |> Array.filter id |> Array.length
+
+            return
+                if processed = events.Length then
+                    StreamResult.AllProcessed, Outcome.Ok(processed, 0)
+                else
+                    StreamResult.PartiallyProcessed processed, Outcome.Ok(processed, events.Length - processed)
         })
-    | _ -> async { return StreamResult.NoneProcessed, Outcome.Skipped span.Length }
+    | _ -> async { return StreamResult.AllProcessed, Outcome.NotApplicable events.Length }

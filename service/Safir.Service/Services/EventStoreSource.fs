@@ -1,5 +1,6 @@
 namespace Safir.Service.Services
 
+open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.Hosting
 open Propulsion
 open Propulsion.Feed
@@ -7,11 +8,13 @@ open Safir.Service
 open Safir.Service.Domain
 open Serilog
 
-type EventStoreSource(logger: ILogger, checkpoints: IFeedCheckpointStore, service: FileSystem.Service) =
+type EventStoreSource
+    (logger: ILogger, checkpoints: IFeedCheckpointStore, service: FileSystem.Service, configuration: IConfiguration) =
     inherit BackgroundService()
 
     override this.ExecuteAsync(stoppingToken) = task {
-        let connection = Config.Store.connect "Test" (failwith "TODO")
+        let connectionString = configuration.GetConnectionString("EventStore")
+        let connection = Config.Store.connect "Ingester" connectionString
 
         let maxReadAhead = 16
         let maxConcurrentStreams = 8

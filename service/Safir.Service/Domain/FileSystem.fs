@@ -19,6 +19,8 @@ module FileSystemId =
     let inline toString (id: FileSystemId) : string = (toGuid id).ToString("N")
     let (|Parse|) = parse
 
+let id = FileSystemId.gen ()
+
 [<Literal>]
 let Category = "FileSystem"
 
@@ -95,6 +97,10 @@ type Service internal (resolve: FileSystemId -> Decider<Events.Event, Fold.State
     member _.Remove(id, file) =
         let decider = resolve id
         decider.Transact(Decisions.remove file)
+
+    member _.Query(id) =
+        let decider = resolve id
+        decider.Query(fun x -> x.Files)
 
 module Service =
     let create resolve = Service(streamId >> resolve Category)

@@ -21,10 +21,13 @@ module DI =
     let ConnectionName = "Safir"
 
     let register connectionString (services: IServiceCollection) =
-        let resolve = Decider.resolve logger
+        let resolve c n s = Decider.resolve logger c n s
         let connection = Config.Store.connect ConnectionName connectionString
         let store = Config.Store.create ConnectionName connection
-        services.AddSingleton(Files.create resolve store)
+
+        services
+            .AddSingleton(Files.create resolve store)
+            .AddSingleton(FileSystem.create resolve store)
 
 [<EntryPoint>]
 let main args =

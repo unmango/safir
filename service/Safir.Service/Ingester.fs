@@ -3,6 +3,7 @@ module Safir.Service.Ingester
 open System
 open System.Text
 open FsCodec
+open Propulsion.Sinks
 open Safir.Service.Domain
 open Serilog
 
@@ -41,13 +42,18 @@ let (|Decode|) codec struct (stream, events: Propulsion.Sinks.Event[]) : 'E[] =
     events |> Array.chooseV (tryDecode codec stream)
 
 [<return: Struct>]
-let (|Parse|_|) stream span =
-    match struct (stream, span) with
-    | (FileSystem.StreamName clientId, _) & Decode Files.Events.codec events -> ValueSome struct (clientId, events)
+let (|Parse|_|) =
+    function
+    | struct (Files.StreamName clientId, _) & Decode Files.Events.codec events -> ValueSome struct (clientId, events)
     | _ -> ValueNone
 
 let handle (fileSystem: FileSystem.Service) stream span =
     match struct (stream, span) with
-    | Decode Files.Events.codec events -> ()
-
-    failwith "TODO"
+    | Parse(id, events) ->
+        events
+        |> Array.map (function
+            | Files.Events.Discovered _ -> fileSystem.Add(FileSystem.id, id)
+            | _ -> async { () })
+        |> Async.Sequential
+        |> (fun _ -> async { return StreamResult.AllProcessed, Outcome.Ok(events.Length, 0) })
+    | _ -> async { return StreamResult.NoneProcessed, Outcome.Skipped span.Length }

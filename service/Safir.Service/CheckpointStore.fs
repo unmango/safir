@@ -19,7 +19,6 @@ type CheckpointStore(logger: ILogger, defaultCheckpointFrequency) =
             let stream = streamName source tranche
             logger.Debug("Committing position for {Stream}: {Position}", stream, position)
             store.AddOrUpdate(stream, addValue, updateValue, position) |> ignore
-            return ()
         }
 
         member this.Start(source, tranche, establishOrigin, cancellationToken) = task {

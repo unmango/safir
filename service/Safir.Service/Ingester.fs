@@ -63,6 +63,6 @@ let handle (fileSystem: FileSystem.Service) stream events =
                 if processed = events.Length then
                     StreamResult.AllProcessed, Outcome.Ok(processed, 0)
                 else
-                    StreamResult.PartiallyProcessed processed, Outcome.Ok(processed, events.Length - processed)
+                    StreamResult.AllProcessed, Outcome.Ok(processed, events.Length - processed)
         })
     | _ -> async { return StreamResult.AllProcessed, Outcome.NotApplicable events.Length }

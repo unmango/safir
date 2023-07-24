@@ -10,6 +10,7 @@ open Serilog
 let logger =
     LoggerConfiguration()
         .WriteTo.Console()
+        .MinimumLevel.Debug()
         .CreateLogger()
 
 Log.Logger <- logger

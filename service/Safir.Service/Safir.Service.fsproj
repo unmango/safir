@@ -17,8 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore.Server" Version="2.54.0" />
-    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.54.0" />
+    <PackageReference Include="EventStore.Client.Grpc.Streams" Version="23.0.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server" Version="2.55.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.55.0" />
   </ItemGroup>
 
 </Project>

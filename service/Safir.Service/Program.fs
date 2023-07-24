@@ -1,15 +1,22 @@
+open EventStore.Client
 open Microsoft.AspNetCore.Builder
+open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
+open Safir.Service
 open Safir.Service.Services
 
 [<EntryPoint>]
 let main args =
     let builder = WebApplication.CreateBuilder(args)
+    let connectionString = builder.Configuration.GetConnectionString("EventStore")
 
     builder.Services
         .AddGrpcReflection()
         .AddGrpc()
+    |> ignore
+
+    builder.Services.AddScoped<EventStoreClient>(fun _ -> Config.Store.connect connectionString)
     |> ignore
 
     let app = builder.Build()

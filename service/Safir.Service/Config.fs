@@ -13,8 +13,10 @@ module Codec =
     let serialize<'a> value =
         JsonSerializer.SerializeToUtf8Bytes<'a>(value, options) |> ReadOnlyMemory
 
-    let deserialize<'a> (bytes: ReadOnlySpan<byte>) =
-        JsonSerializer.Deserialize<'a>(bytes, options)
+    let deserialize<'a> (data: ReadOnlyMemory<byte>) =
+        JsonSerializer.Deserialize<'a>(data.Span, options)
+
+    let create<'a> () = Codec.create serialize<'a> deserialize<'a> "application/json"
 
 module Store =
     open EventStore.Client

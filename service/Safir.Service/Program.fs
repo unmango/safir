@@ -16,7 +16,9 @@ let main args =
         .AddGrpc()
     |> ignore
 
-    builder.Services.AddScoped<EventStoreClient>(fun _ -> Config.Store.connect connectionString)
+    builder.Services
+        .AddScoped<EventStoreClient>(fun _ -> Config.Store.connect connectionString)
+        .AddScoped<Files.Service>()
     |> ignore
 
     let app = builder.Build()

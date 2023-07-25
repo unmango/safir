@@ -23,6 +23,7 @@
     <PackageReference Include="EventStore.Client.Grpc.Streams" Version="23.0.0" />
     <PackageReference Include="FSharp.Control.TaskSeq" Version="0.4.0-alpha.1" />
     <PackageReference Include="FSharp.SystemTextJson" Version="1.1.23" />
+    <PackageReference Include="FSharp.UMX" Version="1.1.0" />
     <PackageReference Include="Grpc.AspNetCore.Server" Version="2.55.0" />
     <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.55.0" />
   </ItemGroup>

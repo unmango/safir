@@ -4,6 +4,17 @@ package safir.v1alpha1;
 
 service FilesService {
   rpc List (FilesServiceListRequest) returns (FilesServiceListResponse);
+  rpc Discover (FilesServiceDiscoverRequest) returns (FilesServiceDiscoverResponse);
+}
+
+message FilesServiceDiscoverRequest {
+  string full_path = 1;
+  string name = 2;
+  string sha256 = 3;
+}
+
+message FilesServiceDiscoverResponse {
+  File file = 1;
 }
 
 message FilesServiceListRequest {}
@@ -13,6 +24,8 @@ message FilesServiceListResponse {
 }
 
 message File {
-  string full_path = 1;
-  string name = 2;
+  string id = 1;
+  string full_path = 2;
+  string name = 3;
+  string sha256 = 4;
 }

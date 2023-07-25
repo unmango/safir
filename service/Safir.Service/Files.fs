@@ -1,15 +1,29 @@
 module Safir.Service.Files
 
+open System
+open System.Text
 open EventStore.Client
 open FSharp.Control
+open FSharp.UMX
+
+type FileId = Guid<fileId>
+and [<Measure>] fileId
+
+module FileId =
+    let inline ofGuid (g: Guid) : FileId = %g
+    let inline parse (s: string) = Guid.Parse s |> ofGuid
+    let inline toGuid (id: FileId) : Guid = %id
+    let inline toString (id: FileId) : string = (toGuid id).ToString("N")
+
+[<Literal>]
+let Category = "File"
 
 module Events =
     type File = { Name: string; Path: string }
 
     type Event = Discovered of File
 
-    let serialize = Config.Codec.serialize<Event>
-    let deserialize span = Config.Codec.deserialize<Event> span
+    let codec = Config.Codec.create<Event> ()
 
 module Fold =
     type File = { Name: string; Path: string }
@@ -31,25 +45,32 @@ module Decisions =
         | Fold.Initial -> [ Events.Discovered file ]
         | Fold.Managed _ -> []
 
+module View =
+    type File = { Id: string; Name: string; Path: string }
+    let ofFile id (file: Events.File) : File = { Id = id; Name = file.Name; Path = file.Path }
+
+type View = { Files: View.File list }
+
 type Service(client: EventStoreClient) =
-    member _.Discover() = task {
-        let result = client.ReadStreamAsync(Direction.Forwards, "stream-name", StreamPosition.Start)
+    member _.Discover(fileId, name, path, ct) =
+        let eventData codec event =
+            Esdb.toEventData codec (Guid.NewGuid()) (event.GetType().Name) event
 
-        let! state = result.ReadState
+        let stream = $"{Category}-{fileId |> FileId.toString}"
 
-        let! state =
-            match state with
-            | ReadState.Ok -> result :> taskSeq<ResolvedEvent>
-            | ReadState.StreamNotFound -> TaskSeq.empty
-            | _ -> TaskSeq.empty
-            |> TaskSeq.map (fun e -> Events.deserialize e.Event.Data.Span)
-            |> TaskSeq.fold Fold.evolve Fold.initial
+        let file: Events.File = { Name = name; Path = path }
+        Esdb.transact client Events.codec eventData Fold.evolve Fold.initial stream (Decisions.discover file) ct
 
-        let file: Events.File = { Name = "Test"; Path = "Test" }
-
-        let events = Decisions.discover file state |> List.map (Esdb.toEventData Events.serialize)
-
-        let! _ = client.AppendToStreamAsync("stream-name", StreamState.NoStream, events)
-
-        return List.fold Fold.evolve state events
-    }
+    member _.List() =
+        client.ReadStreamAsync(Direction.Forwards, "$ce-File", StreamPosition.Start, resolveLinkTos = true)
+        |> TaskSeq.map (fun x ->
+            let parts = x.Event.EventStreamId.Split('-')
+            let category = parts[0]
+            let fileId = parts[1]
+            let event = Events.codec.TryDecode(x.Event.Data)
+            fileId, event)
+        |> TaskSeq.fold
+            (fun s (i, e) ->
+                match e with
+                | Events.Discovered f -> { Files = View.ofFile i f :: s.Files })
+            { Files = [] }

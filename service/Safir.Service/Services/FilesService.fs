@@ -27,12 +27,12 @@ type FilesService(service: Files.Service) =
     }
 
     override this.List request context = task {
-        let! results = service.List()
+        let! results = service.List(context.CancellationToken)
         let response = FilesServiceListResponse.empty ()
 
         response.Files.AddRange(
             [
-                for file in results.Files do
+                for file in results do
                     yield {
                         File.empty () with
                             Id = file.Id

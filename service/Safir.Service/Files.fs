@@ -47,7 +47,12 @@ module Decisions =
 
 module View =
     type File = { Id: string; Name: string; Path: string }
-    let ofFile id (file: Events.File) : File = { Id = id; Name = file.Name; Path = file.Path }
+    let ofFile id (file: Fold.File) : File = { Id = id; Name = file.Name; Path = file.Path }
+
+    let render id =
+        function
+        | Fold.Managed file -> ofFile (StreamId.toString id) file
+        | _ -> failwith "Unsupported state"
 
 type View = { Files: View.File list }
 
@@ -74,3 +79,6 @@ type Service(client: EventStoreClient) =
                 match e with
                 | Events.Discovered f -> { Files = View.ofFile i f :: s.Files })
             { Files = [] }
+
+    // member _.List(ct) =
+    //     Esdb.listCategory client Events.codec Category Fold.evolve Fold.initial View.render ct

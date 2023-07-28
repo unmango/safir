@@ -51,7 +51,13 @@ module Esdb =
 
     let loadForward (client: EventStoreClient) stream ct = taskSeq {
         let result =
-            client.ReadStreamAsync(Direction.Forwards, stream, StreamPosition.Start, cancellationToken = ct)
+            client.ReadStreamAsync(
+                Direction.Forwards,
+                stream,
+                StreamPosition.Start,
+                resolveLinkTos = true,
+                cancellationToken = ct
+            )
 
         match! result.ReadState with
         | ReadState.Ok -> yield! result :> taskSeq<ResolvedEvent>
@@ -65,13 +71,21 @@ module Esdb =
     let tryDecode (codec: Codec<'a>) (event: ResolvedEvent) = Some(codec.TryDecode(event.Event.Data))
 
     let aggregate codec fold initial events =
-        events |> TaskSeq.map (tryDecode codec) |> TaskSeq.fold fold initial
+        events
+        |> TaskSeq.map (tryDecode codec)
+        |> TaskSeq.choose id
+        |> TaskSeq.fold fold initial
 
     let transact (client: EventStoreClient) (codec: Codec<'a>) eventData fold initial stream interpret ct = task {
         let! state = loadForward client stream ct |> aggregate codec fold initial
-        let next = interpret state |> Seq.map (eventData codec)
-        return! write client stream next ct |> Task.ignore
+        let events = interpret state
+        let next = events |> Seq.map (eventData codec)
+        do! write client stream next ct |> Task.ignore
+        return Seq.fold fold state events
     }
+
+    let query (client: EventStoreClient) (codec: Codec<'a>) fold initial stream render ct =
+        loadForward client stream ct |> aggregate codec fold initial |> Task.map render
 
     let listCategory (client: EventStoreClient) (codec: Codec<_>) (category: string) fold initial render ct =
         let folder state (streamId, data) =
@@ -79,7 +93,6 @@ module Esdb =
             state |> Map.change streamId (List.createOrAdd event >> Some)
 
         loadForward client $"$ce-{category}" ct
-        |> TaskSeq.filter (fun r -> not <| r.Event.EventStreamId.StartsWith('$'))
         |> TaskSeq.map (fun r -> StreamName.streamId r.Event.EventStreamId, r.Event.Data)
         |> TaskSeq.fold folder Map.empty
         |> Task.map ((Map.map (fun id -> List.fold fold initial >> render id)) >> Map.values)

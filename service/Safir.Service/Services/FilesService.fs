@@ -1,20 +1,17 @@
 namespace Safir.Service.Services
 
-open System
 open Safir.Service
-open Safir.Service.Files
 open Safir.V1alpha1
 
 type FilesService(service: Files.Service) =
     inherit FilesService.FilesServiceBase()
 
     override this.Discover request context = task {
-        let fileId = Guid.NewGuid() |> FileId.ofGuid
-        do! service.Discover(fileId, request.Name, request.FullPath, context.CancellationToken)
+        let! view = service.Discover(request.Name, request.FullPath, context.CancellationToken)
 
         let file = {
             File.empty () with
-                Id = fileId |> FileId.toString
+                Id = view.Id
                 Name = request.Name
                 FullPath = request.FullPath
                 Sha256 = request.Sha256

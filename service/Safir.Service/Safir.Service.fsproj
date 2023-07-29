@@ -15,6 +15,7 @@
     <Compile Include="Internal.fs" />
     <Compile Include="Codec.fs" />
     <Compile Include="Store.fs" />
+    <Compile Include="Decider.fs" />
     <Compile Include="Config.fs" />
     <Compile Include="Files.fs" />
     <Compile Include="Services\FilesService.fs" />

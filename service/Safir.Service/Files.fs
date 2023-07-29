@@ -57,6 +57,8 @@ module View =
 
 type View = { Files: View.File list }
 
+open Store
+
 type Service(client: EventStoreClient) =
     member _.Discover(name, path, ct) =
         let eventData codec event =

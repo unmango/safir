@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { StoreModule } from '@ngrx/store';
-import { AppComponent } from './app.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import {NgModule, isDevMode} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {StoreModule} from '@ngrx/store';
+import {AppComponent} from './app.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -11,9 +12,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({}, {}),
+    environment.imports,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

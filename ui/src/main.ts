@@ -1,10 +1,8 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
 import { importProvidersFrom } from '@angular/core';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
-import { StoreModule } from '@ngrx/store';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 
 bootstrapApplication(AppComponent, {
   providers: [

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgFor } from '@angular/common';
 
 @Component({
-    selector: 'app-sidebar',
-    template: `
+  selector: 'app-sidebar',
+  template: `
     <div class="h-screen w-1/6 bg-gray-950 border border-amber-200">
       <div class="p-2">
         <h2 class="text-white text-2xl font-bold">Safir</h2>
@@ -15,10 +15,10 @@ import { NgFor } from '@angular/common';
       </ul>
     </div>
   `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [NgFor]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgFor],
 })
 export class SidebarComponent {
-  items = ['Music', 'Test']
+  items = ['Music', 'Test'];
 }

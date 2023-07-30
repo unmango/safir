@@ -6,17 +6,15 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {environment} from "../environments/environment";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SidebarComponent
-  ],
-  imports: [
-    BrowserModule,
-    StoreModule.forRoot({}, {}),
-    environment.imports,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        StoreModule.forRoot({}, {}),
+        environment.imports,
+        SidebarComponent,
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

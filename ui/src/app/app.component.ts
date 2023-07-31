@@ -4,7 +4,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 @Component({
   selector: 'app-root',
   template: `
-    <div class="h-screen bg-black">
+    <div class="h-screen bg-gradient-to-tr from-blue-950 to-black">
       <app-sidebar />
     </div>
   `,

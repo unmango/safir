@@ -7,7 +7,7 @@ import { provideEffects } from '@ngrx/effects';
 bootstrapApplication(AppComponent, {
   providers: [
     provideStore({}, {}),
-    environment.providers,
-    provideEffects()
+    provideEffects(),
+    environment.providers
 ],
 }).catch((err) => console.error(err));

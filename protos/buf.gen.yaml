@@ -8,3 +8,11 @@ plugins:
 #    out: ../Safir.Service.EndToEndTests/Generated
 #    opt:
 #      - no_server
+
+  - plugin: buf.build/bufbuild/connect-es:v0.12.0
+    out: ../ui/src/gen
+    opt: target=ts
+  # dependencies
+  - plugin: buf.build/bufbuild/es
+    out: ../ui/src/gen
+    opt: target=ts

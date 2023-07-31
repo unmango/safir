@@ -1,61 +1,62 @@
 {
-  "ignorePatterns":[
+  "ignorePatterns": [
     "projects/**/*"
   ],
-  "env":{
-    "browser":true,
-    "es2021":true
+  "env": {
+    "browser": true,
+    "es2021": true
   },
-  "parser":"@typescript-eslint/parser",
-  "parserOptions":{
-    "ecmaVersion":"latest",
-    "sourceType":"module"
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
-  "plugins":[
+  "plugins": [
     "@typescript-eslint"
   ],
-  "rules":{},
-  "overrides":[
+  "rules": {},
+  "overrides": [
     {
-      "files":[
+      "files": [
         "*.ts"
       ],
-      "extends":[
+      "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:@ngrx/strict-requiring-type-checking",
         "prettier"
       ],
-      "rules":{
-        "@angular-eslint/directive-selector":[
+      "rules": {
+        "@angular-eslint/directive-selector": [
           "error",
           {
-            "type":"attribute",
-            "prefix":"app",
-            "style":"camelCase"
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
           }
         ],
-        "@angular-eslint/component-selector":[
+        "@angular-eslint/component-selector": [
           "error",
           {
-            "type":"element",
-            "prefix":"app",
-            "style":"kebab-case"
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
           }
         ]
       }
     },
     {
-      "files":[
+      "files": [
         "*.html"
       ],
-      "extends":[
+      "extends": [
         "plugin:@angular-eslint/template/recommended",
         "plugin:@angular-eslint/template/accessibility",
         "prettier"
       ],
-      "rules":{}
+      "rules": {}
     }
   ]
 }

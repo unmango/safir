@@ -2,6 +2,6 @@
 <project version="4">
   <component name="EslintConfiguration">
     <work-dir-patterns value="$PROJECT_DIR$/ui" />
-    <custom-configuration-file used="true" path="$PROJECT_DIR$/ui/.eslintrc.js" />
+    <custom-configuration-file used="true" path="$PROJECT_DIR$/ui/.eslintrc.json" />
   </component>
 </project>

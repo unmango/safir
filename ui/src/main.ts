@@ -1,15 +1,11 @@
-import { importProvidersFrom } from '@angular/core';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { StoreModule } from '@ngrx/store';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideStore } from "@ngrx/store";
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(
-      BrowserModule,
-      StoreModule.forRoot({}, {}),
-      environment.imports,
-    ),
+    provideStore({}, {}),
+    environment.providers,
   ],
 }).catch((err) => console.error(err));

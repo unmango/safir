@@ -17,7 +17,7 @@ type Decider<'TEvent, 'TState>
     let write = Esdb.write client stream
     let tryDecode = Esdb.tryDecode codec
     let aggregate = Esdb.aggregate codec fold initial
-    let transact = Esdb.transact client codec (fun codec event -> Esdb.toEventData codec)
+    // let transact = Esdb.transact client codec (fun codec event -> Esdb.toEventData codec)
     let query render = Esdb.query client codec fold initial stream render
     let listCategory = Esdb.listCategory client codec category fold initial
 

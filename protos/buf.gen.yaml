@@ -11,8 +11,8 @@ plugins:
 
   - plugin: buf.build/bufbuild/connect-es:v0.12.0
     out: ../ui/src/gen
-    opt: target=ts
+    opt: target=js+dts
   # dependencies
   - plugin: buf.build/bufbuild/es
     out: ../ui/src/gen
-    opt: target=ts
+    opt: target=js+dts

@@ -5,4 +5,7 @@ export const environment = {
   providers: [
     provideStoreDevtools({ maxAge: 25 }),
   ],
+  service: {
+    baseUrl: 'http://localhost:5020'
+  }
 };

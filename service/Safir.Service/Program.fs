@@ -19,12 +19,27 @@ let main args =
     builder.Services
         .AddScoped<EventStoreClient>(fun _ -> Config.Store.connect connectionString)
         .AddScoped<Files.Service>()
+        .AddCors()
     |> ignore
 
     let app = builder.Build()
 
+    app.UseCors(fun builder ->
+        builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+        |> ignore)
+    |> ignore
+
+    app.UseGrpcWeb() |> ignore
     app.MapGrpcReflectionService() |> ignore
-    app.MapGrpcService<FilesService>() |> ignore
+
+    app
+        .MapGrpcService<FilesService>()
+        .RequireCors()
+        .EnableGrpcWeb()
+    |> ignore
 
     app.Run()
 

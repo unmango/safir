@@ -1,4 +1,4 @@
-import { reducer, initialState } from './files.reducer';
+import { reducer, initialState } from './files.state';
 
 describe('Files Reducer', () => {
   describe('an unknown action', () => {

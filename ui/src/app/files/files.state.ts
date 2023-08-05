@@ -2,8 +2,6 @@ import { createFeature, createReducer, on } from '@ngrx/store';
 import { FilesActions } from './files.actions';
 import { File } from 'src/gen/safir/v1alpha1/files_pb';
 
-export const filesFeatureKey = 'files';
-
 export interface State {
   files: ReadonlyArray<File>;
   error: string | null;
@@ -23,6 +21,6 @@ export const reducer = createReducer(
 );
 
 export const filesFeature = createFeature({
-  name: filesFeatureKey,
+  name: 'files',
   reducer,
 });

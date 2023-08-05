@@ -18,3 +18,18 @@ export const loadFiles = createEffect(
   },
   { functional: true },
 );
+
+export const discoverFile = createEffect(
+  (actions$ = inject(Actions), service = inject(FilesService)) => {
+    return actions$.pipe(
+      ofType(FilesActions.discoverFile),
+      exhaustMap((req) =>
+        service.discover(req).pipe(
+          map(FilesActions.discoverFileSuccess),
+          catchError((err) => of(FilesActions.discoverFileError({ error: err.toString() }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);

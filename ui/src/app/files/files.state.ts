@@ -16,8 +16,12 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(FilesActions.loadFilesSuccess, (state, res): State => ({ ...state, files: res.files })),
-  on(FilesActions.loadFilesFailure, (state, err): State => ({ ...state, error: err.error })),
+  on(FilesActions.loadFiles, (state): State => ({ ...state, loading: true })),
+  on(
+    FilesActions.loadFilesSuccess,
+    (state, res): State => ({ ...state, files: res.files, loading: false, error: null }),
+  ),
+  on(FilesActions.loadFilesFailure, (state, err): State => ({ ...state, error: err.error, loading: false })),
 );
 
 export const filesFeature = createFeature({

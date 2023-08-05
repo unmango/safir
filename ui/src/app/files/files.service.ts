@@ -3,12 +3,12 @@ import { createPromiseClient } from '@bufbuild/connect';
 import { createGrpcWebTransport } from '@bufbuild/connect-web';
 import { from, Observable } from 'rxjs';
 import { environment } from '../../environments';
-import * as connect from '../../gen/safir/v1alpha1/files_connect';
+import * as connect from 'src/gen/safir/v1alpha1/files_connect';
 import {
   FilesServiceDiscoverRequest,
   FilesServiceDiscoverResponse,
   FilesServiceListResponse,
-} from '../../gen/safir/v1alpha1/files_pb';
+} from 'src/gen/safir/v1alpha1/files_pb';
 
 @Injectable({
   providedIn: 'root',
